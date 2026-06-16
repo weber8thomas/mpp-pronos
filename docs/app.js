@@ -269,7 +269,15 @@ function scoreMatrix(ld,le,n){
   return {z,txt};
 }
 const drawn={analyses:false,thirds:false};
-function resizeIn(sec){document.querySelectorAll("#"+sec+" .js-plotly-plot").forEach(el=>Plotly.Plots.resize(el));}
+function resizeIn(sec){document.querySelectorAll("#"+sec+" .js-plotly-plot").forEach(el=>{if(window.Plotly)Plotly.Plots.resize(el);});}
+// ResizeObserver : recale chaque graphe sur la largeur réelle de son conteneur (anti-débordement/compression)
+let _RO=null;
+function ensureRO(){
+  if(_RO||!window.ResizeObserver) return;
+  _RO=new ResizeObserver(es=>{for(const e of es){const el=e.target,w=Math.round(e.contentRect.width);
+    if(el._pw===w) continue; el._pw=w; if(el.data&&window.Plotly) Plotly.Plots.resize(el);}});
+}
+function observeCharts(sec){ensureRO(); if(!_RO) return; document.querySelectorAll("#"+sec+" .chart").forEach(c=>_RO.observe(c));}
 
 function drawThirds(){
   if(drawn.thirds) return; drawn.thirds=true;
@@ -467,8 +475,8 @@ function show(sec){
   document.querySelectorAll(".sec").forEach(s=>s.classList.toggle("active",s.id===sec));
   document.querySelectorAll("#nav a").forEach(a=>a.classList.toggle("active",a.dataset.sec===sec));
   // Dessin différé : la section vient d'être affichée, on attend le layout (largeur réelle)
-  if(sec==="analyses") requestAnimationFrame(()=>{drawAnalyses(); resizeIn("analyses"); setTimeout(()=>resizeIn("analyses"),80);});
-  if(sec==="qualifies") requestAnimationFrame(()=>{drawThirds(); resizeIn("qualifies"); setTimeout(()=>resizeIn("qualifies"),80);});
+  if(sec==="analyses") requestAnimationFrame(()=>{drawAnalyses(); resizeIn("analyses"); observeCharts("analyses"); setTimeout(()=>resizeIn("analyses"),80);});
+  if(sec==="qualifies") requestAnimationFrame(()=>{drawThirds(); resizeIn("qualifies"); observeCharts("qualifies"); setTimeout(()=>resizeIn("qualifies"),80);});
   window.scrollTo({top:0,behavior:"smooth"});
 }
 document.addEventListener("click",e=>{

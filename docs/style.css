@@ -201,10 +201,9 @@ th.sortable.active{color:var(--accent)}
 .selrow{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:8px 0}
 .selrow select{background:var(--card);color:var(--txt);border:1px solid var(--line2);border-radius:9px;padding:8px 10px;font-family:var(--font)}
 
-/* ---------- Plotly : largeur pleine, jamais compressé ---------- */
-.chart{width:100%;min-height:340px}
-.chart .js-plotly-plot,.chart .plot-container,.chart .svg-container{width:100%!important}
-.chart .js-plotly-plot{margin:0 auto}
+/* ---------- Plotly : tient exactement dans son conteneur ---------- */
+.chart{width:100%;min-height:340px;padding:0;overflow:hidden}
+.chart .plot-container,.chart .svg-container{max-width:100%}
 
 /* ---------- Badge de score coloré par issue (V/N/D) ---------- */
 .scoreb{display:inline-block;font-family:var(--display);font-weight:800;font-size:.82rem;

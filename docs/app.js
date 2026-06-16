@@ -34,6 +34,12 @@ function probBar(pv,pn,pd){
   </div><small>${w(pv)}/${w(pn)}/${w(pd)}</small></div>`;
 }
 const stPill = s => `<span class="pill ${s==='1er'?'r1':s==='2e'?'r2':s==='3e'?'r3':'out'}">${ST_LABEL[s]}</span>`;
+// Badge de score coloré selon l'issue : vert = victoire dom, gris = nul, rouge = victoire ext
+const scoreBadge = (bd,be) => {
+  const c = bd>be ? "sc-win" : bd<be ? "sc-loss" : "sc-draw";
+  const t = bd>be ? "Victoire domicile" : bd<be ? "Victoire extérieur" : "Match nul";
+  return `<span class="scoreb ${c}" title="${t}">${bd}-${be}</span>`;
+};
 
 /* ---------- Accueil ---------- */
 function renderAccueil(){
@@ -77,7 +83,7 @@ function matchRow(p){
   return `<tr data-g="${p.groupe}" data-s="${p.statut}" data-t="${esc(p.dom+' '+p.ext)}">
     <td>${dt}</td><td class="c"><span class="grouptag">${p.groupe}</span></td>
     <td><span class="vs">${team(p.dom)}<span class="muted">–</span>${team(p.ext)}</span></td>
-    <td class="c score">${p.bd}-${p.be}</td><td class="c">${typ}</td>
+    <td class="c">${scoreBadge(p.bd,p.be)}</td><td class="c">${typ}</td>
     <td>${probBar(p.pv,p.pn,p.pd)}</td><td class="c">${mpp}</td></tr>`;
 }
 const CAL_COLS=[
@@ -106,6 +112,9 @@ function renderCalendrier(){
     <h1>Calendrier &amp; pronostics</h1>
     <p class="lead">Les 72 matchs. <strong>Cliquez un en-tête</strong> pour trier (date, groupe, score, proba…) ;
     filtrez par équipe, groupe ou statut. Heure <strong>CEST</strong> indicative.</p>
+    <div class="legend">Score : <span class="scoreb sc-win">2-0</span> victoire domicile ·
+      <span class="scoreb sc-draw">1-1</span> nul ·
+      <span class="scoreb sc-loss">0-2</span> victoire extérieur</div>
     <div class="controls">
       <input id="calSearch" placeholder="Rechercher une équipe…"/>
       <select id="calGroup">${opts}</select>
@@ -153,7 +162,7 @@ function renderGroupes(){
       const mpp=p.mpp_v==null?'<span class="muted">—</span>':`${Math.round(p.mpp_v*100)}/${Math.round(p.mpp_n*100)}/${Math.round(p.mpp_d*100)}`;
       return `<tr><td class="c">J${p.journee}</td>
         <td><span class="vs">${team(p.dom)}<span class="muted">–</span>${team(p.ext)}</span></td>
-        <td class="c score">${p.bd}-${p.be}</td>
+        <td class="c">${scoreBadge(p.bd,p.be)}</td>
         <td style="min-width:120px">${probBar(p.pv,p.pn,p.pd)}</td>
         <td class="c num">${mpp}</td></tr>`;
     }).join("");
@@ -386,22 +395,71 @@ function renderRapport(){
   document.getElementById("rapport").innerHTML=`<div class="report">${body}</div>`;
 }
 function renderMethodo(){
+  const acc=Math.round(D.meta.j1_accuracy*100);
   document.getElementById("methodo").innerHTML=`
-    <h1>Méthodologie</h1>
-    <div class="card"><h3>1. Modèle quantitatif (Poisson)</h3>
-      <p class="muted">Les buts attendus (λ) dérivent de la différence Elo : <em>supremacy</em> bornée
-      <code>3.6·tanh(Δelo/350)</code>, volume de buts croissant avec le déséquilibre, avantage hôte
-      pour le Mexique/USA/Canada. Deux lois de Poisson donnent le score le plus probable et les probas V/N/D.</p></div>
-    <div class="card"><h3>2. Couche multi-agents</h3>
-      <p class="muted">12 agents <strong>prédicteurs</strong> (1 par groupe) recherchent forme récente,
-      effectifs et blessures (2024-2026) pour ajuster le baseline ; 4 agents <strong>critiques</strong>
-      challengent réalisme, biais et cohérence (départages, excès de nuls).</p></div>
-    <div class="card"><h3>3. Données & validation</h3>
-      <p class="muted">J1 = résultats réels (tournoi commencé) ; J2/J3 = pronostics. Le modèle Elo pur n'a
-      anticipé que ~${Math.round(D.meta.j1_accuracy*100)}% des issues de la J1 (très nulle/surprenante),
-      d'où l'intérêt des experts. Probas <strong>mpp</strong> = export mpp.football (56 matchs à venir).</p></div>
-    <div class="note">⚠️ Limites : un pronostic n'est pas une certitude. La course aux meilleurs 3es se joue à un
-    but près. Hors périmètre : la phase à élimination directe. Horaires CEST indicatifs.</div>`;
+    <h1>Méthodologie détaillée</h1>
+    <p class="lead">Une approche <strong>hybride</strong> : un modèle statistique objectif (Poisson sur base Elo)
+    sert de socle, puis une dizaine d'<strong>agents experts</strong> l'ajustent et le critiquent. Voici chaque étape.</p>
+
+    <div class="method">
+
+      <div class="card"><h3><span class="step">1</span> Forces des équipes (Elo)</h3>
+        <p class="muted">Chaque équipe reçoit une note <strong>Elo</strong> (eloratings.net + classement FIFA de juin 2026),
+        affinée par les agents selon la forme récente. L'Elo encode le niveau relatif : un écart de ~100 points
+        correspond à un favori net, ~300+ à une domination probable.</p></div>
+
+      <div class="card"><h3><span class="step">2</span> Du Elo aux buts attendus (λ)</h3>
+        <p class="muted">Pour un match, on transforme la différence Elo en <strong>buts attendus</strong> de chaque équipe :</p>
+        <div class="formula">dr = Elo_dom − Elo_ext (+ avantage hôte pour 🇲🇽 🇺🇸 🇨🇦)
+supremacy = 3.6 · tanh(dr / 350)        ← écart de buts attendu (borné)
+buts_totaux = 2.5 + 0.35 · |supremacy|  ← un match déséquilibré produit plus de buts
+λ_dom = (buts_totaux + supremacy) / 2
+λ_ext = (buts_totaux − supremacy) / 2</div>
+        <p class="muted">La fonction <span class="kbd">tanh</span> <em>borne</em> la supremacy (un mismatch extrême ne donne pas
+        20 buts), et l'avantage hôte ajoute ~65 points d'Elo aux nations organisatrices à domicile.</p></div>
+
+      <div class="card"><h3><span class="step">3</span> Loi de Poisson → score & probabilités</h3>
+        <p class="muted">On suppose que les buts de chaque équipe suivent une <strong>loi de Poisson</strong> de moyenne λ.
+        Le produit des deux lois donne la probabilité de <em>chaque score exact</em> (matrice visible dans
+        <a href="#analyses" data-jump="analyses">Analyses → Explorateur de match</a>). On en tire :</p>
+        <ul>
+          <li><strong>le score le plus probable</strong> (case de plus forte probabilité) — c'est le pronostic affiché ;</li>
+          <li><strong>P(V/N/D)</strong> en sommant les cases « victoire dom », « nul », « victoire ext ».</li>
+        </ul></div>
+
+      <div class="card"><h3><span class="step">4</span> Pourquoi des matchs nuls ? (score modal ≠ issue)</h3>
+        <p class="muted">Le modèle sort le <strong>score exact le plus probable</strong>, pas l'issue 1/N/2 la plus probable.
+        Le mode d'une loi de Poisson est <span class="kbd">⌊λ⌋</span> : quand les deux λ sont entre 1 et 2 (match serré/fermé),
+        le score le plus probable est <strong>1-1</strong>, même si « victoire » reste l'issue agrégée la plus probable
+        (ces victoires sont éparpillées sur 2-0, 2-1, 3-1…). C'est pourquoi on voit des 1-1 alors que les cotes mpp
+        donnent un favori — et c'est la stratégie qui maximise le taux de <em>score exact</em>.</p></div>
+
+      <div class="card"><h3><span class="step">5</span> Couche multi-agents (génération + critique)</h3>
+        <ul>
+          <li><strong>12 agents prédicteurs</strong> (1 par groupe) : recherche web de la forme 2024-2026 (amicaux,
+          qualifs, Ligue des Nations, Copa América, Euro, CAN, Coupe d'Asie), des <strong>effectifs</strong> et des
+          <strong>blessures/absences</strong>, pour ajuster le baseline (ex. buteur blessé, équipe déjà qualifiée à la J3, style défensif).</li>
+          <li><strong>4 agents critiques</strong> : revue adverse du réalisme (majorité de scores 0-3), des biais
+          (excès de nuls, favoritisme), de la cohérence interne (différences de buts, départages plausibles).</li>
+          <li><strong>Réconciliation</strong> : arbitrage des divergences prédicteur/critique, puis gel des pronostics finaux.</li>
+        </ul></div>
+
+      <div class="card"><h3><span class="step">6</span> Classements & qualifiés</h3>
+        <p class="muted">Les classements appliquent les <strong>départages FIFA</strong> (points → diff. de buts →
+        buts marqués → confrontation directe). Format 2026 : <strong>32 qualifiés</strong> = 12 premiers + 12 deuxièmes
+        + <strong>8 meilleurs troisièmes</strong>.</p></div>
+
+      <div class="card"><h3><span class="step">7</span> Données & validation</h3>
+        <p class="muted">Le tournoi ayant débuté, la <strong>J1 = résultats réels</strong> ; <strong>J2/J3 = pronostics</strong>.
+        Confronté à la J1, le modèle Elo « avant-match » n'a anticipé que <strong>${acc}%</strong> des issues
+        (J1 exceptionnellement nulle : 8 nuls sur 16) — ce qui justifie la couche d'experts. Les probas <strong>mpp</strong>
+        proviennent de l'export mpp.football (56 matchs à venir).</p></div>
+
+    </div>
+
+    <div class="note" style="margin-top:16px">⚠️ <strong>Limites</strong> : un pronostic n'est pas une certitude.
+    La course aux meilleurs 3es se joue à un but près ; plusieurs départages sont des quasi-pile-ou-face.
+    Hors périmètre : la phase à élimination directe. Horaires CEST indicatifs.</div>`;
 }
 
 /* ---------- Navigation ---------- */

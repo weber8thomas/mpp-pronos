@@ -1,7 +1,7 @@
 /* Dashboard Pronostics CDM 2026 — rendu 100% client à partir de window.DATA */
 const D = window.DATA;
 const ST_COLOR = {"1er":"#12b886","2e":"#63c9a3","3e":"#e0a338","out":"#e5484d"};
-const ST_LABEL = {"1er":"1er (qualifié)","2e":"2e (qualifié)","3e":"3e (meilleur)","out":"Éliminé"};
+const ST_LABEL = {"1er":"1er","2e":"2e","3e":"3e","out":"Élim."};
 const THEME = {
   light:{paper:"#ffffff",grid:"#e5e9ef",font:"#0f1720",accent:"#0f9d76"},
   dark:{paper:"#11171f",grid:"#1b2430",font:"#eaf0f6",accent:"#1ce0a5"}
@@ -80,59 +80,100 @@ function matchRow(p){
     <td class="c score">${p.bd}-${p.be}</td><td class="c">${typ}</td>
     <td>${probBar(p.pv,p.pn,p.pd)}</td><td class="c">${mpp}</td></tr>`;
 }
+const CAL_COLS=[
+  {k:"date",  l:"Date · h (CEST)", cls:""},
+  {k:"groupe",l:"Gr.",            cls:"c"},
+  {k:"match", l:"Match",          cls:""},
+  {k:"prono", l:"Prono",          cls:"c"},
+  {k:"type",  l:"Type",           cls:"c"},
+  {k:"pv",    l:"P(V/N/D) modèle",cls:""},
+  {k:"mpp",   l:"mpp 1/N/2",      cls:"c"},
+];
+const CAL_KEY={
+  date:p=>p.kickoff_utc,
+  groupe:p=>p.groupe+"|"+p.kickoff_utc,
+  match:p=>p.dom.toLowerCase(),
+  prono:p=>p.bd+p.be,
+  type:p=>p.statut,
+  pv:p=>p.pv,
+  mpp:p=>p.mpp_v==null?-1:p.mpp_v,
+};
 function renderCalendrier(){
   const opts=["<option value=''>Tous les groupes</option>"].concat(D.meta.groupes.map(g=>`<option value="${g}">Groupe ${g}</option>`)).join("");
-  document.getElementById("calendrier").innerHTML=`
-    <h1>Calendrier chronologique</h1>
-    <p class="lead">Les 72 matchs triés par coup d'envoi (heure <strong>CEST</strong>, indicative).
-    Barre = probas V/N/D du modèle ; colonne mpp = probas 1/N/2 de mpp.football.</p>
+  const sec=document.getElementById("calendrier");
+  let sortKey="date", sortDir=1;
+  sec.innerHTML=`
+    <h1>Calendrier &amp; pronostics</h1>
+    <p class="lead">Les 72 matchs. <strong>Cliquez un en-tête</strong> pour trier (date, groupe, score, proba…) ;
+    filtrez par équipe, groupe ou statut. Heure <strong>CEST</strong> indicative.</p>
     <div class="controls">
-      <input id="calSearch" placeholder="🔎 Rechercher une équipe…"/>
+      <input id="calSearch" placeholder="Rechercher une équipe…"/>
       <select id="calGroup">${opts}</select>
-      <select id="calType"><option value="">Tous</option><option value="joue">Joués</option><option value="a_venir">À venir</option></select>
+      <select id="calType"><option value="">Tous statuts</option><option value="joue">Joués</option><option value="a_venir">À venir</option></select>
+      <span id="calCount" class="faint" style="align-self:center"></span>
     </div>
     <div class="tablewrap"><table>
-      <thead><tr><th>Date · h (CEST)</th><th class="c">Gr.</th><th>Match</th><th class="c">Prono</th><th class="c">Type</th><th>P(V/N/D) modèle</th><th class="c">mpp 1/N/2</th></tr></thead>
-      <tbody id="calBody">${D.predictions.map(matchRow).join("")}</tbody>
+      <thead><tr>${CAL_COLS.map(c=>`<th class="sortable ${c.cls}" data-k="${c.k}">${c.l}<span class="arr"></span></th>`).join("")}</tr></thead>
+      <tbody id="calBody"></tbody>
     </table></div>`;
-  const apply=()=>{
-    const q=document.getElementById("calSearch").value.toLowerCase();
-    const g=document.getElementById("calGroup").value, t=document.getElementById("calType").value;
-    document.querySelectorAll("#calBody tr").forEach(tr=>{
-      const ok=(!g||tr.dataset.g===g)&&(!t||tr.dataset.s===t)&&(!q||tr.dataset.t.toLowerCase().includes(q));
-      tr.style.display=ok?"":"none";
+  const tbody=sec.querySelector("#calBody");
+  function refresh(){
+    const q=sec.querySelector("#calSearch").value.toLowerCase().trim();
+    const g=sec.querySelector("#calGroup").value, t=sec.querySelector("#calType").value;
+    let arr=D.predictions.filter(p=>(!g||p.groupe===g)&&(!t||p.statut===t)&&
+      (!q||(p.dom+" "+p.ext).toLowerCase().includes(q)));
+    const key=CAL_KEY[sortKey];
+    arr.sort((a,b)=>{const x=key(a),y=key(b);return (x>y?1:x<y?-1:0)*sortDir;});
+    tbody.innerHTML=arr.length?arr.map(matchRow).join(""):
+      `<tr><td colspan="7" class="c muted" style="padding:18px">Aucun match.</td></tr>`;
+    sec.querySelector("#calCount").textContent=`${arr.length} match${arr.length>1?"s":""}`;
+    sec.querySelectorAll("th.sortable").forEach(th=>{
+      th.querySelector(".arr").textContent = th.dataset.k===sortKey ? (sortDir>0?" ▲":" ▼") : "";
+      th.classList.toggle("active",th.dataset.k===sortKey);
     });
-  };
-  ["calSearch","calGroup","calType"].forEach(id=>document.getElementById(id).addEventListener("input",apply));
+  }
+  sec.querySelectorAll("th.sortable").forEach(th=>th.addEventListener("click",()=>{
+    const k=th.dataset.k;
+    if(k===sortKey) sortDir=-sortDir; else {sortKey=k; sortDir=(k==="pv"||k==="prono"||k==="mpp")?-1:1;}
+    refresh();
+  }));
+  ["calSearch","calGroup","calType"].forEach(id=>sec.querySelector("#"+id).addEventListener("input",refresh));
+  refresh();
 }
 
 /* ---------- Groupes ---------- */
 function renderGroupes(){
   const jump=D.meta.groupes.map(g=>`<a href="#g-${g}" class="grouptag" style="text-decoration:none">${g}</a>`).join(" ");
-  let html=`<h1>Pronostics par groupe</h1><p class="lead">Scores des 6 matchs et classement final projeté de chaque groupe.</p>
+  let html=`<h1>Pronostics par groupe</h1>
+    <p class="lead">Classement final projeté et les 6 matchs de chaque groupe.</p>
     <div class="controls">${jump}</div>`;
   D.meta.groupes.forEach(g=>{
     const ms=D.predictions.filter(p=>p.groupe===g);
     const scores=ms.map(p=>{
-      const typ=p.statut==="joue"?'<span class="pill real">réel</span>':'<span class="pill prono">prono</span>';
       const mpp=p.mpp_v==null?'<span class="muted">—</span>':`${Math.round(p.mpp_v*100)}/${Math.round(p.mpp_n*100)}/${Math.round(p.mpp_d*100)}`;
-      return `<tr><td class="c">J${p.journee}</td><td><span class="vs">${team(p.dom)}<span class="muted">–</span>${team(p.ext)}</span></td>
-        <td class="c score">${p.bd}-${p.be}</td><td class="c">${typ}</td><td>${probBar(p.pv,p.pn,p.pd)}</td><td class="c">${mpp}</td></tr>`;
+      return `<tr><td class="c">J${p.journee}</td>
+        <td><span class="vs">${team(p.dom)}<span class="muted">–</span>${team(p.ext)}</span></td>
+        <td class="c score">${p.bd}-${p.be}</td>
+        <td style="min-width:120px">${probBar(p.pv,p.pn,p.pd)}</td>
+        <td class="c num">${mpp}</td></tr>`;
     }).join("");
     const stand=D.standings[g].map(r=>`<tr>
-        <td class="c">${r.rang}</td><td><span class="vs">${team(r.equipe)}</span> ${stPill(r.statut)}</td>
-        <td class="c"><strong>${r.pts}</strong></td><td class="c">${r.g}-${r.n}-${r.p}</td>
-        <td class="c">${r.bp}:${r.bc}</td><td class="c">${r.diff>=0?'+':''}${r.diff}</td></tr>`).join("");
-    html+=`<h2 id="g-${g}">Groupe ${g}</h2>
-      <p class="muted">${esc(D.analyses[g])}</p>
+        <td class="c num">${r.rang}</td>
+        <td><span class="vs">${team(r.equipe)}</span> ${stPill(r.statut)}</td>
+        <td class="c num"><strong>${r.pts}</strong></td><td class="c num">${r.g}-${r.n}-${r.p}</td>
+        <td class="c num">${r.bp}:${r.bc}</td><td class="c num">${r.diff>=0?'+':''}${r.diff}</td></tr>`).join("");
+    html+=`<div class="group-block">
+      <div class="group-head"><span class="grouptag">${g}</span><h2 id="g-${g}">Groupe ${g}</h2></div>
+      <p class="group-an">${esc(D.analyses[g])}</p>
       <div class="grid2">
-        <div><h3>Matchs</h3><div class="tablewrap"><table>
-          <thead><tr><th class="c">J</th><th>Match</th><th class="c">Score</th><th class="c">Type</th><th>P(V/N/D)</th><th class="c">mpp</th></tr></thead>
-          <tbody>${scores}</tbody></table></div></div>
         <div><h3>Classement final</h3><div class="tablewrap"><table>
           <thead><tr><th class="c">#</th><th>Équipe</th><th class="c">Pts</th><th class="c">V-N-D</th><th class="c">Buts</th><th class="c">Diff</th></tr></thead>
           <tbody>${stand}</tbody></table></div></div>
-      </div>`;
+        <div><h3>Matchs</h3><div class="tablewrap"><table>
+          <thead><tr><th class="c">J</th><th>Match</th><th class="c">Score</th><th>P(V/N/D)</th><th class="c">mpp</th></tr></thead>
+          <tbody>${scores}</tbody></table></div></div>
+      </div>
+    </div>`;
   });
   document.getElementById("groupes").innerHTML=html;
 }
@@ -179,16 +220,44 @@ const CFG={responsive:true,displayModeBar:false};
 function renderAnalyses(){
   document.getElementById("analyses").innerHTML=`
     <h1>Analyses</h1>
-    <p class="lead">Survolez les graphiques (zoom, infobulles). Les mêmes figures, en statique, sont dans le notebook.</p>
-    <h2>Forces en présence (Elo)</h2><div class="chart" id="chartElo"></div>
-    <h2>Points & qualification</h2><div class="chart" id="chartPoints"></div>
+    <p class="lead">Graphiques interactifs : survol pour le détail, zoom, légende cliquable. Thème clair/sombre pris en charge.</p>
+
+    <h2>Niveau des groupes</h2>
+    <p class="an-intro">Elo moyen des 4 équipes — quels groupes sont les plus relevés (barres = min→max du groupe).</p>
+    <div class="chart" id="chartGroupStrength"></div>
+
+    <h2>Attaque vs défense (pronostiqué)</h2>
+    <p class="an-intro">Buts <strong>marqués</strong> (axe X) contre <strong>encaissés</strong> (axe Y, inversé) sur les 3 matchs.
+    En haut à droite = marque beaucoup ET encaisse peu. Couleur = sort final, taille = points.</p>
+    <div class="chart" id="chartAttDef"></div>
+
+    <h2>Points & qualification</h2>
+    <p class="an-intro">Total de points pronostiqués des 48 équipes (vert = 1er/2e, or = 3e qualifié, rouge = éliminé).</p>
+    <div class="chart" id="chartPoints"></div>
+
     <h2>Notre modèle vs mpp.football</h2>
-    <p class="muted">Proba de victoire à domicile : notre modèle (x) vs mpp (y). Sur la diagonale = accord.</p>
+    <p class="an-intro" id="mppNote">Proba de victoire à domicile : notre modèle (X) vs mpp (Y). Points sur la diagonale = accord.</p>
     <div class="chart" id="chartMpp"></div>
+
+    <h2>Distribution des buts par match</h2>
+    <p class="an-intro">Nombre total de buts pronostiqués par match. Beaucoup de matchs à 2 buts → scores serrés (souvent 1-1).</p>
+    <div class="chart" id="chartGoals"></div>
+
     <h2>Validation sur la J1 réelle</h2>
-    <p class="muted">Le modèle Elo « avant-match » face aux résultats réels (J1 fut très nulle/surprenante).</p>
+    <p class="an-intro">Répartition des issues (V / N / D) réelles vs prédites par le modèle Elo « avant-match ».</p>
     <div class="chart" id="chartJ1"></div>
-    <h2>Frise des matchs</h2><div class="chart" id="chartTimeline"></div>`;
+
+    <h2>Explorateur de match — matrice des scores (Poisson)</h2>
+    <p class="an-intro">Choisissez un match : probabilité de chaque score exact selon le modèle (buts attendus λ).</p>
+    <div class="selrow"><label for="matchSel">Match :</label><select id="matchSel"></select></div>
+    <div class="chart" id="chartMatrix"></div>`;
+}
+/* Poisson (client) pour la matrice des scores */
+function pois(k,l){let p=Math.exp(-l);for(let i=1;i<=k;i++)p*=l/i;return p;}
+function scoreMatrix(ld,le,n){
+  const z=[],txt=[];
+  for(let i=0;i<=n;i++){const row=[],tr=[];for(let j=0;j<=n;j++){const v=pois(i,ld)*pois(j,le)*100;row.push(v);tr.push(v>=1?v.toFixed(0):"");}z.push(row);txt.push(tr);}
+  return {z,txt};
 }
 const drawn={analyses:false,thirds:false};
 function resizeIn(sec){document.querySelectorAll("#"+sec+" .js-plotly-plot").forEach(el=>Plotly.Plots.resize(el));}
@@ -206,59 +275,109 @@ function drawThirds(){
 
 function drawAnalyses(){
   if(drawn.analyses) return; drawn.analyses=true;
+  const ACC=THEME[curTheme()].accent;
 
-  // Elo (couleur = statut)
-  const r=[...D.ratings].sort((a,b)=>a.elo-b.elo);
-  Plotly.newPlot("chartElo",[{
-    type:"bar",orientation:"h",x:r.map(t=>t.elo),y:r.map(t=>t.groupe+" · "+t.equipe),
-    marker:{color:r.map(t=>ST_COLOR[t.statut])},
-    text:r.map(t=>t.elo),textposition:"outside",textfont:{size:9},
-    hovertemplate:"%{y}<br>Elo %{x}<extra></extra>"
-  }],LAYOUT({height:1000,title:"Notes Elo des 48 équipes (couleur = sort final)",xaxis:{range:[1450,2250]}}),CFG);
+  // 1) Niveau des groupes (Elo moyen + min/max)
+  const gs=D.meta.groupes.map(g=>{
+    const es=D.ratings.filter(t=>t.groupe===g).map(t=>t.elo);
+    const mean=es.reduce((a,b)=>a+b,0)/es.length;
+    return {g,mean,min:Math.min(...es),max:Math.max(...es)};
+  }).sort((a,b)=>b.mean-a.mean);
+  Plotly.newPlot("chartGroupStrength",[{
+    type:"bar",x:gs.map(d=>"Groupe "+d.g),y:gs.map(d=>Math.round(d.mean)),
+    marker:{color:gs.map(d=>d.mean),colorscale:[[0,"#9fb2c6"],[1,ACC]],line:{width:0}},
+    error_y:{type:"data",symmetric:false,array:gs.map(d=>d.max-d.mean),arrayminus:gs.map(d=>d.mean-d.min),color:"#8a98a8",thickness:1.2,width:4},
+    text:gs.map(d=>Math.round(d.mean)),textposition:"outside",
+    hovertemplate:"%{x}<br>Elo moyen %{y}<extra></extra>"
+  }],LAYOUT({height:420,title:"Elo moyen par groupe (barre d'erreur = min→max)",
+     yaxis:{title:"Elo",range:[1550,1950]}}),CFG);
 
-  // Points & qualif
+  // 2) Attaque vs défense (buts marqués / encaissés pronostiqués)
+  const agg={};
+  D.predictions.forEach(p=>{
+    (agg[p.dom]=agg[p.dom]||{f:0,a:0}); (agg[p.ext]=agg[p.ext]||{f:0,a:0});
+    agg[p.dom].f+=p.bd; agg[p.dom].a+=p.be; agg[p.ext].f+=p.be; agg[p.ext].a+=p.bd;
+  });
+  const stMap={},ptMap={};
+  D.ratings.forEach(t=>stMap[t.equipe]=t.statut);
+  Object.values(D.standings).forEach(arr=>arr.forEach(t=>ptMap[t.equipe]=t.pts));
+  const ad=Object.keys(agg).map(t=>({t,f:agg[t].f,a:agg[t].a,st:stMap[t],pts:ptMap[t]||0}));
+  const adTrace=st=>({type:"scatter",mode:"markers",name:ST_LABEL[st]==="Élim."?"Éliminé":ST_LABEL[st],
+    x:ad.filter(d=>d.st===st).map(d=>d.f), y:ad.filter(d=>d.st===st).map(d=>d.a),
+    text:ad.filter(d=>d.st===st).map(d=>d.t),
+    marker:{size:ad.filter(d=>d.st===st).map(d=>8+d.pts*1.4),color:ST_COLOR[st],line:{color:"#fff",width:.5},opacity:.9},
+    hovertemplate:"%{text}<br>marqués %{x} · encaissés %{y}<extra></extra>"});
+  Plotly.newPlot("chartAttDef",["1er","2e","3e","out"].map(adTrace),
+    LAYOUT({height:520,title:"Attaque vs défense — buts marqués (x) / encaissés (y)",
+      xaxis:{title:"Buts marqués (3 matchs)"},yaxis:{title:"Buts encaissés",autorange:"reversed"}}),CFG);
+
+  // 3) Points & qualification
   const teams=[]; Object.values(D.standings).forEach(g=>g.forEach(t=>teams.push(t)));
   teams.sort((a,b)=>a.pts-b.pts || a.diff-b.diff);
   Plotly.newPlot("chartPoints",[{
     type:"bar",orientation:"h",x:teams.map(t=>t.pts),y:teams.map(t=>t.equipe),
     marker:{color:teams.map(t=>ST_COLOR[t.statut])},text:teams.map(t=>t.pts),textposition:"outside",
     hovertemplate:"%{y}<br>%{x} pts<extra></extra>"
-  }],LAYOUT({height:1050,title:"Points pronostiqués (vert=1er/2e, or=3e qualifié, rouge=éliminé)"}),CFG);
+  }],LAYOUT({height:1050,title:"Points pronostiqués (48 équipes)"}),CFG);
 
-  // Model vs mpp
+  // 4) Modèle vs mpp
   const mp=D.predictions.filter(p=>p.mpp_v!=null);
   const same=p=>Math.sign(p.pv-p.pd)===Math.sign(p.mpp_v-p.mpp_d);
+  const agree=mp.filter(same).length;
+  const note=document.getElementById("mppNote");
+  if(note) note.innerHTML=`Proba de victoire à domicile : notre modèle (X) vs mpp (Y). Même favori dans <strong>${agree}/${mp.length}</strong> matchs.`;
   const mk=(cond,col,name)=>({type:"scatter",mode:"markers",name,
-     x:mp.filter(p=>cond(p)).map(p=>p.pv),y:mp.filter(p=>cond(p)).map(p=>p.mpp_v),
-     text:mp.filter(p=>cond(p)).map(p=>p.dom+" – "+p.ext),
-     marker:{size:9,color:col,line:{color:"#fff",width:.5}},
-     hovertemplate:"%{text}<br>modèle %{x:.2f} · mpp %{y:.2f}<extra></extra>"});
+     x:mp.filter(cond).map(p=>p.pv),y:mp.filter(cond).map(p=>p.mpp_v),
+     text:mp.filter(cond).map(p=>p.dom+" – "+p.ext),
+     marker:{size:10,color:col,line:{color:"#fff",width:.5}},
+     hovertemplate:"%{text}<br>modèle %{x:.0%} · mpp %{y:.0%}<extra></extra>"});
   Plotly.newPlot("chartMpp",[
-     mk(p=>same(p),"#2ecc71","Même favori"),
-     mk(p=>!same(p),"#ef5350","Favori différent"),
-     {type:"scatter",mode:"lines",x:[0,1],y:[0,1],line:{dash:"dash",color:"#9fb2c6"},hoverinfo:"skip",showlegend:false}
-  ],LAYOUT({height:520,title:"P(victoire dom) — modèle (x) vs mpp (y)",
-     xaxis:{range:[0,1],title:"modèle"},yaxis:{range:[0,1],title:"mpp"}}),CFG);
+     mk(p=>same(p),ST_COLOR["1er"],"Même favori"),
+     mk(p=>!same(p),ST_COLOR.out,"Favori différent"),
+     {type:"scatter",mode:"lines",x:[0,1],y:[0,1],line:{dash:"dash",color:"#8a98a8"},hoverinfo:"skip",showlegend:false}
+  ],LAYOUT({height:520,title:"P(victoire domicile) — modèle vs mpp",
+     xaxis:{range:[0,1],title:"modèle",tickformat:".0%"},yaxis:{range:[0,1],title:"mpp",tickformat:".0%"}}),CFG);
 
-  // J1 validation : issues réelles vs modèle
-  const cnt=(arr,f)=>arr.filter(f).length;
-  const reels=D.j1, accN=cnt(reels,x=>x.ok);
+  // 5) Distribution des buts par match
+  const goals={};
+  D.predictions.forEach(p=>{const tot=p.bd+p.be;goals[tot]=(goals[tot]||0)+1;});
+  const gk=Object.keys(goals).map(Number).sort((a,b)=>a-b);
+  Plotly.newPlot("chartGoals",[{
+    type:"bar",x:gk.map(k=>k+" but"+(k>1?"s":"")),y:gk.map(k=>goals[k]),
+    marker:{color:ACC},text:gk.map(k=>goals[k]),textposition:"outside",
+    hovertemplate:"%{x} : %{y} matchs<extra></extra>"
+  }],LAYOUT({height:380,title:"Nombre de buts par match (72 matchs)",yaxis:{title:"matchs"}}),CFG);
+
+  // 6) Validation J1 : issues réelles vs modèle (groupé V/N/D)
+  const iss=s=>{const[a,b]=s.split("-").map(Number);return a>b?"V":a<b?"N":"D";};
+  const cntReal={V:0,N:0,D:0},cntMod={V:0,N:0,D:0};
+  D.j1.forEach(m=>{cntReal[iss(m.reel)]++;cntMod[iss(m.modele)]++;});
+  const order=["V","N","D"],lab={V:"Victoire dom",N:"Nul",D:"Victoire ext"};
   Plotly.newPlot("chartJ1",[
-    {type:"bar",name:"Prédites OK",x:["J1"],y:[accN],marker:{color:"#2ecc71"},text:[accN],textposition:"outside"},
-    {type:"bar",name:"Ratées",x:["J1"],y:[reels.length-accN],marker:{color:"#ef5350"},text:[reels.length-accN],textposition:"outside"}
-  ],LAYOUT({height:340,barmode:"stack",
-     title:`Issues J1 : ${accN}/${reels.length} correctes (${Math.round(D.meta.j1_accuracy*100)}%) — 8 nuls sur 16`}),CFG);
+    {type:"bar",name:"Réel",x:order.map(k=>lab[k]),y:order.map(k=>cntReal[k]),marker:{color:ST_COLOR["1er"]},text:order.map(k=>cntReal[k]),textposition:"outside"},
+    {type:"bar",name:"Modèle Elo",x:order.map(k=>lab[k]),y:order.map(k=>cntMod[k]),marker:{color:"#8a98a8"},text:order.map(k=>cntMod[k]),textposition:"outside"}
+  ],LAYOUT({height:380,barmode:"group",
+     title:`J1 réelle vs modèle — ${Math.round(D.meta.j1_accuracy*100)}% d'issues correctes (8 nuls sur 16)`}),CFG);
 
-  // Timeline
-  const ev=D.predictions.map(p=>({x:p.kickoff_cest.replace(" ","T"),y:p.groupe,
-     t:p.dom+" – "+p.ext+" ("+p.bd+"-"+p.be+")",joue:p.statut==="joue"}));
-  const tr=(joue,sym,name,col)=>({type:"scatter",mode:"markers",name,
-     x:ev.filter(e=>e.joue===joue).map(e=>e.x),y:ev.filter(e=>e.joue===joue).map(e=>e.y),
-     text:ev.filter(e=>e.joue===joue).map(e=>e.t),marker:{size:10,symbol:sym,color:col},
-     hovertemplate:"%{text}<br>%{x}<extra></extra>"});
-  Plotly.newPlot("chartTimeline",[tr(true,"circle","Joué","#3aa0ff"),tr(false,"x","À venir","#19c37d")],
-     LAYOUT({height:520,title:"Frise des 72 matchs (heure CEST)",
-       yaxis:{categoryorder:"category descending"}}),CFG);
+  // 7) Explorateur de match -> matrice Poisson
+  const sel=document.getElementById("matchSel");
+  if(sel){
+    sel.innerHTML=D.predictions.map((p,i)=>`<option value="${i}">${p.groupe} · ${esc(p.dom)} – ${esc(p.ext)}</option>`).join("");
+    const drawMatrix=i=>{
+      const p=D.predictions[i],n=6,m=scoreMatrix(p.xg_dom,p.xg_ext,n);
+      Plotly.newPlot("chartMatrix",[{
+        type:"heatmap",z:m.z,text:m.txt,texttemplate:"%{text}",textfont:{size:10},
+        x:[...Array(n+1).keys()],y:[...Array(n+1).keys()],
+        colorscale:[[0,THEME[curTheme()].paper],[1,ACC]],showscale:false,
+        hovertemplate:"score %{y}-%{x} : %{z:.1f}%<extra></extra>"
+      }],LAYOUT({height:460,
+         title:`${esc(p.dom)} ${p.bd}-${p.be} ${esc(p.ext)} — λ ${p.xg_dom.toFixed(2)} / ${p.xg_ext.toFixed(2)}`,
+         xaxis:{title:"Buts "+esc(p.ext),dtick:1},yaxis:{title:"Buts "+esc(p.dom),dtick:1}}),CFG);
+    };
+    const def=D.predictions.findIndex(p=>p.dom==="France");
+    sel.value=def>=0?def:0; drawMatrix(sel.value);
+    sel.onchange=()=>drawMatrix(sel.value);
+  }
 }
 
 /* ---------- Rapport & Méthodo ---------- */
@@ -306,7 +425,7 @@ function applyTheme(t){
   document.body.dataset.theme=t;
   try{localStorage.setItem("cdm-theme",t);}catch(e){}
   const lbl=document.getElementById("themeLbl"); if(lbl) lbl.textContent = t==="dark"?"Clair":"Sombre";
-  ["chartElo","chartPoints","chartMpp","chartJ1","chartTimeline","chartThirds"].forEach(id=>{
+  ["chartGroupStrength","chartAttDef","chartPoints","chartMpp","chartGoals","chartJ1","chartMatrix","chartThirds"].forEach(id=>{
     const el=document.getElementById(id); if(el&&el.data&&window.Plotly) Plotly.purge(el);
   });
   drawn.analyses=false; drawn.thirds=false;

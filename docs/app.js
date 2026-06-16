@@ -281,195 +281,213 @@ function renderAnalyses(){
     <h2>Explorateur de match — matrice des scores (Poisson)</h2>
     <p class="an-intro">Choisissez un match : probabilité de chaque score exact selon le modèle (buts attendus λ).</p>
     <div class="selrow"><label for="matchSel">Match :</label><select id="matchSel"></select></div>
+    <div class="cv-cap" id="matrixCap"></div>
     <div class="chart" id="chartMatrix"></div>`;
 }
 
-/* ---------- Graphiques : rendu SVG maison (responsive via viewBox, sans dépendance) ---------- */
-/* Un <svg viewBox> en width:100% s'adapte tout seul à la largeur du conteneur :
-   plus aucun problème de positionnement/overlap/affichage lié à Plotly. */
-function svgWrap(w,h,inner,cls){
-  return `<svg class="cv ${cls||''}" viewBox="0 0 ${w} ${h}" width="100%" preserveAspectRatio="xMidYMin meet" role="img">${inner}</svg>`;
-}
-function svT(x,y,s,o){o=o||{};const f=o.cls?'':` fill="${o.fill||'currentColor'}"`;
-  return `<text x="${(+x).toFixed(1)}" y="${(+y).toFixed(1)}" font-size="${o.fs||13}"${f}${o.cls?` class="${o.cls}"`:''} text-anchor="${o.anchor||'start'}"${o.weight?` font-weight="${o.weight}"`:''}${o.op!=null?` opacity="${o.op}"`:''}>${esc(s)}</text>`;}
-function svR(x,y,w,h,o){o=o||{};const f=o.cls?'':` fill="${o.fill||'currentColor'}"`;
-  return `<rect x="${(+x).toFixed(1)}" y="${(+y).toFixed(1)}" width="${Math.max(0,w).toFixed(1)}" height="${Math.max(0,h).toFixed(1)}" rx="${o.rx==null?2:o.rx}"${f}${o.cls?` class="${o.cls}"`:''}${o.op!=null?` opacity="${o.op}"`:''}>${o.title?`<title>${esc(o.title)}</title>`:''}</rect>`;}
-function svL(x1,y1,x2,y2,o){o=o||{};
-  return `<line x1="${(+x1).toFixed(1)}" y1="${(+y1).toFixed(1)}" x2="${(+x2).toFixed(1)}" y2="${(+y2).toFixed(1)}"${o.cls?` class="${o.cls}"`:` stroke="${o.stroke||'currentColor'}"`} stroke-width="${o.sw||1}"${o.dash?` stroke-dasharray="${o.dash}"`:''}${o.op!=null?` opacity="${o.op}"`:''}/>`;}
-function svC(cx,cy,r,o){o=o||{};
-  return `<circle cx="${(+cx).toFixed(1)}" cy="${(+cy).toFixed(1)}" r="${(+r).toFixed(1)}"${o.cls?` class="${o.cls}"`:` fill="${o.fill||'currentColor'}"`}${o.stroke?` stroke="${o.stroke}" stroke-width="${o.sw||1}"`:''}${o.op!=null?` opacity="${o.op}"`:''}>${o.title?`<title>${esc(o.title)}</title>`:''}</circle>`;}
-function cvLegend(items){return `<div class="cv-legend">${items.map(it=>`<span><i style="background:${it.c}"></i>${esc(it.l)}</span>`).join("")}</div>`;}
-function lerp(a,b,t){const pa=[1,3,5].map(i=>parseInt(a.substr(i,2),16)),pb=[1,3,5].map(i=>parseInt(b.substr(i,2),16));
-  const p=pa.map((v,i)=>Math.round(v+(pb[i]-v)*Math.max(0,Math.min(1,t))));return `rgb(${p[0]},${p[1]},${p[2]})`;}
-
-/* Poisson (client) pour la matrice des scores */
+/* ---------- Graphiques interactifs (ECharts) ---------- */
+/* ECharts gère le hover/tooltip/légende/zoom. Robustesse conteneur : hauteur explicite +
+   instance.resize() au show, au resize fenêtre et via ResizeObserver (couvre display:none -> block). */
 function pois(k,l){let p=Math.exp(-l);for(let i=1;i<=k;i++)p*=l/i;return p;}
 function scoreMatrix(ld,le,n){const z=[];for(let i=0;i<=n;i++){const row=[];for(let j=0;j<=n;j++)row.push(pois(i,ld)*pois(j,le)*100);z.push(row);}return {z};}
 
 const drawn={analyses:false,thirds:false};
 let _calJumped=false;
+const ECH={};                              // id -> instance ECharts
+function ecInit(id,height){
+  const el=document.getElementById(id); if(!el||!window.echarts) return null;
+  el.style.height=(height||360)+"px"; el.style.width="100%";
+  let c=ECH[id]; if(!c){ c=echarts.init(el,null,{renderer:"svg"}); ECH[id]=c; }
+  return c;
+}
+function ecSet(id,height,opt){ const c=ecInit(id,height); if(c){ c.setOption(opt,true); c.resize(); } return c; }
+function ecResizeIn(sec){ document.querySelectorAll("#"+sec+" .chart").forEach(el=>{const c=ECH[el.id]; if(c) c.resize();}); }
+let _ecRO=null;
+function ecObserve(sec){
+  if(window.ResizeObserver){ if(!_ecRO) _ecRO=new ResizeObserver(es=>{for(const e of es){const c=ECH[e.target.id]; if(c) c.resize();}});
+    document.querySelectorAll("#"+sec+" .chart").forEach(el=>_ecRO.observe(el)); }
+}
+function ecTheme(){ const t=THEME[curTheme()]; return {
+  font:t.font, grid:t.grid, paper:t.paper, accent:t.accent, muted:"#8a98a8" }; }
+function ecBase(extra){
+  const t=ecTheme();
+  return Object.assign({
+    textStyle:{color:t.font,fontFamily:'Inter, system-ui, sans-serif'},
+    grid:{left:6,right:18,top:34,bottom:10,containLabel:true},
+    tooltip:{trigger:'item',confine:true,backgroundColor:t.paper,borderColor:t.grid,textStyle:{color:t.font}},
+    legend:{top:4,textStyle:{color:t.font},inactiveColor:t.muted}
+  },extra||{});
+}
+const ecCat=()=>{const t=ecTheme();return {axisLine:{lineStyle:{color:t.grid}},axisLabel:{color:t.font},axisTick:{show:false},splitLine:{show:false}};};
+const ecVal=()=>{const t=ecTheme();return {axisLine:{show:false},axisLabel:{color:t.font},splitLine:{lineStyle:{color:t.grid}}};};
 
-/* --- 1) Elo moyen par groupe (barres + moustache min/max) --- */
-function svgGroupStrength(){
-  const gs=D.meta.groupes.map(g=>{const es=D.ratings.filter(t=>t.groupe===g).map(t=>t.elo);
-    const mean=es.reduce((a,b)=>a+b,0)/es.length;return {g,mean,min:Math.min(...es),max:Math.max(...es)};}).sort((a,b)=>b.mean-a.mean);
-  const W=720,H=360,xL=52,xR=706,yT=22,yB=312,vmin=1550,vmax=1950,Y=v=>yB-(v-vmin)/(vmax-vmin)*(yB-yT);
-  let s="";
-  for(let v=vmin;v<=vmax;v+=100){const y=Y(v);s+=svL(xL,y,xR,y,{cls:'cv-grid'});s+=svT(xL-6,y+4,v,{anchor:'end',fs:11,cls:'cv-mut'});}
-  const n=gs.length,slot=(xR-xL)/n,bw=slot*0.56;
-  gs.forEach((d,i)=>{const cx=xL+slot*(i+0.5),x=cx-bw/2,y=Y(d.mean);
-    s+=svR(x,y,bw,yB-y,{cls:'cv-acc',rx:3,title:`Groupe ${d.g} · Elo moyen ${Math.round(d.mean)}`});
-    s+=svL(cx,Y(d.min),cx,Y(d.max),{stroke:'#8a98a8',sw:1.4});
-    s+=svL(cx-5,Y(d.max),cx+5,Y(d.max),{stroke:'#8a98a8',sw:1.4});
-    s+=svL(cx-5,Y(d.min),cx+5,Y(d.min),{stroke:'#8a98a8',sw:1.4});
-    s+=svT(cx,y-6,Math.round(d.mean),{anchor:'middle',fs:11,weight:700});
-    s+=svT(cx,yB+17,'Gr. '+d.g,{anchor:'middle',fs:11,cls:'cv-mut'});});
-  return svgWrap(W,H,s);
+/* --- 1) Elo moyen par groupe (barre = moyenne, points = 4 équipes) --- */
+function drawGroupStrength(){
+  const t=ecTheme();
+  const gs=D.meta.groupes.map(g=>{const es=D.ratings.filter(x=>x.equipe&&x.groupe===g);
+    const vals=es.map(x=>x.elo); const mean=vals.reduce((a,b)=>a+b,0)/vals.length;
+    return {g,mean,es};}).sort((a,b)=>b.mean-a.mean);
+  const cats=gs.map(d=>"Gr. "+d.g);
+  const scatter=[]; gs.forEach((d,i)=>d.es.forEach(x=>scatter.push([i,x.elo,x.equipe])));
+  ecSet("chartGroupStrength",420,ecBase({
+    legend:{show:false},
+    tooltip:{trigger:'axis',axisPointer:{type:'shadow'},backgroundColor:t.paper,borderColor:t.grid,textStyle:{color:t.font}},
+    xAxis:Object.assign({type:'category',data:cats},ecCat()),
+    yAxis:Object.assign({type:'value',min:1550,max:1950,name:'Elo'},ecVal()),
+    series:[
+      {type:'bar',name:'Elo moyen',data:gs.map(d=>Math.round(d.mean)),itemStyle:{color:t.accent,borderRadius:[4,4,0,0]},barWidth:'52%',
+       label:{show:true,position:'top',color:t.font,fontSize:11}},
+      {type:'scatter',name:'Équipes',data:scatter,symbolSize:7,itemStyle:{color:t.muted,opacity:.8},
+       tooltip:{trigger:'item',formatter:p=>`${p.data[2]} · Elo ${p.data[1]}`}}
+    ]
+  }));
 }
 
-/* --- 2) Attaque vs défense (scatter) --- */
-function svgAttDef(){
+/* --- 2) Attaque vs défense (scatter par statut) --- */
+function drawAttDef(){
+  const t=ecTheme();
   const agg={};D.predictions.forEach(p=>{(agg[p.dom]=agg[p.dom]||{f:0,a:0});(agg[p.ext]=agg[p.ext]||{f:0,a:0});
     agg[p.dom].f+=p.bd;agg[p.dom].a+=p.be;agg[p.ext].f+=p.be;agg[p.ext].a+=p.bd;});
-  const stMap={},ptMap={};D.ratings.forEach(t=>stMap[t.equipe]=t.statut);
-  Object.values(D.standings).forEach(arr=>arr.forEach(t=>ptMap[t.equipe]=t.pts));
-  const ad=Object.keys(agg).map(t=>({t,f:agg[t].f,a:agg[t].a,st:stMap[t]||'out',pts:ptMap[t]||0}));
-  const W=720,H=480,xL=46,xR=702,yT=16,yB=436;
-  const maxF=Math.max(...ad.map(d=>d.f))+1,maxA=Math.max(...ad.map(d=>d.a))+1;
-  const X=v=>xL+v/maxF*(xR-xL),Y=v=>yT+v/maxA*(yB-yT);
-  let s="";
-  for(let i=0;i<=maxF;i++){const x=X(i);s+=svL(x,yT,x,yB,{cls:'cv-grid'});s+=svT(x,yB+15,i,{anchor:'middle',fs:10,cls:'cv-mut'});}
-  const stepA=Math.max(1,Math.ceil(maxA/8));
-  for(let j=0;j<=maxA;j+=stepA){const y=Y(j);s+=svL(xL,y,xR,y,{cls:'cv-grid'});s+=svT(xL-5,y+3,j,{anchor:'end',fs:10,cls:'cv-mut'});}
-  ad.forEach(d=>{s+=svC(X(d.f),Y(d.a),4+d.pts*0.7,{fill:ST_COLOR[d.st],op:.85,stroke:'#fff',sw:.5,title:`${d.t} · marqués ${d.f} · encaissés ${d.a} · ${d.pts} pts`});});
-  s+=svT((xL+xR)/2,H-3,'Buts marqués →',{anchor:'middle',fs:11,cls:'cv-mut'});
-  s+=`<text x="13" y="${(yT+yB)/2}" font-size="11" class="cv-mut" text-anchor="middle" transform="rotate(-90 13 ${((yT+yB)/2).toFixed(1)})">← Buts encaissés</text>`;
-  return cvLegend([{c:ST_COLOR['1er'],l:'1er'},{c:ST_COLOR['2e'],l:'2e'},{c:ST_COLOR['3e'],l:'3e qualifié'},{c:ST_COLOR.out,l:'Éliminé'}])+svgWrap(W,H,s);
+  const stMap={},ptMap={};D.ratings.forEach(x=>stMap[x.equipe]=x.statut);
+  Object.values(D.standings).forEach(arr=>arr.forEach(x=>ptMap[x.equipe]=x.pts));
+  const byst={"1er":[],"2e":[],"3e":[],out:[]};
+  Object.keys(agg).forEach(tm=>{const st=stMap[tm]||'out';byst[st].push([agg[tm].f,agg[tm].a,ptMap[tm]||0,tm]);});
+  const nm={"1er":"1er","2e":"2e","3e":"3e qualifié",out:"Éliminé"};
+  ecSet("chartAttDef",500,ecBase({
+    tooltip:{trigger:'item',backgroundColor:t.paper,borderColor:t.grid,textStyle:{color:t.font},
+      formatter:p=>`${p.data[3]}<br>marqués ${p.data[0]} · encaissés ${p.data[1]} · ${p.data[2]} pts`},
+    xAxis:Object.assign({type:'value',name:'Buts marqués →'},ecVal()),
+    yAxis:Object.assign({type:'value',name:'Buts encaissés',inverse:true},ecVal()),
+    series:["1er","2e","3e","out"].map(st=>({type:'scatter',name:nm[st],
+      data:byst[st],itemStyle:{color:ST_COLOR[st],borderColor:'#fff',borderWidth:.5,opacity:.88},
+      symbolSize:d=>6+d[2]*1.2}))
+  }));
 }
 
-/* --- 3) Points pronostiqués (barres horizontales, 48 équipes) --- */
-function svgPoints(){
-  const teams=[];Object.values(D.standings).forEach(g=>g.forEach(t=>teams.push(t)));
-  teams.sort((a,b)=>b.pts-a.pts||b.diff-a.diff);
-  const n=teams.length,rowH=18,padT=8,padB=8,xL=140,xR=686,W=720,H=padT+padB+n*rowH;
-  const maxP=Math.max(...teams.map(t=>t.pts),1);let s="";
-  teams.forEach((t,i)=>{const y=padT+i*rowH,cy=y+rowH/2,bw=(t.pts/maxP)*(xR-xL);
-    s+=svT(xL-6,cy+4,t.equipe,{anchor:'end',fs:11});
-    s+=svR(xL,y+3,bw,rowH-6,{fill:ST_COLOR[t.statut],rx:2,title:`${t.equipe} · ${t.pts} pts`});
-    s+=svT(xL+bw+5,cy+4,t.pts,{fs:11,weight:700});});
-  return cvLegend([{c:ST_COLOR['1er'],l:'1er'},{c:ST_COLOR['2e'],l:'2e'},{c:ST_COLOR['3e'],l:'3e qualifié'},{c:ST_COLOR.out,l:'Éliminé'}])+svgWrap(W,H,s);
+/* --- 3) Points pronostiqués (barres horizontales, 48) --- */
+function drawPoints(){
+  const t=ecTheme();const teams=[];Object.values(D.standings).forEach(g=>g.forEach(x=>teams.push(x)));
+  teams.sort((a,b)=>a.pts-b.pts||a.diff-b.diff);
+  ecSet("chartPoints",1020,ecBase({
+    legend:{show:false},grid:{left:6,right:40,top:10,bottom:10,containLabel:true},
+    tooltip:{trigger:'item',backgroundColor:t.paper,borderColor:t.grid,textStyle:{color:t.font},formatter:p=>`${p.name} · ${p.value} pts`},
+    xAxis:Object.assign({type:'value',name:'Points'},ecVal()),
+    yAxis:Object.assign({type:'category',data:teams.map(x=>x.equipe)},ecCat(),{axisLabel:{color:t.font,fontSize:10}}),
+    series:[{type:'bar',data:teams.map(x=>({value:x.pts,itemStyle:{color:ST_COLOR[x.statut],borderRadius:[0,3,3,0]}})),
+      label:{show:true,position:'right',color:t.font,fontSize:10}}]
+  }));
 }
 
 /* --- 4) Modèle vs mpp (scatter + diagonale) --- */
-function svgMpp(){
-  const mp=D.predictions.filter(p=>p.mpp_v!=null);
+function drawMpp(){
+  const t=ecTheme();const mp=D.predictions.filter(p=>p.mpp_v!=null);
   const same=p=>Math.sign(p.pv-p.pd)===Math.sign(p.mpp_v-p.mpp_d);
   const agree=mp.filter(same).length;
   const note=document.getElementById("mppNote");
   if(note)note.innerHTML=`Proba de victoire à domicile : notre modèle (axe X) vs mpp (axe Y). Même favori dans <strong>${agree}/${mp.length}</strong> matchs.`;
-  const W=720,H=480,xL=48,xR=702,yT=16,yB=436,X=v=>xL+v*(xR-xL),Y=v=>yB-v*(yB-yT);let s="";
-  for(let i=0;i<=10;i+=2){const x=X(i/10),y=Y(i/10);s+=svL(x,yT,x,yB,{cls:'cv-grid'});s+=svL(xL,y,xR,y,{cls:'cv-grid'});
-    s+=svT(x,yB+15,i*10+'%',{anchor:'middle',fs:10,cls:'cv-mut'});s+=svT(xL-5,y+3,i*10+'%',{anchor:'end',fs:10,cls:'cv-mut'});}
-  s+=svL(X(0),Y(0),X(1),Y(1),{stroke:'#8a98a8',sw:1,dash:'5 4'});
-  mp.forEach(p=>{s+=svC(X(p.pv),Y(p.mpp_v),5,{fill:same(p)?ST_COLOR['1er']:ST_COLOR.out,op:.85,stroke:'#fff',sw:.5,title:`${p.dom} – ${p.ext} · modèle ${Math.round(p.pv*100)}% · mpp ${Math.round(p.mpp_v*100)}%`});});
-  s+=svT((xL+xR)/2,H-3,'Modèle — P(victoire dom) →',{anchor:'middle',fs:11,cls:'cv-mut'});
-  s+=`<text x="13" y="${((yT+yB)/2).toFixed(1)}" font-size="11" class="cv-mut" text-anchor="middle" transform="rotate(-90 13 ${((yT+yB)/2).toFixed(1)})">mpp →</text>`;
-  return cvLegend([{c:ST_COLOR['1er'],l:'Même favori'},{c:ST_COLOR.out,l:'Favori différent'}])+svgWrap(W,H,s);
+  const mk=cond=>mp.filter(cond).map(p=>[+(p.pv).toFixed(3),+(p.mpp_v).toFixed(3),p.dom+" – "+p.ext]);
+  ecSet("chartMpp",500,ecBase({
+    tooltip:{trigger:'item',backgroundColor:t.paper,borderColor:t.grid,textStyle:{color:t.font},
+      formatter:p=>p.seriesName==='Diagonale'?'':`${p.data[2]}<br>modèle ${Math.round(p.data[0]*100)}% · mpp ${Math.round(p.data[1]*100)}%`},
+    xAxis:Object.assign({type:'value',min:0,max:1,name:'modèle',axisLabel:{formatter:v=>Math.round(v*100)+'%',color:t.font}},ecVal()),
+    yAxis:Object.assign({type:'value',min:0,max:1,name:'mpp',axisLabel:{formatter:v=>Math.round(v*100)+'%',color:t.font}},ecVal()),
+    series:[
+      {type:'line',name:'Diagonale',data:[[0,0],[1,1]],showSymbol:false,lineStyle:{type:'dashed',color:t.muted},silent:true},
+      {type:'scatter',name:'Même favori',data:mk(p=>same(p)),symbolSize:10,itemStyle:{color:ST_COLOR['1er'],borderColor:'#fff',borderWidth:.5}},
+      {type:'scatter',name:'Favori différent',data:mk(p=>!same(p)),symbolSize:10,itemStyle:{color:ST_COLOR.out,borderColor:'#fff',borderWidth:.5}}
+    ]
+  }));
 }
 
 /* --- 5) Distribution des buts par match (barres) --- */
-function svgGoals(){
-  const goals={};D.predictions.forEach(p=>{const tot=p.bd+p.be;goals[tot]=(goals[tot]||0)+1;});
+function drawGoals(){
+  const t=ecTheme();const goals={};D.predictions.forEach(p=>{const tot=p.bd+p.be;goals[tot]=(goals[tot]||0)+1;});
   const gk=Object.keys(goals).map(Number).sort((a,b)=>a-b);
-  const W=720,H=340,xL=44,xR=706,yT=20,yB=300,maxV=Math.max(...gk.map(k=>goals[k])),Y=v=>yB-v/maxV*(yB-yT);
-  const n=gk.length,slot=(xR-xL)/n,bw=slot*0.6,step=Math.max(1,Math.ceil(maxV/5));let s="";
-  for(let i=0;i<=maxV;i+=step){const y=Y(i);s+=svL(xL,y,xR,y,{cls:'cv-grid'});s+=svT(xL-5,y+3,i,{anchor:'end',fs:10,cls:'cv-mut'});}
-  gk.forEach((k,i)=>{const cx=xL+slot*(i+0.5),x=cx-bw/2,y=Y(goals[k]);
-    s+=svR(x,y,bw,yB-y,{cls:'cv-acc',rx:3,title:`${k} but(s) : ${goals[k]} matchs`});
-    s+=svT(cx,y-5,goals[k],{anchor:'middle',fs:11,weight:700});
-    s+=svT(cx,yB+16,k+(k>1?' buts':' but'),{anchor:'middle',fs:11,cls:'cv-mut'});});
-  return svgWrap(W,H,s);
+  ecSet("chartGoals",360,ecBase({
+    legend:{show:false},tooltip:{trigger:'axis',axisPointer:{type:'shadow'},backgroundColor:t.paper,borderColor:t.grid,textStyle:{color:t.font}},
+    xAxis:Object.assign({type:'category',data:gk.map(k=>k+(k>1?' buts':' but'))},ecCat()),
+    yAxis:Object.assign({type:'value',name:'matchs'},ecVal()),
+    series:[{type:'bar',data:gk.map(k=>goals[k]),itemStyle:{color:t.accent,borderRadius:[4,4,0,0]},barWidth:'56%',
+      label:{show:true,position:'top',color:t.font,fontSize:11}}]
+  }));
 }
 
 /* --- 6) Validation J1 : réel vs modèle (barres groupées) --- */
-function svgJ1(){
-  const iss=s=>{const a=s.split("-").map(Number);return a[0]>a[1]?"V":a[0]<a[1]?"N":"D";};
-  const cntReal={V:0,N:0,D:0},cntMod={V:0,N:0,D:0};
-  D.j1.forEach(m=>{cntReal[iss(m.reel)]++;cntMod[iss(m.modele)]++;});
+function drawJ1(){
+  const t=ecTheme();const iss=s=>{const a=s.split("-").map(Number);return a[0]>a[1]?"V":a[0]<a[1]?"N":"D";};
+  const cR={V:0,N:0,D:0},cM={V:0,N:0,D:0};D.j1.forEach(m=>{cR[iss(m.reel)]++;cM[iss(m.modele)]++;});
   const order=["V","N","D"],lab={V:"Victoire dom",N:"Nul",D:"Victoire ext"};
-  const W=720,H=340,xL=44,xR=706,yT=20,yB=300,maxV=Math.max(...order.map(k=>Math.max(cntReal[k],cntMod[k])),1),Y=v=>yB-v/maxV*(yB-yT);
-  const n=order.length,slot=(xR-xL)/n,bw=slot*0.3,step=Math.max(1,Math.ceil(maxV/5));let s="";
-  for(let i=0;i<=maxV;i+=step){const y=Y(i);s+=svL(xL,y,xR,y,{cls:'cv-grid'});s+=svT(xL-5,y+3,i,{anchor:'end',fs:10,cls:'cv-mut'});}
-  order.forEach((k,i)=>{const cx=xL+slot*(i+0.5),xr=cx-bw-2,xm=cx+2,yr=Y(cntReal[k]),ym=Y(cntMod[k]);
-    s+=svR(xr,yr,bw,yB-yr,{fill:ST_COLOR['1er'],rx:2,title:`Réel ${lab[k]} : ${cntReal[k]}`});
-    s+=svR(xm,ym,bw,yB-ym,{fill:'#8a98a8',rx:2,title:`Modèle ${lab[k]} : ${cntMod[k]}`});
-    s+=svT(xr+bw/2,yr-4,cntReal[k],{anchor:'middle',fs:10,weight:700});
-    s+=svT(xm+bw/2,ym-4,cntMod[k],{anchor:'middle',fs:10,weight:700});
-    s+=svT(cx,yB+16,lab[k],{anchor:'middle',fs:11,cls:'cv-mut'});});
-  return cvLegend([{c:ST_COLOR['1er'],l:'Réel'},{c:'#8a98a8',l:'Modèle Elo'}])+svgWrap(W,H,s);
+  ecSet("chartJ1",360,ecBase({
+    tooltip:{trigger:'axis',axisPointer:{type:'shadow'},backgroundColor:t.paper,borderColor:t.grid,textStyle:{color:t.font}},
+    xAxis:Object.assign({type:'category',data:order.map(k=>lab[k])},ecCat()),
+    yAxis:Object.assign({type:'value'},ecVal()),
+    series:[
+      {type:'bar',name:'Réel',data:order.map(k=>cR[k]),itemStyle:{color:ST_COLOR['1er'],borderRadius:[3,3,0,0]},label:{show:true,position:'top',color:t.font,fontSize:11}},
+      {type:'bar',name:'Modèle Elo',data:order.map(k=>cM[k]),itemStyle:{color:t.muted,borderRadius:[3,3,0,0]},label:{show:true,position:'top',color:t.font,fontSize:11}}
+    ]
+  }));
 }
 
 /* --- 7) Matrice des scores (heatmap) --- */
-function svgMatrix(p,n){
-  n=n||6;const m=scoreMatrix(p.xg_dom,p.xg_ext,n),th=THEME[curTheme()];
-  const W=460,H=440,xL=44,xR=430,yT=24,yB=410,cw=(xR-xL)/(n+1),ch=(yB-yT)/(n+1);
-  let maxz=0;m.z.forEach(r=>r.forEach(v=>{if(v>maxz)maxz=v;}));let s="";
-  for(let i=0;i<=n;i++)for(let j=0;j<=n;j++){const v=m.z[i][j],x=xL+j*cw,y=yT+i*ch,r=v/(maxz||1);
-    const col=lerp(th.paper,th.accent,r),pred=(i===p.bd&&j===p.be);
-    s+=`<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${cw.toFixed(1)}" height="${ch.toFixed(1)}" fill="${col}" stroke="${pred?th.accent:'rgba(128,128,128,.18)'}" stroke-width="${pred?2:.5}"><title>score ${i}-${j} : ${v.toFixed(1)}%</title></rect>`;
-    if(v>=5)s+=svT(x+cw/2,y+ch/2+3,Math.round(v),{anchor:'middle',fs:9,fill:r>0.5?'#fff':th.font});}
-  for(let j=0;j<=n;j++)s+=svT(xL+j*cw+cw/2,yB+15,j,{anchor:'middle',fs:10,cls:'cv-mut'});
-  for(let i=0;i<=n;i++)s+=svT(xL-6,yT+i*ch+ch/2+3,i,{anchor:'end',fs:10,cls:'cv-mut'});
-  s+=svT((xL+xR)/2,H-4,'Buts '+p.ext+' →',{anchor:'middle',fs:11,cls:'cv-mut'});
-  s+=`<text x="12" y="${((yT+yB)/2).toFixed(1)}" font-size="11" class="cv-mut" text-anchor="middle" transform="rotate(-90 12 ${((yT+yB)/2).toFixed(1)})">Buts ${esc(p.dom)} →</text>`;
-  return svgWrap(W,H,s,'cv-matrix');
+function matrixOption(p,n){
+  const t=ecTheme();n=n||6;const m=scoreMatrix(p.xg_dom,p.xg_ext,n);
+  const data=[];let maxz=0;for(let i=0;i<=n;i++)for(let j=0;j<=n;j++){const v=+m.z[i][j].toFixed(1);if(v>maxz)maxz=v;data.push([j,i,v]);}
+  const ax=[...Array(n+1).keys()];
+  return ecBase({
+    legend:{show:false},grid:{left:6,right:14,top:14,bottom:46,containLabel:true},
+    tooltip:{position:'top',backgroundColor:t.paper,borderColor:t.grid,textStyle:{color:t.font},
+      formatter:p2=>`score ${p2.data[1]}-${p2.data[0]} : ${p2.data[2]}%`},
+    xAxis:Object.assign({type:'category',data:ax,name:'Buts '+p.ext,nameLocation:'middle',nameGap:26,splitArea:{show:true}},ecCat()),
+    yAxis:Object.assign({type:'category',data:ax,name:'Buts '+p.dom,nameLocation:'middle',nameGap:24,inverse:true,splitArea:{show:true}},ecCat()),
+    visualMap:{min:0,max:maxz||1,show:false,inRange:{color:[t.paper,t.accent]}},
+    series:[{type:'heatmap',data:data,label:{show:true,formatter:p2=>p2.data[2]>=5?Math.round(p2.data[2]):'',color:t.font,fontSize:9},
+      itemStyle:{borderColor:t.grid,borderWidth:.5},emphasis:{itemStyle:{borderColor:t.accent,borderWidth:2}}}]
+  });
 }
 
 /* --- Comparaison (fiche match) : barres groupées --- */
-function svgCompare(p){
-  const agg={};D.predictions.forEach(q=>{(agg[q.dom]=agg[q.dom]||{f:0,a:0});(agg[q.ext]=agg[q.ext]||{f:0,a:0});
+function compareOption(p){
+  const t=ecTheme();const agg={};D.predictions.forEach(q=>{(agg[q.dom]=agg[q.dom]||{f:0,a:0});(agg[q.ext]=agg[q.ext]||{f:0,a:0});
     agg[q.dom].f+=q.bd;agg[q.dom].a+=q.be;agg[q.ext].f+=q.be;agg[q.ext].a+=q.bd;});
   const ptsOf=tm=>{for(const g of Object.values(D.standings)){const r=g.find(x=>x.equipe===tm);if(r)return r.pts;}return 0;};
-  const cats=[["Points",ptsOf],["Buts marqués",tm=>(agg[tm]||{}).f||0],["Buts encaissés",tm=>(agg[tm]||{}).a||0]];
-  const W=560,H=290,xL=40,xR=548,yT=16,yB=244;
-  const maxV=Math.max(1,...cats.flatMap(c=>[c[1](p.dom),c[1](p.ext)])),Y=v=>yB-v/maxV*(yB-yT);
-  const n=cats.length,slot=(xR-xL)/n,bw=slot*0.28,step=Math.max(1,Math.ceil(maxV/5));let s="";
-  for(let i=0;i<=maxV;i+=step){const y=Y(i);s+=svL(xL,y,xR,y,{cls:'cv-grid'});s+=svT(xL-5,y+3,i,{anchor:'end',fs:10,cls:'cv-mut'});}
-  cats.forEach((c,i)=>{const cx=xL+slot*(i+0.5),vd=c[1](p.dom),ve=c[1](p.ext),xd=cx-bw-2,xe=cx+2,yd=Y(vd),ye=Y(ve);
-    s+=svR(xd,yd,bw,yB-yd,{cls:'cv-acc',rx:2,title:`${p.dom} : ${vd}`});
-    s+=svR(xe,ye,bw,yB-ye,{fill:'#8a98a8',rx:2,title:`${p.ext} : ${ve}`});
-    s+=svT(xd+bw/2,yd-4,vd,{anchor:'middle',fs:10,weight:700});
-    s+=svT(xe+bw/2,ye-4,ve,{anchor:'middle',fs:10,weight:700});
-    s+=svT(cx,yB+16,c[0],{anchor:'middle',fs:10,cls:'cv-mut'});});
-  return cvLegend([{c:'var(--accent)',l:p.dom},{c:'#8a98a8',l:p.ext}])+svgWrap(W,H,s);
+  const cats=["Points","Buts marqués","Buts encaissés"];
+  const vy=tm=>[ptsOf(tm),(agg[tm]||{}).f||0,(agg[tm]||{}).a||0];
+  return ecBase({
+    grid:{left:6,right:14,top:34,bottom:10,containLabel:true},
+    tooltip:{trigger:'axis',axisPointer:{type:'shadow'},backgroundColor:t.paper,borderColor:t.grid,textStyle:{color:t.font}},
+    xAxis:Object.assign({type:'category',data:cats},ecCat()),
+    yAxis:Object.assign({type:'value'},ecVal()),
+    series:[
+      {type:'bar',name:p.dom,data:vy(p.dom),itemStyle:{color:t.accent,borderRadius:[3,3,0,0]},label:{show:true,position:'top',color:t.font,fontSize:10}},
+      {type:'bar',name:p.ext,data:vy(p.ext),itemStyle:{color:t.muted,borderRadius:[3,3,0,0]},label:{show:true,position:'top',color:t.font,fontSize:10}}
+    ]
+  });
 }
 
-function drawThirds(){if(drawn.thirds)return;drawn.thirds=true;
-  const el=document.getElementById("chartThirds");if(el)el.innerHTML=svgThirds();}
-function svgThirds(){
-  const t3=D.qualifiers.troisiemes,n=t3.length,rowH=22,padT=6,padB=6,xL=150,xR=686,W=720,H=padT+padB+n*rowH;
-  const maxP=Math.max(...t3.map(t=>t.pts),1);let s="";
-  t3.forEach((t,i)=>{const y=padT+i*rowH,cy=y+rowH/2,bw=(t.pts/maxP)*(xR-xL);
-    s+=svT(xL-6,cy+4,t.groupe+' · '+t.equipe,{anchor:'end',fs:11});
-    s+=svR(xL,y+4,bw,rowH-8,{fill:t.qualifie?'#2ecc71':'#ef5350',rx:2,title:`${t.equipe} · ${t.pts} pts`});
-    s+=svT(xL+bw+5,cy+4,`${t.pts} pts, ${t.diff>=0?'+':''}${t.diff}`,{fs:10,weight:700});});
-  return cvLegend([{c:'#2ecc71',l:'Qualifié'},{c:'#ef5350',l:'Éliminé'}])+svgWrap(W,H,s);
+function drawThirds(){
+  if(drawn.thirds)return;drawn.thirds=true;const t=ecTheme();
+  const t3=D.qualifiers.troisiemes.slice().reverse();   // meilleur en haut
+  ecSet("chartThirds",460,ecBase({
+    legend:{show:false},grid:{left:6,right:60,top:10,bottom:10,containLabel:true},
+    tooltip:{trigger:'item',backgroundColor:t.paper,borderColor:t.grid,textStyle:{color:t.font},formatter:p=>`${p.name} · ${p.value} pts`},
+    xAxis:Object.assign({type:'value',name:'Points'},ecVal()),
+    yAxis:Object.assign({type:'category',data:t3.map(x=>x.groupe+" · "+x.equipe)},ecCat(),{axisLabel:{color:t.font,fontSize:10}}),
+    series:[{type:'bar',data:t3.map(x=>({value:x.pts,itemStyle:{color:x.qualifie?'#2ecc71':'#ef5350',borderRadius:[0,3,3,0]}})),
+      label:{show:true,position:'right',color:t.font,fontSize:10,formatter:p=>`${t3[p.dataIndex].pts} pts, ${t3[p.dataIndex].diff>=0?'+':''}${t3[p.dataIndex].diff}`}}]
+  }));
 }
 
-function drawAnalyses(){if(drawn.analyses)return;drawn.analyses=true;
-  const set=(id,html)=>{const el=document.getElementById(id);if(el)el.innerHTML=html;};
-  set("chartGroupStrength",svgGroupStrength());
-  set("chartAttDef",svgAttDef());
-  set("chartPoints",svgPoints());
-  set("chartMpp",svgMpp());
-  set("chartGoals",svgGoals());
-  set("chartJ1",svgJ1());
+function drawAnalyses(){
+  if(drawn.analyses)return;drawn.analyses=true;
+  drawGroupStrength(); drawAttDef(); drawPoints(); drawMpp(); drawGoals(); drawJ1();
   const sel=document.getElementById("matchSel");
-  if(sel){sel.innerHTML=D.predictions.map((p,i)=>`<option value="${i}">${esc(p.groupe)} · ${esc(p.dom)} – ${esc(p.ext)}</option>`).join("");
-    const draw=i=>{const p=D.predictions[i],el=document.getElementById("chartMatrix");
-      if(el)el.innerHTML=`<div class="cv-cap">${esc(p.dom)} ${p.bd}-${p.be} ${esc(p.ext)} — λ ${p.xg_dom.toFixed(2)} / ${p.xg_ext.toFixed(2)}</div>`+svgMatrix(p,6);};
+  if(sel){ sel.innerHTML=D.predictions.map((p,i)=>`<option value="${i}">${esc(p.groupe)} · ${esc(p.dom)} – ${esc(p.ext)}</option>`).join("");
+    const cap=document.getElementById("matrixCap");
+    const draw=i=>{const p=D.predictions[i]; if(cap)cap.textContent=`${p.dom} ${p.bd}-${p.be} ${p.ext} — λ ${p.xg_dom.toFixed(2)} / ${p.xg_ext.toFixed(2)}`;
+      ecSet("chartMatrix",440,matrixOption(p,6));};
     const def=D.predictions.findIndex(p=>p.dom==="France");sel.value=def>=0?def:0;draw(+sel.value);
-    sel.onchange=()=>draw(+sel.value);}
+    sel.onchange=()=>draw(+sel.value);
+  }
 }
 
 /* ---------- Rapport & Méthodo ---------- */
@@ -647,9 +665,9 @@ function openMatch(i){
     <div class="grid2" style="margin-top:14px">${teamPanel(p.dom)}${teamPanel(p.ext)}</div>`;
   m.hidden=false; document.body.style.overflow="hidden";
   m.querySelector(".modal-card").scrollTop=0;
-  // rendu SVG immédiat (aucune mesure de conteneur nécessaire)
-  const mC=document.getElementById("mCompare"); if(mC) mC.innerHTML=svgCompare(p);
-  const mM=document.getElementById("mMatrix"); if(mM) mM.innerHTML=svgMatrix(p,6);
+  // ECharts : la modale est désormais visible -> init + resize dans le frame suivant
+  if(ECH.mCompare){ECH.mCompare.dispose();delete ECH.mCompare;} if(ECH.mMatrix){ECH.mMatrix.dispose();delete ECH.mMatrix;}
+  requestAnimationFrame(()=>{ ecSet("mCompare",300,compareOption(p)); ecSet("mMatrix",420,matrixOption(p,6)); });
 }
 document.addEventListener("click",e=>{
   const tr=e.target.closest("[data-match]");
@@ -660,9 +678,9 @@ document.addEventListener("click",e=>{
 function show(sec){
   document.querySelectorAll(".sec").forEach(s=>s.classList.toggle("active",s.id===sec));
   document.querySelectorAll("#nav a").forEach(a=>a.classList.toggle("active",a.dataset.sec===sec));
-  // Dessin différé : la section vient d'être affichée, on attend le layout (largeur réelle)
-  if(sec==="analyses") drawAnalyses();   // SVG : rendu direct, aucune mesure requise
-  if(sec==="qualifies") drawThirds();
+  // Dessin différé : la section vient d'être affichée -> draw + resize ECharts sur la largeur réelle
+  if(sec==="analyses") requestAnimationFrame(()=>{drawAnalyses(); ecObserve("analyses"); ecResizeIn("analyses"); setTimeout(()=>ecResizeIn("analyses"),120);});
+  if(sec==="qualifies") requestAnimationFrame(()=>{drawThirds(); ecObserve("qualifies"); ecResizeIn("qualifies"); setTimeout(()=>ecResizeIn("qualifies"),120);});
   if(sec==="calendrier" && !_calJumped && NEXT_I>=0){_calJumped=true;
     const s=document.getElementById("calendrier");
     requestAnimationFrame(()=>{ if(s&&s._jumpNext) s._jumpNext(); });
@@ -683,11 +701,12 @@ function applyTheme(t){
   document.body.dataset.theme=t;
   try{localStorage.setItem("cdm-theme",t);}catch(e){}
   const lbl=document.getElementById("themeLbl"); if(lbl) lbl.textContent = t==="dark"?"Clair":"Sombre";
-  // SVG : la plupart des couleurs suivent les variables CSS ; on redessine pour la heatmap (couleurs calculées)
+  // ECharts : on dispose les instances et on redessine la section active avec les couleurs du thème
+  Object.keys(ECH).forEach(id=>{try{ECH[id].dispose();}catch(e){} delete ECH[id];});
   drawn.analyses=false; drawn.thirds=false;
   const active=document.querySelector(".sec.active");
-  if(active&&active.id==="analyses") drawAnalyses();
-  if(active&&active.id==="qualifies") drawThirds();
+  if(active&&active.id==="analyses") requestAnimationFrame(()=>{drawAnalyses(); ecResizeIn("analyses");});
+  if(active&&active.id==="qualifies") requestAnimationFrame(()=>{drawThirds(); ecResizeIn("qualifies");});
 }
 (function initTheme(){
   let t="light"; try{t=localStorage.getItem("cdm-theme")||"light";}catch(e){}
@@ -701,4 +720,5 @@ renderAnalyses(); renderRapport(); renderMethodo();
 const SECS=["accueil","calendrier","groupes","qualifies","analyses","rapport","methodo"];
 const start=(location.hash||"#accueil").slice(1);
 show(SECS.includes(start)?start:"accueil");
-/* graphiques SVG responsive (viewBox) : aucun recalcul JS au redimensionnement */
+/* ECharts : recalage des graphes au redimensionnement de la fenêtre */
+window.addEventListener("resize",()=>{const a=document.querySelector(".sec.active"); if(a) ecResizeIn(a.id);});

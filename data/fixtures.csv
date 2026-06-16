@@ -1,0 +1,73 @@
+groupe,journee,date,equipe_dom,equipe_ext,statut,score_reel
+A,1,2026-06-11,Mexique,Afrique du Sud,joue,2-0
+A,1,2026-06-11,Corée du Sud,Tchéquie,joue,2-1
+A,2,2026-06-18,Tchéquie,Afrique du Sud,a_venir,
+A,2,2026-06-18,Mexique,Corée du Sud,a_venir,
+A,3,2026-06-24,Tchéquie,Mexique,a_venir,
+A,3,2026-06-24,Afrique du Sud,Corée du Sud,a_venir,
+B,1,2026-06-12,Canada,Bosnie-Herzégovine,joue,1-1
+B,1,2026-06-13,Qatar,Suisse,joue,1-1
+B,2,2026-06-18,Suisse,Bosnie-Herzégovine,a_venir,
+B,2,2026-06-18,Canada,Qatar,a_venir,
+B,3,2026-06-24,Suisse,Canada,a_venir,
+B,3,2026-06-24,Bosnie-Herzégovine,Qatar,a_venir,
+C,1,2026-06-13,Brésil,Maroc,joue,1-1
+C,1,2026-06-13,Haïti,Écosse,joue,0-1
+C,2,2026-06-19,Écosse,Maroc,a_venir,
+C,2,2026-06-19,Brésil,Haïti,a_venir,
+C,3,2026-06-24,Écosse,Brésil,a_venir,
+C,3,2026-06-24,Maroc,Haïti,a_venir,
+D,1,2026-06-12,États-Unis,Paraguay,joue,4-1
+D,1,2026-06-13,Australie,Turquie,joue,2-0
+D,2,2026-06-19,États-Unis,Australie,a_venir,
+D,2,2026-06-19,Turquie,Paraguay,a_venir,
+D,3,2026-06-25,Turquie,États-Unis,a_venir,
+D,3,2026-06-25,Paraguay,Australie,a_venir,
+E,1,2026-06-14,Allemagne,Curaçao,joue,7-1
+E,1,2026-06-14,Côte d'Ivoire,Équateur,joue,1-0
+E,2,2026-06-20,Allemagne,Côte d'Ivoire,a_venir,
+E,2,2026-06-20,Équateur,Curaçao,a_venir,
+E,3,2026-06-25,Curaçao,Côte d'Ivoire,a_venir,
+E,3,2026-06-25,Équateur,Allemagne,a_venir,
+F,1,2026-06-14,Pays-Bas,Japon,joue,2-2
+F,1,2026-06-14,Suède,Tunisie,joue,5-1
+F,2,2026-06-20,Pays-Bas,Suède,a_venir,
+F,2,2026-06-20,Tunisie,Japon,a_venir,
+F,3,2026-06-25,Japon,Suède,a_venir,
+F,3,2026-06-25,Tunisie,Pays-Bas,a_venir,
+G,1,2026-06-15,Belgique,Égypte,joue,1-1
+G,1,2026-06-15,Iran,Nouvelle-Zélande,joue,2-2
+G,2,2026-06-21,Belgique,Iran,a_venir,
+G,2,2026-06-21,Nouvelle-Zélande,Égypte,a_venir,
+G,3,2026-06-26,Égypte,Iran,a_venir,
+G,3,2026-06-26,Nouvelle-Zélande,Belgique,a_venir,
+H,1,2026-06-15,Espagne,Cap-Vert,joue,0-0
+H,1,2026-06-15,Arabie saoudite,Uruguay,joue,1-1
+H,2,2026-06-21,Espagne,Arabie saoudite,a_venir,
+H,2,2026-06-21,Uruguay,Cap-Vert,a_venir,
+H,3,2026-06-26,Cap-Vert,Arabie saoudite,a_venir,
+H,3,2026-06-26,Uruguay,Espagne,a_venir,
+I,1,2026-06-16,France,Sénégal,a_venir,
+I,1,2026-06-16,Irak,Norvège,a_venir,
+I,2,2026-06-22,France,Irak,a_venir,
+I,2,2026-06-22,Norvège,Sénégal,a_venir,
+I,3,2026-06-26,Norvège,France,a_venir,
+I,3,2026-06-26,Sénégal,Irak,a_venir,
+J,1,2026-06-16,Argentine,Algérie,a_venir,
+J,1,2026-06-16,Autriche,Jordanie,a_venir,
+J,2,2026-06-22,Argentine,Autriche,a_venir,
+J,2,2026-06-22,Jordanie,Algérie,a_venir,
+J,3,2026-06-27,Jordanie,Argentine,a_venir,
+J,3,2026-06-27,Algérie,Autriche,a_venir,
+K,1,2026-06-17,Portugal,RD Congo,a_venir,
+K,1,2026-06-17,Ouzbékistan,Colombie,a_venir,
+K,2,2026-06-23,Portugal,Ouzbékistan,a_venir,
+K,2,2026-06-23,Colombie,RD Congo,a_venir,
+K,3,2026-06-27,Colombie,Portugal,a_venir,
+K,3,2026-06-27,RD Congo,Ouzbékistan,a_venir,
+L,1,2026-06-17,Angleterre,Croatie,a_venir,
+L,1,2026-06-17,Ghana,Panama,a_venir,
+L,2,2026-06-23,Angleterre,Ghana,a_venir,
+L,2,2026-06-23,Panama,Croatie,a_venir,
+L,3,2026-06-27,Panama,Angleterre,a_venir,
+L,3,2026-06-27,Croatie,Ghana,a_venir,

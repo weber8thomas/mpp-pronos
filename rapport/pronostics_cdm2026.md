@@ -1,0 +1,353 @@
+# 🏆 Pronostics — Phase de groupes, Coupe du Monde 2026
+
+> Pronostics de scores des **72 matchs** de la phase de groupes (48 équipes, 12 groupes), produits par une méthodologie **hybride** : modèle de Poisson basé sur l'Elo, ajusté et critiqué par une dizaine d'agents experts (forme récente, effectifs, blessures, compétitions précédentes).
+
+**Convention** : le tournoi ayant débuté le 11/06/2026, **J1 = résultats réels** (groupes A–H) et **J2/J3 = pronostics**. Les groupes I–L n'avaient pas encore joué au moment de l'analyse (16/06/2026) et sont entièrement pronostiqués.
+
+Données : `data/predictions.csv` · Modèle : `model_pronos.py` · Classements : `standings.py` · Analyse explorable : `notebooks/analyse_pronos.ipynb` · Traçabilité agents : `research/notes_agents.md`
+
+
+---
+
+
+## Groupe A
+
+Corée du Sud et Mexique se détachent ; la victoire coréenne en J1 (2-1) propulse les hommes de Son en tête. La Tchéquie accroche la 3e place (qualifiable). L'Afrique du Sud, dépassée et indisciplinée, ferme la marche.
+
+
+| Journée | Match | Score | Type | P(V/N/D) |
+|:--:|:--|:--:|:--:|:--:|
+| J1 | Mexique – Afrique du Sud | **2-0** | réel ✅ | 0.86/0.10/0.04 |
+| J1 | Corée du Sud – Tchéquie | **2-1** | réel ✅ | 0.48/0.25/0.27 |
+| J2 | Tchéquie – Afrique du Sud | **1-0** | prono 🔮 | 0.58/0.27/0.15 |
+| J2 | Mexique – Corée du Sud | **1-1** | prono 🔮 | 0.40/0.30/0.30 |
+| J3 | Tchéquie – Mexique | **1-1** | prono 🔮 | 0.24/0.31/0.45 |
+| J3 | Afrique du Sud – Corée du Sud | **0-2** | prono 🔮 | 0.12/0.22/0.66 |
+
+**Classement final pronostiqué**
+
+| Rang | Équipe | Pts | J | G | N | P | BP | BC | Diff | Statut |
+|:--:|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--|
+| 1 | Corée du Sud | **7** | 3 | 2 | 1 | 0 | 5 | 2 | +3 | 🟢 1er — qualifié |
+| 2 | Mexique | **5** | 3 | 1 | 2 | 0 | 4 | 2 | +2 | 🟢 2e — qualifié |
+| 3 | Tchéquie | **4** | 3 | 1 | 1 | 1 | 3 | 3 | +0 | 🟡 3e — qualifié |
+| 4 | Afrique du Sud | **0** | 3 | 0 | 0 | 3 | 0 | 5 | -5 | 🔴 éliminé |
+
+
+## Groupe B
+
+La Suisse confirme son statut de favori malgré son nul d'entrée concédé au Qatar. Le Canada profite de son avantage co-hôte. La Bosnie de Dzeko arrache une 3e place qualifiable ; le Qatar termine dernier malgré son point historique.
+
+
+| Journée | Match | Score | Type | P(V/N/D) |
+|:--:|:--|:--:|:--:|:--:|
+| J1 | Canada – Bosnie-Herzégovine | **1-1** | réel ✅ | 0.30/0.40/0.30 |
+| J1 | Qatar – Suisse | **1-1** | réel ✅ | 0.18/0.40/0.42 |
+| J2 | Suisse – Bosnie-Herzégovine | **2-0** | prono 🔮 | 0.74/0.16/0.10 |
+| J2 | Canada – Qatar | **2-0** | prono 🔮 | 0.78/0.15/0.07 |
+| J3 | Suisse – Canada | **2-1** | prono 🔮 | 0.50/0.27/0.23 |
+| J3 | Bosnie-Herzégovine – Qatar | **2-1** | prono 🔮 | 0.50/0.26/0.24 |
+
+**Classement final pronostiqué**
+
+| Rang | Équipe | Pts | J | G | N | P | BP | BC | Diff | Statut |
+|:--:|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--|
+| 1 | Suisse | **7** | 3 | 2 | 1 | 0 | 5 | 2 | +3 | 🟢 1er — qualifié |
+| 2 | Canada | **4** | 3 | 1 | 1 | 1 | 4 | 3 | +1 | 🟢 2e — qualifié |
+| 3 | Bosnie-Herzégovine | **4** | 3 | 1 | 1 | 1 | 3 | 4 | -1 | 🟡 3e — qualifié |
+| 4 | Qatar | **1** | 3 | 0 | 1 | 2 | 2 | 5 | -3 | 🔴 éliminé |
+
+
+## Groupe C
+
+Choc au sommet : Brésil et Maroc (1-1 en J1) terminent tous deux qualifiés, le Brésil 1er à la différence de buts. L'Écosse prend la 3e place mais son calendrier (Maroc puis Brésil) la laisse hors des meilleurs 3es. Haïti termine sans point.
+
+
+| Journée | Match | Score | Type | P(V/N/D) |
+|:--:|:--|:--:|:--:|:--:|
+| J1 | Brésil – Maroc | **1-1** | réel ✅ | 0.40/0.32/0.28 |
+| J1 | Haïti – Écosse | **0-1** | réel ✅ | 0.12/0.22/0.66 |
+| J2 | Écosse – Maroc | **1-2** | prono 🔮 | 0.18/0.22/0.60 |
+| J2 | Brésil – Haïti | **3-0** | prono 🔮 | 0.91/0.07/0.02 |
+| J3 | Écosse – Brésil | **0-2** | prono 🔮 | 0.06/0.14/0.80 |
+| J3 | Maroc – Haïti | **2-0** | prono 🔮 | 0.85/0.11/0.04 |
+
+**Classement final pronostiqué**
+
+| Rang | Équipe | Pts | J | G | N | P | BP | BC | Diff | Statut |
+|:--:|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--|
+| 1 | Brésil | **7** | 3 | 2 | 1 | 0 | 6 | 1 | +5 | 🟢 1er — qualifié |
+| 2 | Maroc | **7** | 3 | 2 | 1 | 0 | 5 | 2 | +3 | 🟢 2e — qualifié |
+| 3 | Écosse | **3** | 3 | 1 | 0 | 2 | 2 | 4 | -2 | 🔴 éliminé |
+| 4 | Haïti | **0** | 3 | 0 | 0 | 3 | 0 | 6 | -6 | 🔴 éliminé |
+
+
+## Groupe D
+
+Les États-Unis impressionnent (4-1 d'entrée) et filent en tête. L'Australie et la Turquie se disputent la 2e place ; la Turquie, plus dangereuse, prend la 3e qualifiable. Le Paraguay est plombé par sa lourde défaite inaugurale.
+
+
+| Journée | Match | Score | Type | P(V/N/D) |
+|:--:|:--|:--:|:--:|:--:|
+| J1 | États-Unis – Paraguay | **4-1** | réel ✅ | 0.61/0.22/0.17 |
+| J1 | Australie – Turquie | **2-0** | réel ✅ | 0.19/0.23/0.58 |
+| J2 | États-Unis – Australie | **2-0** | prono 🔮 | 0.66/0.21/0.13 |
+| J2 | Turquie – Paraguay | **2-1** | prono 🔮 | 0.54/0.25/0.21 |
+| J3 | Turquie – États-Unis | **1-1** | prono 🔮 | 0.29/0.27/0.44 |
+| J3 | Paraguay – Australie | **1-1** | prono 🔮 | 0.45/0.27/0.28 |
+
+**Classement final pronostiqué**
+
+| Rang | Équipe | Pts | J | G | N | P | BP | BC | Diff | Statut |
+|:--:|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--|
+| 1 | États-Unis | **7** | 3 | 2 | 1 | 0 | 7 | 2 | +5 | 🟢 1er — qualifié |
+| 2 | Australie | **4** | 3 | 1 | 1 | 1 | 3 | 3 | +0 | 🟢 2e — qualifié |
+| 3 | Turquie | **4** | 3 | 1 | 1 | 1 | 3 | 4 | -1 | 🟡 3e — qualifié |
+| 4 | Paraguay | **1** | 3 | 0 | 1 | 2 | 3 | 7 | -4 | 🔴 éliminé |
+
+
+## Groupe E
+
+L'Allemagne, lancée par son 7-1, domine. La Côte d'Ivoire s'appuie sur sa défense pour la 2e place. L'Équateur, miné par son manque de réalisme offensif, est éliminé malgré une défense solide. Curaçao termine logiquement dernier.
+
+
+| Journée | Match | Score | Type | P(V/N/D) |
+|:--:|:--|:--:|:--:|:--:|
+| J1 | Allemagne – Curaçao | **7-1** | réel ✅ | 0.93/0.06/0.01 |
+| J1 | Côte d'Ivoire – Équateur | **1-0** | réel ✅ | 0.40/0.30/0.30 |
+| J2 | Allemagne – Côte d'Ivoire | **2-1** | prono 🔮 | 0.60/0.24/0.16 |
+| J2 | Équateur – Curaçao | **2-0** | prono 🔮 | 0.78/0.16/0.06 |
+| J3 | Curaçao – Côte d'Ivoire | **0-2** | prono 🔮 | 0.08/0.17/0.75 |
+| J3 | Équateur – Allemagne | **1-1** | prono 🔮 | 0.26/0.38/0.36 |
+
+**Classement final pronostiqué**
+
+| Rang | Équipe | Pts | J | G | N | P | BP | BC | Diff | Statut |
+|:--:|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--|
+| 1 | Allemagne | **7** | 3 | 2 | 1 | 0 | 10 | 3 | +7 | 🟢 1er — qualifié |
+| 2 | Côte d'Ivoire | **6** | 3 | 2 | 0 | 1 | 4 | 2 | +2 | 🟢 2e — qualifié |
+| 3 | Équateur | **4** | 3 | 1 | 1 | 1 | 3 | 2 | +1 | 🟡 3e — qualifié |
+| 4 | Curaçao | **0** | 3 | 0 | 0 | 3 | 1 | 11 | -10 | 🔴 éliminé |
+
+
+## Groupe F
+
+Surprise du groupe : la Suède, portée par le duo Isak-Gyökeres (5-1 en J1), prend la tête. Les Pays-Bas, accrochés deux fois, terminent 2es. Le Japon (privé de Mitoma) sauve une 3e place qualifiable. La Tunisie s'effondre.
+
+
+| Journée | Match | Score | Type | P(V/N/D) |
+|:--:|:--|:--:|:--:|:--:|
+| J1 | Pays-Bas – Japon | **2-2** | réel ✅ | 0.45/0.30/0.25 |
+| J1 | Suède – Tunisie | **5-1** | réel ✅ | 0.59/0.22/0.19 |
+| J2 | Pays-Bas – Suède | **2-2** | prono 🔮 | 0.35/0.30/0.35 |
+| J2 | Tunisie – Japon | **0-2** | prono 🔮 | 0.18/0.27/0.55 |
+| J3 | Japon – Suède | **1-2** | prono 🔮 | 0.30/0.26/0.44 |
+| J3 | Tunisie – Pays-Bas | **0-2** | prono 🔮 | 0.14/0.26/0.60 |
+
+**Classement final pronostiqué**
+
+| Rang | Équipe | Pts | J | G | N | P | BP | BC | Diff | Statut |
+|:--:|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--|
+| 1 | Suède | **7** | 3 | 2 | 1 | 0 | 9 | 4 | +5 | 🟢 1er — qualifié |
+| 2 | Pays-Bas | **5** | 3 | 1 | 2 | 0 | 6 | 4 | +2 | 🟢 2e — qualifié |
+| 3 | Japon | **4** | 3 | 1 | 1 | 1 | 5 | 4 | +1 | 🟡 3e — qualifié |
+| 4 | Tunisie | **0** | 3 | 0 | 0 | 3 | 1 | 9 | -8 | 🔴 éliminé |
+
+
+## Groupe G
+
+Groupe le plus ouvert : la Belgique finit par s'imposer, l'Égypte de Salah prend la 2e place. L'Iran, trop nul (3 nuls puis défaite), manque la qualification de justesse. La Nouvelle-Zélande, valeureuse, termine dernière.
+
+
+| Journée | Match | Score | Type | P(V/N/D) |
+|:--:|:--|:--:|:--:|:--:|
+| J1 | Belgique – Égypte | **1-1** | réel ✅ | 0.45/0.30/0.25 |
+| J1 | Iran – Nouvelle-Zélande | **2-2** | réel ✅ | 0.55/0.25/0.20 |
+| J2 | Belgique – Iran | **2-1** | prono 🔮 | 0.55/0.25/0.20 |
+| J2 | Nouvelle-Zélande – Égypte | **1-2** | prono 🔮 | 0.18/0.24/0.58 |
+| J3 | Égypte – Iran | **1-1** | prono 🔮 | 0.38/0.35/0.27 |
+| J3 | Nouvelle-Zélande – Belgique | **0-2** | prono 🔮 | 0.12/0.20/0.68 |
+
+**Classement final pronostiqué**
+
+| Rang | Équipe | Pts | J | G | N | P | BP | BC | Diff | Statut |
+|:--:|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--|
+| 1 | Belgique | **7** | 3 | 2 | 1 | 0 | 5 | 2 | +3 | 🟢 1er — qualifié |
+| 2 | Égypte | **5** | 3 | 1 | 2 | 0 | 4 | 3 | +1 | 🟢 2e — qualifié |
+| 3 | Iran | **2** | 3 | 0 | 2 | 1 | 4 | 5 | -1 | 🔴 éliminé |
+| 4 | Nouvelle-Zélande | **1** | 3 | 0 | 1 | 2 | 3 | 6 | -3 | 🔴 éliminé |
+
+
+## Groupe H
+
+Après son 0-0 surprise contre le Cap-Vert, l'Espagne se reprend et domine. L'Uruguay de Bielsa, diminué par les blessures, assure la 2e place. Le Cap-Vert devance l'Arabie saoudite pour la 3e place mais ne se qualifie pas.
+
+
+| Journée | Match | Score | Type | P(V/N/D) |
+|:--:|:--|:--:|:--:|:--:|
+| J1 | Espagne – Cap-Vert | **0-0** | réel ✅ | 0.85/0.12/0.03 |
+| J1 | Arabie saoudite – Uruguay | **1-1** | réel ✅ | 0.18/0.30/0.52 |
+| J2 | Espagne – Arabie saoudite | **3-0** | prono 🔮 | 0.80/0.14/0.06 |
+| J2 | Uruguay – Cap-Vert | **1-0** | prono 🔮 | 0.58/0.27/0.15 |
+| J3 | Cap-Vert – Arabie saoudite | **1-1** | prono 🔮 | 0.33/0.34/0.33 |
+| J3 | Uruguay – Espagne | **1-2** | prono 🔮 | 0.22/0.26/0.52 |
+
+**Classement final pronostiqué**
+
+| Rang | Équipe | Pts | J | G | N | P | BP | BC | Diff | Statut |
+|:--:|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--|
+| 1 | Espagne | **7** | 3 | 2 | 1 | 0 | 5 | 1 | +4 | 🟢 1er — qualifié |
+| 2 | Uruguay | **4** | 3 | 1 | 1 | 1 | 3 | 3 | +0 | 🟢 2e — qualifié |
+| 3 | Cap-Vert | **2** | 3 | 0 | 2 | 1 | 1 | 2 | -1 | 🔴 éliminé |
+| 4 | Arabie saoudite | **2** | 3 | 0 | 2 | 1 | 2 | 5 | -3 | 🔴 éliminé |
+
+
+## Groupe I
+
+La France, intraitable (9 pts), survole un groupe relevé. Le Sénégal, champion d'Afrique en titre, prend la 2e place devant la Norvège de Haaland (3e qualifiable). L'Irak termine sans point.
+
+
+| Journée | Match | Score | Type | P(V/N/D) |
+|:--:|:--|:--:|:--:|:--:|
+| J1 | France – Sénégal | **2-1** | prono 🔮 | 0.58/0.24/0.18 |
+| J1 | Irak – Norvège | **0-1** | prono 🔮 | 0.12/0.24/0.64 |
+| J2 | France – Irak | **3-0** | prono 🔮 | 0.86/0.10/0.04 |
+| J2 | Norvège – Sénégal | **1-1** | prono 🔮 | 0.32/0.30/0.38 |
+| J3 | Norvège – France | **1-2** | prono 🔮 | 0.22/0.24/0.54 |
+| J3 | Sénégal – Irak | **2-0** | prono 🔮 | 0.78/0.15/0.07 |
+
+**Classement final pronostiqué**
+
+| Rang | Équipe | Pts | J | G | N | P | BP | BC | Diff | Statut |
+|:--:|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--|
+| 1 | France | **9** | 3 | 3 | 0 | 0 | 7 | 2 | +5 | 🟢 1er — qualifié |
+| 2 | Sénégal | **4** | 3 | 1 | 1 | 1 | 4 | 3 | +1 | 🟢 2e — qualifié |
+| 3 | Norvège | **4** | 3 | 1 | 1 | 1 | 3 | 3 | +0 | 🟡 3e — qualifié |
+| 4 | Irak | **0** | 3 | 0 | 0 | 3 | 0 | 6 | -6 | 🔴 éliminé |
+
+
+## Groupe J
+
+L'Argentine déroule (9 pts). L'Autriche (2e) et l'Algérie (meilleur 3e) se qualifient toutes deux avec 4 points ; leur hiérarchie reste très serrée (point ouvert signalé par la critique). La Jordanie termine dernière.
+
+
+| Journée | Match | Score | Type | P(V/N/D) |
+|:--:|:--|:--:|:--:|:--:|
+| J1 | Argentine – Algérie | **2-0** | prono 🔮 | 0.72/0.18/0.10 |
+| J1 | Autriche – Jordanie | **2-0** | prono 🔮 | 0.64/0.24/0.12 |
+| J2 | Argentine – Autriche | **2-1** | prono 🔮 | 0.66/0.21/0.13 |
+| J2 | Jordanie – Algérie | **0-2** | prono 🔮 | 0.14/0.26/0.60 |
+| J3 | Jordanie – Argentine | **1-2** | prono 🔮 | 0.12/0.20/0.68 |
+| J3 | Algérie – Autriche | **1-1** | prono 🔮 | 0.33/0.30/0.37 |
+
+**Classement final pronostiqué**
+
+| Rang | Équipe | Pts | J | G | N | P | BP | BC | Diff | Statut |
+|:--:|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--|
+| 1 | Argentine | **9** | 3 | 3 | 0 | 0 | 6 | 2 | +4 | 🟢 1er — qualifié |
+| 2 | Autriche | **4** | 3 | 1 | 1 | 1 | 4 | 3 | +1 | 🟢 2e — qualifié |
+| 3 | Algérie | **4** | 3 | 1 | 1 | 1 | 3 | 3 | +0 | 🟡 3e — qualifié |
+| 4 | Jordanie | **0** | 3 | 0 | 0 | 3 | 1 | 6 | -5 | 🔴 éliminé |
+
+
+## Groupe K
+
+Portugal et Colombie, au coude-à-coude (nul 1-1 décisif), se qualifient tous deux, le Portugal 1er à la différence de buts. La RD Congo arrache une 3e place qualifiable de justesse. L'Ouzbékistan, pour sa 1ère CDM, termine dernier.
+
+
+| Journée | Match | Score | Type | P(V/N/D) |
+|:--:|:--|:--:|:--:|:--:|
+| J1 | Portugal – RD Congo | **2-0** | prono 🔮 | 0.66/0.20/0.14 |
+| J1 | Ouzbékistan – Colombie | **0-2** | prono 🔮 | 0.12/0.22/0.66 |
+| J2 | Portugal – Ouzbékistan | **3-0** | prono 🔮 | 0.78/0.15/0.07 |
+| J2 | Colombie – RD Congo | **2-1** | prono 🔮 | 0.56/0.24/0.20 |
+| J3 | Colombie – Portugal | **1-1** | prono 🔮 | 0.32/0.36/0.32 |
+| J3 | RD Congo – Ouzbékistan | **2-1** | prono 🔮 | 0.50/0.27/0.23 |
+
+**Classement final pronostiqué**
+
+| Rang | Équipe | Pts | J | G | N | P | BP | BC | Diff | Statut |
+|:--:|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--|
+| 1 | Portugal | **7** | 3 | 2 | 1 | 0 | 6 | 1 | +5 | 🟢 1er — qualifié |
+| 2 | Colombie | **7** | 3 | 2 | 1 | 0 | 5 | 2 | +3 | 🟢 2e — qualifié |
+| 3 | RD Congo | **3** | 3 | 1 | 0 | 2 | 3 | 5 | -2 | 🟡 3e — qualifié |
+| 4 | Ouzbékistan | **0** | 3 | 0 | 0 | 3 | 1 | 7 | -6 | 🔴 éliminé |
+
+
+## Groupe L
+
+L'Angleterre est démonstrative (9 pts, +6). La Croatie, vieillissante mais expérimentée, prend la 2e place. Ghana et Panama, à égalité au fond du classement, sont tous deux éliminés.
+
+
+| Journée | Match | Score | Type | P(V/N/D) |
+|:--:|:--|:--:|:--:|:--:|
+| J1 | Angleterre – Croatie | **2-0** | prono 🔮 | 0.68/0.22/0.10 |
+| J1 | Ghana – Panama | **1-1** | prono 🔮 | 0.38/0.32/0.30 |
+| J2 | Angleterre – Ghana | **2-0** | prono 🔮 | 0.78/0.16/0.06 |
+| J2 | Panama – Croatie | **1-2** | prono 🔮 | 0.16/0.24/0.60 |
+| J3 | Panama – Angleterre | **0-2** | prono 🔮 | 0.06/0.14/0.80 |
+| J3 | Croatie – Ghana | **2-1** | prono 🔮 | 0.60/0.24/0.16 |
+
+**Classement final pronostiqué**
+
+| Rang | Équipe | Pts | J | G | N | P | BP | BC | Diff | Statut |
+|:--:|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--|
+| 1 | Angleterre | **9** | 3 | 3 | 0 | 0 | 6 | 0 | +6 | 🟢 1er — qualifié |
+| 2 | Croatie | **6** | 3 | 2 | 0 | 1 | 4 | 4 | +0 | 🟢 2e — qualifié |
+| 3 | Ghana | **1** | 3 | 0 | 1 | 2 | 2 | 5 | -3 | 🔴 éliminé |
+| 4 | Panama | **1** | 3 | 0 | 1 | 2 | 2 | 5 | -3 | 🔴 éliminé |
+
+
+---
+
+
+## 🎟️ Les 32 qualifiés pour les 1/16 de finale
+
+Format 2026 : 12 premiers + 12 deuxièmes + **8 meilleurs troisièmes**.
+
+
+| # | 1ers de groupe | 2es de groupe | Meilleurs 3es |
+|:--:|:--|:--|:--|
+| 1 | A · Corée du Sud | A · Mexique | F · Japon |
+| 2 | B · Suisse | B · Canada | E · Équateur |
+| 3 | C · Brésil | C · Maroc | J · Algérie |
+| 4 | D · États-Unis | D · Australie | I · Norvège |
+| 5 | E · Allemagne | E · Côte d'Ivoire | A · Tchéquie |
+| 6 | F · Suède | F · Pays-Bas | B · Bosnie-Herzégovine |
+| 7 | G · Belgique | G · Égypte | D · Turquie |
+| 8 | H · Espagne | H · Uruguay | K · RD Congo |
+| 9 | I · France | I · Sénégal |  |
+| 10 | J · Argentine | J · Autriche |  |
+| 11 | K · Portugal | K · Colombie |  |
+| 12 | L · Angleterre | L · Croatie |  |
+
+**Course aux meilleurs 3es (très serrée)** — les 8 premiers passent :
+
+
+| Rang 3es | Groupe | Équipe | Pts | Diff | BP | Qualifié |
+|:--:|:--:|:--|:--:|:--:|:--:|:--:|
+| 1 | F | Japon | 4 | +1 | 5 | ✅ |
+| 2 | E | Équateur | 4 | +1 | 3 | ✅ |
+| 3 | J | Algérie | 4 | +0 | 3 | ✅ |
+| 4 | I | Norvège | 4 | +0 | 3 | ✅ |
+| 5 | A | Tchéquie | 4 | +0 | 3 | ✅ |
+| 6 | B | Bosnie-Herzégovine | 4 | -1 | 3 | ✅ |
+| 7 | D | Turquie | 4 | -1 | 3 | ✅ |
+| 8 | K | RD Congo | 3 | -2 | 3 | ✅ |
+| 9 | C | Écosse | 3 | -2 | 2 | ❌ |
+| 10 | G | Iran | 2 | -1 | 4 | ❌ |
+| 11 | H | Cap-Vert | 2 | -1 | 1 | ❌ |
+| 12 | L | Ghana | 1 | -3 | 2 | ❌ |
+
+---
+
+
+## 🔬 Méthodologie & limites
+
+- **Modèle Poisson** : `λ` (buts attendus) dérivés de l'Elo via une *supremacy* bornée (`3.6·tanh(Δelo/350)`) et un volume de buts croissant avec le déséquilibre ; avantage hôte pour le Mexique, les USA et le Canada. Détails et sensibilité : `notebooks/analyse_pronos.ipynb`.
+
+- **Multi-agents** : 12 agents prédicteurs (1/groupe, recherche web sur forme, effectifs, blessures, compétitions 2024-2026) ont ajusté le baseline ; 4 agents critiques ont challengé réalisme, biais et cohérence (départages, excès de nuls).
+
+- **Validation** : confronté aux résultats réels de la J1, le modèle Elo pur n'a anticipé que **~38 % des issues** — une J1 exceptionnellement nulle et surprenante (8 nuls sur 16, dont Espagne 0-0 Cap-Vert), ce qui rappelle l'imprévisibilité du football et justifie la couche experts.
+
+- **Limites** : un pronostic n'est pas une prédiction certaine. La course aux meilleurs 3es se joue à un but près ; plusieurs départages (Autriche/Algérie, Norvège/Sénégal) sont des quasi-pile-ou-face. Hors périmètre : la phase à élimination directe.

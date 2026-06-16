@@ -2883,7 +2883,1088 @@ window.DATA = {
    "tm": "https://www.transfermarkt.com/ghana/kader/verein/3441"
   }
  },
- "h2h": {},
+ "h2h": {
+  "Mexique | Afrique du Sud": {
+   "meetings": [
+    {
+     "date": "2010-06",
+     "comp": "Coupe du Monde",
+     "home": "Afrique du Sud",
+     "hs": 1,
+     "away": "Mexique",
+     "as": 1
+    },
+    {
+     "date": "2005-07",
+     "comp": "Gold Cup",
+     "home": "Afrique du Sud",
+     "hs": 2,
+     "away": "Mexique",
+     "as": 1
+    },
+    {
+     "date": "2000-06",
+     "comp": "Amical",
+     "home": "Mexique",
+     "hs": 4,
+     "away": "Afrique du Sud",
+     "as": 2
+    },
+    {
+     "date": "1993-10",
+     "comp": "Amical",
+     "home": "Mexique",
+     "hs": 4,
+     "away": "Afrique du Sud",
+     "as": 0
+    }
+   ]
+  },
+  "Corée du Sud | Tchéquie": {
+   "meetings": [
+    {
+     "date": "2016-06",
+     "comp": "Amical",
+     "home": "Tchéquie",
+     "hs": 1,
+     "away": "Corée du Sud",
+     "as": 2
+    },
+    {
+     "date": "2001-08",
+     "comp": "Amical",
+     "home": "Tchéquie",
+     "hs": 5,
+     "away": "Corée du Sud",
+     "as": 0
+    },
+    {
+     "date": "1998-05",
+     "comp": "Amical",
+     "home": "Corée du Sud",
+     "hs": 2,
+     "away": "Tchéquie",
+     "as": 2
+    }
+   ]
+  },
+  "Tchéquie | Afrique du Sud": {
+   "meetings": []
+  },
+  "Mexique | Corée du Sud": {
+   "meetings": [
+    {
+     "date": "2025-09",
+     "comp": "Amical",
+     "home": "Mexique",
+     "hs": 2,
+     "away": "Corée du Sud",
+     "as": 2
+    },
+    {
+     "date": "2020-11",
+     "comp": "Amical",
+     "home": "Mexique",
+     "hs": 3,
+     "away": "Corée du Sud",
+     "as": 2
+    },
+    {
+     "date": "2018-06",
+     "comp": "Coupe du Monde",
+     "home": "Corée du Sud",
+     "hs": 1,
+     "away": "Mexique",
+     "as": 2
+    },
+    {
+     "date": "2014-01",
+     "comp": "Amical",
+     "home": "Mexique",
+     "hs": 4,
+     "away": "Corée du Sud",
+     "as": 0
+    },
+    {
+     "date": "1998-06",
+     "comp": "Coupe du Monde",
+     "home": "Corée du Sud",
+     "hs": 1,
+     "away": "Mexique",
+     "as": 3
+    }
+   ]
+  },
+  "Tchéquie | Mexique": {
+   "meetings": []
+  },
+  "Afrique du Sud | Corée du Sud": {
+   "meetings": []
+  },
+  "Canada | Bosnie-Herzégovine": {
+   "meetings": []
+  },
+  "Qatar | Suisse": {
+   "meetings": [
+    {
+     "date": "2018-11",
+     "comp": "Amical",
+     "home": "Suisse",
+     "hs": 0,
+     "away": "Qatar",
+     "as": 1
+    }
+   ]
+  },
+  "Suisse | Bosnie-Herzégovine": {
+   "meetings": [
+    {
+     "date": "2016-03",
+     "comp": "Amical",
+     "home": "Suisse",
+     "hs": 0,
+     "away": "Bosnie-Herzégovine",
+     "as": 2
+    }
+   ]
+  },
+  "Canada | Qatar": {
+   "meetings": [
+    {
+     "date": "2022-09",
+     "comp": "Amical",
+     "home": "Qatar",
+     "hs": 0,
+     "away": "Canada",
+     "as": 2
+    }
+   ]
+  },
+  "Suisse | Canada": {
+   "meetings": [
+    {
+     "date": "2002-05",
+     "comp": "Amical",
+     "home": "Suisse",
+     "hs": 1,
+     "away": "Canada",
+     "as": 3
+    }
+   ]
+  },
+  "Bosnie-Herzégovine | Qatar": {
+   "meetings": [
+    {
+     "date": "2000-01",
+     "comp": "Amical",
+     "home": "Qatar",
+     "hs": 2,
+     "away": "Bosnie-Herzégovine",
+     "as": 0
+    }
+   ]
+  },
+  "Brésil | Maroc": {
+   "meetings": [
+    {
+     "date": "2023-03",
+     "comp": "Amical",
+     "home": "Maroc",
+     "hs": 2,
+     "away": "Brésil",
+     "as": 1
+    },
+    {
+     "date": "1998-06",
+     "comp": "Coupe du Monde",
+     "home": "Brésil",
+     "hs": 3,
+     "away": "Maroc",
+     "as": 0
+    },
+    {
+     "date": "1997-10",
+     "comp": "Amical",
+     "home": "Brésil",
+     "hs": 2,
+     "away": "Maroc",
+     "as": 0
+    }
+   ]
+  },
+  "Haïti | Écosse": {
+   "meetings": []
+  },
+  "Écosse | Maroc": {
+   "meetings": [
+    {
+     "date": "1998-06",
+     "comp": "Coupe du Monde",
+     "home": "Maroc",
+     "hs": 3,
+     "away": "Écosse",
+     "as": 0
+    }
+   ]
+  },
+  "Brésil | Haïti": {
+   "meetings": [
+    {
+     "date": "2016-06",
+     "comp": "Copa America",
+     "home": "Brésil",
+     "hs": 7,
+     "away": "Haïti",
+     "as": 1
+    },
+    {
+     "date": "2004-08",
+     "comp": "Amical",
+     "home": "Haïti",
+     "hs": 0,
+     "away": "Brésil",
+     "as": 6
+    }
+   ]
+  },
+  "Écosse | Brésil": {
+   "meetings": [
+    {
+     "date": "2011-03",
+     "comp": "Amical",
+     "home": "Brésil",
+     "hs": 2,
+     "away": "Écosse",
+     "as": 0
+    },
+    {
+     "date": "1998-06",
+     "comp": "Coupe du Monde",
+     "home": "Brésil",
+     "hs": 2,
+     "away": "Écosse",
+     "as": 1
+    },
+    {
+     "date": "1990-06",
+     "comp": "Coupe du Monde",
+     "home": "Brésil",
+     "hs": 1,
+     "away": "Écosse",
+     "as": 0
+    },
+    {
+     "date": "1987-05",
+     "comp": "Amical",
+     "home": "Écosse",
+     "hs": 0,
+     "away": "Brésil",
+     "as": 2
+    },
+    {
+     "date": "1982-06",
+     "comp": "Coupe du Monde",
+     "home": "Brésil",
+     "hs": 4,
+     "away": "Écosse",
+     "as": 1
+    }
+   ]
+  },
+  "Maroc | Haïti": {
+   "meetings": []
+  },
+  "États-Unis | Paraguay": {
+   "meetings": [
+    {
+     "date": "2025-11",
+     "comp": "Amical",
+     "home": "États-Unis",
+     "hs": 2,
+     "away": "Paraguay",
+     "as": 1
+    },
+    {
+     "date": "2018-03",
+     "comp": "Amical",
+     "home": "États-Unis",
+     "hs": 1,
+     "away": "Paraguay",
+     "as": 0
+    },
+    {
+     "date": "2016-06",
+     "comp": "Copa America",
+     "home": "États-Unis",
+     "hs": 1,
+     "away": "Paraguay",
+     "as": 0
+    },
+    {
+     "date": "2007-07",
+     "comp": "Copa America",
+     "home": "États-Unis",
+     "hs": 1,
+     "away": "Paraguay",
+     "as": 3
+    }
+   ]
+  },
+  "Australie | Turquie": {
+   "meetings": [
+    {
+     "date": "2004-05",
+     "comp": "Amical",
+     "home": "Australie",
+     "hs": 0,
+     "away": "Turquie",
+     "as": 1
+    },
+    {
+     "date": "2004-05",
+     "comp": "Amical",
+     "home": "Australie",
+     "hs": 1,
+     "away": "Turquie",
+     "as": 3
+    }
+   ]
+  },
+  "États-Unis | Australie": {
+   "meetings": [
+    {
+     "date": "2025-10",
+     "comp": "Amical",
+     "home": "États-Unis",
+     "hs": 2,
+     "away": "Australie",
+     "as": 1
+    },
+    {
+     "date": "2010-06",
+     "comp": "Amical",
+     "home": "États-Unis",
+     "hs": 3,
+     "away": "Australie",
+     "as": 1
+    },
+    {
+     "date": "1992-06",
+     "comp": "Amical",
+     "home": "États-Unis",
+     "hs": 0,
+     "away": "Australie",
+     "as": 1
+    }
+   ]
+  },
+  "Turquie | Paraguay": {
+   "meetings": [
+    {
+     "date": "1995-06",
+     "comp": "Amical",
+     "home": "Paraguay",
+     "hs": 0,
+     "away": "Turquie",
+     "as": 0
+    }
+   ]
+  },
+  "Turquie | États-Unis": {
+   "meetings": [
+    {
+     "date": "2025-06",
+     "comp": "Amical",
+     "home": "États-Unis",
+     "hs": 1,
+     "away": "Turquie",
+     "as": 2
+    },
+    {
+     "date": "2014-06",
+     "comp": "Amical",
+     "home": "États-Unis",
+     "hs": 2,
+     "away": "Turquie",
+     "as": 1
+    },
+    {
+     "date": "2010-05",
+     "comp": "Amical",
+     "home": "États-Unis",
+     "hs": 2,
+     "away": "Turquie",
+     "as": 1
+    },
+    {
+     "date": "1991-09",
+     "comp": "Amical",
+     "home": "Turquie",
+     "hs": 1,
+     "away": "États-Unis",
+     "as": 1
+    }
+   ]
+  },
+  "Paraguay | Australie": {
+   "meetings": [
+    {
+     "date": "2010-10",
+     "comp": "Amical",
+     "home": "Australie",
+     "hs": 1,
+     "away": "Paraguay",
+     "as": 1
+    },
+    {
+     "date": "2006-10",
+     "comp": "Amical",
+     "home": "Australie",
+     "hs": 1,
+     "away": "Paraguay",
+     "as": 1
+    }
+   ]
+  },
+  "Allemagne | Curaçao": {
+   "meetings": []
+  },
+  "Côte d'Ivoire | Équateur": {
+   "meetings": []
+  },
+  "Allemagne | Côte d'Ivoire": {
+   "meetings": [
+    {
+     "date": "2009-11",
+     "comp": "Amical",
+     "home": "Allemagne",
+     "hs": 2,
+     "away": "Côte d'Ivoire",
+     "as": 2
+    }
+   ]
+  },
+  "Équateur | Curaçao": {
+   "meetings": []
+  },
+  "Curaçao | Côte d'Ivoire": {
+   "meetings": []
+  },
+  "Équateur | Allemagne": {
+   "meetings": [
+    {
+     "date": "2013-05",
+     "comp": "Amical",
+     "home": "Équateur",
+     "hs": 2,
+     "away": "Allemagne",
+     "as": 4
+    },
+    {
+     "date": "2006-06",
+     "comp": "Coupe du Monde",
+     "home": "Équateur",
+     "hs": 0,
+     "away": "Allemagne",
+     "as": 3
+    }
+   ]
+  },
+  "Pays-Bas | Japon": {
+   "meetings": [
+    {
+     "date": "2013-11",
+     "comp": "Amical",
+     "home": "Pays-Bas",
+     "hs": 2,
+     "away": "Japon",
+     "as": 2
+    },
+    {
+     "date": "2010-06",
+     "comp": "Coupe du Monde",
+     "home": "Pays-Bas",
+     "hs": 1,
+     "away": "Japon",
+     "as": 0
+    }
+   ]
+  },
+  "Suède | Tunisie": {
+   "meetings": [
+    {
+     "date": "2003-02",
+     "comp": "Amical",
+     "home": "Tunisie",
+     "hs": 1,
+     "away": "Suède",
+     "as": 0
+    },
+    {
+     "date": "1999-02",
+     "comp": "Amical",
+     "home": "Tunisie",
+     "hs": 0,
+     "away": "Suède",
+     "as": 1
+    },
+    {
+     "date": "1992-04",
+     "comp": "Amical",
+     "home": "Tunisie",
+     "hs": 0,
+     "away": "Suède",
+     "as": 1
+    },
+    {
+     "date": "1976-02",
+     "comp": "Amical",
+     "home": "Tunisie",
+     "hs": 1,
+     "away": "Suède",
+     "as": 1
+    }
+   ]
+  },
+  "Pays-Bas | Suède": {
+   "meetings": [
+    {
+     "date": "2017-10",
+     "comp": "Qualifications CDM",
+     "home": "Pays-Bas",
+     "hs": 2,
+     "away": "Suède",
+     "as": 0
+    },
+    {
+     "date": "2016-09",
+     "comp": "Qualifications CDM",
+     "home": "Suède",
+     "hs": 1,
+     "away": "Pays-Bas",
+     "as": 1
+    },
+    {
+     "date": "2011-10",
+     "comp": "Qualifications Euro",
+     "home": "Suède",
+     "hs": 3,
+     "away": "Pays-Bas",
+     "as": 2
+    },
+    {
+     "date": "2010-10",
+     "comp": "Qualifications Euro",
+     "home": "Pays-Bas",
+     "hs": 4,
+     "away": "Suède",
+     "as": 1
+    },
+    {
+     "date": "2008-11",
+     "comp": "Amical",
+     "home": "Pays-Bas",
+     "hs": 3,
+     "away": "Suède",
+     "as": 1
+    }
+   ]
+  },
+  "Tunisie | Japon": {
+   "meetings": [
+    {
+     "date": "2023-10",
+     "comp": "Amical",
+     "home": "Japon",
+     "hs": 2,
+     "away": "Tunisie",
+     "as": 0
+    },
+    {
+     "date": "2022-06",
+     "comp": "Amical",
+     "home": "Japon",
+     "hs": 0,
+     "away": "Tunisie",
+     "as": 3
+    },
+    {
+     "date": "2015-03",
+     "comp": "Amical",
+     "home": "Japon",
+     "hs": 2,
+     "away": "Tunisie",
+     "as": 0
+    },
+    {
+     "date": "2003-10",
+     "comp": "Amical",
+     "home": "Tunisie",
+     "hs": 0,
+     "away": "Japon",
+     "as": 1
+    },
+    {
+     "date": "2002-06",
+     "comp": "Coupe du Monde",
+     "home": "Tunisie",
+     "hs": 0,
+     "away": "Japon",
+     "as": 2
+    }
+   ]
+  },
+  "Japon | Suède": {
+   "meetings": [
+    {
+     "date": "2002-05",
+     "comp": "Amical",
+     "home": "Japon",
+     "hs": 1,
+     "away": "Suède",
+     "as": 1
+    },
+    {
+     "date": "1997-02",
+     "comp": "Amical",
+     "home": "Suède",
+     "hs": 1,
+     "away": "Japon",
+     "as": 0
+    },
+    {
+     "date": "1996-02",
+     "comp": "Amical",
+     "home": "Japon",
+     "hs": 1,
+     "away": "Suède",
+     "as": 1
+    },
+    {
+     "date": "1995-06",
+     "comp": "Amical",
+     "home": "Suède",
+     "hs": 2,
+     "away": "Japon",
+     "as": 2
+    },
+    {
+     "date": "1936-08",
+     "comp": "Jeux Olympiques",
+     "home": "Japon",
+     "hs": 3,
+     "away": "Suède",
+     "as": 2
+    }
+   ]
+  },
+  "Tunisie | Pays-Bas": {
+   "meetings": []
+  },
+  "Belgique | Égypte": {
+   "meetings": [
+    {
+     "date": "2022-11",
+     "comp": "Amical",
+     "home": "Belgique",
+     "hs": 1,
+     "away": "Égypte",
+     "as": 2
+    },
+    {
+     "date": "2018-06",
+     "comp": "Amical",
+     "home": "Belgique",
+     "hs": 3,
+     "away": "Égypte",
+     "as": 0
+    },
+    {
+     "date": "2005-02",
+     "comp": "Amical",
+     "home": "Égypte",
+     "hs": 4,
+     "away": "Belgique",
+     "as": 0
+    },
+    {
+     "date": "1999-03",
+     "comp": "Amical",
+     "home": "Belgique",
+     "hs": 0,
+     "away": "Égypte",
+     "as": 1
+    }
+   ]
+  },
+  "Iran | Nouvelle-Zélande": {
+   "meetings": [
+    {
+     "date": "2003-10",
+     "comp": "Amical",
+     "home": "Iran",
+     "hs": 3,
+     "away": "Nouvelle-Zélande",
+     "as": 0
+    },
+    {
+     "date": "1973-08",
+     "comp": "Amical",
+     "home": "Nouvelle-Zélande",
+     "hs": 0,
+     "away": "Iran",
+     "as": 0
+    }
+   ]
+  },
+  "Belgique | Iran": {
+   "meetings": []
+  },
+  "Nouvelle-Zélande | Égypte": {
+   "meetings": [
+    {
+     "date": "2024-03",
+     "comp": "Amical",
+     "home": "Égypte",
+     "hs": 1,
+     "away": "Nouvelle-Zélande",
+     "as": 0
+    }
+   ]
+  },
+  "Égypte | Iran": {
+   "meetings": []
+  },
+  "Nouvelle-Zélande | Belgique": {
+   "meetings": []
+  },
+  "Espagne | Cap-Vert": {
+   "meetings": []
+  },
+  "Arabie saoudite | Uruguay": {
+   "meetings": [
+    {
+     "date": "2018-06",
+     "comp": "Coupe du Monde",
+     "home": "Uruguay",
+     "hs": 1,
+     "away": "Arabie saoudite",
+     "as": 0
+    },
+    {
+     "date": "2014-10",
+     "comp": "Amical",
+     "home": "Arabie saoudite",
+     "hs": 1,
+     "away": "Uruguay",
+     "as": 1
+    },
+    {
+     "date": "2002-03",
+     "comp": "Amical",
+     "home": "Arabie saoudite",
+     "hs": 3,
+     "away": "Uruguay",
+     "as": 2
+    }
+   ]
+  },
+  "Espagne | Arabie saoudite": {
+   "meetings": [
+    {
+     "date": "2012-09",
+     "comp": "Amical",
+     "home": "Espagne",
+     "hs": 5,
+     "away": "Arabie saoudite",
+     "as": 0
+    },
+    {
+     "date": "2010-05",
+     "comp": "Amical",
+     "home": "Espagne",
+     "hs": 3,
+     "away": "Arabie saoudite",
+     "as": 2
+    },
+    {
+     "date": "2006-06",
+     "comp": "Coupe du Monde",
+     "home": "Arabie saoudite",
+     "hs": 0,
+     "away": "Espagne",
+     "as": 1
+    }
+   ]
+  },
+  "Uruguay | Cap-Vert": {
+   "meetings": []
+  },
+  "Cap-Vert | Arabie saoudite": {
+   "meetings": []
+  },
+  "Uruguay | Espagne": {
+   "meetings": [
+    {
+     "date": "2013-06",
+     "comp": "Coupe des Confédérations",
+     "home": "Espagne",
+     "hs": 2,
+     "away": "Uruguay",
+     "as": 1
+    },
+    {
+     "date": "2013-02",
+     "comp": "Amical",
+     "home": "Espagne",
+     "hs": 3,
+     "away": "Uruguay",
+     "as": 1
+    },
+    {
+     "date": "1990-06",
+     "comp": "Coupe du Monde",
+     "home": "Espagne",
+     "hs": 0,
+     "away": "Uruguay",
+     "as": 0
+    },
+    {
+     "date": "1950-07",
+     "comp": "Coupe du Monde",
+     "home": "Espagne",
+     "hs": 2,
+     "away": "Uruguay",
+     "as": 2
+    }
+   ]
+  },
+  "France | Sénégal": {
+   "meetings": [
+    {
+     "date": "2002-05",
+     "comp": "Coupe du Monde",
+     "home": "Sénégal",
+     "hs": 1,
+     "away": "France",
+     "as": 0
+    }
+   ]
+  },
+  "Irak | Norvège": {
+   "meetings": []
+  },
+  "France | Irak": {
+   "meetings": []
+  },
+  "Norvège | Sénégal": {
+   "meetings": [
+    {
+     "date": "2006-03",
+     "comp": "Amical",
+     "home": "Sénégal",
+     "hs": 2,
+     "away": "Norvège",
+     "as": 1
+    }
+   ]
+  },
+  "Norvège | France": {
+   "meetings": [
+    {
+     "date": "2014-05",
+     "comp": "Amical",
+     "home": "France",
+     "hs": 4,
+     "away": "Norvège",
+     "as": 0
+    },
+    {
+     "date": "2010-08",
+     "comp": "Amical",
+     "home": "Norvège",
+     "hs": 2,
+     "away": "France",
+     "as": 1
+    },
+    {
+     "date": "1998-02",
+     "comp": "Amical",
+     "home": "France",
+     "hs": 3,
+     "away": "Norvège",
+     "as": 3
+    },
+    {
+     "date": "1995-07",
+     "comp": "Amical",
+     "home": "Norvège",
+     "hs": 0,
+     "away": "France",
+     "as": 0
+    },
+    {
+     "date": "1988-09",
+     "comp": "Qualifications CDM",
+     "home": "France",
+     "hs": 1,
+     "away": "Norvège",
+     "as": 0
+    }
+   ]
+  },
+  "Sénégal | Irak": {
+   "meetings": []
+  },
+  "Argentine | Algérie": {
+   "meetings": [
+    {
+     "date": "2007-06",
+     "comp": "Amical",
+     "home": "Argentine",
+     "hs": 4,
+     "away": "Algérie",
+     "as": 3
+    }
+   ]
+  },
+  "Autriche | Jordanie": {
+   "meetings": []
+  },
+  "Argentine | Autriche": {
+   "meetings": [
+    {
+     "date": "1990-05",
+     "comp": "Amical",
+     "home": "Autriche",
+     "hs": 1,
+     "away": "Argentine",
+     "as": 1
+    },
+    {
+     "date": "1980-05",
+     "comp": "Amical",
+     "home": "Autriche",
+     "hs": 1,
+     "away": "Argentine",
+     "as": 5
+    }
+   ]
+  },
+  "Jordanie | Algérie": {
+   "meetings": []
+  },
+  "Jordanie | Argentine": {
+   "meetings": []
+  },
+  "Algérie | Autriche": {
+   "meetings": [
+    {
+     "date": "1982-06",
+     "comp": "Coupe du Monde",
+     "home": "Autriche",
+     "hs": 2,
+     "away": "Algérie",
+     "as": 0
+    }
+   ]
+  },
+  "Portugal | RD Congo": {
+   "meetings": []
+  },
+  "Ouzbékistan | Colombie": {
+   "meetings": []
+  },
+  "Portugal | Ouzbékistan": {
+   "meetings": []
+  },
+  "Colombie | RD Congo": {
+   "meetings": []
+  },
+  "Colombie | Portugal": {
+   "meetings": []
+  },
+  "RD Congo | Ouzbékistan": {
+   "meetings": []
+  },
+  "Angleterre | Croatie": {
+   "meetings": [
+    {
+     "date": "2021-06",
+     "comp": "Euro",
+     "home": "Angleterre",
+     "hs": 1,
+     "away": "Croatie",
+     "as": 0
+    },
+    {
+     "date": "2018-11",
+     "comp": "Ligue des Nations",
+     "home": "Angleterre",
+     "hs": 2,
+     "away": "Croatie",
+     "as": 1
+    },
+    {
+     "date": "2018-10",
+     "comp": "Ligue des Nations",
+     "home": "Croatie",
+     "hs": 0,
+     "away": "Angleterre",
+     "as": 0
+    },
+    {
+     "date": "2018-07",
+     "comp": "Coupe du Monde",
+     "home": "Croatie",
+     "hs": 2,
+     "away": "Angleterre",
+     "as": 1
+    },
+    {
+     "date": "2009-09",
+     "comp": "Qualifications CDM",
+     "home": "Angleterre",
+     "hs": 5,
+     "away": "Croatie",
+     "as": 1
+    }
+   ]
+  },
+  "Ghana | Panama": {
+   "meetings": []
+  },
+  "Angleterre | Ghana": {
+   "meetings": [
+    {
+     "date": "2011-03",
+     "comp": "Amical",
+     "home": "Angleterre",
+     "hs": 1,
+     "away": "Ghana",
+     "as": 1
+    }
+   ]
+  },
+  "Panama | Croatie": {
+   "meetings": []
+  },
+  "Panama | Angleterre": {
+   "meetings": [
+    {
+     "date": "2018-06",
+     "comp": "Coupe du Monde",
+     "home": "Angleterre",
+     "hs": 6,
+     "away": "Panama",
+     "as": 1
+    }
+   ]
+  },
+  "Croatie | Ghana": {
+   "meetings": []
+  }
+ },
  "j1": [
   {
    "match": "Mexique – Afrique du Sud",

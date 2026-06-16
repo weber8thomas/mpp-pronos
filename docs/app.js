@@ -2,6 +2,10 @@
 const D = window.DATA;
 D.predictions.forEach((p,i)=>p._i=i);              // index stable pour ouvrir le détail
 const DETAILS = D.teamDetails || {};               // résultats récents + blessés par équipe
+// Prochain match selon l'heure réelle (timestamp UTC)
+const NEXT_I = (()=>{const now=Date.now();let best=-1,bt=Infinity;
+  D.predictions.forEach(p=>{const t=Date.parse(p.kickoff_utc+":00Z"); if(t>now&&t<bt){bt=t;best=p._i;}});
+  return best;})();
 const ST_COLOR = {"1er":"#12b886","2e":"#63c9a3","3e":"#e0a338","out":"#e5484d"};
 const ST_LABEL = {"1er":"1er","2e":"2e","3e":"3e","out":"Élim."};
 const THEME = {
@@ -61,11 +65,12 @@ function renderAccueil(){
        <img src="favicon.svg" alt="" class="hero-logo"/>
        <div>
          <div class="eyebrow">FIFA World Cup 2026 · USA · Canada · Mexique</div>
-         <h1>Pronostics de la phase de groupes</h1>
+         <h1>Pronostics — Coupe du Monde 2026</h1>
+         <div class="cover">Phase de groupes <b>72 matchs</b> couverts · sur <b>104</b> au total (élimination directe à venir)</div>
        </div>
      </div>
-     <p class="lead">Les <strong>72 matchs</strong> des 12 groupes, pronostiqués via une méthode hybride :
-     un modèle de <strong>Poisson</strong> (basé sur l'Elo) ajusté et critiqué par une dizaine d'<strong>agents experts</strong>.
+     <p class="lead">Pronostics via une méthode hybride : un modèle de <strong>Poisson</strong> (basé sur l'Elo)
+     ajusté et critiqué par une dizaine d'<strong>agents experts</strong>.
      J1 = résultats réels · J2/J3 = pronostics. Probas <strong>mpp</strong> issues de mpp.football.
      <em>Astuce : cliquez un match pour ouvrir sa fiche détaillée.</em></p>
    </div>
@@ -85,9 +90,10 @@ function matchRow(p){
   const typ = p.statut==="joue"?`<span class="pill real">réel</span>`:`<span class="pill prono">prono</span>`;
   const mpp = p.mpp_v==null?'<span class="muted">—</span>':`${Math.round(p.mpp_v*100)}/${Math.round(p.mpp_n*100)}/${Math.round(p.mpp_d*100)}`;
   const dt = p.kickoff_cest.replace(/-/g,"/").slice(5,16);
-  return `<tr class="clik" data-match="${p._i}" data-g="${p.groupe}" data-s="${p.statut}" data-t="${esc(p.dom+' '+p.ext)}">
+  const nx = p._i===NEXT_I;
+  return `<tr class="clik${nx?' isnext':''}"${nx?' id="cal-next"':''} data-match="${p._i}" data-g="${p.groupe}" data-s="${p.statut}" data-t="${esc(p.dom+' '+p.ext)}">
     <td>${dt}</td><td class="c"><span class="grouptag">${p.groupe}</span></td>
-    <td><span class="vs">${team(p.dom)}<span class="muted">–</span>${team(p.ext)}</span></td>
+    <td><span class="vs">${team(p.dom)}<span class="muted">–</span>${team(p.ext)}</span>${nx?'<span class="nextbadge">à suivre</span>':''}</td>
     <td class="c">${scoreBadge(p.bd,p.be)}</td><td class="c">${typ}</td>
     <td>${probBar(p.pv,p.pn,p.pd)}</td><td class="c">${mpp}</td></tr>`;
 }
@@ -124,6 +130,7 @@ function renderCalendrier(){
       <input id="calSearch" placeholder="Rechercher une équipe…"/>
       <select id="calGroup">${opts}</select>
       <select id="calType"><option value="">Tous statuts</option><option value="joue">Joués</option><option value="a_venir">À venir</option></select>
+      <button id="calNext" type="button" class="btn-next"><i class="mdi mdi-fast-forward-outline"></i> Prochain match</button>
       <span id="calCount" class="faint" style="align-self:center"></span>
     </div>
     <div class="tablewrap"><table>
@@ -152,6 +159,16 @@ function renderCalendrier(){
     refresh();
   }));
   ["calSearch","calGroup","calType"].forEach(id=>sec.querySelector("#"+id).addEventListener("input",refresh));
+  const jumpNext=()=>{
+    sec.querySelector("#calSearch").value=""; sec.querySelector("#calGroup").value=""; sec.querySelector("#calType").value="";
+    sortKey="date"; sortDir=1; refresh();
+    const row=sec.querySelector("#cal-next");
+    if(row){row.scrollIntoView({behavior:"smooth",block:"center"});
+      row.classList.add("flash"); setTimeout(()=>row.classList.remove("flash"),1200);}
+  };
+  sec.querySelector("#calNext").addEventListener("click",jumpNext);
+  if(NEXT_I<0) sec.querySelector("#calNext").style.display="none";
+  sec._jumpNext=jumpNext;
   refresh();
 }
 
@@ -229,7 +246,15 @@ const LAYOUT = extra => {
     title:{font:{family:"Sora, Inter, sans-serif", size:15}}
   }, extra, {xaxis:ax(extra.xaxis), yaxis:ax(extra.yaxis)});
 };
-const CFG={responsive:true,displayModeBar:false};
+const CFG={responsive:false,displayModeBar:false};
+// Trace un graphe en fixant explicitement la largeur = largeur exacte du conteneur (anti-débordement déterministe)
+function PNP(id, traces, layout, cfg){
+  const el=typeof id==="string"?document.getElementById(id):id;
+  if(!el||!window.Plotly) return;
+  const w=Math.floor(el.getBoundingClientRect().width)||el.clientWidth||600;
+  layout=Object.assign({}, layout||{}, {width:w, autosize:false});
+  return window["Plotly"].newPlot(el, traces, layout, cfg||CFG);
+}
 
 function renderAnalyses(){
   document.getElementById("analyses").innerHTML=`
@@ -274,20 +299,21 @@ function scoreMatrix(ld,le,n){
   return {z,txt};
 }
 const drawn={analyses:false,thirds:false};
+let _calJumped=false;
 function resizeIn(sec){document.querySelectorAll("#"+sec+" .js-plotly-plot").forEach(el=>{if(window.Plotly)Plotly.Plots.resize(el);});}
 // ResizeObserver : recale chaque graphe sur la largeur réelle de son conteneur (anti-débordement/compression)
 let _RO=null;
 function ensureRO(){
   if(_RO||!window.ResizeObserver) return;
   _RO=new ResizeObserver(es=>{for(const e of es){const el=e.target,w=Math.round(e.contentRect.width);
-    if(el._pw===w) continue; el._pw=w; if(el.data&&window.Plotly) Plotly.Plots.resize(el);}});
+    if(el._pw===w) continue; el._pw=w; if(el.data&&window.Plotly) Plotly.relayout(el,{width:w});}});
 }
 function observeCharts(sec){ensureRO(); if(!_RO) return; document.querySelectorAll("#"+sec+" .chart").forEach(c=>_RO.observe(c));}
 
 function drawThirds(){
   if(drawn.thirds) return; drawn.thirds=true;
   const t3=D.qualifiers.troisiemes;
-  Plotly.newPlot("chartThirds",[{
+  PNP("chartThirds",[{
     type:"bar",orientation:"h",x:t3.map(t=>t.pts).reverse(),y:t3.map(t=>t.groupe+" · "+t.equipe).reverse(),
     marker:{color:t3.map(t=>t.qualifie?"#2ecc71":"#ef5350").reverse()},
     text:t3.map(t=>t.pts+" pts, "+(t.diff>=0?'+':'')+t.diff).reverse(),textposition:"outside",
@@ -305,7 +331,7 @@ function drawAnalyses(){
     const mean=es.reduce((a,b)=>a+b,0)/es.length;
     return {g,mean,min:Math.min(...es),max:Math.max(...es)};
   }).sort((a,b)=>b.mean-a.mean);
-  Plotly.newPlot("chartGroupStrength",[{
+  PNP("chartGroupStrength",[{
     type:"bar",x:gs.map(d=>"Groupe "+d.g),y:gs.map(d=>Math.round(d.mean)),
     marker:{color:gs.map(d=>d.mean),colorscale:[[0,"#9fb2c6"],[1,ACC]],line:{width:0}},
     error_y:{type:"data",symmetric:false,array:gs.map(d=>d.max-d.mean),arrayminus:gs.map(d=>d.mean-d.min),color:"#8a98a8",thickness:1.2,width:4},
@@ -329,14 +355,14 @@ function drawAnalyses(){
     text:ad.filter(d=>d.st===st).map(d=>d.t),
     marker:{size:ad.filter(d=>d.st===st).map(d=>8+d.pts*1.4),color:ST_COLOR[st],line:{color:"#fff",width:.5},opacity:.9},
     hovertemplate:"%{text}<br>marqués %{x} · encaissés %{y}<extra></extra>"});
-  Plotly.newPlot("chartAttDef",["1er","2e","3e","out"].map(adTrace),
+  PNP("chartAttDef",["1er","2e","3e","out"].map(adTrace),
     LAYOUT({height:520,title:"Attaque vs défense — buts marqués (x) / encaissés (y)",
       xaxis:{title:"Buts marqués (3 matchs)"},yaxis:{title:"Buts encaissés",autorange:"reversed"}}),CFG);
 
   // 3) Points & qualification
   const teams=[]; Object.values(D.standings).forEach(g=>g.forEach(t=>teams.push(t)));
   teams.sort((a,b)=>a.pts-b.pts || a.diff-b.diff);
-  Plotly.newPlot("chartPoints",[{
+  PNP("chartPoints",[{
     type:"bar",orientation:"h",x:teams.map(t=>t.pts),y:teams.map(t=>t.equipe),
     marker:{color:teams.map(t=>ST_COLOR[t.statut])},text:teams.map(t=>t.pts),textposition:"outside",
     hovertemplate:"%{y}<br>%{x} pts<extra></extra>"
@@ -353,7 +379,7 @@ function drawAnalyses(){
      text:mp.filter(cond).map(p=>p.dom+" – "+p.ext),
      marker:{size:10,color:col,line:{color:"#fff",width:.5}},
      hovertemplate:"%{text}<br>modèle %{x:.0%} · mpp %{y:.0%}<extra></extra>"});
-  Plotly.newPlot("chartMpp",[
+  PNP("chartMpp",[
      mk(p=>same(p),ST_COLOR["1er"],"Même favori"),
      mk(p=>!same(p),ST_COLOR.out,"Favori différent"),
      {type:"scatter",mode:"lines",x:[0,1],y:[0,1],line:{dash:"dash",color:"#8a98a8"},hoverinfo:"skip",showlegend:false}
@@ -364,7 +390,7 @@ function drawAnalyses(){
   const goals={};
   D.predictions.forEach(p=>{const tot=p.bd+p.be;goals[tot]=(goals[tot]||0)+1;});
   const gk=Object.keys(goals).map(Number).sort((a,b)=>a-b);
-  Plotly.newPlot("chartGoals",[{
+  PNP("chartGoals",[{
     type:"bar",x:gk.map(k=>k+" but"+(k>1?"s":"")),y:gk.map(k=>goals[k]),
     marker:{color:ACC},text:gk.map(k=>goals[k]),textposition:"outside",
     hovertemplate:"%{x} : %{y} matchs<extra></extra>"
@@ -375,7 +401,7 @@ function drawAnalyses(){
   const cntReal={V:0,N:0,D:0},cntMod={V:0,N:0,D:0};
   D.j1.forEach(m=>{cntReal[iss(m.reel)]++;cntMod[iss(m.modele)]++;});
   const order=["V","N","D"],lab={V:"Victoire dom",N:"Nul",D:"Victoire ext"};
-  Plotly.newPlot("chartJ1",[
+  PNP("chartJ1",[
     {type:"bar",name:"Réel",x:order.map(k=>lab[k]),y:order.map(k=>cntReal[k]),marker:{color:ST_COLOR["1er"]},text:order.map(k=>cntReal[k]),textposition:"outside"},
     {type:"bar",name:"Modèle Elo",x:order.map(k=>lab[k]),y:order.map(k=>cntMod[k]),marker:{color:"#8a98a8"},text:order.map(k=>cntMod[k]),textposition:"outside"}
   ],LAYOUT({height:380,barmode:"group",
@@ -387,7 +413,7 @@ function drawAnalyses(){
     sel.innerHTML=D.predictions.map((p,i)=>`<option value="${i}">${p.groupe} · ${esc(p.dom)} – ${esc(p.ext)}</option>`).join("");
     const drawMatrix=i=>{
       const p=D.predictions[i],n=6,m=scoreMatrix(p.xg_dom,p.xg_ext,n);
-      Plotly.newPlot("chartMatrix",[{
+      PNP("chartMatrix",[{
         type:"heatmap",z:m.z,text:m.txt,texttemplate:"%{text}",textfont:{size:10},
         x:[...Array(n+1).keys()],y:[...Array(n+1).keys()],
         colorscale:[[0,THEME[curTheme()].paper],[1,ACC]],showscale:false,
@@ -495,6 +521,12 @@ function teamPanel(name){
     h+=(det.injuries&&det.injuries.length)?`<ul class="inj">${det.injuries.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`
       :'<span class="faint">Aucun absent notable connu.</span>';
   } else h+=`<p class="faint">Données détaillées indisponibles pour cette équipe.</p>`;
+  const q=encodeURIComponent(name);
+  h+=`<div class="extlinks">
+    <a class="extlink" target="_blank" rel="noopener" href="https://www.transfermarkt.fr/schnellsuche/ergebnis/schnellsuche?query=${q}"><i class="mdi mdi-medical-bag"></i>Transfermarkt</a>
+    <a class="extlink" target="_blank" rel="noopener" href="https://fbref.com/fr/search/search.fcgi?search=${q}"><i class="mdi mdi-chart-line"></i>FBref</a>
+    <a class="extlink" target="_blank" rel="noopener" href="https://www.eloratings.net/${q}"><i class="mdi mdi-trophy-variant"></i>Elo</a>
+  </div>`;
   return h+`</div>`;
 }
 let _modal=null;
@@ -538,6 +570,11 @@ function openMatch(i){
         <div class="mm-kv"><span>Total de buts attendu</span><b>${(p.xg_dom+p.xg_ext).toFixed(2)}</b></div>
       </div>
     </div>
+    <div class="card" style="margin-top:14px"><h3><i class="mdi mdi-scale-balance"></i> Comparaison (phase de groupes)</h3>
+      <div class="chart" id="mCompare"></div>
+      <div class="extlinks"><a class="extlink" target="_blank" rel="noopener"
+        href="https://www.google.com/search?q=${encodeURIComponent(p.dom+" vs "+p.ext+" head to head historique confrontations")}">
+        <i class="mdi mdi-history"></i>Confrontations (10 dernières années)</a></div></div>
     <div class="card" style="margin-top:14px"><h3><i class="mdi mdi-grid"></i> Matrice des scores (Poisson)</h3>
       <div class="chart" id="mMatrix"></div></div>
     <div class="grid2" style="margin-top:14px">${teamPanel(p.dom)}${teamPanel(p.ext)}</div>`;
@@ -546,10 +583,21 @@ function openMatch(i){
   requestAnimationFrame(()=>{
     if(!window.Plotly) return;
     const n=6,mat=scoreMatrix(p.xg_dom,p.xg_ext,n),t=THEME[curTheme()];
-    Plotly.newPlot("mMatrix",[{type:"heatmap",z:mat.z,text:mat.txt,texttemplate:"%{text}",textfont:{size:10},
+    PNP("mMatrix",[{type:"heatmap",z:mat.z,text:mat.txt,texttemplate:"%{text}",textfont:{size:10},
       x:[...Array(n+1).keys()],y:[...Array(n+1).keys()],colorscale:[[0,t.paper],[1,t.accent]],showscale:false,
       hovertemplate:"score %{y}-%{x} : %{z:.1f}%<extra></extra>"}],
       LAYOUT({height:360,xaxis:{title:"Buts "+esc(p.ext),dtick:1},yaxis:{title:"Buts "+esc(p.dom),dtick:1}}),CFG);
+    // Comparaison : points projetés, buts marqués/encaissés sur la phase de groupes
+    const agg={};
+    D.predictions.forEach(q=>{(agg[q.dom]=agg[q.dom]||{f:0,a:0});(agg[q.ext]=agg[q.ext]||{f:0,a:0});
+      agg[q.dom].f+=q.bd;agg[q.dom].a+=q.be;agg[q.ext].f+=q.be;agg[q.ext].a+=q.bd;});
+    const pts=tm=>{for(const g of Object.values(D.standings)){const r=g.find(x=>x.equipe===tm);if(r)return r.pts;}return 0;};
+    const cats=["Points (groupe)","Buts marqués","Buts encaissés"];
+    const vy=tm=>[pts(tm),(agg[tm]||{}).f||0,(agg[tm]||{}).a||0];
+    PNP("mCompare",[
+      {type:"bar",name:p.dom,x:cats,y:vy(p.dom),marker:{color:t.accent},text:vy(p.dom),textposition:"outside"},
+      {type:"bar",name:p.ext,x:cats,y:vy(p.ext),marker:{color:"#8a98a8"},text:vy(p.ext),textposition:"outside"}
+    ],LAYOUT({height:300,barmode:"group"}),CFG);
   });
 }
 document.addEventListener("click",e=>{
@@ -564,6 +612,11 @@ function show(sec){
   // Dessin différé : la section vient d'être affichée, on attend le layout (largeur réelle)
   if(sec==="analyses") requestAnimationFrame(()=>{drawAnalyses(); resizeIn("analyses"); observeCharts("analyses"); setTimeout(()=>resizeIn("analyses"),80);});
   if(sec==="qualifies") requestAnimationFrame(()=>{drawThirds(); resizeIn("qualifies"); observeCharts("qualifies"); setTimeout(()=>resizeIn("qualifies"),80);});
+  if(sec==="calendrier" && !_calJumped && NEXT_I>=0){_calJumped=true;
+    const s=document.getElementById("calendrier");
+    requestAnimationFrame(()=>{ if(s&&s._jumpNext) s._jumpNext(); });
+    return;
+  }
   window.scrollTo({top:0,behavior:"smooth"});
 }
 document.addEventListener("click",e=>{

@@ -1,7 +1,12 @@
 /* Dashboard Pronostics CDM 2026 — rendu 100% client à partir de window.DATA */
 const D = window.DATA;
-const ST_COLOR = {"1er":"#2ecc71","2e":"#a8e063","3e":"#f4c430","out":"#ef5350"};
+const ST_COLOR = {"1er":"#12b886","2e":"#63c9a3","3e":"#e0a338","out":"#e5484d"};
 const ST_LABEL = {"1er":"1er (qualifié)","2e":"2e (qualifié)","3e":"3e (meilleur)","out":"Éliminé"};
+const THEME = {
+  light:{paper:"#ffffff",grid:"#e5e9ef",font:"#0f1720",accent:"#0f9d76"},
+  dark:{paper:"#11171f",grid:"#1b2430",font:"#eaf0f6",accent:"#1ce0a5"}
+};
+const curTheme = () => document.body.dataset.theme || "light";
 const pct = x => (x==null?"–":Math.round(x*100)+"%");
 const esc = s => String(s).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 
@@ -19,8 +24,9 @@ function renderAccueil(){
   const vain=D.qualifiers.premiers.map(x=>`<span class="grouptag">${x.groupe}</span> ${esc(x.equipe)}`).join(" · ");
   document.getElementById("accueil").innerHTML=`
    <div class="hero">
-     <h1>🏆 Coupe du Monde 2026 — Pronostics de la phase de groupes</h1>
-     <p class="lead">Les <strong>72 matchs</strong> des 12 groupes pronostiqués via une méthode hybride :
+     <div class="eyebrow">FIFA World Cup · USA · Canada · Mexique</div>
+     <h1>Pronostics de la phase de groupes</h1>
+     <p class="lead">Les <strong>72 matchs</strong> des 12 groupes, pronostiqués via une méthode hybride :
      un modèle de <strong>Poisson</strong> (basé sur l'Elo) ajusté et critiqué par une dizaine d'<strong>agents experts</strong>.
      J1 = résultats réels · J2/J3 = pronostics. Probas <strong>mpp</strong> issues de mpp.football.</p>
    </div>
@@ -30,18 +36,18 @@ function renderAccueil(){
      <div class="kpi"><div class="v">32</div><div class="l">qualifiés (12+12+8)</div></div>
      <div class="kpi"><div class="v">${m.j1_accuracy!=null?Math.round(m.j1_accuracy*100)+"%":"–"}</div><div class="l">précision modèle sur la J1</div></div>
    </div>
-   <div class="card"><h3>🥇 Vainqueurs de groupe pronostiqués</h3><p>${vain}</p></div>
-   <div class="grid2" style="margin-top:14px">
+   <div class="card"><h3>Vainqueurs de groupe pronostiqués</h3><p>${vain}</p></div>
+   <div class="grid2" style="margin-top:16px">
      <div class="card"><h3>Comment lire</h3>
        <p class="muted">Chaque match affiche le <strong>score pronostiqué</strong> et les probabilités
        Victoire / Nul / Défaite (barre verte / grise / rouge). La colonne <strong>mpp</strong> donne
        les probas 1/N/2 de mpp.football pour les 56 matchs à venir.</p></div>
      <div class="card"><h3>Navigation</h3>
-       <p class="muted">📅 <a href="#calendrier" data-jump="calendrier">Calendrier</a> complet ·
-       🅰️ <a href="#groupes" data-jump="groupes">Groupes</a> (scores + classements) ·
-       🎟️ <a href="#qualifies" data-jump="qualifies">Qualifiés</a> ·
-       📊 <a href="#analyses" data-jump="analyses">Analyses</a> interactives ·
-       📄 <a href="#rapport" data-jump="rapport">Rapport</a> complet.</p></div>
+       <p class="muted"><a href="#calendrier" data-jump="calendrier">Calendrier</a> complet ·
+       <a href="#groupes" data-jump="groupes">Groupes</a> (scores + classements) ·
+       <a href="#qualifies" data-jump="qualifies">Qualifiés</a> ·
+       <a href="#analyses" data-jump="analyses">Analyses</a> interactives ·
+       <a href="#rapport" data-jump="rapport">Rapport</a> complet.</p></div>
    </div>`;
 }
 
@@ -59,7 +65,7 @@ function matchRow(p){
 function renderCalendrier(){
   const opts=["<option value=''>Tous les groupes</option>"].concat(D.meta.groupes.map(g=>`<option value="${g}">Groupe ${g}</option>`)).join("");
   document.getElementById("calendrier").innerHTML=`
-    <h1>📅 Calendrier chronologique</h1>
+    <h1>Calendrier chronologique</h1>
     <p class="lead">Les 72 matchs triés par coup d'envoi (heure <strong>CEST</strong>, indicative).
     Barre = probas V/N/D du modèle ; colonne mpp = probas 1/N/2 de mpp.football.</p>
     <div class="controls">
@@ -85,7 +91,7 @@ function renderCalendrier(){
 /* ---------- Groupes ---------- */
 function renderGroupes(){
   const jump=D.meta.groupes.map(g=>`<a href="#g-${g}" class="grouptag" style="text-decoration:none">${g}</a>`).join(" ");
-  let html=`<h1>🅰️ Pronostics par groupe</h1><p class="lead">Scores des 6 matchs et classement final projeté de chaque groupe.</p>
+  let html=`<h1>Pronostics par groupe</h1><p class="lead">Scores des 6 matchs et classement final projeté de chaque groupe.</p>
     <div class="controls">${jump}</div>`;
   D.meta.groupes.forEach(g=>{
     const ms=D.predictions.filter(p=>p.groupe===g);
@@ -121,12 +127,12 @@ function renderQualifies(){
      <td class="c">${r.pts}</td><td class="c">${r.diff>=0?'+':''}${r.diff}</td><td class="c">${r.bp}</td>
      <td class="c">${r.qualifie?'✅':'❌'}</td></tr>`).join("");
   document.getElementById("qualifies").innerHTML=`
-    <h1>🎟️ Les 32 qualifiés</h1>
+    <h1>Les 32 qualifiés</h1>
     <p class="lead">Format 2026 : 12 premiers + 12 deuxièmes + <strong>8 meilleurs troisièmes</strong>.</p>
     <div class="cards">
-      ${col("🥇 1ers de groupe",D.qualifiers.premiers)}
-      ${col("🥈 2es de groupe",D.qualifiers.deuxiemes)}
-      ${col("🥉 Meilleurs 3es",D.qualifiers.meilleurs3)}
+      ${col("1ers de groupe",D.qualifiers.premiers)}
+      ${col("2es de groupe",D.qualifiers.deuxiemes)}
+      ${col("Meilleurs 3es",D.qualifiers.meilleurs3)}
     </div>
     <div class="note" style="margin-top:16px">La course aux meilleurs 3es est très serrée (7 équipes à 4 pts).
     Après revue des agents critiques, la <strong>Bosnie</strong> se qualifie et l'<strong>Iran</strong> sort.</div>
@@ -138,16 +144,22 @@ function renderQualifies(){
 }
 
 /* ---------- Analyses (Plotly) ---------- */
-const LAYOUT = extra => Object.assign({
-  paper_bgcolor:"#1b2836", plot_bgcolor:"#1b2836", font:{color:"#e8eef5",size:12},
-  margin:{l:10,r:10,t:50,b:40}, legend:{orientation:"h",y:1.12,x:0},
-  xaxis:{gridcolor:"#2a3a4d",zerolinecolor:"#2a3a4d"}, yaxis:{gridcolor:"#2a3a4d",zerolinecolor:"#2a3a4d"}
-},extra||{});
+const LAYOUT = extra => {
+  const t = THEME[curTheme()]; extra = extra || {};
+  const ax = base => Object.assign({gridcolor:t.grid, zerolinecolor:t.grid, linecolor:t.grid,
+    tickfont:{color:t.font}, titlefont:{color:t.font}}, base||{});
+  return Object.assign({
+    paper_bgcolor:t.paper, plot_bgcolor:t.paper,
+    font:{color:t.font, size:12, family:"Inter, system-ui, sans-serif"},
+    margin:{l:10,r:10,t:54,b:40}, legend:{orientation:"h",y:1.12,x:0},
+    title:{font:{family:"Sora, Inter, sans-serif", size:15}}
+  }, extra, {xaxis:ax(extra.xaxis), yaxis:ax(extra.yaxis)});
+};
 const CFG={responsive:true,displayModeBar:false};
 
 function renderAnalyses(){
   document.getElementById("analyses").innerHTML=`
-    <h1>📊 Analyses interactives</h1>
+    <h1>Analyses</h1>
     <p class="lead">Survolez les graphiques (zoom, infobulles). Les mêmes figures, en statique, sont dans le notebook.</p>
     <h2>Forces en présence (Elo)</h2><div class="chart" id="chartElo"></div>
     <h2>Points & qualification</h2><div class="chart" id="chartPoints"></div>
@@ -183,7 +195,7 @@ function drawAnalyses(){
     marker:{color:r.map(t=>ST_COLOR[t.statut])},
     text:r.map(t=>t.elo),textposition:"outside",textfont:{size:9},
     hovertemplate:"%{y}<br>Elo %{x}<extra></extra>"
-  }],LAYOUT({height:1000,title:"Notes Elo des 48 équipes (couleur = sort final)",xaxis:{range:[1450,2250],gridcolor:"#2a3a4d"}}),CFG);
+  }],LAYOUT({height:1000,title:"Notes Elo des 48 équipes (couleur = sort final)",xaxis:{range:[1450,2250]}}),CFG);
 
   // Points & qualif
   const teams=[]; Object.values(D.standings).forEach(g=>g.forEach(t=>teams.push(t)));
@@ -207,7 +219,7 @@ function drawAnalyses(){
      mk(p=>!same(p),"#ef5350","Favori différent"),
      {type:"scatter",mode:"lines",x:[0,1],y:[0,1],line:{dash:"dash",color:"#9fb2c6"},hoverinfo:"skip",showlegend:false}
   ],LAYOUT({height:520,title:"P(victoire dom) — modèle (x) vs mpp (y)",
-     xaxis:{range:[0,1],title:"modèle",gridcolor:"#2a3a4d"},yaxis:{range:[0,1],title:"mpp",gridcolor:"#2a3a4d"}}),CFG);
+     xaxis:{range:[0,1],title:"modèle"},yaxis:{range:[0,1],title:"mpp"}}),CFG);
 
   // J1 validation : issues réelles vs modèle
   const cnt=(arr,f)=>arr.filter(f).length;
@@ -227,7 +239,7 @@ function drawAnalyses(){
      hovertemplate:"%{text}<br>%{x}<extra></extra>"});
   Plotly.newPlot("chartTimeline",[tr(true,"circle","Joué","#3aa0ff"),tr(false,"x","À venir","#19c37d")],
      LAYOUT({height:520,title:"Frise des 72 matchs (heure CEST)",
-       yaxis:{categoryorder:"category descending",gridcolor:"#2a3a4d"},xaxis:{gridcolor:"#2a3a4d"}}),CFG);
+       yaxis:{categoryorder:"category descending"}}),CFG);
 }
 
 /* ---------- Rapport & Méthodo ---------- */
@@ -237,7 +249,7 @@ function renderRapport(){
 }
 function renderMethodo(){
   document.getElementById("methodo").innerHTML=`
-    <h1>🔬 Méthodologie</h1>
+    <h1>Méthodologie</h1>
     <div class="card"><h3>1. Modèle quantitatif (Poisson)</h3>
       <p class="muted">Les buts attendus (λ) dérivent de la différence Elo : <em>supremacy</em> bornée
       <code>3.6·tanh(Δelo/350)</code>, volume de buts croissant avec le déséquilibre, avantage hôte
@@ -270,6 +282,26 @@ document.addEventListener("click",e=>{
 });
 
 /* ---------- Init ---------- */
+/* ---------- Thème clair / sombre ---------- */
+function applyTheme(t){
+  document.body.dataset.theme=t;
+  try{localStorage.setItem("cdm-theme",t);}catch(e){}
+  const lbl=document.getElementById("themeLbl"); if(lbl) lbl.textContent = t==="dark"?"Clair":"Sombre";
+  ["chartElo","chartPoints","chartMpp","chartJ1","chartTimeline","chartThirds"].forEach(id=>{
+    const el=document.getElementById(id); if(el&&el.data&&window.Plotly) Plotly.purge(el);
+  });
+  drawn.analyses=false; drawn.thirds=false;
+  const active=document.querySelector(".sec.active");
+  if(active&&active.id==="analyses") drawAnalyses();
+  if(active&&active.id==="qualifies") drawThirds();
+}
+(function initTheme(){
+  let t="light"; try{t=localStorage.getItem("cdm-theme")||"light";}catch(e){}
+  document.body.dataset.theme=t;
+  document.getElementById("themeBtn").addEventListener("click",()=>applyTheme(curTheme()==="dark"?"light":"dark"));
+  const lbl=document.getElementById("themeLbl"); if(lbl) lbl.textContent=t==="dark"?"Clair":"Sombre";
+})();
+
 renderAccueil(); renderCalendrier(); renderGroupes(); renderQualifies();
 renderAnalyses(); renderRapport(); renderMethodo();
 const SECS=["accueil","calendrier","groupes","qualifies","analyses","rapport","methodo"];

@@ -10,6 +10,23 @@ const curTheme = () => document.body.dataset.theme || "light";
 const pct = x => (x==null?"–":Math.round(x*100)+"%");
 const esc = s => String(s).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 
+/* Drapeaux ronds (flagcdn) — mapping équipe -> code pays ISO */
+const FLAG={
+ "Mexique":"mx","Afrique du Sud":"za","Corée du Sud":"kr","Tchéquie":"cz",
+ "Canada":"ca","Suisse":"ch","Qatar":"qa","Bosnie-Herzégovine":"ba",
+ "Brésil":"br","Maroc":"ma","Écosse":"gb-sct","Haïti":"ht",
+ "États-Unis":"us","Australie":"au","Paraguay":"py","Turquie":"tr",
+ "Allemagne":"de","Équateur":"ec","Côte d'Ivoire":"ci","Curaçao":"cw",
+ "Pays-Bas":"nl","Japon":"jp","Tunisie":"tn","Suède":"se",
+ "Belgique":"be","Iran":"ir","Égypte":"eg","Nouvelle-Zélande":"nz",
+ "Espagne":"es","Uruguay":"uy","Arabie saoudite":"sa","Cap-Vert":"cv",
+ "France":"fr","Sénégal":"sn","Norvège":"no","Irak":"iq",
+ "Argentine":"ar","Autriche":"at","Algérie":"dz","Jordanie":"jo",
+ "Portugal":"pt","Colombie":"co","Ouzbékistan":"uz","RD Congo":"cd",
+ "Angleterre":"gb-eng","Croatie":"hr","Panama":"pa","Ghana":"gh"};
+const flag = t => FLAG[t]?`<span class="flag"><img loading="lazy" src="https://flagcdn.com/w40/${FLAG[t]}.png" alt=""></span>`:`<span class="flag flag--none"></span>`;
+const team = t => `${flag(t)}<span class="tn">${esc(t)}</span>`;
+
 function probBar(pv,pn,pd){
   const w=x=>Math.round(x*100);
   return `<div class="probrow"><div class="bar" title="V ${pct(pv)} · N ${pct(pn)} · D ${pct(pd)}">
@@ -21,7 +38,7 @@ const stPill = s => `<span class="pill ${s==='1er'?'r1':s==='2e'?'r2':s==='3e'?'
 /* ---------- Accueil ---------- */
 function renderAccueil(){
   const m=D.meta;
-  const vain=D.qualifiers.premiers.map(x=>`<span class="grouptag">${x.groupe}</span> ${esc(x.equipe)}`).join(" · ");
+  const vain=D.qualifiers.premiers.map(x=>`<div class="winrow"><span class="grouptag">${x.groupe}</span>${flag(x.equipe)}<span>${esc(x.equipe)}</span></div>`).join("");
   document.getElementById("accueil").innerHTML=`
    <div class="hero">
      <div class="eyebrow">FIFA World Cup · USA · Canada · Mexique</div>
@@ -31,12 +48,13 @@ function renderAccueil(){
      J1 = résultats réels · J2/J3 = pronostics. Probas <strong>mpp</strong> issues de mpp.football.</p>
    </div>
    <div class="kpis">
-     <div class="kpi"><div class="v">72</div><div class="l">matchs pronostiqués</div></div>
-     <div class="kpi"><div class="v">${m.n_joues}</div><div class="l">déjà joués (réels)</div></div>
-     <div class="kpi"><div class="v">32</div><div class="l">qualifiés (12+12+8)</div></div>
-     <div class="kpi"><div class="v">${m.j1_accuracy!=null?Math.round(m.j1_accuracy*100)+"%":"–"}</div><div class="l">précision modèle sur la J1</div></div>
+     <div class="kpi"><i class="mdi mdi-soccer-field"></i><div class="v">72</div><div class="l">matchs pronostiqués</div></div>
+     <div class="kpi"><i class="mdi mdi-check-decagram-outline"></i><div class="v">${m.n_joues}</div><div class="l">déjà joués (réels)</div></div>
+     <div class="kpi"><i class="mdi mdi-trophy-outline"></i><div class="v">32</div><div class="l">qualifiés (12+12+8)</div></div>
+     <div class="kpi"><i class="mdi mdi-target"></i><div class="v">${m.j1_accuracy!=null?Math.round(m.j1_accuracy*100)+"%":"–"}</div><div class="l">précision sur matchs joués (${m.n_joues})</div></div>
    </div>
-   <div class="card"><h3>Vainqueurs de groupe pronostiqués</h3><p>${vain}</p></div>
+   <div class="card"><h3><i class="mdi mdi-trophy"></i> Vainqueurs de groupe pronostiqués</h3><div class="winners">${vain}</div></div>`;
+   document.getElementById("accueil").innerHTML+=`
    <div class="grid2" style="margin-top:16px">
      <div class="card"><h3>Comment lire</h3>
        <p class="muted">Chaque match affiche le <strong>score pronostiqué</strong> et les probabilités
@@ -58,7 +76,7 @@ function matchRow(p){
   const dt = p.kickoff_cest.replace(/-/g,"/").slice(5,16);
   return `<tr data-g="${p.groupe}" data-s="${p.statut}" data-t="${esc(p.dom+' '+p.ext)}">
     <td>${dt}</td><td class="c"><span class="grouptag">${p.groupe}</span></td>
-    <td>${esc(p.dom)} <span class="muted">–</span> ${esc(p.ext)}</td>
+    <td><span class="vs">${team(p.dom)}<span class="muted">–</span>${team(p.ext)}</span></td>
     <td class="c score">${p.bd}-${p.be}</td><td class="c">${typ}</td>
     <td>${probBar(p.pv,p.pn,p.pd)}</td><td class="c">${mpp}</td></tr>`;
 }
@@ -98,11 +116,11 @@ function renderGroupes(){
     const scores=ms.map(p=>{
       const typ=p.statut==="joue"?'<span class="pill real">réel</span>':'<span class="pill prono">prono</span>';
       const mpp=p.mpp_v==null?'<span class="muted">—</span>':`${Math.round(p.mpp_v*100)}/${Math.round(p.mpp_n*100)}/${Math.round(p.mpp_d*100)}`;
-      return `<tr><td class="c">J${p.journee}</td><td>${esc(p.dom)} – ${esc(p.ext)}</td>
+      return `<tr><td class="c">J${p.journee}</td><td><span class="vs">${team(p.dom)}<span class="muted">–</span>${team(p.ext)}</span></td>
         <td class="c score">${p.bd}-${p.be}</td><td class="c">${typ}</td><td>${probBar(p.pv,p.pn,p.pd)}</td><td class="c">${mpp}</td></tr>`;
     }).join("");
     const stand=D.standings[g].map(r=>`<tr>
-        <td class="c">${r.rang}</td><td>${esc(r.equipe)} ${stPill(r.statut)}</td>
+        <td class="c">${r.rang}</td><td><span class="vs">${team(r.equipe)}</span> ${stPill(r.statut)}</td>
         <td class="c"><strong>${r.pts}</strong></td><td class="c">${r.g}-${r.n}-${r.p}</td>
         <td class="c">${r.bp}:${r.bc}</td><td class="c">${r.diff>=0?'+':''}${r.diff}</td></tr>`).join("");
     html+=`<h2 id="g-${g}">Groupe ${g}</h2>
@@ -121,18 +139,19 @@ function renderGroupes(){
 
 /* ---------- Qualifiés ---------- */
 function renderQualifies(){
-  const col=(title,arr)=>`<div class="card"><h3>${title}</h3>${arr.map(x=>`<div><span class="grouptag">${x.groupe}</span> ${esc(x.equipe)}</div>`).join("")}</div>`;
+  const col=(icon,title,arr)=>`<div class="card"><h3><i class="mdi ${icon}"></i> ${title}</h3>
+     ${arr.map(x=>`<div class="winrow"><span class="grouptag">${x.groupe}</span>${flag(x.equipe)}<span>${esc(x.equipe)}</span></div>`).join("")}</div>`;
   const t3=D.qualifiers.troisiemes.map(r=>`<tr style="opacity:${r.qualifie?1:.5}">
-     <td class="c"><span class="grouptag">${r.groupe}</span></td><td>${esc(r.equipe)}</td>
+     <td class="c"><span class="grouptag">${r.groupe}</span></td><td><span class="vs">${team(r.equipe)}</span></td>
      <td class="c">${r.pts}</td><td class="c">${r.diff>=0?'+':''}${r.diff}</td><td class="c">${r.bp}</td>
      <td class="c">${r.qualifie?'✅':'❌'}</td></tr>`).join("");
   document.getElementById("qualifies").innerHTML=`
     <h1>Les 32 qualifiés</h1>
     <p class="lead">Format 2026 : 12 premiers + 12 deuxièmes + <strong>8 meilleurs troisièmes</strong>.</p>
     <div class="cards">
-      ${col("1ers de groupe",D.qualifiers.premiers)}
-      ${col("2es de groupe",D.qualifiers.deuxiemes)}
-      ${col("Meilleurs 3es",D.qualifiers.meilleurs3)}
+      ${col("mdi-medal","1ers de groupe",D.qualifiers.premiers)}
+      ${col("mdi-medal-outline","2es de groupe",D.qualifiers.deuxiemes)}
+      ${col("mdi-numeric-3-circle-outline","Meilleurs 3es",D.qualifiers.meilleurs3)}
     </div>
     <div class="note" style="margin-top:16px">La course aux meilleurs 3es est très serrée (7 équipes à 4 pts).
     Après revue des agents critiques, la <strong>Bosnie</strong> se qualifie et l'<strong>Iran</strong> sort.</div>

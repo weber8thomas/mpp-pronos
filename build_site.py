@@ -13,6 +13,10 @@ pred = pd.read_csv("data/predictions.csv")
 ratings = pd.read_csv("data/team_ratings.csv")
 analyses = json.load(open("data/group_analyses.json"))
 report_md = open("rapport/pronostics_cdm2026.md", encoding="utf-8").read()
+try:
+    team_details = json.load(open("data/team_details.json", encoding="utf-8"))
+except FileNotFoundError:
+    team_details = {}
 
 cls = S.tous_classements(pred)
 premiers, deuxiemes, meilleurs3, df3 = S.qualifies(cls)
@@ -95,7 +99,7 @@ meta = {
 
 DATA = {"meta": meta, "predictions": predictions, "standings": standings,
         "qualifiers": qualifiers, "ratings": ratings_l, "analyses": analyses,
-        "j1": j1, "reportMarkdown": report_md}
+        "j1": j1, "reportMarkdown": report_md, "teamDetails": team_details}
 
 with open("docs/data.js", "w", encoding="utf-8") as f:
     f.write("// Généré par build_site.py — ne pas éditer à la main.\n")

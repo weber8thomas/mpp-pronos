@@ -2787,5 +2787,1832 @@ window.DATA = {
    "ok": false
   }
  ],
- "reportMarkdown": "# 🏆 Pronostics — Phase de groupes, Coupe du Monde 2026\n\n> Pronostics de scores des **72 matchs** de la phase de groupes (48 équipes, 12 groupes), produits par une méthodologie **hybride** : modèle de Poisson basé sur l'Elo, ajusté et critiqué par une dizaine d'agents experts (forme récente, effectifs, blessures, compétitions précédentes).\n\n**Convention** : le tournoi ayant débuté le 11/06/2026, **J1 = résultats réels** (groupes A–H) et **J2/J3 = pronostics**. Les groupes I–L n'avaient pas encore joué au moment de l'analyse (16/06/2026) et sont entièrement pronostiqués.\n\nDonnées : `data/predictions.csv` · Modèle : `model_pronos.py` · Classements : `standings.py` · Analyse explorable : `notebooks/analyse_pronos.ipynb` · Traçabilité agents : `research/notes_agents.md`\n\n\n## 📅 Calendrier chronologique des 72 pronostics\n\nTrié par coup d'envoi. Heure en **CEST** (Europe/Paris, UTC+2) — *indicative, à confirmer*. Type : ✅ résultat réel · 🔮 pronostic. `P(V/N/D)` = probabilités victoire / nul / défaite (modèle).\n\n> ℹ️ La colonne **mpp** (`1/N/2`) provient de l'export mpp.football fourni — disponible pour les 56 matchs à venir (les 16 matchs de J1 déjà joués des groupes A–H n'y figurent pas). Comparez `P(V/N/D)` (notre modèle) et `mpp` (cotes/communauté mpp).\n\n\n| Date (CEST) | Heure | Gr. | Match | Prono | P(V/N/D) | mpp |\n|:--|:--:|:--:|:--|:--:|:--:|:--:|\n| Jeu 11/06 | 21h00 | A | Mexique – Afrique du Sud | **2-0** ✅ | 0.86/0.10/0.04 | — |\n| Ven 12/06 | 04h00 | A | Corée du Sud – Tchéquie | **2-1** ✅ | 0.48/0.25/0.27 | — |\n| Ven 12/06 | 21h00 | B | Canada – Bosnie-Herzégovine | **1-1** ✅ | 0.30/0.40/0.30 | — |\n| Ven 12/06 | 21h00 | D | États-Unis – Paraguay | **4-1** ✅ | 0.61/0.22/0.17 | — |\n| Sam 13/06 | 21h00 | B | Qatar – Suisse | **1-1** ✅ | 0.18/0.40/0.42 | — |\n| Dim 14/06 | 00h00 | C | Brésil – Maroc | **1-1** ✅ | 0.40/0.32/0.28 | — |\n| Dim 14/06 | 03h00 | D | Australie – Turquie | **2-0** ✅ | 0.19/0.23/0.58 | — |\n| Dim 14/06 | 03h00 | C | Haïti – Écosse | **0-1** ✅ | 0.12/0.22/0.66 | — |\n| Dim 14/06 | 19h00 | E | Allemagne – Curaçao | **7-1** ✅ | 0.93/0.06/0.01 | — |\n| Dim 14/06 | 22h00 | F | Pays-Bas – Japon | **2-2** ✅ | 0.45/0.30/0.25 | — |\n| Lun 15/06 | 01h00 | E | Côte d'Ivoire – Équateur | **1-0** ✅ | 0.40/0.30/0.30 | — |\n| Lun 15/06 | 04h00 | F | Suède – Tunisie | **5-1** ✅ | 0.59/0.22/0.19 | — |\n| Lun 15/06 | 18h00 | H | Espagne – Cap-Vert | **0-0** ✅ | 0.85/0.12/0.03 | — |\n| Lun 15/06 | 21h00 | G | Belgique – Égypte | **1-1** ✅ | 0.45/0.30/0.25 | — |\n| Mar 16/06 | 00h00 | H | Arabie saoudite – Uruguay | **1-1** ✅ | 0.18/0.30/0.52 | — |\n| Mar 16/06 | 03h00 | G | Iran – Nouvelle-Zélande | **2-2** ✅ | 0.55/0.25/0.20 | — |\n| Mar 16/06 | 21h00 | I | France – Sénégal | **2-1** 🔮 | 0.58/0.24/0.18 | 0.88/0.09/0.03 |\n| Mer 17/06 | 00h00 | I | Irak – Norvège | **0-1** 🔮 | 0.12/0.24/0.64 | 0.02/0.06/0.92 |\n| Mer 17/06 | 03h00 | J | Argentine – Algérie | **2-0** 🔮 | 0.72/0.18/0.10 | 0.80/0.14/0.06 |\n| Mer 17/06 | 06h00 | J | Autriche – Jordanie | **2-0** 🔮 | 0.64/0.24/0.12 | 0.83/0.14/0.03 |\n| Mer 17/06 | 19h00 | K | Portugal – RD Congo | **2-0** 🔮 | 0.66/0.20/0.14 | 0.95/0.04/0.01 |\n| Mer 17/06 | 22h00 | L | Angleterre – Croatie | **2-0** 🔮 | 0.68/0.22/0.10 | 0.57/0.35/0.08 |\n| Jeu 18/06 | 01h00 | L | Ghana – Panama | **1-1** 🔮 | 0.38/0.32/0.30 | 0.60/0.33/0.07 |\n| Jeu 18/06 | 04h00 | K | Ouzbékistan – Colombie | **0-2** 🔮 | 0.12/0.22/0.66 | 0.03/0.07/0.90 |\n| Jeu 18/06 | 18h00 | A | Tchéquie – Afrique du Sud | **1-0** 🔮 | 0.58/0.27/0.15 | 0.58/0.27/0.15 |\n| Jeu 18/06 | 21h00 | B | Suisse – Bosnie-Herzégovine | **2-0** 🔮 | 0.74/0.16/0.10 | 0.73/0.21/0.06 |\n| Ven 19/06 | 00h00 | B | Canada – Qatar | **2-0** 🔮 | 0.78/0.15/0.07 | 0.76/0.17/0.07 |\n| Ven 19/06 | 03h00 | A | Mexique – Corée du Sud | **1-1** 🔮 | 0.40/0.30/0.30 | 0.57/0.30/0.13 |\n| Ven 19/06 | 21h00 | D | États-Unis – Australie | **2-0** 🔮 | 0.66/0.21/0.13 | 0.70/0.21/0.09 |\n| Sam 20/06 | 00h00 | C | Écosse – Maroc | **1-2** 🔮 | 0.18/0.22/0.60 | 0.06/0.19/0.75 |\n| Sam 20/06 | 03h00 | C | Brésil – Haïti | **3-0** 🔮 | 0.91/0.07/0.02 | 0.97/0.02/0.01 |\n| Sam 20/06 | 06h00 | D | Turquie – Paraguay | **2-1** 🔮 | 0.54/0.25/0.21 | 0.59/0.30/0.11 |\n| Sam 20/06 | 19h00 | F | Pays-Bas – Suède | **2-2** 🔮 | 0.35/0.30/0.35 | 0.63/0.28/0.09 |\n| Sam 20/06 | 22h00 | E | Allemagne – Côte d'Ivoire | **2-1** 🔮 | 0.60/0.24/0.16 | 0.81/0.13/0.06 |\n| Dim 21/06 | 02h00 | E | Équateur – Curaçao | **2-0** 🔮 | 0.78/0.16/0.06 | 0.83/0.13/0.04 |\n| Dim 21/06 | 06h00 | F | Tunisie – Japon | **0-2** 🔮 | 0.18/0.27/0.55 | 0.13/0.24/0.63 |\n| Dim 21/06 | 18h00 | H | Espagne – Arabie saoudite | **3-0** 🔮 | 0.80/0.14/0.06 | 0.97/0.02/0.01 |\n| Dim 21/06 | 21h00 | G | Belgique – Iran | **2-1** 🔮 | 0.55/0.25/0.20 | 0.93/0.05/0.02 |\n| Lun 22/06 | 00h00 | H | Uruguay – Cap-Vert | **1-0** 🔮 | 0.58/0.27/0.15 | 0.85/0.11/0.04 |\n| Lun 22/06 | 03h00 | G | Nouvelle-Zélande – Égypte | **1-2** 🔮 | 0.18/0.24/0.58 | 0.10/0.20/0.70 |\n| Lun 22/06 | 19h00 | J | Argentine – Autriche | **2-1** 🔮 | 0.66/0.21/0.13 | 0.87/0.10/0.03 |\n| Lun 22/06 | 23h00 | I | France – Irak | **3-0** 🔮 | 0.86/0.10/0.04 | 0.98/0.01/0.01 |\n| Mar 23/06 | 02h00 | I | Norvège – Sénégal | **1-1** 🔮 | 0.32/0.30/0.38 | 0.32/0.42/0.26 |\n| Mar 23/06 | 05h00 | J | Jordanie – Algérie | **0-2** 🔮 | 0.14/0.26/0.60 | 0.04/0.13/0.83 |\n| Mar 23/06 | 19h00 | K | Portugal – Ouzbékistan | **3-0** 🔮 | 0.78/0.15/0.07 | 0.97/0.02/0.01 |\n| Mar 23/06 | 22h00 | L | Angleterre – Ghana | **2-0** 🔮 | 0.78/0.16/0.06 | 0.89/0.08/0.03 |\n| Mer 24/06 | 01h00 | L | Panama – Croatie | **1-2** 🔮 | 0.16/0.24/0.60 | 0.03/0.08/0.89 |\n| Mer 24/06 | 04h00 | K | Colombie – RD Congo | **2-1** 🔮 | 0.56/0.24/0.20 | 0.71/0.23/0.06 |\n| Mer 24/06 | 21h00 | B | Suisse – Canada | **2-1** 🔮 | 0.50/0.27/0.23 | 0.52/0.39/0.09 |\n| Mer 24/06 | 21h00 | B | Bosnie-Herzégovine – Qatar | **2-1** 🔮 | 0.50/0.26/0.24 | 0.56/0.32/0.12 |\n| Jeu 25/06 | 00h00 | C | Maroc – Haïti | **2-0** 🔮 | 0.85/0.11/0.04 | 0.94/0.04/0.02 |\n| Jeu 25/06 | 00h00 | C | Écosse – Brésil | **0-2** 🔮 | 0.06/0.14/0.80 | 0.04/0.08/0.88 |\n| Jeu 25/06 | 03h00 | A | Afrique du Sud – Corée du Sud | **0-2** 🔮 | 0.12/0.22/0.66 | 0.14/0.30/0.56 |\n| Jeu 25/06 | 03h00 | A | Tchéquie – Mexique | **1-1** 🔮 | 0.24/0.31/0.45 | 0.08/0.38/0.54 |\n| Jeu 25/06 | 22h00 | E | Curaçao – Côte d'Ivoire | **0-2** 🔮 | 0.08/0.17/0.75 | 0.03/0.07/0.90 |\n| Jeu 25/06 | 22h00 | E | Équateur – Allemagne | **1-1** 🔮 | 0.26/0.38/0.36 | 0.04/0.11/0.85 |\n| Ven 26/06 | 01h00 | F | Tunisie – Pays-Bas | **0-2** 🔮 | 0.14/0.26/0.60 | 0.05/0.13/0.82 |\n| Ven 26/06 | 01h00 | F | Japon – Suède | **1-2** 🔮 | 0.30/0.26/0.44 | 0.34/0.47/0.20 |\n| Ven 26/06 | 04h00 | D | Paraguay – Australie | **1-1** 🔮 | 0.45/0.27/0.28 | 0.50/0.33/0.17 |\n| Ven 26/06 | 04h00 | D | Turquie – États-Unis | **1-1** 🔮 | 0.29/0.27/0.44 | 0.30/0.40/0.30 |\n| Ven 26/06 | 21h00 | I | Norvège – France | **1-2** 🔮 | 0.22/0.24/0.54 | 0.04/0.17/0.79 |\n| Ven 26/06 | 21h00 | I | Sénégal – Irak | **2-0** 🔮 | 0.78/0.15/0.07 | 0.91/0.07/0.02 |\n| Sam 27/06 | 02h00 | H | Uruguay – Espagne | **1-2** 🔮 | 0.22/0.26/0.52 | 0.03/0.14/0.83 |\n| Sam 27/06 | 02h00 | H | Cap-Vert – Arabie saoudite | **1-1** 🔮 | 0.33/0.34/0.33 | 0.14/0.55/0.31 |\n| Sam 27/06 | 05h00 | G | Nouvelle-Zélande – Belgique | **0-2** 🔮 | 0.12/0.20/0.68 | 0.03/0.06/0.91 |\n| Sam 27/06 | 05h00 | G | Égypte – Iran | **1-1** 🔮 | 0.38/0.35/0.27 | 0.66/0.28/0.06 |\n| Sam 27/06 | 23h00 | L | Panama – Angleterre | **0-2** 🔮 | 0.06/0.14/0.80 | 0.02/0.04/0.94 |\n| Sam 27/06 | 23h00 | L | Croatie – Ghana | **2-1** 🔮 | 0.60/0.24/0.16 | 0.74/0.20/0.06 |\n| Dim 28/06 | 01h30 | K | Colombie – Portugal | **1-1** 🔮 | 0.32/0.36/0.32 | 0.05/0.18/0.77 |\n| Dim 28/06 | 01h30 | K | RD Congo – Ouzbékistan | **2-1** 🔮 | 0.50/0.27/0.23 | 0.63/0.30/0.07 |\n| Dim 28/06 | 04h00 | J | Jordanie – Argentine | **1-2** 🔮 | 0.12/0.20/0.68 | 0.02/0.03/0.95 |\n| Dim 28/06 | 04h00 | J | Algérie – Autriche | **1-1** 🔮 | 0.33/0.30/0.37 | 0.37/0.44/0.19 |\n\n---\n\n\n## Groupe A\n\nCorée du Sud et Mexique se détachent ; la victoire coréenne en J1 (2-1) propulse les hommes de Son en tête. La Tchéquie accroche la 3e place (qualifiable). L'Afrique du Sud, dépassée et indisciplinée, ferme la marche.\n\n\n| Journée | Match | Score | Type | P(V/N/D) modèle | mpp (1/N/2) |\n|:--:|:--|:--:|:--:|:--:|:--:|\n| J1 | Mexique – Afrique du Sud | **2-0** | réel ✅ | 0.86/0.10/0.04 | — |\n| J1 | Corée du Sud – Tchéquie | **2-1** | réel ✅ | 0.48/0.25/0.27 | — |\n| J2 | Tchéquie – Afrique du Sud | **1-0** | prono 🔮 | 0.58/0.27/0.15 | 0.58/0.27/0.15 |\n| J2 | Mexique – Corée du Sud | **1-1** | prono 🔮 | 0.40/0.30/0.30 | 0.57/0.30/0.13 |\n| J3 | Tchéquie – Mexique | **1-1** | prono 🔮 | 0.24/0.31/0.45 | 0.08/0.38/0.54 |\n| J3 | Afrique du Sud – Corée du Sud | **0-2** | prono 🔮 | 0.12/0.22/0.66 | 0.14/0.30/0.56 |\n\n**Classement final pronostiqué**\n\n| Rang | Équipe | Pts | J | G | N | P | BP | BC | Diff | Statut |\n|:--:|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--|\n| 1 | Corée du Sud | **7** | 3 | 2 | 1 | 0 | 5 | 2 | +3 | 🟢 1er — qualifié |\n| 2 | Mexique | **5** | 3 | 1 | 2 | 0 | 4 | 2 | +2 | 🟢 2e — qualifié |\n| 3 | Tchéquie | **4** | 3 | 1 | 1 | 1 | 3 | 3 | +0 | 🟡 3e — qualifié |\n| 4 | Afrique du Sud | **0** | 3 | 0 | 0 | 3 | 0 | 5 | -5 | 🔴 éliminé |\n\n\n## Groupe B\n\nLa Suisse confirme son statut de favori malgré son nul d'entrée concédé au Qatar. Le Canada profite de son avantage co-hôte. La Bosnie de Dzeko arrache une 3e place qualifiable ; le Qatar termine dernier malgré son point historique.\n\n\n| Journée | Match | Score | Type | P(V/N/D) modèle | mpp (1/N/2) |\n|:--:|:--|:--:|:--:|:--:|:--:|\n| J1 | Canada – Bosnie-Herzégovine | **1-1** | réel ✅ | 0.30/0.40/0.30 | — |\n| J1 | Qatar – Suisse | **1-1** | réel ✅ | 0.18/0.40/0.42 | — |\n| J2 | Suisse – Bosnie-Herzégovine | **2-0** | prono 🔮 | 0.74/0.16/0.10 | 0.73/0.21/0.06 |\n| J2 | Canada – Qatar | **2-0** | prono 🔮 | 0.78/0.15/0.07 | 0.76/0.17/0.07 |\n| J3 | Suisse – Canada | **2-1** | prono 🔮 | 0.50/0.27/0.23 | 0.52/0.39/0.09 |\n| J3 | Bosnie-Herzégovine – Qatar | **2-1** | prono 🔮 | 0.50/0.26/0.24 | 0.56/0.32/0.12 |\n\n**Classement final pronostiqué**\n\n| Rang | Équipe | Pts | J | G | N | P | BP | BC | Diff | Statut |\n|:--:|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--|\n| 1 | Suisse | **7** | 3 | 2 | 1 | 0 | 5 | 2 | +3 | 🟢 1er — qualifié |\n| 2 | Canada | **4** | 3 | 1 | 1 | 1 | 4 | 3 | +1 | 🟢 2e — qualifié |\n| 3 | Bosnie-Herzégovine | **4** | 3 | 1 | 1 | 1 | 3 | 4 | -1 | 🟡 3e — qualifié |\n| 4 | Qatar | **1** | 3 | 0 | 1 | 2 | 2 | 5 | -3 | 🔴 éliminé |\n\n\n## Groupe C\n\nChoc au sommet : Brésil et Maroc (1-1 en J1) terminent tous deux qualifiés, le Brésil 1er à la différence de buts. L'Écosse prend la 3e place mais son calendrier (Maroc puis Brésil) la laisse hors des meilleurs 3es. Haïti termine sans point.\n\n\n| Journée | Match | Score | Type | P(V/N/D) modèle | mpp (1/N/2) |\n|:--:|:--|:--:|:--:|:--:|:--:|\n| J1 | Brésil – Maroc | **1-1** | réel ✅ | 0.40/0.32/0.28 | — |\n| J1 | Haïti – Écosse | **0-1** | réel ✅ | 0.12/0.22/0.66 | — |\n| J2 | Écosse – Maroc | **1-2** | prono 🔮 | 0.18/0.22/0.60 | 0.06/0.19/0.75 |\n| J2 | Brésil – Haïti | **3-0** | prono 🔮 | 0.91/0.07/0.02 | 0.97/0.02/0.01 |\n| J3 | Écosse – Brésil | **0-2** | prono 🔮 | 0.06/0.14/0.80 | 0.04/0.08/0.88 |\n| J3 | Maroc – Haïti | **2-0** | prono 🔮 | 0.85/0.11/0.04 | 0.94/0.04/0.02 |\n\n**Classement final pronostiqué**\n\n| Rang | Équipe | Pts | J | G | N | P | BP | BC | Diff | Statut |\n|:--:|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--|\n| 1 | Brésil | **7** | 3 | 2 | 1 | 0 | 6 | 1 | +5 | 🟢 1er — qualifié |\n| 2 | Maroc | **7** | 3 | 2 | 1 | 0 | 5 | 2 | +3 | 🟢 2e — qualifié |\n| 3 | Écosse | **3** | 3 | 1 | 0 | 2 | 2 | 4 | -2 | 🔴 éliminé |\n| 4 | Haïti | **0** | 3 | 0 | 0 | 3 | 0 | 6 | -6 | 🔴 éliminé |\n\n\n## Groupe D\n\nLes États-Unis impressionnent (4-1 d'entrée) et filent en tête. L'Australie et la Turquie se disputent la 2e place ; la Turquie, plus dangereuse, prend la 3e qualifiable. Le Paraguay est plombé par sa lourde défaite inaugurale.\n\n\n| Journée | Match | Score | Type | P(V/N/D) modèle | mpp (1/N/2) |\n|:--:|:--|:--:|:--:|:--:|:--:|\n| J1 | États-Unis – Paraguay | **4-1** | réel ✅ | 0.61/0.22/0.17 | — |\n| J1 | Australie – Turquie | **2-0** | réel ✅ | 0.19/0.23/0.58 | — |\n| J2 | États-Unis – Australie | **2-0** | prono 🔮 | 0.66/0.21/0.13 | 0.70/0.21/0.09 |\n| J2 | Turquie – Paraguay | **2-1** | prono 🔮 | 0.54/0.25/0.21 | 0.59/0.30/0.11 |\n| J3 | Turquie – États-Unis | **1-1** | prono 🔮 | 0.29/0.27/0.44 | 0.30/0.40/0.30 |\n| J3 | Paraguay – Australie | **1-1** | prono 🔮 | 0.45/0.27/0.28 | 0.50/0.33/0.17 |\n\n**Classement final pronostiqué**\n\n| Rang | Équipe | Pts | J | G | N | P | BP | BC | Diff | Statut |\n|:--:|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--|\n| 1 | États-Unis | **7** | 3 | 2 | 1 | 0 | 7 | 2 | +5 | 🟢 1er — qualifié |\n| 2 | Australie | **4** | 3 | 1 | 1 | 1 | 3 | 3 | +0 | 🟢 2e — qualifié |\n| 3 | Turquie | **4** | 3 | 1 | 1 | 1 | 3 | 4 | -1 | 🟡 3e — qualifié |\n| 4 | Paraguay | **1** | 3 | 0 | 1 | 2 | 3 | 7 | -4 | 🔴 éliminé |\n\n\n## Groupe E\n\nL'Allemagne, lancée par son 7-1, domine. La Côte d'Ivoire s'appuie sur sa défense pour la 2e place. L'Équateur, miné par son manque de réalisme offensif, est éliminé malgré une défense solide. Curaçao termine logiquement dernier.\n\n\n| Journée | Match | Score | Type | P(V/N/D) modèle | mpp (1/N/2) |\n|:--:|:--|:--:|:--:|:--:|:--:|\n| J1 | Allemagne – Curaçao | **7-1** | réel ✅ | 0.93/0.06/0.01 | — |\n| J1 | Côte d'Ivoire – Équateur | **1-0** | réel ✅ | 0.40/0.30/0.30 | — |\n| J2 | Allemagne – Côte d'Ivoire | **2-1** | prono 🔮 | 0.60/0.24/0.16 | 0.81/0.13/0.06 |\n| J2 | Équateur – Curaçao | **2-0** | prono 🔮 | 0.78/0.16/0.06 | 0.83/0.13/0.04 |\n| J3 | Curaçao – Côte d'Ivoire | **0-2** | prono 🔮 | 0.08/0.17/0.75 | 0.03/0.07/0.90 |\n| J3 | Équateur – Allemagne | **1-1** | prono 🔮 | 0.26/0.38/0.36 | 0.04/0.11/0.85 |\n\n**Classement final pronostiqué**\n\n| Rang | Équipe | Pts | J | G | N | P | BP | BC | Diff | Statut |\n|:--:|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--|\n| 1 | Allemagne | **7** | 3 | 2 | 1 | 0 | 10 | 3 | +7 | 🟢 1er — qualifié |\n| 2 | Côte d'Ivoire | **6** | 3 | 2 | 0 | 1 | 4 | 2 | +2 | 🟢 2e — qualifié |\n| 3 | Équateur | **4** | 3 | 1 | 1 | 1 | 3 | 2 | +1 | 🟡 3e — qualifié |\n| 4 | Curaçao | **0** | 3 | 0 | 0 | 3 | 1 | 11 | -10 | 🔴 éliminé |\n\n\n## Groupe F\n\nSurprise du groupe : la Suède, portée par le duo Isak-Gyökeres (5-1 en J1), prend la tête. Les Pays-Bas, accrochés deux fois, terminent 2es. Le Japon (privé de Mitoma) sauve une 3e place qualifiable. La Tunisie s'effondre.\n\n\n| Journée | Match | Score | Type | P(V/N/D) modèle | mpp (1/N/2) |\n|:--:|:--|:--:|:--:|:--:|:--:|\n| J1 | Pays-Bas – Japon | **2-2** | réel ✅ | 0.45/0.30/0.25 | — |\n| J1 | Suède – Tunisie | **5-1** | réel ✅ | 0.59/0.22/0.19 | — |\n| J2 | Pays-Bas – Suède | **2-2** | prono 🔮 | 0.35/0.30/0.35 | 0.63/0.28/0.09 |\n| J2 | Tunisie – Japon | **0-2** | prono 🔮 | 0.18/0.27/0.55 | 0.13/0.24/0.63 |\n| J3 | Japon – Suède | **1-2** | prono 🔮 | 0.30/0.26/0.44 | 0.34/0.47/0.20 |\n| J3 | Tunisie – Pays-Bas | **0-2** | prono 🔮 | 0.14/0.26/0.60 | 0.05/0.13/0.82 |\n\n**Classement final pronostiqué**\n\n| Rang | Équipe | Pts | J | G | N | P | BP | BC | Diff | Statut |\n|:--:|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--|\n| 1 | Suède | **7** | 3 | 2 | 1 | 0 | 9 | 4 | +5 | 🟢 1er — qualifié |\n| 2 | Pays-Bas | **5** | 3 | 1 | 2 | 0 | 6 | 4 | +2 | 🟢 2e — qualifié |\n| 3 | Japon | **4** | 3 | 1 | 1 | 1 | 5 | 4 | +1 | 🟡 3e — qualifié |\n| 4 | Tunisie | **0** | 3 | 0 | 0 | 3 | 1 | 9 | -8 | 🔴 éliminé |\n\n\n## Groupe G\n\nGroupe le plus ouvert : la Belgique finit par s'imposer, l'Égypte de Salah prend la 2e place. L'Iran, trop nul (3 nuls puis défaite), manque la qualification de justesse. La Nouvelle-Zélande, valeureuse, termine dernière.\n\n\n| Journée | Match | Score | Type | P(V/N/D) modèle | mpp (1/N/2) |\n|:--:|:--|:--:|:--:|:--:|:--:|\n| J1 | Belgique – Égypte | **1-1** | réel ✅ | 0.45/0.30/0.25 | — |\n| J1 | Iran – Nouvelle-Zélande | **2-2** | réel ✅ | 0.55/0.25/0.20 | — |\n| J2 | Belgique – Iran | **2-1** | prono 🔮 | 0.55/0.25/0.20 | 0.93/0.05/0.02 |\n| J2 | Nouvelle-Zélande – Égypte | **1-2** | prono 🔮 | 0.18/0.24/0.58 | 0.10/0.20/0.70 |\n| J3 | Égypte – Iran | **1-1** | prono 🔮 | 0.38/0.35/0.27 | 0.66/0.28/0.06 |\n| J3 | Nouvelle-Zélande – Belgique | **0-2** | prono 🔮 | 0.12/0.20/0.68 | 0.03/0.06/0.91 |\n\n**Classement final pronostiqué**\n\n| Rang | Équipe | Pts | J | G | N | P | BP | BC | Diff | Statut |\n|:--:|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--|\n| 1 | Belgique | **7** | 3 | 2 | 1 | 0 | 5 | 2 | +3 | 🟢 1er — qualifié |\n| 2 | Égypte | **5** | 3 | 1 | 2 | 0 | 4 | 3 | +1 | 🟢 2e — qualifié |\n| 3 | Iran | **2** | 3 | 0 | 2 | 1 | 4 | 5 | -1 | 🔴 éliminé |\n| 4 | Nouvelle-Zélande | **1** | 3 | 0 | 1 | 2 | 3 | 6 | -3 | 🔴 éliminé |\n\n\n## Groupe H\n\nAprès son 0-0 surprise contre le Cap-Vert, l'Espagne se reprend et domine. L'Uruguay de Bielsa, diminué par les blessures, assure la 2e place. Le Cap-Vert devance l'Arabie saoudite pour la 3e place mais ne se qualifie pas.\n\n\n| Journée | Match | Score | Type | P(V/N/D) modèle | mpp (1/N/2) |\n|:--:|:--|:--:|:--:|:--:|:--:|\n| J1 | Espagne – Cap-Vert | **0-0** | réel ✅ | 0.85/0.12/0.03 | — |\n| J1 | Arabie saoudite – Uruguay | **1-1** | réel ✅ | 0.18/0.30/0.52 | — |\n| J2 | Espagne – Arabie saoudite | **3-0** | prono 🔮 | 0.80/0.14/0.06 | 0.97/0.02/0.01 |\n| J2 | Uruguay – Cap-Vert | **1-0** | prono 🔮 | 0.58/0.27/0.15 | 0.85/0.11/0.04 |\n| J3 | Cap-Vert – Arabie saoudite | **1-1** | prono 🔮 | 0.33/0.34/0.33 | 0.14/0.55/0.31 |\n| J3 | Uruguay – Espagne | **1-2** | prono 🔮 | 0.22/0.26/0.52 | 0.03/0.14/0.83 |\n\n**Classement final pronostiqué**\n\n| Rang | Équipe | Pts | J | G | N | P | BP | BC | Diff | Statut |\n|:--:|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--|\n| 1 | Espagne | **7** | 3 | 2 | 1 | 0 | 5 | 1 | +4 | 🟢 1er — qualifié |\n| 2 | Uruguay | **4** | 3 | 1 | 1 | 1 | 3 | 3 | +0 | 🟢 2e — qualifié |\n| 3 | Cap-Vert | **2** | 3 | 0 | 2 | 1 | 1 | 2 | -1 | 🔴 éliminé |\n| 4 | Arabie saoudite | **2** | 3 | 0 | 2 | 1 | 2 | 5 | -3 | 🔴 éliminé |\n\n\n## Groupe I\n\nLa France, intraitable (9 pts), survole un groupe relevé. Le Sénégal, champion d'Afrique en titre, prend la 2e place devant la Norvège de Haaland (3e qualifiable). L'Irak termine sans point.\n\n\n| Journée | Match | Score | Type | P(V/N/D) modèle | mpp (1/N/2) |\n|:--:|:--|:--:|:--:|:--:|:--:|\n| J1 | France – Sénégal | **2-1** | prono 🔮 | 0.58/0.24/0.18 | 0.88/0.09/0.03 |\n| J1 | Irak – Norvège | **0-1** | prono 🔮 | 0.12/0.24/0.64 | 0.02/0.06/0.92 |\n| J2 | France – Irak | **3-0** | prono 🔮 | 0.86/0.10/0.04 | 0.98/0.01/0.01 |\n| J2 | Norvège – Sénégal | **1-1** | prono 🔮 | 0.32/0.30/0.38 | 0.32/0.42/0.26 |\n| J3 | Norvège – France | **1-2** | prono 🔮 | 0.22/0.24/0.54 | 0.04/0.17/0.79 |\n| J3 | Sénégal – Irak | **2-0** | prono 🔮 | 0.78/0.15/0.07 | 0.91/0.07/0.02 |\n\n**Classement final pronostiqué**\n\n| Rang | Équipe | Pts | J | G | N | P | BP | BC | Diff | Statut |\n|:--:|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--|\n| 1 | France | **9** | 3 | 3 | 0 | 0 | 7 | 2 | +5 | 🟢 1er — qualifié |\n| 2 | Sénégal | **4** | 3 | 1 | 1 | 1 | 4 | 3 | +1 | 🟢 2e — qualifié |\n| 3 | Norvège | **4** | 3 | 1 | 1 | 1 | 3 | 3 | +0 | 🟡 3e — qualifié |\n| 4 | Irak | **0** | 3 | 0 | 0 | 3 | 0 | 6 | -6 | 🔴 éliminé |\n\n\n## Groupe J\n\nL'Argentine déroule (9 pts). L'Autriche (2e) et l'Algérie (meilleur 3e) se qualifient toutes deux avec 4 points ; leur hiérarchie reste très serrée (point ouvert signalé par la critique). La Jordanie termine dernière.\n\n\n| Journée | Match | Score | Type | P(V/N/D) modèle | mpp (1/N/2) |\n|:--:|:--|:--:|:--:|:--:|:--:|\n| J1 | Argentine – Algérie | **2-0** | prono 🔮 | 0.72/0.18/0.10 | 0.80/0.14/0.06 |\n| J1 | Autriche – Jordanie | **2-0** | prono 🔮 | 0.64/0.24/0.12 | 0.83/0.14/0.03 |\n| J2 | Argentine – Autriche | **2-1** | prono 🔮 | 0.66/0.21/0.13 | 0.87/0.10/0.03 |\n| J2 | Jordanie – Algérie | **0-2** | prono 🔮 | 0.14/0.26/0.60 | 0.04/0.13/0.83 |\n| J3 | Jordanie – Argentine | **1-2** | prono 🔮 | 0.12/0.20/0.68 | 0.02/0.03/0.95 |\n| J3 | Algérie – Autriche | **1-1** | prono 🔮 | 0.33/0.30/0.37 | 0.37/0.44/0.19 |\n\n**Classement final pronostiqué**\n\n| Rang | Équipe | Pts | J | G | N | P | BP | BC | Diff | Statut |\n|:--:|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--|\n| 1 | Argentine | **9** | 3 | 3 | 0 | 0 | 6 | 2 | +4 | 🟢 1er — qualifié |\n| 2 | Autriche | **4** | 3 | 1 | 1 | 1 | 4 | 3 | +1 | 🟢 2e — qualifié |\n| 3 | Algérie | **4** | 3 | 1 | 1 | 1 | 3 | 3 | +0 | 🟡 3e — qualifié |\n| 4 | Jordanie | **0** | 3 | 0 | 0 | 3 | 1 | 6 | -5 | 🔴 éliminé |\n\n\n## Groupe K\n\nPortugal et Colombie, au coude-à-coude (nul 1-1 décisif), se qualifient tous deux, le Portugal 1er à la différence de buts. La RD Congo arrache une 3e place qualifiable de justesse. L'Ouzbékistan, pour sa 1ère CDM, termine dernier.\n\n\n| Journée | Match | Score | Type | P(V/N/D) modèle | mpp (1/N/2) |\n|:--:|:--|:--:|:--:|:--:|:--:|\n| J1 | Portugal – RD Congo | **2-0** | prono 🔮 | 0.66/0.20/0.14 | 0.95/0.04/0.01 |\n| J1 | Ouzbékistan – Colombie | **0-2** | prono 🔮 | 0.12/0.22/0.66 | 0.03/0.07/0.90 |\n| J2 | Portugal – Ouzbékistan | **3-0** | prono 🔮 | 0.78/0.15/0.07 | 0.97/0.02/0.01 |\n| J2 | Colombie – RD Congo | **2-1** | prono 🔮 | 0.56/0.24/0.20 | 0.71/0.23/0.06 |\n| J3 | Colombie – Portugal | **1-1** | prono 🔮 | 0.32/0.36/0.32 | 0.05/0.18/0.77 |\n| J3 | RD Congo – Ouzbékistan | **2-1** | prono 🔮 | 0.50/0.27/0.23 | 0.63/0.30/0.07 |\n\n**Classement final pronostiqué**\n\n| Rang | Équipe | Pts | J | G | N | P | BP | BC | Diff | Statut |\n|:--:|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--|\n| 1 | Portugal | **7** | 3 | 2 | 1 | 0 | 6 | 1 | +5 | 🟢 1er — qualifié |\n| 2 | Colombie | **7** | 3 | 2 | 1 | 0 | 5 | 2 | +3 | 🟢 2e — qualifié |\n| 3 | RD Congo | **3** | 3 | 1 | 0 | 2 | 3 | 5 | -2 | 🟡 3e — qualifié |\n| 4 | Ouzbékistan | **0** | 3 | 0 | 0 | 3 | 1 | 7 | -6 | 🔴 éliminé |\n\n\n## Groupe L\n\nL'Angleterre est démonstrative (9 pts, +6). La Croatie, vieillissante mais expérimentée, prend la 2e place. Ghana et Panama, à égalité au fond du classement, sont tous deux éliminés.\n\n\n| Journée | Match | Score | Type | P(V/N/D) modèle | mpp (1/N/2) |\n|:--:|:--|:--:|:--:|:--:|:--:|\n| J1 | Angleterre – Croatie | **2-0** | prono 🔮 | 0.68/0.22/0.10 | 0.57/0.35/0.08 |\n| J1 | Ghana – Panama | **1-1** | prono 🔮 | 0.38/0.32/0.30 | 0.60/0.33/0.07 |\n| J2 | Angleterre – Ghana | **2-0** | prono 🔮 | 0.78/0.16/0.06 | 0.89/0.08/0.03 |\n| J2 | Panama – Croatie | **1-2** | prono 🔮 | 0.16/0.24/0.60 | 0.03/0.08/0.89 |\n| J3 | Panama – Angleterre | **0-2** | prono 🔮 | 0.06/0.14/0.80 | 0.02/0.04/0.94 |\n| J3 | Croatie – Ghana | **2-1** | prono 🔮 | 0.60/0.24/0.16 | 0.74/0.20/0.06 |\n\n**Classement final pronostiqué**\n\n| Rang | Équipe | Pts | J | G | N | P | BP | BC | Diff | Statut |\n|:--:|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--|\n| 1 | Angleterre | **9** | 3 | 3 | 0 | 0 | 6 | 0 | +6 | 🟢 1er — qualifié |\n| 2 | Croatie | **6** | 3 | 2 | 0 | 1 | 4 | 4 | +0 | 🟢 2e — qualifié |\n| 3 | Ghana | **1** | 3 | 0 | 1 | 2 | 2 | 5 | -3 | 🔴 éliminé |\n| 4 | Panama | **1** | 3 | 0 | 1 | 2 | 2 | 5 | -3 | 🔴 éliminé |\n\n\n---\n\n\n## 🎟️ Les 32 qualifiés pour les 1/16 de finale\n\nFormat 2026 : 12 premiers + 12 deuxièmes + **8 meilleurs troisièmes**.\n\n\n| # | 1ers de groupe | 2es de groupe | Meilleurs 3es |\n|:--:|:--|:--|:--|\n| 1 | A · Corée du Sud | A · Mexique | F · Japon |\n| 2 | B · Suisse | B · Canada | E · Équateur |\n| 3 | C · Brésil | C · Maroc | J · Algérie |\n| 4 | D · États-Unis | D · Australie | I · Norvège |\n| 5 | E · Allemagne | E · Côte d'Ivoire | A · Tchéquie |\n| 6 | F · Suède | F · Pays-Bas | B · Bosnie-Herzégovine |\n| 7 | G · Belgique | G · Égypte | D · Turquie |\n| 8 | H · Espagne | H · Uruguay | K · RD Congo |\n| 9 | I · France | I · Sénégal |  |\n| 10 | J · Argentine | J · Autriche |  |\n| 11 | K · Portugal | K · Colombie |  |\n| 12 | L · Angleterre | L · Croatie |  |\n\n**Course aux meilleurs 3es (très serrée)** — les 8 premiers passent :\n\n\n| Rang 3es | Groupe | Équipe | Pts | Diff | BP | Qualifié |\n|:--:|:--:|:--|:--:|:--:|:--:|:--:|\n| 1 | F | Japon | 4 | +1 | 5 | ✅ |\n| 2 | E | Équateur | 4 | +1 | 3 | ✅ |\n| 3 | J | Algérie | 4 | +0 | 3 | ✅ |\n| 4 | I | Norvège | 4 | +0 | 3 | ✅ |\n| 5 | A | Tchéquie | 4 | +0 | 3 | ✅ |\n| 6 | B | Bosnie-Herzégovine | 4 | -1 | 3 | ✅ |\n| 7 | D | Turquie | 4 | -1 | 3 | ✅ |\n| 8 | K | RD Congo | 3 | -2 | 3 | ✅ |\n| 9 | C | Écosse | 3 | -2 | 2 | ❌ |\n| 10 | G | Iran | 2 | -1 | 4 | ❌ |\n| 11 | H | Cap-Vert | 2 | -1 | 1 | ❌ |\n| 12 | L | Ghana | 1 | -3 | 2 | ❌ |\n\n---\n\n\n## 🔬 Méthodologie & limites\n\n- **Modèle Poisson** : `λ` (buts attendus) dérivés de l'Elo via une *supremacy* bornée (`3.6·tanh(Δelo/350)`) et un volume de buts croissant avec le déséquilibre ; avantage hôte pour le Mexique, les USA et le Canada. Détails et sensibilité : `notebooks/analyse_pronos.ipynb`.\n\n- **Multi-agents** : 12 agents prédicteurs (1/groupe, recherche web sur forme, effectifs, blessures, compétitions 2024-2026) ont ajusté le baseline ; 4 agents critiques ont challengé réalisme, biais et cohérence (départages, excès de nuls).\n\n- **Validation** : confronté aux résultats réels de la J1, le modèle Elo pur n'a anticipé que **~38 % des issues** — une J1 exceptionnellement nulle et surprenante (8 nuls sur 16, dont Espagne 0-0 Cap-Vert), ce qui rappelle l'imprévisibilité du football et justifie la couche experts.\n\n- **Limites** : un pronostic n'est pas une prédiction certaine. La course aux meilleurs 3es se joue à un but près ; plusieurs départages (Autriche/Algérie, Norvège/Sénégal) sont des quasi-pile-ou-face. Hors périmètre : la phase à élimination directe.\n"
+ "reportMarkdown": "# 🏆 Pronostics — Phase de groupes, Coupe du Monde 2026\n\n> Pronostics de scores des **72 matchs** de la phase de groupes (48 équipes, 12 groupes), produits par une méthodologie **hybride** : modèle de Poisson basé sur l'Elo, ajusté et critiqué par une dizaine d'agents experts (forme récente, effectifs, blessures, compétitions précédentes).\n\n**Convention** : le tournoi ayant débuté le 11/06/2026, **J1 = résultats réels** (groupes A–H) et **J2/J3 = pronostics**. Les groupes I–L n'avaient pas encore joué au moment de l'analyse (16/06/2026) et sont entièrement pronostiqués.\n\nDonnées : `data/predictions.csv` · Modèle : `model_pronos.py` · Classements : `standings.py` · Analyse explorable : `notebooks/analyse_pronos.ipynb` · Traçabilité agents : `research/notes_agents.md`\n\n\n## 📅 Calendrier chronologique des 72 pronostics\n\nTrié par coup d'envoi. Heure en **CEST** (Europe/Paris, UTC+2) — *indicative, à confirmer*. Type : ✅ résultat réel · 🔮 pronostic. `P(V/N/D)` = probabilités victoire / nul / défaite (modèle).\n\n> ℹ️ La colonne **mpp** (`1/N/2`) provient de l'export mpp.football fourni — disponible pour les 56 matchs à venir (les 16 matchs de J1 déjà joués des groupes A–H n'y figurent pas). Comparez `P(V/N/D)` (notre modèle) et `mpp` (cotes/communauté mpp).\n\n\n| Date (CEST) | Heure | Gr. | Match | Prono | P(V/N/D) | mpp |\n|:--|:--:|:--:|:--|:--:|:--:|:--:|\n| Jeu 11/06 | 21h00 | A | Mexique – Afrique du Sud | **2-0** ✅ | 0.86/0.10/0.04 | — |\n| Ven 12/06 | 04h00 | A | Corée du Sud – Tchéquie | **2-1** ✅ | 0.48/0.25/0.27 | — |\n| Ven 12/06 | 21h00 | B | Canada – Bosnie-Herzégovine | **1-1** ✅ | 0.30/0.40/0.30 | — |\n| Ven 12/06 | 21h00 | D | États-Unis – Paraguay | **4-1** ✅ | 0.61/0.22/0.17 | — |\n| Sam 13/06 | 21h00 | B | Qatar – Suisse | **1-1** ✅ | 0.18/0.40/0.42 | — |\n| Dim 14/06 | 00h00 | C | Brésil – Maroc | **1-1** ✅ | 0.40/0.32/0.28 | — |\n| Dim 14/06 | 03h00 | D | Australie – Turquie | **2-0** ✅ | 0.19/0.23/0.58 | — |\n| Dim 14/06 | 03h00 | C | Haïti – Écosse | **0-1** ✅ | 0.12/0.22/0.66 | — |\n| Dim 14/06 | 19h00 | E | Allemagne – Curaçao | **7-1** ✅ | 0.93/0.06/0.01 | — |\n| Dim 14/06 | 22h00 | F | Pays-Bas – Japon | **2-2** ✅ | 0.45/0.30/0.25 | — |\n| Lun 15/06 | 01h00 | E | Côte d'Ivoire – Équateur | **1-0** ✅ | 0.40/0.30/0.30 | — |\n| Lun 15/06 | 04h00 | F | Suède – Tunisie | **5-1** ✅ | 0.59/0.22/0.19 | — |\n| Lun 15/06 | 18h00 | H | Espagne – Cap-Vert | **0-0** ✅ | 0.85/0.12/0.03 | — |\n| Lun 15/06 | 21h00 | G | Belgique – Égypte | **1-1** ✅ | 0.45/0.30/0.25 | — |\n| Mar 16/06 | 00h00 | H | Arabie saoudite – Uruguay | **1-1** ✅ | 0.18/0.30/0.52 | — |\n| Mar 16/06 | 03h00 | G | Iran – Nouvelle-Zélande | **2-2** ✅ | 0.55/0.25/0.20 | — |\n| Mar 16/06 | 21h00 | I | France – Sénégal | **2-1** 🔮 | 0.58/0.24/0.18 | 0.88/0.09/0.03 |\n| Mer 17/06 | 00h00 | I | Irak – Norvège | **0-1** 🔮 | 0.12/0.24/0.64 | 0.02/0.06/0.92 |\n| Mer 17/06 | 03h00 | J | Argentine – Algérie | **2-0** 🔮 | 0.72/0.18/0.10 | 0.80/0.14/0.06 |\n| Mer 17/06 | 06h00 | J | Autriche – Jordanie | **2-0** 🔮 | 0.64/0.24/0.12 | 0.83/0.14/0.03 |\n| Mer 17/06 | 19h00 | K | Portugal – RD Congo | **2-0** 🔮 | 0.66/0.20/0.14 | 0.95/0.04/0.01 |\n| Mer 17/06 | 22h00 | L | Angleterre – Croatie | **2-0** 🔮 | 0.68/0.22/0.10 | 0.57/0.35/0.08 |\n| Jeu 18/06 | 01h00 | L | Ghana – Panama | **1-1** 🔮 | 0.38/0.32/0.30 | 0.60/0.33/0.07 |\n| Jeu 18/06 | 04h00 | K | Ouzbékistan – Colombie | **0-2** 🔮 | 0.12/0.22/0.66 | 0.03/0.07/0.90 |\n| Jeu 18/06 | 18h00 | A | Tchéquie – Afrique du Sud | **1-0** 🔮 | 0.58/0.27/0.15 | 0.58/0.27/0.15 |\n| Jeu 18/06 | 21h00 | B | Suisse – Bosnie-Herzégovine | **2-0** 🔮 | 0.74/0.16/0.10 | 0.73/0.21/0.06 |\n| Ven 19/06 | 00h00 | B | Canada – Qatar | **2-0** 🔮 | 0.78/0.15/0.07 | 0.76/0.17/0.07 |\n| Ven 19/06 | 03h00 | A | Mexique – Corée du Sud | **1-1** 🔮 | 0.40/0.30/0.30 | 0.57/0.30/0.13 |\n| Ven 19/06 | 21h00 | D | États-Unis – Australie | **2-0** 🔮 | 0.66/0.21/0.13 | 0.70/0.21/0.09 |\n| Sam 20/06 | 00h00 | C | Écosse – Maroc | **1-2** 🔮 | 0.18/0.22/0.60 | 0.06/0.19/0.75 |\n| Sam 20/06 | 03h00 | C | Brésil – Haïti | **3-0** 🔮 | 0.91/0.07/0.02 | 0.97/0.02/0.01 |\n| Sam 20/06 | 06h00 | D | Turquie – Paraguay | **2-1** 🔮 | 0.54/0.25/0.21 | 0.59/0.30/0.11 |\n| Sam 20/06 | 19h00 | F | Pays-Bas – Suède | **2-2** 🔮 | 0.35/0.30/0.35 | 0.63/0.28/0.09 |\n| Sam 20/06 | 22h00 | E | Allemagne – Côte d'Ivoire | **2-1** 🔮 | 0.60/0.24/0.16 | 0.81/0.13/0.06 |\n| Dim 21/06 | 02h00 | E | Équateur – Curaçao | **2-0** 🔮 | 0.78/0.16/0.06 | 0.83/0.13/0.04 |\n| Dim 21/06 | 06h00 | F | Tunisie – Japon | **0-2** 🔮 | 0.18/0.27/0.55 | 0.13/0.24/0.63 |\n| Dim 21/06 | 18h00 | H | Espagne – Arabie saoudite | **3-0** 🔮 | 0.80/0.14/0.06 | 0.97/0.02/0.01 |\n| Dim 21/06 | 21h00 | G | Belgique – Iran | **2-1** 🔮 | 0.55/0.25/0.20 | 0.93/0.05/0.02 |\n| Lun 22/06 | 00h00 | H | Uruguay – Cap-Vert | **1-0** 🔮 | 0.58/0.27/0.15 | 0.85/0.11/0.04 |\n| Lun 22/06 | 03h00 | G | Nouvelle-Zélande – Égypte | **1-2** 🔮 | 0.18/0.24/0.58 | 0.10/0.20/0.70 |\n| Lun 22/06 | 19h00 | J | Argentine – Autriche | **2-1** 🔮 | 0.66/0.21/0.13 | 0.87/0.10/0.03 |\n| Lun 22/06 | 23h00 | I | France – Irak | **3-0** 🔮 | 0.86/0.10/0.04 | 0.98/0.01/0.01 |\n| Mar 23/06 | 02h00 | I | Norvège – Sénégal | **1-1** 🔮 | 0.32/0.30/0.38 | 0.32/0.42/0.26 |\n| Mar 23/06 | 05h00 | J | Jordanie – Algérie | **0-2** 🔮 | 0.14/0.26/0.60 | 0.04/0.13/0.83 |\n| Mar 23/06 | 19h00 | K | Portugal – Ouzbékistan | **3-0** 🔮 | 0.78/0.15/0.07 | 0.97/0.02/0.01 |\n| Mar 23/06 | 22h00 | L | Angleterre – Ghana | **2-0** 🔮 | 0.78/0.16/0.06 | 0.89/0.08/0.03 |\n| Mer 24/06 | 01h00 | L | Panama – Croatie | **1-2** 🔮 | 0.16/0.24/0.60 | 0.03/0.08/0.89 |\n| Mer 24/06 | 04h00 | K | Colombie – RD Congo | **2-1** 🔮 | 0.56/0.24/0.20 | 0.71/0.23/0.06 |\n| Mer 24/06 | 21h00 | B | Suisse – Canada | **2-1** 🔮 | 0.50/0.27/0.23 | 0.52/0.39/0.09 |\n| Mer 24/06 | 21h00 | B | Bosnie-Herzégovine – Qatar | **2-1** 🔮 | 0.50/0.26/0.24 | 0.56/0.32/0.12 |\n| Jeu 25/06 | 00h00 | C | Maroc – Haïti | **2-0** 🔮 | 0.85/0.11/0.04 | 0.94/0.04/0.02 |\n| Jeu 25/06 | 00h00 | C | Écosse – Brésil | **0-2** 🔮 | 0.06/0.14/0.80 | 0.04/0.08/0.88 |\n| Jeu 25/06 | 03h00 | A | Afrique du Sud – Corée du Sud | **0-2** 🔮 | 0.12/0.22/0.66 | 0.14/0.30/0.56 |\n| Jeu 25/06 | 03h00 | A | Tchéquie – Mexique | **1-1** 🔮 | 0.24/0.31/0.45 | 0.08/0.38/0.54 |\n| Jeu 25/06 | 22h00 | E | Curaçao – Côte d'Ivoire | **0-2** 🔮 | 0.08/0.17/0.75 | 0.03/0.07/0.90 |\n| Jeu 25/06 | 22h00 | E | Équateur – Allemagne | **1-1** 🔮 | 0.26/0.38/0.36 | 0.04/0.11/0.85 |\n| Ven 26/06 | 01h00 | F | Tunisie – Pays-Bas | **0-2** 🔮 | 0.14/0.26/0.60 | 0.05/0.13/0.82 |\n| Ven 26/06 | 01h00 | F | Japon – Suède | **1-2** 🔮 | 0.30/0.26/0.44 | 0.34/0.47/0.20 |\n| Ven 26/06 | 04h00 | D | Paraguay – Australie | **1-1** 🔮 | 0.45/0.27/0.28 | 0.50/0.33/0.17 |\n| Ven 26/06 | 04h00 | D | Turquie – États-Unis | **1-1** 🔮 | 0.29/0.27/0.44 | 0.30/0.40/0.30 |\n| Ven 26/06 | 21h00 | I | Norvège – France | **1-2** 🔮 | 0.22/0.24/0.54 | 0.04/0.17/0.79 |\n| Ven 26/06 | 21h00 | I | Sénégal – Irak | **2-0** 🔮 | 0.78/0.15/0.07 | 0.91/0.07/0.02 |\n| Sam 27/06 | 02h00 | H | Uruguay – Espagne | **1-2** 🔮 | 0.22/0.26/0.52 | 0.03/0.14/0.83 |\n| Sam 27/06 | 02h00 | H | Cap-Vert – Arabie saoudite | **1-1** 🔮 | 0.33/0.34/0.33 | 0.14/0.55/0.31 |\n| Sam 27/06 | 05h00 | G | Nouvelle-Zélande – Belgique | **0-2** 🔮 | 0.12/0.20/0.68 | 0.03/0.06/0.91 |\n| Sam 27/06 | 05h00 | G | Égypte – Iran | **1-1** 🔮 | 0.38/0.35/0.27 | 0.66/0.28/0.06 |\n| Sam 27/06 | 23h00 | L | Panama – Angleterre | **0-2** 🔮 | 0.06/0.14/0.80 | 0.02/0.04/0.94 |\n| Sam 27/06 | 23h00 | L | Croatie – Ghana | **2-1** 🔮 | 0.60/0.24/0.16 | 0.74/0.20/0.06 |\n| Dim 28/06 | 01h30 | K | Colombie – Portugal | **1-1** 🔮 | 0.32/0.36/0.32 | 0.05/0.18/0.77 |\n| Dim 28/06 | 01h30 | K | RD Congo – Ouzbékistan | **2-1** 🔮 | 0.50/0.27/0.23 | 0.63/0.30/0.07 |\n| Dim 28/06 | 04h00 | J | Jordanie – Argentine | **1-2** 🔮 | 0.12/0.20/0.68 | 0.02/0.03/0.95 |\n| Dim 28/06 | 04h00 | J | Algérie – Autriche | **1-1** 🔮 | 0.33/0.30/0.37 | 0.37/0.44/0.19 |\n\n---\n\n\n## Groupe A\n\nCorée du Sud et Mexique se détachent ; la victoire coréenne en J1 (2-1) propulse les hommes de Son en tête. La Tchéquie accroche la 3e place (qualifiable). L'Afrique du Sud, dépassée et indisciplinée, ferme la marche.\n\n\n| Journée | Match | Score | Type | P(V/N/D) modèle | mpp (1/N/2) |\n|:--:|:--|:--:|:--:|:--:|:--:|\n| J1 | Mexique – Afrique du Sud | **2-0** | réel ✅ | 0.86/0.10/0.04 | — |\n| J1 | Corée du Sud – Tchéquie | **2-1** | réel ✅ | 0.48/0.25/0.27 | — |\n| J2 | Tchéquie – Afrique du Sud | **1-0** | prono 🔮 | 0.58/0.27/0.15 | 0.58/0.27/0.15 |\n| J2 | Mexique – Corée du Sud | **1-1** | prono 🔮 | 0.40/0.30/0.30 | 0.57/0.30/0.13 |\n| J3 | Tchéquie – Mexique | **1-1** | prono 🔮 | 0.24/0.31/0.45 | 0.08/0.38/0.54 |\n| J3 | Afrique du Sud – Corée du Sud | **0-2** | prono 🔮 | 0.12/0.22/0.66 | 0.14/0.30/0.56 |\n\n**Classement final pronostiqué**\n\n| Rang | Équipe | Pts | J | G | N | P | BP | BC | Diff | Statut |\n|:--:|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--|\n| 1 | Corée du Sud | **7** | 3 | 2 | 1 | 0 | 5 | 2 | +3 | 🟢 1er — qualifié |\n| 2 | Mexique | **5** | 3 | 1 | 2 | 0 | 4 | 2 | +2 | 🟢 2e — qualifié |\n| 3 | Tchéquie | **4** | 3 | 1 | 1 | 1 | 3 | 3 | +0 | 🟡 3e — qualifié |\n| 4 | Afrique du Sud | **0** | 3 | 0 | 0 | 3 | 0 | 5 | -5 | 🔴 éliminé |\n\n\n## Groupe B\n\nLa Suisse confirme son statut de favori malgré son nul d'entrée concédé au Qatar. Le Canada profite de son avantage co-hôte. La Bosnie de Dzeko arrache une 3e place qualifiable ; le Qatar termine dernier malgré son point historique.\n\n\n| Journée | Match | Score | Type | P(V/N/D) modèle | mpp (1/N/2) |\n|:--:|:--|:--:|:--:|:--:|:--:|\n| J1 | Canada – Bosnie-Herzégovine | **1-1** | réel ✅ | 0.30/0.40/0.30 | — |\n| J1 | Qatar – Suisse | **1-1** | réel ✅ | 0.18/0.40/0.42 | — |\n| J2 | Suisse – Bosnie-Herzégovine | **2-0** | prono 🔮 | 0.74/0.16/0.10 | 0.73/0.21/0.06 |\n| J2 | Canada – Qatar | **2-0** | prono 🔮 | 0.78/0.15/0.07 | 0.76/0.17/0.07 |\n| J3 | Suisse – Canada | **2-1** | prono 🔮 | 0.50/0.27/0.23 | 0.52/0.39/0.09 |\n| J3 | Bosnie-Herzégovine – Qatar | **2-1** | prono 🔮 | 0.50/0.26/0.24 | 0.56/0.32/0.12 |\n\n**Classement final pronostiqué**\n\n| Rang | Équipe | Pts | J | G | N | P | BP | BC | Diff | Statut |\n|:--:|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--|\n| 1 | Suisse | **7** | 3 | 2 | 1 | 0 | 5 | 2 | +3 | 🟢 1er — qualifié |\n| 2 | Canada | **4** | 3 | 1 | 1 | 1 | 4 | 3 | +1 | 🟢 2e — qualifié |\n| 3 | Bosnie-Herzégovine | **4** | 3 | 1 | 1 | 1 | 3 | 4 | -1 | 🟡 3e — qualifié |\n| 4 | Qatar | **1** | 3 | 0 | 1 | 2 | 2 | 5 | -3 | 🔴 éliminé |\n\n\n## Groupe C\n\nChoc au sommet : Brésil et Maroc (1-1 en J1) terminent tous deux qualifiés, le Brésil 1er à la différence de buts. L'Écosse prend la 3e place mais son calendrier (Maroc puis Brésil) la laisse hors des meilleurs 3es. Haïti termine sans point.\n\n\n| Journée | Match | Score | Type | P(V/N/D) modèle | mpp (1/N/2) |\n|:--:|:--|:--:|:--:|:--:|:--:|\n| J1 | Brésil – Maroc | **1-1** | réel ✅ | 0.40/0.32/0.28 | — |\n| J1 | Haïti – Écosse | **0-1** | réel ✅ | 0.12/0.22/0.66 | — |\n| J2 | Écosse – Maroc | **1-2** | prono 🔮 | 0.18/0.22/0.60 | 0.06/0.19/0.75 |\n| J2 | Brésil – Haïti | **3-0** | prono 🔮 | 0.91/0.07/0.02 | 0.97/0.02/0.01 |\n| J3 | Écosse – Brésil | **0-2** | prono 🔮 | 0.06/0.14/0.80 | 0.04/0.08/0.88 |\n| J3 | Maroc – Haïti | **2-0** | prono 🔮 | 0.85/0.11/0.04 | 0.94/0.04/0.02 |\n\n**Classement final pronostiqué**\n\n| Rang | Équipe | Pts | J | G | N | P | BP | BC | Diff | Statut |\n|:--:|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--|\n| 1 | Brésil | **7** | 3 | 2 | 1 | 0 | 6 | 1 | +5 | 🟢 1er — qualifié |\n| 2 | Maroc | **7** | 3 | 2 | 1 | 0 | 5 | 2 | +3 | 🟢 2e — qualifié |\n| 3 | Écosse | **3** | 3 | 1 | 0 | 2 | 2 | 4 | -2 | 🔴 éliminé |\n| 4 | Haïti | **0** | 3 | 0 | 0 | 3 | 0 | 6 | -6 | 🔴 éliminé |\n\n\n## Groupe D\n\nLes États-Unis impressionnent (4-1 d'entrée) et filent en tête. L'Australie et la Turquie se disputent la 2e place ; la Turquie, plus dangereuse, prend la 3e qualifiable. Le Paraguay est plombé par sa lourde défaite inaugurale.\n\n\n| Journée | Match | Score | Type | P(V/N/D) modèle | mpp (1/N/2) |\n|:--:|:--|:--:|:--:|:--:|:--:|\n| J1 | États-Unis – Paraguay | **4-1** | réel ✅ | 0.61/0.22/0.17 | — |\n| J1 | Australie – Turquie | **2-0** | réel ✅ | 0.19/0.23/0.58 | — |\n| J2 | États-Unis – Australie | **2-0** | prono 🔮 | 0.66/0.21/0.13 | 0.70/0.21/0.09 |\n| J2 | Turquie – Paraguay | **2-1** | prono 🔮 | 0.54/0.25/0.21 | 0.59/0.30/0.11 |\n| J3 | Turquie – États-Unis | **1-1** | prono 🔮 | 0.29/0.27/0.44 | 0.30/0.40/0.30 |\n| J3 | Paraguay – Australie | **1-1** | prono 🔮 | 0.45/0.27/0.28 | 0.50/0.33/0.17 |\n\n**Classement final pronostiqué**\n\n| Rang | Équipe | Pts | J | G | N | P | BP | BC | Diff | Statut |\n|:--:|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--|\n| 1 | États-Unis | **7** | 3 | 2 | 1 | 0 | 7 | 2 | +5 | 🟢 1er — qualifié |\n| 2 | Australie | **4** | 3 | 1 | 1 | 1 | 3 | 3 | +0 | 🟢 2e — qualifié |\n| 3 | Turquie | **4** | 3 | 1 | 1 | 1 | 3 | 4 | -1 | 🟡 3e — qualifié |\n| 4 | Paraguay | **1** | 3 | 0 | 1 | 2 | 3 | 7 | -4 | 🔴 éliminé |\n\n\n## Groupe E\n\nL'Allemagne, lancée par son 7-1, domine. La Côte d'Ivoire s'appuie sur sa défense pour la 2e place. L'Équateur, miné par son manque de réalisme offensif, est éliminé malgré une défense solide. Curaçao termine logiquement dernier.\n\n\n| Journée | Match | Score | Type | P(V/N/D) modèle | mpp (1/N/2) |\n|:--:|:--|:--:|:--:|:--:|:--:|\n| J1 | Allemagne – Curaçao | **7-1** | réel ✅ | 0.93/0.06/0.01 | — |\n| J1 | Côte d'Ivoire – Équateur | **1-0** | réel ✅ | 0.40/0.30/0.30 | — |\n| J2 | Allemagne – Côte d'Ivoire | **2-1** | prono 🔮 | 0.60/0.24/0.16 | 0.81/0.13/0.06 |\n| J2 | Équateur – Curaçao | **2-0** | prono 🔮 | 0.78/0.16/0.06 | 0.83/0.13/0.04 |\n| J3 | Curaçao – Côte d'Ivoire | **0-2** | prono 🔮 | 0.08/0.17/0.75 | 0.03/0.07/0.90 |\n| J3 | Équateur – Allemagne | **1-1** | prono 🔮 | 0.26/0.38/0.36 | 0.04/0.11/0.85 |\n\n**Classement final pronostiqué**\n\n| Rang | Équipe | Pts | J | G | N | P | BP | BC | Diff | Statut |\n|:--:|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--|\n| 1 | Allemagne | **7** | 3 | 2 | 1 | 0 | 10 | 3 | +7 | 🟢 1er — qualifié |\n| 2 | Côte d'Ivoire | **6** | 3 | 2 | 0 | 1 | 4 | 2 | +2 | 🟢 2e — qualifié |\n| 3 | Équateur | **4** | 3 | 1 | 1 | 1 | 3 | 2 | +1 | 🟡 3e — qualifié |\n| 4 | Curaçao | **0** | 3 | 0 | 0 | 3 | 1 | 11 | -10 | 🔴 éliminé |\n\n\n## Groupe F\n\nSurprise du groupe : la Suède, portée par le duo Isak-Gyökeres (5-1 en J1), prend la tête. Les Pays-Bas, accrochés deux fois, terminent 2es. Le Japon (privé de Mitoma) sauve une 3e place qualifiable. La Tunisie s'effondre.\n\n\n| Journée | Match | Score | Type | P(V/N/D) modèle | mpp (1/N/2) |\n|:--:|:--|:--:|:--:|:--:|:--:|\n| J1 | Pays-Bas – Japon | **2-2** | réel ✅ | 0.45/0.30/0.25 | — |\n| J1 | Suède – Tunisie | **5-1** | réel ✅ | 0.59/0.22/0.19 | — |\n| J2 | Pays-Bas – Suède | **2-2** | prono 🔮 | 0.35/0.30/0.35 | 0.63/0.28/0.09 |\n| J2 | Tunisie – Japon | **0-2** | prono 🔮 | 0.18/0.27/0.55 | 0.13/0.24/0.63 |\n| J3 | Japon – Suède | **1-2** | prono 🔮 | 0.30/0.26/0.44 | 0.34/0.47/0.20 |\n| J3 | Tunisie – Pays-Bas | **0-2** | prono 🔮 | 0.14/0.26/0.60 | 0.05/0.13/0.82 |\n\n**Classement final pronostiqué**\n\n| Rang | Équipe | Pts | J | G | N | P | BP | BC | Diff | Statut |\n|:--:|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--|\n| 1 | Suède | **7** | 3 | 2 | 1 | 0 | 9 | 4 | +5 | 🟢 1er — qualifié |\n| 2 | Pays-Bas | **5** | 3 | 1 | 2 | 0 | 6 | 4 | +2 | 🟢 2e — qualifié |\n| 3 | Japon | **4** | 3 | 1 | 1 | 1 | 5 | 4 | +1 | 🟡 3e — qualifié |\n| 4 | Tunisie | **0** | 3 | 0 | 0 | 3 | 1 | 9 | -8 | 🔴 éliminé |\n\n\n## Groupe G\n\nGroupe le plus ouvert : la Belgique finit par s'imposer, l'Égypte de Salah prend la 2e place. L'Iran, trop nul (3 nuls puis défaite), manque la qualification de justesse. La Nouvelle-Zélande, valeureuse, termine dernière.\n\n\n| Journée | Match | Score | Type | P(V/N/D) modèle | mpp (1/N/2) |\n|:--:|:--|:--:|:--:|:--:|:--:|\n| J1 | Belgique – Égypte | **1-1** | réel ✅ | 0.45/0.30/0.25 | — |\n| J1 | Iran – Nouvelle-Zélande | **2-2** | réel ✅ | 0.55/0.25/0.20 | — |\n| J2 | Belgique – Iran | **2-1** | prono 🔮 | 0.55/0.25/0.20 | 0.93/0.05/0.02 |\n| J2 | Nouvelle-Zélande – Égypte | **1-2** | prono 🔮 | 0.18/0.24/0.58 | 0.10/0.20/0.70 |\n| J3 | Égypte – Iran | **1-1** | prono 🔮 | 0.38/0.35/0.27 | 0.66/0.28/0.06 |\n| J3 | Nouvelle-Zélande – Belgique | **0-2** | prono 🔮 | 0.12/0.20/0.68 | 0.03/0.06/0.91 |\n\n**Classement final pronostiqué**\n\n| Rang | Équipe | Pts | J | G | N | P | BP | BC | Diff | Statut |\n|:--:|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--|\n| 1 | Belgique | **7** | 3 | 2 | 1 | 0 | 5 | 2 | +3 | 🟢 1er — qualifié |\n| 2 | Égypte | **5** | 3 | 1 | 2 | 0 | 4 | 3 | +1 | 🟢 2e — qualifié |\n| 3 | Iran | **2** | 3 | 0 | 2 | 1 | 4 | 5 | -1 | 🔴 éliminé |\n| 4 | Nouvelle-Zélande | **1** | 3 | 0 | 1 | 2 | 3 | 6 | -3 | 🔴 éliminé |\n\n\n## Groupe H\n\nAprès son 0-0 surprise contre le Cap-Vert, l'Espagne se reprend et domine. L'Uruguay de Bielsa, diminué par les blessures, assure la 2e place. Le Cap-Vert devance l'Arabie saoudite pour la 3e place mais ne se qualifie pas.\n\n\n| Journée | Match | Score | Type | P(V/N/D) modèle | mpp (1/N/2) |\n|:--:|:--|:--:|:--:|:--:|:--:|\n| J1 | Espagne – Cap-Vert | **0-0** | réel ✅ | 0.85/0.12/0.03 | — |\n| J1 | Arabie saoudite – Uruguay | **1-1** | réel ✅ | 0.18/0.30/0.52 | — |\n| J2 | Espagne – Arabie saoudite | **3-0** | prono 🔮 | 0.80/0.14/0.06 | 0.97/0.02/0.01 |\n| J2 | Uruguay – Cap-Vert | **1-0** | prono 🔮 | 0.58/0.27/0.15 | 0.85/0.11/0.04 |\n| J3 | Cap-Vert – Arabie saoudite | **1-1** | prono 🔮 | 0.33/0.34/0.33 | 0.14/0.55/0.31 |\n| J3 | Uruguay – Espagne | **1-2** | prono 🔮 | 0.22/0.26/0.52 | 0.03/0.14/0.83 |\n\n**Classement final pronostiqué**\n\n| Rang | Équipe | Pts | J | G | N | P | BP | BC | Diff | Statut |\n|:--:|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--|\n| 1 | Espagne | **7** | 3 | 2 | 1 | 0 | 5 | 1 | +4 | 🟢 1er — qualifié |\n| 2 | Uruguay | **4** | 3 | 1 | 1 | 1 | 3 | 3 | +0 | 🟢 2e — qualifié |\n| 3 | Cap-Vert | **2** | 3 | 0 | 2 | 1 | 1 | 2 | -1 | 🔴 éliminé |\n| 4 | Arabie saoudite | **2** | 3 | 0 | 2 | 1 | 2 | 5 | -3 | 🔴 éliminé |\n\n\n## Groupe I\n\nLa France, intraitable (9 pts), survole un groupe relevé. Le Sénégal, champion d'Afrique en titre, prend la 2e place devant la Norvège de Haaland (3e qualifiable). L'Irak termine sans point.\n\n\n| Journée | Match | Score | Type | P(V/N/D) modèle | mpp (1/N/2) |\n|:--:|:--|:--:|:--:|:--:|:--:|\n| J1 | France – Sénégal | **2-1** | prono 🔮 | 0.58/0.24/0.18 | 0.88/0.09/0.03 |\n| J1 | Irak – Norvège | **0-1** | prono 🔮 | 0.12/0.24/0.64 | 0.02/0.06/0.92 |\n| J2 | France – Irak | **3-0** | prono 🔮 | 0.86/0.10/0.04 | 0.98/0.01/0.01 |\n| J2 | Norvège – Sénégal | **1-1** | prono 🔮 | 0.32/0.30/0.38 | 0.32/0.42/0.26 |\n| J3 | Norvège – France | **1-2** | prono 🔮 | 0.22/0.24/0.54 | 0.04/0.17/0.79 |\n| J3 | Sénégal – Irak | **2-0** | prono 🔮 | 0.78/0.15/0.07 | 0.91/0.07/0.02 |\n\n**Classement final pronostiqué**\n\n| Rang | Équipe | Pts | J | G | N | P | BP | BC | Diff | Statut |\n|:--:|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--|\n| 1 | France | **9** | 3 | 3 | 0 | 0 | 7 | 2 | +5 | 🟢 1er — qualifié |\n| 2 | Sénégal | **4** | 3 | 1 | 1 | 1 | 4 | 3 | +1 | 🟢 2e — qualifié |\n| 3 | Norvège | **4** | 3 | 1 | 1 | 1 | 3 | 3 | +0 | 🟡 3e — qualifié |\n| 4 | Irak | **0** | 3 | 0 | 0 | 3 | 0 | 6 | -6 | 🔴 éliminé |\n\n\n## Groupe J\n\nL'Argentine déroule (9 pts). L'Autriche (2e) et l'Algérie (meilleur 3e) se qualifient toutes deux avec 4 points ; leur hiérarchie reste très serrée (point ouvert signalé par la critique). La Jordanie termine dernière.\n\n\n| Journée | Match | Score | Type | P(V/N/D) modèle | mpp (1/N/2) |\n|:--:|:--|:--:|:--:|:--:|:--:|\n| J1 | Argentine – Algérie | **2-0** | prono 🔮 | 0.72/0.18/0.10 | 0.80/0.14/0.06 |\n| J1 | Autriche – Jordanie | **2-0** | prono 🔮 | 0.64/0.24/0.12 | 0.83/0.14/0.03 |\n| J2 | Argentine – Autriche | **2-1** | prono 🔮 | 0.66/0.21/0.13 | 0.87/0.10/0.03 |\n| J2 | Jordanie – Algérie | **0-2** | prono 🔮 | 0.14/0.26/0.60 | 0.04/0.13/0.83 |\n| J3 | Jordanie – Argentine | **1-2** | prono 🔮 | 0.12/0.20/0.68 | 0.02/0.03/0.95 |\n| J3 | Algérie – Autriche | **1-1** | prono 🔮 | 0.33/0.30/0.37 | 0.37/0.44/0.19 |\n\n**Classement final pronostiqué**\n\n| Rang | Équipe | Pts | J | G | N | P | BP | BC | Diff | Statut |\n|:--:|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--|\n| 1 | Argentine | **9** | 3 | 3 | 0 | 0 | 6 | 2 | +4 | 🟢 1er — qualifié |\n| 2 | Autriche | **4** | 3 | 1 | 1 | 1 | 4 | 3 | +1 | 🟢 2e — qualifié |\n| 3 | Algérie | **4** | 3 | 1 | 1 | 1 | 3 | 3 | +0 | 🟡 3e — qualifié |\n| 4 | Jordanie | **0** | 3 | 0 | 0 | 3 | 1 | 6 | -5 | 🔴 éliminé |\n\n\n## Groupe K\n\nPortugal et Colombie, au coude-à-coude (nul 1-1 décisif), se qualifient tous deux, le Portugal 1er à la différence de buts. La RD Congo arrache une 3e place qualifiable de justesse. L'Ouzbékistan, pour sa 1ère CDM, termine dernier.\n\n\n| Journée | Match | Score | Type | P(V/N/D) modèle | mpp (1/N/2) |\n|:--:|:--|:--:|:--:|:--:|:--:|\n| J1 | Portugal – RD Congo | **2-0** | prono 🔮 | 0.66/0.20/0.14 | 0.95/0.04/0.01 |\n| J1 | Ouzbékistan – Colombie | **0-2** | prono 🔮 | 0.12/0.22/0.66 | 0.03/0.07/0.90 |\n| J2 | Portugal – Ouzbékistan | **3-0** | prono 🔮 | 0.78/0.15/0.07 | 0.97/0.02/0.01 |\n| J2 | Colombie – RD Congo | **2-1** | prono 🔮 | 0.56/0.24/0.20 | 0.71/0.23/0.06 |\n| J3 | Colombie – Portugal | **1-1** | prono 🔮 | 0.32/0.36/0.32 | 0.05/0.18/0.77 |\n| J3 | RD Congo – Ouzbékistan | **2-1** | prono 🔮 | 0.50/0.27/0.23 | 0.63/0.30/0.07 |\n\n**Classement final pronostiqué**\n\n| Rang | Équipe | Pts | J | G | N | P | BP | BC | Diff | Statut |\n|:--:|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--|\n| 1 | Portugal | **7** | 3 | 2 | 1 | 0 | 6 | 1 | +5 | 🟢 1er — qualifié |\n| 2 | Colombie | **7** | 3 | 2 | 1 | 0 | 5 | 2 | +3 | 🟢 2e — qualifié |\n| 3 | RD Congo | **3** | 3 | 1 | 0 | 2 | 3 | 5 | -2 | 🟡 3e — qualifié |\n| 4 | Ouzbékistan | **0** | 3 | 0 | 0 | 3 | 1 | 7 | -6 | 🔴 éliminé |\n\n\n## Groupe L\n\nL'Angleterre est démonstrative (9 pts, +6). La Croatie, vieillissante mais expérimentée, prend la 2e place. Ghana et Panama, à égalité au fond du classement, sont tous deux éliminés.\n\n\n| Journée | Match | Score | Type | P(V/N/D) modèle | mpp (1/N/2) |\n|:--:|:--|:--:|:--:|:--:|:--:|\n| J1 | Angleterre – Croatie | **2-0** | prono 🔮 | 0.68/0.22/0.10 | 0.57/0.35/0.08 |\n| J1 | Ghana – Panama | **1-1** | prono 🔮 | 0.38/0.32/0.30 | 0.60/0.33/0.07 |\n| J2 | Angleterre – Ghana | **2-0** | prono 🔮 | 0.78/0.16/0.06 | 0.89/0.08/0.03 |\n| J2 | Panama – Croatie | **1-2** | prono 🔮 | 0.16/0.24/0.60 | 0.03/0.08/0.89 |\n| J3 | Panama – Angleterre | **0-2** | prono 🔮 | 0.06/0.14/0.80 | 0.02/0.04/0.94 |\n| J3 | Croatie – Ghana | **2-1** | prono 🔮 | 0.60/0.24/0.16 | 0.74/0.20/0.06 |\n\n**Classement final pronostiqué**\n\n| Rang | Équipe | Pts | J | G | N | P | BP | BC | Diff | Statut |\n|:--:|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--|\n| 1 | Angleterre | **9** | 3 | 3 | 0 | 0 | 6 | 0 | +6 | 🟢 1er — qualifié |\n| 2 | Croatie | **6** | 3 | 2 | 0 | 1 | 4 | 4 | +0 | 🟢 2e — qualifié |\n| 3 | Ghana | **1** | 3 | 0 | 1 | 2 | 2 | 5 | -3 | 🔴 éliminé |\n| 4 | Panama | **1** | 3 | 0 | 1 | 2 | 2 | 5 | -3 | 🔴 éliminé |\n\n\n---\n\n\n## 🎟️ Les 32 qualifiés pour les 1/16 de finale\n\nFormat 2026 : 12 premiers + 12 deuxièmes + **8 meilleurs troisièmes**.\n\n\n| # | 1ers de groupe | 2es de groupe | Meilleurs 3es |\n|:--:|:--|:--|:--|\n| 1 | A · Corée du Sud | A · Mexique | F · Japon |\n| 2 | B · Suisse | B · Canada | E · Équateur |\n| 3 | C · Brésil | C · Maroc | J · Algérie |\n| 4 | D · États-Unis | D · Australie | I · Norvège |\n| 5 | E · Allemagne | E · Côte d'Ivoire | A · Tchéquie |\n| 6 | F · Suède | F · Pays-Bas | B · Bosnie-Herzégovine |\n| 7 | G · Belgique | G · Égypte | D · Turquie |\n| 8 | H · Espagne | H · Uruguay | K · RD Congo |\n| 9 | I · France | I · Sénégal |  |\n| 10 | J · Argentine | J · Autriche |  |\n| 11 | K · Portugal | K · Colombie |  |\n| 12 | L · Angleterre | L · Croatie |  |\n\n**Course aux meilleurs 3es (très serrée)** — les 8 premiers passent :\n\n\n| Rang 3es | Groupe | Équipe | Pts | Diff | BP | Qualifié |\n|:--:|:--:|:--|:--:|:--:|:--:|:--:|\n| 1 | F | Japon | 4 | +1 | 5 | ✅ |\n| 2 | E | Équateur | 4 | +1 | 3 | ✅ |\n| 3 | J | Algérie | 4 | +0 | 3 | ✅ |\n| 4 | I | Norvège | 4 | +0 | 3 | ✅ |\n| 5 | A | Tchéquie | 4 | +0 | 3 | ✅ |\n| 6 | B | Bosnie-Herzégovine | 4 | -1 | 3 | ✅ |\n| 7 | D | Turquie | 4 | -1 | 3 | ✅ |\n| 8 | K | RD Congo | 3 | -2 | 3 | ✅ |\n| 9 | C | Écosse | 3 | -2 | 2 | ❌ |\n| 10 | G | Iran | 2 | -1 | 4 | ❌ |\n| 11 | H | Cap-Vert | 2 | -1 | 1 | ❌ |\n| 12 | L | Ghana | 1 | -3 | 2 | ❌ |\n\n---\n\n\n## 🔬 Méthodologie & limites\n\n- **Modèle Poisson** : `λ` (buts attendus) dérivés de l'Elo via une *supremacy* bornée (`3.6·tanh(Δelo/350)`) et un volume de buts croissant avec le déséquilibre ; avantage hôte pour le Mexique, les USA et le Canada. Détails et sensibilité : `notebooks/analyse_pronos.ipynb`.\n\n- **Multi-agents** : 12 agents prédicteurs (1/groupe, recherche web sur forme, effectifs, blessures, compétitions 2024-2026) ont ajusté le baseline ; 4 agents critiques ont challengé réalisme, biais et cohérence (départages, excès de nuls).\n\n- **Validation** : confronté aux résultats réels de la J1, le modèle Elo pur n'a anticipé que **~38 % des issues** — une J1 exceptionnellement nulle et surprenante (8 nuls sur 16, dont Espagne 0-0 Cap-Vert), ce qui rappelle l'imprévisibilité du football et justifie la couche experts.\n\n- **Limites** : un pronostic n'est pas une prédiction certaine. La course aux meilleurs 3es se joue à un but près ; plusieurs départages (Autriche/Algérie, Norvège/Sénégal) sont des quasi-pile-ou-face. Hors périmètre : la phase à élimination directe.\n",
+ "teamDetails": {
+  "Mexique": {
+   "note": "Excellente forme : vainqueur Gold Cup 2025 et victoire d'ouverture en CDM.",
+   "injuries": [],
+   "recent": [
+    {
+     "date": "2026-06",
+     "comp": "Coupe du Monde",
+     "match": "Mexique 2-0 Afrique du Sud",
+     "res": "V"
+    },
+    {
+     "date": "2026-02",
+     "comp": "Amical",
+     "match": "Mexique 4-0 Islande",
+     "res": "V"
+    },
+    {
+     "date": "2026-01",
+     "comp": "Amical",
+     "match": "Mexique 1-0 Bolivie",
+     "res": "V"
+    },
+    {
+     "date": "2025-11",
+     "comp": "Amical",
+     "match": "Mexique 1-2 Paraguay",
+     "res": "D"
+    },
+    {
+     "date": "2025-11",
+     "comp": "Amical",
+     "match": "Mexique 0-0 Uruguay",
+     "res": "N"
+    }
+   ]
+  },
+  "Afrique du Sud": {
+   "note": "1ère CDM depuis 16 ans ; 8e de finale CAN, battue d'entrée par le Mexique.",
+   "injuries": [
+    "Aubrey Modiba (incertain)",
+    "Brandon Petersen (appendicite, écarté)"
+   ],
+   "recent": [
+    {
+     "date": "2026-06",
+     "comp": "Coupe du Monde",
+     "match": "Mexique 2-0 Afrique du Sud",
+     "res": "D"
+    },
+    {
+     "date": "2026-01",
+     "comp": "CAN",
+     "match": "Afrique du Sud 1-2 Cameroun",
+     "res": "D"
+    },
+    {
+     "date": "2025-11",
+     "comp": "Amical",
+     "match": "Afrique du Sud 0-1 Panama",
+     "res": "D"
+    },
+    {
+     "date": "2025-10",
+     "comp": "Qualif CDM",
+     "match": "Afrique du Sud 3-0 Rwanda",
+     "res": "V"
+    },
+    {
+     "date": "2025-10",
+     "comp": "Qualif CDM",
+     "match": "Afrique du Sud 1-1 Nigeria",
+     "res": "N"
+    }
+   ]
+  },
+  "Corée du Sud": {
+   "note": "Qualifiée invaincue (11e participation) ; profondeur d'effectif limitée.",
+   "injuries": [
+    "Cho Yu-min (forfait, blessé)",
+    "Lee Kang-in (cheville, incertain)"
+   ],
+   "recent": [
+    {
+     "date": "2026-06",
+     "comp": "Amical",
+     "match": "Corée du Sud 2-1 Trinité-et-Tobago",
+     "res": "V"
+    },
+    {
+     "date": "2025-06",
+     "comp": "Qualif CDM",
+     "match": "Corée du Sud 4-0 Koweït",
+     "res": "V"
+    },
+    {
+     "date": "2025-06",
+     "comp": "Qualif CDM",
+     "match": "Irak 0-2 Corée du Sud",
+     "res": "V"
+    },
+    {
+     "date": "2025-03",
+     "comp": "Qualif CDM",
+     "match": "Corée du Sud 1-1 Jordanie",
+     "res": "N"
+    },
+    {
+     "date": "2025-03",
+     "comp": "Qualif CDM",
+     "match": "Corée du Sud 1-1 Oman",
+     "res": "N"
+    }
+   ]
+  },
+  "Tchéquie": {
+   "note": "Forme correcte ; Hložek de retour de blessure, aucun forfait majeur.",
+   "injuries": [],
+   "recent": [
+    {
+     "date": "2026-03",
+     "comp": "Barrage",
+     "match": "Tchéquie 2-2 (4-3 tab) Irlande",
+     "res": "V"
+    },
+    {
+     "date": "2025-11",
+     "comp": "Qualif CDM",
+     "match": "Tchéquie 6-0 Gibraltar",
+     "res": "V"
+    },
+    {
+     "date": "2025-10",
+     "comp": "Qualif CDM",
+     "match": "Tchéquie 1-2 Îles Féroé",
+     "res": "D"
+    },
+    {
+     "date": "2025-10",
+     "comp": "Qualif CDM",
+     "match": "Tchéquie 0-0 Croatie",
+     "res": "N"
+    }
+   ]
+  },
+  "Canada": {
+   "note": "Co-hôte frappé par les blessures (Davies) ; bonne Gold Cup.",
+   "injuries": [
+    "Alphonso Davies (ischio/LCA, forfait probable de l'ouverture)",
+    "Moïse Bombito (jambe, de retour)"
+   ],
+   "recent": [
+    {
+     "date": "2026-06",
+     "comp": "Coupe du Monde",
+     "match": "Canada 1-1 Bosnie-Herzégovine",
+     "res": "N"
+    },
+    {
+     "date": "2025-07",
+     "comp": "Gold Cup",
+     "match": "Canada 1-1 (5-6 tab) Guatemala",
+     "res": "D"
+    },
+    {
+     "date": "2025-06",
+     "comp": "Gold Cup",
+     "match": "Canada 2-0 Salvador",
+     "res": "V"
+    },
+    {
+     "date": "2025-06",
+     "comp": "Gold Cup",
+     "match": "Canada 6-0 Honduras",
+     "res": "V"
+    }
+   ]
+  },
+  "Suisse": {
+   "note": "Qualifiée en tête invaincue ; nul d'entrée concédé au Qatar.",
+   "injuries": [
+    "Zeki Amdouni (retour de LCA, incertain)",
+    "Xherdan Shaqiri (absent du groupe)"
+   ],
+   "recent": [
+    {
+     "date": "2026-06",
+     "comp": "Coupe du Monde",
+     "match": "Suisse 1-1 Qatar",
+     "res": "N"
+    },
+    {
+     "date": "2026-03",
+     "comp": "Amical",
+     "match": "Suisse 0-0 Norvège",
+     "res": "N"
+    },
+    {
+     "date": "2026-03",
+     "comp": "Amical",
+     "match": "Suisse 3-4 Allemagne",
+     "res": "D"
+    },
+    {
+     "date": "2025-11",
+     "comp": "Qualif CDM",
+     "match": "Suisse 4-1 Suède",
+     "res": "V"
+    },
+    {
+     "date": "2025-10",
+     "comp": "Qualif CDM",
+     "match": "Slovénie 0-0 Suisse",
+     "res": "N"
+    }
+   ]
+  },
+  "Qatar": {
+   "note": "1ère qualif via éliminatoires (Lopetegui) ; 1er point historique en CDM.",
+   "injuries": [
+    "Almoez Ali (suspendu, forfait 1er match)"
+   ],
+   "recent": [
+    {
+     "date": "2026-06",
+     "comp": "Coupe du Monde",
+     "match": "Qatar 1-1 Suisse",
+     "res": "N"
+    },
+    {
+     "date": "2026-05",
+     "comp": "Amical",
+     "match": "Irlande 1-0 Qatar",
+     "res": "D"
+    },
+    {
+     "date": "2025-10",
+     "comp": "Qualif CDM",
+     "match": "Qatar 2-1 Émirats arabes unis",
+     "res": "V"
+    },
+    {
+     "date": "2025-10",
+     "comp": "Qualif CDM",
+     "match": "Qatar 0-0 Oman",
+     "res": "N"
+    }
+   ]
+  },
+  "Bosnie-Herzégovine": {
+   "note": "Qualif héroïque aux tirs au but ; menée par Džeko (40 ans).",
+   "injuries": [],
+   "recent": [
+    {
+     "date": "2026-06",
+     "comp": "Coupe du Monde",
+     "match": "Canada 1-1 Bosnie-Herzégovine",
+     "res": "N"
+    },
+    {
+     "date": "2026-03",
+     "comp": "Barrage",
+     "match": "Bosnie 1-1 (4-1 tab) Italie",
+     "res": "V"
+    },
+    {
+     "date": "2026-03",
+     "comp": "Barrage",
+     "match": "Pays de Galles 1-1 (2-4 tab) Bosnie",
+     "res": "V"
+    },
+    {
+     "date": "2025-10",
+     "comp": "Qualif CDM",
+     "match": "Bosnie 3-1 Roumanie",
+     "res": "V"
+    },
+    {
+     "date": "2025-09",
+     "comp": "Qualif CDM",
+     "match": "Bosnie 1-2 Autriche",
+     "res": "D"
+    }
+   ]
+  },
+  "Brésil": {
+   "note": "Sous Ancelotti, qualif laborieuse et nul d'entrée 1-1 vs Maroc ; cadres offensifs blessés.",
+   "injuries": [
+    "Rodrygo (LCA + ménisque)",
+    "Estêvão (ischio)",
+    "Éder Militão (ischio, opéré)"
+   ],
+   "recent": [
+    {
+     "date": "2026-06",
+     "comp": "Coupe du Monde",
+     "match": "Brésil 1-1 Maroc",
+     "res": "N"
+    },
+    {
+     "date": "2026-06",
+     "comp": "Amical",
+     "match": "Brésil 2-1 Égypte",
+     "res": "V"
+    },
+    {
+     "date": "2026-03",
+     "comp": "Amical",
+     "match": "Brésil 1-2 France",
+     "res": "D"
+    },
+    {
+     "date": "2025-10",
+     "comp": "Amical",
+     "match": "Japon 3-2 Brésil",
+     "res": "D"
+    },
+    {
+     "date": "2025-09",
+     "comp": "Qualif CDM",
+     "match": "Brésil 3-0 Chili",
+     "res": "V"
+    }
+   ]
+  },
+  "Maroc": {
+   "note": "Champion d'Afrique 2025, invaincu en qualifs (8/8) ; quelques blessures défensives.",
+   "injuries": [
+    "Nayef Aguerd (pubis, opéré, forfait)",
+    "Abdessamad Ezzalzouli (genou, forfait)",
+    "Noussair Mazraoui (épaule, incertain)"
+   ],
+   "recent": [
+    {
+     "date": "2026-06",
+     "comp": "Coupe du Monde",
+     "match": "Brésil 1-1 Maroc",
+     "res": "N"
+    },
+    {
+     "date": "2026-06",
+     "comp": "Amical",
+     "match": "Maroc 1-1 Norvège",
+     "res": "N"
+    },
+    {
+     "date": "2026-01",
+     "comp": "CAN",
+     "match": "Maroc 0-0 (3-0 tv) Sénégal",
+     "res": "V"
+    },
+    {
+     "date": "2026-01",
+     "comp": "CAN",
+     "match": "Maroc 0-0 (4-2 tab) Nigeria",
+     "res": "V"
+    },
+    {
+     "date": "2026-01",
+     "comp": "CAN",
+     "match": "Maroc 2-0 Cameroun",
+     "res": "V"
+    }
+   ]
+  },
+  "Écosse": {
+   "note": "1ère CDM depuis 1998 (1ère du groupe) ; coup dur Gilmour blessé.",
+   "injuries": [
+    "Billy Gilmour (genou, forfait)",
+    "Tommy Conway (cheville)"
+   ],
+   "recent": [
+    {
+     "date": "2026-05",
+     "comp": "Amical",
+     "match": "Écosse 4-1 Curaçao",
+     "res": "V"
+    },
+    {
+     "date": "2025-11",
+     "comp": "Qualif CDM",
+     "match": "Écosse 4-2 Danemark",
+     "res": "V"
+    },
+    {
+     "date": "2025-11",
+     "comp": "Qualif CDM",
+     "match": "Grèce 3-2 Écosse",
+     "res": "D"
+    },
+    {
+     "date": "2025-10",
+     "comp": "Qualif CDM",
+     "match": "Écosse 3-1 Grèce",
+     "res": "V"
+    },
+    {
+     "date": "2025-09",
+     "comp": "Qualif CDM",
+     "match": "Biélorussie 0-2 Écosse",
+     "res": "V"
+    }
+   ]
+  },
+  "Haïti": {
+   "note": "1ère CDM depuis 1974 ; groupe très difficile, battue d'entrée par l'Écosse.",
+   "injuries": [
+    "Frantzdy Pierrot (blessure)",
+    "Leverton Pierre (musculaire)"
+   ],
+   "recent": [
+    {
+     "date": "2026-06",
+     "comp": "Coupe du Monde",
+     "match": "Haïti 0-1 Écosse",
+     "res": "D"
+    },
+    {
+     "date": "2026-06",
+     "comp": "Amical",
+     "match": "Haïti 1-2 Pérou",
+     "res": "D"
+    },
+    {
+     "date": "2026-06",
+     "comp": "Amical",
+     "match": "Haïti 4-0 Nouvelle-Zélande",
+     "res": "V"
+    },
+    {
+     "date": "2026-03",
+     "comp": "Amical",
+     "match": "Haïti 1-1 Islande",
+     "res": "N"
+    },
+    {
+     "date": "2025-11",
+     "comp": "Élim. CONCACAF",
+     "match": "Haïti 2-0 Nicaragua",
+     "res": "V"
+    }
+   ]
+  },
+  "États-Unis": {
+   "note": "Pays hôte ; forme inquiétante en préparation, sous Pochettino (Pulisic).",
+   "injuries": [
+    "Cameron Carter-Vickers (tendon d'Achille)",
+    "Patrick Agyemang (tendon d'Achille)",
+    "Johnny Cardoso (cheville)"
+   ],
+   "recent": [
+    {
+     "date": "2026-06",
+     "comp": "Amical",
+     "match": "États-Unis 1-2 Allemagne",
+     "res": "D"
+    },
+    {
+     "date": "2026-05",
+     "comp": "Amical",
+     "match": "États-Unis 3-2 Sénégal",
+     "res": "V"
+    },
+    {
+     "date": "2026-03",
+     "comp": "Amical",
+     "match": "États-Unis 0-2 Portugal",
+     "res": "D"
+    },
+    {
+     "date": "2026-03",
+     "comp": "Amical",
+     "match": "États-Unis 2-5 Belgique",
+     "res": "D"
+    },
+    {
+     "date": "2025-07",
+     "comp": "Gold Cup",
+     "match": "États-Unis 1-2 Mexique",
+     "res": "D"
+    }
+   ]
+  },
+  "Australie": {
+   "note": "6e CDM consécutive (1ère du groupe AFC), coach Popovic ; McGree blessé.",
+   "injuries": [
+    "Riley McGree (ischio)",
+    "Patrick Yazbek (quadriceps)"
+   ],
+   "recent": [
+    {
+     "date": "2026-03",
+     "comp": "Amical",
+     "match": "Australie 1-0 Cameroun",
+     "res": "V"
+    },
+    {
+     "date": "2025-11",
+     "comp": "Amical",
+     "match": "Australie 0-3 Colombie",
+     "res": "D"
+    },
+    {
+     "date": "2025-11",
+     "comp": "Amical",
+     "match": "Australie 0-1 Venezuela",
+     "res": "D"
+    },
+    {
+     "date": "2025-10",
+     "comp": "Amical",
+     "match": "Australie 1-0 Canada",
+     "res": "V"
+    },
+    {
+     "date": "2025-06",
+     "comp": "Qualif CDM",
+     "match": "Australie 2-1 Arabie saoudite",
+     "res": "V"
+    }
+   ]
+  },
+  "Paraguay": {
+   "note": "Qualifié direct (fin de 16 ans d'absence, Alfaro) ; battu d'entrée 1-4.",
+   "injuries": [
+    "Mathías Villasanti (genou)",
+    "Julio Enciso (cuisse)"
+   ],
+   "recent": [
+    {
+     "date": "2026-06",
+     "comp": "Coupe du Monde",
+     "match": "Paraguay 1-4 États-Unis",
+     "res": "D"
+    },
+    {
+     "date": "2026-06",
+     "comp": "Amical",
+     "match": "Paraguay 4-0 Nicaragua",
+     "res": "V"
+    },
+    {
+     "date": "2025-09",
+     "comp": "Qualif CDM",
+     "match": "Paraguay 1-0 Pérou",
+     "res": "V"
+    },
+    {
+     "date": "2025-09",
+     "comp": "Qualif CDM",
+     "match": "Paraguay 0-0 Équateur",
+     "res": "N"
+    },
+    {
+     "date": "2025-06",
+     "comp": "Qualif CDM",
+     "match": "Paraguay 2-0 Uruguay",
+     "res": "V"
+    }
+   ]
+  },
+  "Turquie": {
+   "note": "1ère CDM depuis 2002 (barrages) ; Güler/Yıldız/Çalhanoğlu, battue d'entrée.",
+   "injuries": [
+    "Kenan Yıldız (mollet, doute majeur)"
+   ],
+   "recent": [
+    {
+     "date": "2026-06",
+     "comp": "Coupe du Monde",
+     "match": "Turquie 0-2 Australie",
+     "res": "D"
+    },
+    {
+     "date": "2026-03",
+     "comp": "Barrage",
+     "match": "Turquie 1-0 Kosovo",
+     "res": "V"
+    },
+    {
+     "date": "2026-03",
+     "comp": "Barrage",
+     "match": "Turquie 1-0 Roumanie",
+     "res": "V"
+    },
+    {
+     "date": "2025-11",
+     "comp": "Qualif CDM",
+     "match": "Turquie 2-2 Espagne",
+     "res": "N"
+    },
+    {
+     "date": "2025-10",
+     "comp": "Qualif CDM",
+     "match": "Turquie 4-1 Géorgie",
+     "res": "V"
+    }
+   ]
+  },
+  "Allemagne": {
+   "note": "Qualifiée en tête malgré une défaite inaugurale ; en forme sous Nagelsmann.",
+   "injuries": [
+    "Serge Gnabry (adducteurs, forfait)",
+    "Lennart Karl (cuisse, forfait)",
+    "Manuel Neuer (mollet, doute)"
+   ],
+   "recent": [
+    {
+     "date": "2025-11",
+     "comp": "Qualif CDM",
+     "match": "Allemagne 6-0 Slovaquie",
+     "res": "V"
+    },
+    {
+     "date": "2025-11",
+     "comp": "Qualif CDM",
+     "match": "Allemagne 2-0 Luxembourg",
+     "res": "V"
+    },
+    {
+     "date": "2025-10",
+     "comp": "Qualif CDM",
+     "match": "Allemagne 1-0 Irlande du Nord",
+     "res": "V"
+    },
+    {
+     "date": "2025-09",
+     "comp": "Qualif CDM",
+     "match": "Allemagne 3-1 Irlande du Nord",
+     "res": "V"
+    },
+    {
+     "date": "2025-09",
+     "comp": "Qualif CDM",
+     "match": "Allemagne 0-2 Slovaquie",
+     "res": "D"
+    }
+   ]
+  },
+  "Équateur": {
+   "note": "2e CONMEBOL, meilleure défense des qualifs ; série invaincue stoppée d'entrée.",
+   "injuries": [
+    "Piero Hincapié (rétabli, sélectionné)"
+   ],
+   "recent": [
+    {
+     "date": "2026-06",
+     "comp": "Coupe du Monde",
+     "match": "Équateur 0-1 Côte d'Ivoire",
+     "res": "D"
+    },
+    {
+     "date": "2026-06",
+     "comp": "Amical",
+     "match": "Équateur 3-0 Guatemala",
+     "res": "V"
+    },
+    {
+     "date": "2026-05",
+     "comp": "Amical",
+     "match": "Équateur 2-1 Arabie saoudite",
+     "res": "V"
+    },
+    {
+     "date": "2026-03",
+     "comp": "Amical",
+     "match": "Équateur 1-1 Pays-Bas",
+     "res": "N"
+    },
+    {
+     "date": "2025-09",
+     "comp": "Qualif CDM",
+     "match": "Équateur 1-0 Argentine",
+     "res": "V"
+    }
+   ]
+  },
+  "Côte d'Ivoire": {
+   "note": "Championne CAN 2024, qualifiée invaincue ; Ndicka blessé, victoire d'entrée.",
+   "injuries": [
+    "Evan Ndicka (cuisse)",
+    "Sébastien Haller (écarté, forme)",
+    "Wilfried Zaha (non retenu)"
+   ],
+   "recent": [
+    {
+     "date": "2026-06",
+     "comp": "Coupe du Monde",
+     "match": "Côte d'Ivoire 1-0 Équateur",
+     "res": "V"
+    },
+    {
+     "date": "2026-06",
+     "comp": "Amical",
+     "match": "Côte d'Ivoire 2-1 France",
+     "res": "V"
+    },
+    {
+     "date": "2026-01",
+     "comp": "CAN",
+     "match": "Côte d'Ivoire 2-3 Égypte",
+     "res": "D"
+    },
+    {
+     "date": "2026-01",
+     "comp": "CAN",
+     "match": "Côte d'Ivoire 3-0 Burkina Faso",
+     "res": "V"
+    },
+    {
+     "date": "2025-12",
+     "comp": "CAN",
+     "match": "Côte d'Ivoire 1-1 Cameroun",
+     "res": "N"
+    }
+   ]
+  },
+  "Curaçao": {
+   "note": "1ère CDM, plus petite nation jamais qualifiée (Advocaat).",
+   "injuries": [],
+   "recent": [
+    {
+     "date": "2025-11",
+     "comp": "Élim. CONCACAF",
+     "match": "Jamaïque 0-0 Curaçao",
+     "res": "N"
+    },
+    {
+     "date": "2025-11",
+     "comp": "Élim. CONCACAF",
+     "match": "Bermudes 0-7 Curaçao",
+     "res": "V"
+    },
+    {
+     "date": "2025-10",
+     "comp": "Élim. CONCACAF",
+     "match": "Curaçao 2-0 Jamaïque",
+     "res": "V"
+    },
+    {
+     "date": "2025-06",
+     "comp": "Gold Cup",
+     "match": "Honduras 2-1 Curaçao",
+     "res": "D"
+    },
+    {
+     "date": "2025-06",
+     "comp": "Gold Cup",
+     "match": "Curaçao 1-1 Canada",
+     "res": "N"
+    }
+   ]
+  },
+  "Pays-Bas": {
+   "note": "Vainqueur de son groupe qualif ; Simons et Timber forfaits.",
+   "injuries": [
+    "Xavi Simons (LCA)",
+    "Jurriën Timber (genou, forfait)",
+    "Jeremie Frimpong (écarté)",
+    "Matthijs de Ligt (blessure)"
+   ],
+   "recent": [
+    {
+     "date": "2026-06",
+     "comp": "Coupe du Monde",
+     "match": "Pays-Bas 2-2 Japon",
+     "res": "N"
+    },
+    {
+     "date": "2026-06",
+     "comp": "Amical",
+     "match": "Pays-Bas 2-1 Ouzbékistan",
+     "res": "V"
+    },
+    {
+     "date": "2026-06",
+     "comp": "Amical",
+     "match": "Pays-Bas 0-1 Algérie",
+     "res": "D"
+    },
+    {
+     "date": "2026-03",
+     "comp": "Amical",
+     "match": "Pays-Bas 2-1 Norvège",
+     "res": "V"
+    },
+    {
+     "date": "2025-11",
+     "comp": "Qualif CDM",
+     "match": "Pays-Bas 4-0 Lituanie",
+     "res": "V"
+    }
+   ]
+  },
+  "Japon": {
+   "note": "1er qualifié (8e CDM consécutive) ; privé de Mitoma, Endo et Minamino.",
+   "injuries": [
+    "Kaoru Mitoma (ischio)",
+    "Wataru Endo (pied, retraite intl.)",
+    "Takumi Minamino (LCA)"
+   ],
+   "recent": [
+    {
+     "date": "2026-06",
+     "comp": "Coupe du Monde",
+     "match": "Pays-Bas 2-2 Japon",
+     "res": "N"
+    },
+    {
+     "date": "2026-05",
+     "comp": "Amical",
+     "match": "Japon 1-0 Islande",
+     "res": "V"
+    },
+    {
+     "date": "2025-11",
+     "comp": "Amical",
+     "match": "Japon 3-0 Bolivie",
+     "res": "V"
+    },
+    {
+     "date": "2025-10",
+     "comp": "Amical",
+     "match": "Japon 3-2 Brésil",
+     "res": "V"
+    },
+    {
+     "date": "2025-10",
+     "comp": "Amical",
+     "match": "Japon 2-2 Paraguay",
+     "res": "N"
+    }
+   ]
+  },
+  "Tunisie": {
+   "note": "Qualifiée tôt (CAF) ; défense effondrée d'entrée (1-5 vs Suède).",
+   "injuries": [
+    "Hannibal Mejbri (forme/blessure, doute)",
+    "Dylan Bronn (gestion physique)"
+   ],
+   "recent": [
+    {
+     "date": "2026-06",
+     "comp": "Coupe du Monde",
+     "match": "Suède 5-1 Tunisie",
+     "res": "D"
+    },
+    {
+     "date": "2026-06",
+     "comp": "Amical",
+     "match": "Autriche 1-0 Tunisie",
+     "res": "D"
+    },
+    {
+     "date": "2026-03",
+     "comp": "Amical",
+     "match": "Canada 0-0 Tunisie",
+     "res": "N"
+    },
+    {
+     "date": "2026-01",
+     "comp": "CAN (8e)",
+     "match": "Tunisie 1-1 (2-3 tab) Mali",
+     "res": "N"
+    },
+    {
+     "date": "2025-10",
+     "comp": "Qualif CDM",
+     "match": "Tunisie 3-0 Namibie",
+     "res": "V"
+    }
+   ]
+  },
+  "Suède": {
+   "note": "Qualifiée via barrages (Potter) ; duo Isak/Gyökeres dévastateur d'entrée.",
+   "injuries": [
+    "Dejan Kulusevski (genou, absent)",
+    "Emil Holm (forfait)"
+   ],
+   "recent": [
+    {
+     "date": "2026-06",
+     "comp": "Coupe du Monde",
+     "match": "Suède 5-1 Tunisie",
+     "res": "V"
+    },
+    {
+     "date": "2026-03",
+     "comp": "Barrage",
+     "match": "Suède 3-2 Pologne",
+     "res": "V"
+    },
+    {
+     "date": "2026-03",
+     "comp": "Barrage",
+     "match": "Suède 3-1 Ukraine",
+     "res": "V"
+    },
+    {
+     "date": "2025-11",
+     "comp": "Qualif CDM",
+     "match": "Suisse 4-1 Suède",
+     "res": "D"
+    },
+    {
+     "date": "2025-09",
+     "comp": "Qualif CDM",
+     "match": "Kosovo 2-0 Suède",
+     "res": "D"
+    }
+   ]
+  },
+  "Belgique": {
+   "note": "Génération De Bruyne/Lukaku diminués ; accrochée d'entrée par l'Égypte.",
+   "injuries": [
+    "Romelu Lukaku (musculaire, peu de temps de jeu)",
+    "Kevin De Bruyne (retour d'opération)"
+   ],
+   "recent": [
+    {
+     "date": "2026-06",
+     "comp": "Coupe du Monde",
+     "match": "Belgique 1-1 Égypte",
+     "res": "N"
+    },
+    {
+     "date": "2026-06",
+     "comp": "Amical",
+     "match": "Belgique 2-0 Croatie",
+     "res": "V"
+    },
+    {
+     "date": "2025-11",
+     "comp": "Qualif CDM",
+     "match": "Belgique 7-0 Liechtenstein",
+     "res": "V"
+    },
+    {
+     "date": "2025-10",
+     "comp": "Qualif CDM",
+     "match": "Belgique 4-2 Pays de Galles",
+     "res": "V"
+    },
+    {
+     "date": "2025-10",
+     "comp": "Qualif CDM",
+     "match": "Belgique 0-0 Macédoine du Nord",
+     "res": "N"
+    }
+   ]
+  },
+  "Iran": {
+   "note": "Qualifié tôt ; bloc défensif solide, accroché d'entrée par la NZ.",
+   "injuries": [
+    "Alireza Jahanbakhsh (incertain)",
+    "Sardar Azmoun (écarté)"
+   ],
+   "recent": [
+    {
+     "date": "2026-06",
+     "comp": "Coupe du Monde",
+     "match": "Iran 2-2 Nouvelle-Zélande",
+     "res": "N"
+    },
+    {
+     "date": "2026-06",
+     "comp": "Amical",
+     "match": "Iran 2-0 Mali",
+     "res": "V"
+    },
+    {
+     "date": "2026-05",
+     "comp": "Amical",
+     "match": "Iran 3-1 Gambie",
+     "res": "V"
+    },
+    {
+     "date": "2026-03",
+     "comp": "Amical",
+     "match": "Iran 5-0 Costa Rica",
+     "res": "V"
+    },
+    {
+     "date": "2026-03",
+     "comp": "Amical",
+     "match": "Iran 1-2 Nigeria",
+     "res": "D"
+    }
+   ]
+  },
+  "Argentine": {
+   "note": "Championne du monde en titre ; gestion de Messi et plusieurs blessures.",
+   "injuries": [
+    "Juan Foyth (tendon d'Achille)",
+    "Leonardo Balerdi (cuisse, forfait)",
+    "Nicolás Tagliafico (mollet, incertain)"
+   ],
+   "recent": [
+    {
+     "date": "2026-06",
+     "comp": "Amical",
+     "match": "Argentine 3-0 Islande",
+     "res": "V"
+    },
+    {
+     "date": "2026-06",
+     "comp": "Amical",
+     "match": "Argentine 2-0 Honduras",
+     "res": "V"
+    },
+    {
+     "date": "2026-03",
+     "comp": "Amical",
+     "match": "Argentine 5-0 Zambie",
+     "res": "V"
+    },
+    {
+     "date": "2025-11",
+     "comp": "Amical",
+     "match": "Argentine 2-0 Angola",
+     "res": "V"
+    },
+    {
+     "date": "2025-09",
+     "comp": "Qualif CDM",
+     "match": "Argentine 0-1 Équateur",
+     "res": "D"
+    }
+   ]
+  },
+  "Autriche": {
+   "note": "Retour au Mondial après 28 ans (Rangnick).",
+   "injuries": [
+    "Christoph Baumgartner (cuisse)",
+    "Gernot Trauner (blessure)",
+    "Maximilian Wöber (blessure)"
+   ],
+   "recent": [
+    {
+     "date": "2025-11",
+     "comp": "Qualif CDM",
+     "match": "Chypre 0-2 Autriche",
+     "res": "V"
+    },
+    {
+     "date": "2025-11",
+     "comp": "Qualif CDM",
+     "match": "Bosnie 1-1 Autriche",
+     "res": "N"
+    },
+    {
+     "date": "2025-10",
+     "comp": "Qualif CDM",
+     "match": "Autriche 10-0 Saint-Marin",
+     "res": "V"
+    },
+    {
+     "date": "2025-10",
+     "comp": "Qualif CDM",
+     "match": "Roumanie 1-0 Autriche",
+     "res": "D"
+    },
+    {
+     "date": "2025-09",
+     "comp": "Qualif CDM",
+     "match": "Autriche 2-1 Bosnie-Herzégovine",
+     "res": "V"
+    }
+   ]
+  },
+  "Algérie": {
+   "note": "Qualifiée (Petković) ; CAN 2025 stoppée en quart par le Nigeria.",
+   "injuries": [
+    "Youcef Atal (tendon d'Achille)",
+    "Youcef Belaïli (forfait)",
+    "Ismaël Bennacer (blessures à répétition)"
+   ],
+   "recent": [
+    {
+     "date": "2026-01",
+     "comp": "CAN (quart)",
+     "match": "Algérie 0-2 Nigeria",
+     "res": "D"
+    },
+    {
+     "date": "2026-01",
+     "comp": "CAN (8e)",
+     "match": "Algérie 1-0 RD Congo (ap)",
+     "res": "V"
+    },
+    {
+     "date": "2025-12",
+     "comp": "CAN",
+     "match": "Algérie 3-1 Guinée équatoriale",
+     "res": "V"
+    },
+    {
+     "date": "2025-12",
+     "comp": "CAN",
+     "match": "Algérie 1-0 Burkina Faso",
+     "res": "V"
+    },
+    {
+     "date": "2025-10",
+     "comp": "Qualif CDM",
+     "match": "Algérie 2-1 Ouganda",
+     "res": "V"
+    }
+   ]
+  },
+  "Jordanie": {
+   "note": "1ère qualif de son histoire ; finale de Coupe Arabe perdue, privée d'Al-Naimat.",
+   "injuries": [
+    "Yazan Al-Naimat (LCA)",
+    "Ibrahim Sabra (blessure)"
+   ],
+   "recent": [
+    {
+     "date": "2025-12",
+     "comp": "Coupe Arabe (finale)",
+     "match": "Jordanie 2-3 Maroc (ap)",
+     "res": "D"
+    },
+    {
+     "date": "2025-12",
+     "comp": "Coupe Arabe (demi)",
+     "match": "Jordanie 1-0 Arabie saoudite",
+     "res": "V"
+    },
+    {
+     "date": "2025-12",
+     "comp": "Coupe Arabe (quart)",
+     "match": "Jordanie 1-0 Irak",
+     "res": "V"
+    },
+    {
+     "date": "2025-12",
+     "comp": "Coupe Arabe",
+     "match": "Jordanie 3-0 Égypte",
+     "res": "V"
+    },
+    {
+     "date": "2025-06",
+     "comp": "Qualif CDM",
+     "match": "Jordanie 3-0 Oman",
+     "res": "V"
+    }
+   ]
+  },
+  "Portugal": {
+   "note": "Vainqueur Ligue des Nations 2025, qualif maîtrisée (Ronaldo).",
+   "injuries": [
+    "Diogo Jota (décédé, juillet 2025)",
+    "Geovany Quenda (pied, écarté)"
+   ],
+   "recent": [
+    {
+     "date": "2026-06",
+     "comp": "Amical",
+     "match": "Portugal 2-1 Nigeria",
+     "res": "V"
+    },
+    {
+     "date": "2026-06",
+     "comp": "Amical",
+     "match": "Portugal 2-1 Chili",
+     "res": "V"
+    },
+    {
+     "date": "2026-03",
+     "comp": "Amical",
+     "match": "USA 0-2 Portugal",
+     "res": "V"
+    },
+    {
+     "date": "2025-11",
+     "comp": "Qualif CDM",
+     "match": "Portugal 9-1 Arménie",
+     "res": "V"
+    },
+    {
+     "date": "2025-06",
+     "comp": "Finale L. des Nations",
+     "match": "Portugal 2-2 (5-3 tab) Espagne",
+     "res": "V"
+    }
+   ]
+  },
+  "Colombie": {
+   "note": "Qualifiée (groupe K) ; bonne forme malgré deux revers en mars.",
+   "injuries": [
+    "Cristian Borja (genou, LLI)"
+   ],
+   "recent": [
+    {
+     "date": "2026-06",
+     "comp": "Amical",
+     "match": "Colombie 2-0 Jordanie",
+     "res": "V"
+    },
+    {
+     "date": "2026-06",
+     "comp": "Amical",
+     "match": "Colombie 3-1 Costa Rica",
+     "res": "V"
+    },
+    {
+     "date": "2026-03",
+     "comp": "Amical",
+     "match": "France 3-1 Colombie",
+     "res": "D"
+    },
+    {
+     "date": "2026-03",
+     "comp": "Amical",
+     "match": "Colombie 1-2 Croatie",
+     "res": "D"
+    },
+    {
+     "date": "2025-09",
+     "comp": "Qualif CDM",
+     "match": "Venezuela 3-6 Colombie",
+     "res": "V"
+    }
+   ]
+  },
+  "Ouzbékistan": {
+   "note": "1ère qualification de l'histoire (AFC, Cannavaro).",
+   "injuries": [],
+   "recent": [
+    {
+     "date": "2026-06",
+     "comp": "Amical",
+     "match": "Pays-Bas 2-1 Ouzbékistan",
+     "res": "D"
+    },
+    {
+     "date": "2026-06",
+     "comp": "Amical",
+     "match": "Canada 2-0 Ouzbékistan",
+     "res": "D"
+    },
+    {
+     "date": "2026-03",
+     "comp": "Amical",
+     "match": "Ouzbékistan 0-0 Venezuela",
+     "res": "N"
+    },
+    {
+     "date": "2026-03",
+     "comp": "Amical",
+     "match": "Ouzbékistan 3-1 Gabon",
+     "res": "V"
+    },
+    {
+     "date": "2025-11",
+     "comp": "Amical",
+     "match": "Ouzbékistan 0-0 Iran",
+     "res": "N"
+    }
+   ]
+  },
+  "RD Congo": {
+   "note": "Retour au Mondial 52 ans après (barrages CAF + intercontinental, Desabre).",
+   "injuries": [],
+   "recent": [
+    {
+     "date": "2026-06",
+     "comp": "Amical",
+     "match": "RD Congo 1-2 Chili",
+     "res": "D"
+    },
+    {
+     "date": "2026-06",
+     "comp": "Amical",
+     "match": "RD Congo 0-0 Danemark",
+     "res": "N"
+    },
+    {
+     "date": "2026-03",
+     "comp": "Barrage intercontinental",
+     "match": "RD Congo 1-0 Jamaïque",
+     "res": "V"
+    },
+    {
+     "date": "2026-01",
+     "comp": "CAN",
+     "match": "Algérie 1-0 RD Congo",
+     "res": "D"
+    },
+    {
+     "date": "2025-11",
+     "comp": "Barrage CAF",
+     "match": "RD Congo 1-1 (4-3 tab) Nigeria",
+     "res": "V"
+    }
+   ]
+  },
+  "Angleterre": {
+   "note": "Qualif parfaite sous Tuchel ; sélection surprise (Palmer/Foden/Maguire écartés).",
+   "injuries": [
+    "Cole Palmer (non retenu)",
+    "Phil Foden (non retenu)",
+    "Harry Maguire (non retenu)"
+   ],
+   "recent": [
+    {
+     "date": "2026-03",
+     "comp": "Amical",
+     "match": "Japon 1-0 Angleterre",
+     "res": "D"
+    },
+    {
+     "date": "2026-03",
+     "comp": "Amical",
+     "match": "Angleterre 1-1 Uruguay",
+     "res": "N"
+    },
+    {
+     "date": "2025-11",
+     "comp": "Qualif CDM",
+     "match": "Albanie 0-2 Angleterre",
+     "res": "V"
+    },
+    {
+     "date": "2025-11",
+     "comp": "Qualif CDM",
+     "match": "Angleterre 2-0 Serbie",
+     "res": "V"
+    },
+    {
+     "date": "2025-10",
+     "comp": "Qualif CDM",
+     "match": "Lettonie 0-5 Angleterre",
+     "res": "V"
+    }
+   ]
+  },
+  "Croatie": {
+   "note": "Qualifiée en tête ; Modrić (record) capitaine pour une 6e CDM.",
+   "injuries": [
+    "Joško Gvardiol (tibia janv. 2026, rétabli)",
+    "Mateo Kovačić (rétabli)",
+    "Luka Modrić (fracture faciale, rétabli)"
+   ],
+   "recent": [
+    {
+     "date": "2026-06",
+     "comp": "Amical",
+     "match": "Croatie 0-2 Belgique",
+     "res": "D"
+    },
+    {
+     "date": "2026-03",
+     "comp": "Amical",
+     "match": "Brésil 3-1 Croatie",
+     "res": "D"
+    },
+    {
+     "date": "2025-11",
+     "comp": "Qualif CDM",
+     "match": "Croatie 3-1 Îles Féroé",
+     "res": "V"
+    },
+    {
+     "date": "2025-11",
+     "comp": "Qualif CDM",
+     "match": "Monténégro 2-3 Croatie",
+     "res": "V"
+    },
+    {
+     "date": "2025-10",
+     "comp": "Qualif CDM",
+     "match": "Tchéquie 0-0 Croatie",
+     "res": "N"
+    }
+   ]
+  },
+  "Panama": {
+   "note": "2e CDM via éliminatoires CONCACAF (Christiansen) ; forme en dents de scie.",
+   "injuries": [
+    "Adalberto Carrasquilla (aine, incertain)"
+   ],
+   "recent": [
+    {
+     "date": "2026-06",
+     "comp": "Amical",
+     "match": "Panama 1-1 Bosnie-Herzégovine",
+     "res": "N"
+    },
+    {
+     "date": "2026-03",
+     "comp": "Amical",
+     "match": "Panama 2-1 Afrique du Sud",
+     "res": "V"
+    },
+    {
+     "date": "2026-01",
+     "comp": "Amical",
+     "match": "Mexique 1-0 Panama",
+     "res": "D"
+    },
+    {
+     "date": "2026-01",
+     "comp": "Amical",
+     "match": "Bolivie 1-1 Panama",
+     "res": "N"
+    },
+    {
+     "date": "2025-11",
+     "comp": "Élim. CONCACAF",
+     "match": "Panama 3-0 Salvador",
+     "res": "V"
+    }
+   ]
+  },
+  "Ghana": {
+   "note": "Qualifiée en tête (CAF) ; Queiroz nommé, préparation difficile et blessures.",
+   "injuries": [
+    "Mohammed Kudus (quadriceps, opéré)",
+    "Mohammed Salisu (LCA)",
+    "Alexander Djiku (musculaire)"
+   ],
+   "recent": [
+    {
+     "date": "2026-06",
+     "comp": "Amical",
+     "match": "Pays de Galles 1-1 Ghana",
+     "res": "N"
+    },
+    {
+     "date": "2026-05",
+     "comp": "Amical",
+     "match": "Mexique 2-0 Ghana",
+     "res": "D"
+    },
+    {
+     "date": "2026-03",
+     "comp": "Amical",
+     "match": "Allemagne 2-1 Ghana",
+     "res": "D"
+    },
+    {
+     "date": "2026-03",
+     "comp": "Amical",
+     "match": "Autriche 5-1 Ghana",
+     "res": "D"
+    },
+    {
+     "date": "2025-10",
+     "comp": "Qualif CDM",
+     "match": "Ghana 1-0 Comores",
+     "res": "V"
+    }
+   ]
+  },
+  "Égypte": {
+   "note": "Menée par Salah (apte et titulaire) ; demi-finaliste CAN 2025, accrochée d'entrée par la Belgique.",
+   "injuries": [
+    "Mohamed Salah (ischio en club, rétabli)"
+   ],
+   "recent": [
+    {
+     "date": "2026-06",
+     "comp": "Coupe du Monde",
+     "match": "Belgique 1-1 Égypte",
+     "res": "N"
+    },
+    {
+     "date": "2026-01",
+     "comp": "CAN (demi)",
+     "match": "Sénégal 1-0 Égypte",
+     "res": "D"
+    },
+    {
+     "date": "2026-01",
+     "comp": "CAN (quart)",
+     "match": "Égypte 3-2 Côte d'Ivoire",
+     "res": "V"
+    },
+    {
+     "date": "2026-01",
+     "comp": "CAN (8e)",
+     "match": "Égypte 3-1 Bénin (ap)",
+     "res": "V"
+    },
+    {
+     "date": "2025-12",
+     "comp": "CAN",
+     "match": "Égypte 1-0 Afrique du Sud",
+     "res": "V"
+    }
+   ]
+  },
+  "Nouvelle-Zélande": {
+   "note": "Vainqueur OFC ; série difficile, a accroché l'Iran d'entrée (2-2).",
+   "injuries": [
+    "Matt Garbett (ischio, forfait probable J1)"
+   ],
+   "recent": [
+    {
+     "date": "2026-06",
+     "comp": "Coupe du Monde",
+     "match": "Iran 2-2 Nouvelle-Zélande",
+     "res": "N"
+    },
+    {
+     "date": "2026-06",
+     "comp": "Amical",
+     "match": "Angleterre 1-0 Nouvelle-Zélande",
+     "res": "D"
+    },
+    {
+     "date": "2026-06",
+     "comp": "Amical",
+     "match": "Haïti 4-0 Nouvelle-Zélande",
+     "res": "D"
+    },
+    {
+     "date": "2025-11",
+     "comp": "Amical",
+     "match": "Colombie 2-1 Nouvelle-Zélande",
+     "res": "D"
+    },
+    {
+     "date": "2025-10",
+     "comp": "Amical",
+     "match": "Norvège 1-1 Nouvelle-Zélande",
+     "res": "N"
+    }
+   ]
+  },
+  "Espagne": {
+   "note": "Championne d'Europe 2024, n°1 Elo, qualif parfaite (21-2) ; tenue en échec 0-0 d'entrée par le Cap-Vert.",
+   "injuries": [],
+   "recent": [
+    {
+     "date": "2026-06",
+     "comp": "Coupe du Monde",
+     "match": "Espagne 0-0 Cap-Vert",
+     "res": "N"
+    },
+    {
+     "date": "2025-09",
+     "comp": "Qualif CDM",
+     "match": "Espagne 6-0 Turquie",
+     "res": "V"
+    },
+    {
+     "date": "2025-06",
+     "comp": "Finale L. des Nations",
+     "match": "Portugal 2-2 (5-3 tab) Espagne",
+     "res": "D"
+    }
+   ]
+  },
+  "Uruguay": {
+   "note": "Sous Bielsa, demi-finaliste Copa América 2024 ; aucun amical de prépa, accroché d'entrée par l'Arabie.",
+   "injuries": [],
+   "recent": [
+    {
+     "date": "2026-06",
+     "comp": "Coupe du Monde",
+     "match": "Arabie saoudite 1-1 Uruguay",
+     "res": "N"
+    },
+    {
+     "date": "2026-03",
+     "comp": "Amical",
+     "match": "Uruguay 0-0 Algérie",
+     "res": "N"
+    },
+    {
+     "date": "2025-11",
+     "comp": "Amical",
+     "match": "USA 5-1 Uruguay",
+     "res": "D"
+    },
+    {
+     "date": "2025-11",
+     "comp": "Amical",
+     "match": "Uruguay 1-1 Angleterre",
+     "res": "N"
+    },
+    {
+     "date": "2025-10",
+     "comp": "Amical",
+     "match": "Uruguay 0-0 Mexique",
+     "res": "N"
+    }
+   ]
+  },
+  "France": {
+   "note": "Qualifiée invaincue (Deschamps) ; effectif ultra-profond (Mbappé, Dembélé).",
+   "injuries": [
+    "Hugo Ekitike (tendon d'Achille, forfait)",
+    "Eduardo Camavinga (écarté)",
+    "Randal Kolo Muani (écarté)",
+    "William Saliba (dos, incertain)"
+   ],
+   "recent": [
+    {
+     "date": "2026-06",
+     "comp": "Amical",
+     "match": "Côte d'Ivoire 2-1 France",
+     "res": "D"
+    },
+    {
+     "date": "2026-06",
+     "comp": "Amical",
+     "match": "France 3-1 Irlande du Nord",
+     "res": "V"
+    },
+    {
+     "date": "2026-03",
+     "comp": "Amical",
+     "match": "Brésil 1-2 France",
+     "res": "V"
+    },
+    {
+     "date": "2025-11",
+     "comp": "Qualif CDM",
+     "match": "France 4-0 Ukraine",
+     "res": "V"
+    },
+    {
+     "date": "2025-11",
+     "comp": "Qualif CDM",
+     "match": "Azerbaïdjan 1-3 France",
+     "res": "V"
+    }
+   ]
+  },
+  "Sénégal": {
+   "note": "Qualifié directement (1er groupe B CAF, Pape Thiaw).",
+   "injuries": [
+    "Boulaye Dia (écarté)",
+    "Abdou Diallo (écarté)",
+    "Nampalys Mendy (écarté)"
+   ],
+   "recent": [
+    {
+     "date": "2026-06",
+     "comp": "Amical",
+     "match": "Arabie saoudite 0-0 Sénégal",
+     "res": "N"
+    },
+    {
+     "date": "2026-05",
+     "comp": "Amical",
+     "match": "USA 3-2 Sénégal",
+     "res": "D"
+    },
+    {
+     "date": "2026-03",
+     "comp": "Amical",
+     "match": "Sénégal 3-1 Gambie",
+     "res": "V"
+    },
+    {
+     "date": "2026-03",
+     "comp": "Amical",
+     "match": "Sénégal 2-0 Pérou",
+     "res": "V"
+    },
+    {
+     "date": "2025-10",
+     "comp": "Qualif CDM",
+     "match": "Sénégal 4-0 Mauritanie",
+     "res": "V"
+    }
+   ]
+  },
+  "Norvège": {
+   "note": "Qualifiée (8/8 victoires), 1er Mondial depuis 1998 ; Haaland + Ødegaard.",
+   "injuries": [
+    "Martin Ødegaard (forme/blessures en club, retenu)"
+   ],
+   "recent": [
+    {
+     "date": "2026-06",
+     "comp": "Amical",
+     "match": "Maroc 1-1 Norvège",
+     "res": "N"
+    },
+    {
+     "date": "2026-06",
+     "comp": "Amical",
+     "match": "Norvège 3-1 Suède",
+     "res": "V"
+    },
+    {
+     "date": "2026-03",
+     "comp": "Amical",
+     "match": "Pays-Bas 2-1 Norvège",
+     "res": "D"
+    },
+    {
+     "date": "2025-11",
+     "comp": "Qualif CDM",
+     "match": "Italie 1-4 Norvège",
+     "res": "V"
+    },
+    {
+     "date": "2025-11",
+     "comp": "Qualif CDM",
+     "match": "Norvège 4-1 Estonie",
+     "res": "V"
+    }
+   ]
+  },
+  "Irak": {
+   "note": "Qualifié via barrage interconfédération (1re depuis 1986, Arnold).",
+   "injuries": [
+    "Montader Madjed (écarté)",
+    "Jussef Nasrawe (écarté)"
+   ],
+   "recent": [
+    {
+     "date": "2026-06",
+     "comp": "Amical",
+     "match": "Irak 0-2 Venezuela",
+     "res": "D"
+    },
+    {
+     "date": "2026-06",
+     "comp": "Amical",
+     "match": "Irak 1-1 Espagne",
+     "res": "N"
+    },
+    {
+     "date": "2026-03",
+     "comp": "Barrage interconf.",
+     "match": "Irak 2-1 Bolivie",
+     "res": "V"
+    },
+    {
+     "date": "2025-11",
+     "comp": "Barrage AFC",
+     "match": "Irak 2-1 Émirats arabes unis",
+     "res": "V"
+    },
+    {
+     "date": "2025-11",
+     "comp": "Barrage AFC",
+     "match": "Émirats arabes unis 1-1 Irak",
+     "res": "N"
+    }
+   ]
+  },
+  "Arabie saoudite": {
+   "note": "Qualifiée (AFC, 7e Mondial) ; 1er point pris face à l'Uruguay.",
+   "injuries": [
+    "Nawaf Al-Aqidi (ischio, forfait probable J1)"
+   ],
+   "recent": [
+    {
+     "date": "2026-06",
+     "comp": "Coupe du Monde",
+     "match": "Arabie saoudite 1-1 Uruguay",
+     "res": "N"
+    },
+    {
+     "date": "2026-06",
+     "comp": "Amical",
+     "match": "Porto Rico 0-3 Arabie saoudite",
+     "res": "V"
+    },
+    {
+     "date": "2026-05",
+     "comp": "Amical",
+     "match": "Équateur 2-1 Arabie saoudite",
+     "res": "D"
+    },
+    {
+     "date": "2026-03",
+     "comp": "Amical",
+     "match": "Arabie saoudite 0-4 Égypte",
+     "res": "D"
+    },
+    {
+     "date": "2025-10",
+     "comp": "Qualif CDM",
+     "match": "Arabie saoudite 0-0 Irak",
+     "res": "N"
+    }
+   ]
+  },
+  "Cap-Vert": {
+   "note": "1ère qualification historique (1er groupe D CAF) ; a tenu l'Espagne 0-0.",
+   "injuries": [
+    "Bruno Varela (écarté de la liste)"
+   ],
+   "recent": [
+    {
+     "date": "2026-06",
+     "comp": "Coupe du Monde",
+     "match": "Espagne 0-0 Cap-Vert",
+     "res": "N"
+    },
+    {
+     "date": "2026-06",
+     "comp": "Amical",
+     "match": "Cap-Vert 3-0 Bermudes",
+     "res": "V"
+    },
+    {
+     "date": "2026-05",
+     "comp": "Amical",
+     "match": "Cap-Vert 3-0 Serbie",
+     "res": "V"
+    },
+    {
+     "date": "2026-03",
+     "comp": "FIFA Series",
+     "match": "Chili 4-2 Cap-Vert",
+     "res": "D"
+    },
+    {
+     "date": "2025-10",
+     "comp": "Qualif CDM",
+     "match": "Cap-Vert 3-0 Eswatini",
+     "res": "V"
+    }
+   ]
+  }
+ }
 };

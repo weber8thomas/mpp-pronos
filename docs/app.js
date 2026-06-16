@@ -1,5 +1,7 @@
 /* Dashboard Pronostics CDM 2026 — rendu 100% client à partir de window.DATA */
 const D = window.DATA;
+D.predictions.forEach((p,i)=>p._i=i);              // index stable pour ouvrir le détail
+const DETAILS = D.teamDetails || {};               // résultats récents + blessés par équipe
 const ST_COLOR = {"1er":"#12b886","2e":"#63c9a3","3e":"#e0a338","out":"#e5484d"};
 const ST_LABEL = {"1er":"1er","2e":"2e","3e":"3e","out":"Élim."};
 const THEME = {
@@ -45,13 +47,27 @@ const scoreBadge = (bd,be) => {
 function renderAccueil(){
   const m=D.meta;
   const vain=D.qualifiers.premiers.map(x=>`<div class="winrow"><span class="grouptag">${x.groupe}</span>${flag(x.equipe)}<span>${esc(x.equipe)}</span></div>`).join("");
+  const tiles=[
+    ["calendrier","mdi-calendar-month-outline","Calendrier","72 matchs, triables"],
+    ["groupes","mdi-soccer","Groupes","Scores & classements"],
+    ["qualifies","mdi-trophy-outline","Qualifiés","Les 32 qualifiés"],
+    ["analyses","mdi-chart-box-outline","Analyses","Graphiques interactifs"],
+    ["rapport","mdi-file-document-outline","Rapport","Le détail complet"],
+    ["methodo","mdi-flask-outline","Méthodo","Comment ça marche"],
+  ].map(([s,i,t,d])=>`<a class="navtile" data-jump="${s}"><i class="mdi ${i}"></i><span class="nt-t">${t}</span><span class="nt-d">${d}</span></a>`).join("");
   document.getElementById("accueil").innerHTML=`
    <div class="hero">
-     <div class="eyebrow">FIFA World Cup · USA · Canada · Mexique</div>
-     <h1>Pronostics de la phase de groupes</h1>
+     <div class="hero-top">
+       <img src="favicon.svg" alt="" class="hero-logo"/>
+       <div>
+         <div class="eyebrow">FIFA World Cup 2026 · USA · Canada · Mexique</div>
+         <h1>Pronostics de la phase de groupes</h1>
+       </div>
+     </div>
      <p class="lead">Les <strong>72 matchs</strong> des 12 groupes, pronostiqués via une méthode hybride :
      un modèle de <strong>Poisson</strong> (basé sur l'Elo) ajusté et critiqué par une dizaine d'<strong>agents experts</strong>.
-     J1 = résultats réels · J2/J3 = pronostics. Probas <strong>mpp</strong> issues de mpp.football.</p>
+     J1 = résultats réels · J2/J3 = pronostics. Probas <strong>mpp</strong> issues de mpp.football.
+     <em>Astuce : cliquez un match pour ouvrir sa fiche détaillée.</em></p>
    </div>
    <div class="kpis">
      <div class="kpi"><i class="mdi mdi-soccer-field"></i><div class="v">72</div><div class="l">matchs pronostiqués</div></div>
@@ -59,20 +75,9 @@ function renderAccueil(){
      <div class="kpi"><i class="mdi mdi-trophy-outline"></i><div class="v">32</div><div class="l">qualifiés (12+12+8)</div></div>
      <div class="kpi"><i class="mdi mdi-target"></i><div class="v">${m.j1_accuracy!=null?Math.round(m.j1_accuracy*100)+"%":"–"}</div><div class="l">précision sur matchs joués (${m.n_joues})</div></div>
    </div>
-   <div class="card"><h3><i class="mdi mdi-trophy"></i> Vainqueurs de groupe pronostiqués</h3><div class="winners">${vain}</div></div>`;
-   document.getElementById("accueil").innerHTML+=`
-   <div class="grid2" style="margin-top:16px">
-     <div class="card"><h3>Comment lire</h3>
-       <p class="muted">Chaque match affiche le <strong>score pronostiqué</strong> et les probabilités
-       Victoire / Nul / Défaite (barre verte / grise / rouge). La colonne <strong>mpp</strong> donne
-       les probas 1/N/2 de mpp.football pour les 56 matchs à venir.</p></div>
-     <div class="card"><h3>Navigation</h3>
-       <p class="muted"><a href="#calendrier" data-jump="calendrier">Calendrier</a> complet ·
-       <a href="#groupes" data-jump="groupes">Groupes</a> (scores + classements) ·
-       <a href="#qualifies" data-jump="qualifies">Qualifiés</a> ·
-       <a href="#analyses" data-jump="analyses">Analyses</a> interactives ·
-       <a href="#rapport" data-jump="rapport">Rapport</a> complet.</p></div>
-   </div>`;
+   <h2>Explorer</h2>
+   <div class="navtiles">${tiles}</div>
+   <div class="card" style="margin-top:18px"><h3><i class="mdi mdi-trophy"></i> Vainqueurs de groupe pronostiqués</h3><div class="winners">${vain}</div></div>`;
 }
 
 /* ---------- Calendrier ---------- */
@@ -80,7 +85,7 @@ function matchRow(p){
   const typ = p.statut==="joue"?`<span class="pill real">réel</span>`:`<span class="pill prono">prono</span>`;
   const mpp = p.mpp_v==null?'<span class="muted">—</span>':`${Math.round(p.mpp_v*100)}/${Math.round(p.mpp_n*100)}/${Math.round(p.mpp_d*100)}`;
   const dt = p.kickoff_cest.replace(/-/g,"/").slice(5,16);
-  return `<tr data-g="${p.groupe}" data-s="${p.statut}" data-t="${esc(p.dom+' '+p.ext)}">
+  return `<tr class="clik" data-match="${p._i}" data-g="${p.groupe}" data-s="${p.statut}" data-t="${esc(p.dom+' '+p.ext)}">
     <td>${dt}</td><td class="c"><span class="grouptag">${p.groupe}</span></td>
     <td><span class="vs">${team(p.dom)}<span class="muted">–</span>${team(p.ext)}</span></td>
     <td class="c">${scoreBadge(p.bd,p.be)}</td><td class="c">${typ}</td>
@@ -160,7 +165,7 @@ function renderGroupes(){
     const ms=D.predictions.filter(p=>p.groupe===g);
     const scores=ms.map(p=>{
       const mpp=p.mpp_v==null?'<span class="muted">—</span>':`${Math.round(p.mpp_v*100)}/${Math.round(p.mpp_n*100)}/${Math.round(p.mpp_d*100)}`;
-      return `<tr><td class="c">J${p.journee}</td>
+      return `<tr class="clik" data-match="${p._i}"><td class="c">J${p.journee}</td>
         <td><span class="vs">${team(p.dom)}<span class="muted">–</span>${team(p.ext)}</span></td>
         <td class="c">${scoreBadge(p.bd,p.be)}</td>
         <td style="min-width:120px">${probBar(p.pv,p.pn,p.pd)}</td>
@@ -469,6 +474,88 @@ buts_totaux = 2.5 + 0.35 · |supremacy|  ← un match déséquilibré produit pl
     La course aux meilleurs 3es se joue à un but près ; plusieurs départages sont des quasi-pile-ou-face.
     Hors périmètre : la phase à élimination directe. Horaires CEST indicatifs.</div>`;
 }
+
+/* ---------- Détail d'un match (modale) ---------- */
+function recentLine(r){
+  const c=r.res==="V"?"rl-w":r.res==="N"?"rl-d":"rl-l";
+  return `<div class="rl"><span class="rl-b ${c}">${r.res}</span>
+    <span class="rl-meta">${esc(r.date)} · ${esc(r.comp)}</span>
+    <span class="rl-m">${esc(r.match)}</span></div>`;
+}
+function teamPanel(name){
+  const det=DETAILS[name]||null;
+  const rt=D.ratings.find(t=>t.equipe===name)||{};
+  let h=`<div class="card tp"><div class="tp-head">${flag(name)}<strong>${esc(name)}</strong>
+    <span class="faint">Elo ${rt.elo||"–"} · FIFA ${rt.fifa_rank||"–"}</span></div>`;
+  if(det){
+    if(det.note) h+=`<p class="muted tp-note">${esc(det.note)}</p>`;
+    h+=`<div class="tp-sub">Forme récente (12 mois)</div>`;
+    h+=(det.recent&&det.recent.length)?det.recent.map(recentLine).join(""):'<span class="faint">—</span>';
+    h+=`<div class="tp-sub">Blessés / absents</div>`;
+    h+=(det.injuries&&det.injuries.length)?`<ul class="inj">${det.injuries.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`
+      :'<span class="faint">Aucun absent notable connu.</span>';
+  } else h+=`<p class="faint">Données détaillées indisponibles pour cette équipe.</p>`;
+  return h+`</div>`;
+}
+let _modal=null;
+function ensureModal(){
+  if(_modal) return _modal;
+  _modal=document.createElement("div"); _modal.id="matchModal"; _modal.className="modal"; _modal.hidden=true;
+  _modal.innerHTML=`<div class="modal-bg"></div><div class="modal-card">
+    <button class="modal-x" aria-label="Fermer">✕</button><div id="mBody"></div></div>`;
+  document.body.appendChild(_modal);
+  const close=()=>{_modal.hidden=true;document.body.style.overflow="";};
+  _modal.querySelector(".modal-bg").onclick=close;
+  _modal.querySelector(".modal-x").onclick=close;
+  document.addEventListener("keydown",e=>{if(e.key==="Escape")close();});
+  return _modal;
+}
+function openMatch(i){
+  const p=D.predictions[i]; if(!p) return;
+  const m=ensureModal();
+  const typ=p.statut==="joue"?'<span class="pill real">résultat réel</span>':'<span class="pill prono">pronostic</span>';
+  const mpp=p.mpp_v==null?'<span class="faint">indisponible</span>'
+    :`${Math.round(p.mpp_v*100)} / ${Math.round(p.mpp_n*100)} / ${Math.round(p.mpp_d*100)}`;
+  document.getElementById("mBody").innerHTML=`
+    <div class="mm-head">
+      <div class="mm-teams">${team(p.dom)} ${scoreBadge(p.bd,p.be)} ${team(p.ext)}</div>
+      <div class="faint">Groupe ${p.groupe} · J${p.journee} · ${esc(p.kickoff_cest)} CEST · ${typ}</div>
+    </div>
+    <div class="mm-grid">
+      <div class="card">
+        <h3><i class="mdi mdi-chart-donut"></i> Probabilités</h3>
+        <div style="margin:6px 0 10px">${probBar(p.pv,p.pn,p.pd)}</div>
+        <div class="mm-kv"><span>Victoire ${esc(p.dom)}</span><b>${Math.round(p.pv*100)}%</b></div>
+        <div class="mm-kv"><span>Match nul</span><b>${Math.round(p.pn*100)}%</b></div>
+        <div class="mm-kv"><span>Victoire ${esc(p.ext)}</span><b>${Math.round(p.pd*100)}%</b></div>
+        <div class="mm-kv"><span>mpp.football (1/N/2)</span><b>${mpp}</b></div>
+      </div>
+      <div class="card">
+        <h3><i class="mdi mdi-soccer"></i> Buts attendus (modèle)</h3>
+        <div class="mm-kv"><span>λ ${esc(p.dom)}</span><b>${p.xg_dom.toFixed(2)}</b></div>
+        <div class="mm-kv"><span>λ ${esc(p.ext)}</span><b>${p.xg_ext.toFixed(2)}</b></div>
+        <div class="mm-kv"><span>Score le plus probable</span><b>${p.bd}-${p.be}</b></div>
+        <div class="mm-kv"><span>Total de buts attendu</span><b>${(p.xg_dom+p.xg_ext).toFixed(2)}</b></div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:14px"><h3><i class="mdi mdi-grid"></i> Matrice des scores (Poisson)</h3>
+      <div class="chart" id="mMatrix"></div></div>
+    <div class="grid2" style="margin-top:14px">${teamPanel(p.dom)}${teamPanel(p.ext)}</div>`;
+  m.hidden=false; document.body.style.overflow="hidden";
+  m.querySelector(".modal-card").scrollTop=0;
+  requestAnimationFrame(()=>{
+    if(!window.Plotly) return;
+    const n=6,mat=scoreMatrix(p.xg_dom,p.xg_ext,n),t=THEME[curTheme()];
+    Plotly.newPlot("mMatrix",[{type:"heatmap",z:mat.z,text:mat.txt,texttemplate:"%{text}",textfont:{size:10},
+      x:[...Array(n+1).keys()],y:[...Array(n+1).keys()],colorscale:[[0,t.paper],[1,t.accent]],showscale:false,
+      hovertemplate:"score %{y}-%{x} : %{z:.1f}%<extra></extra>"}],
+      LAYOUT({height:360,xaxis:{title:"Buts "+esc(p.ext),dtick:1},yaxis:{title:"Buts "+esc(p.dom),dtick:1}}),CFG);
+  });
+}
+document.addEventListener("click",e=>{
+  const tr=e.target.closest("[data-match]");
+  if(tr){e.preventDefault(); openMatch(+tr.dataset.match);}
+});
 
 /* ---------- Navigation ---------- */
 function show(sec){

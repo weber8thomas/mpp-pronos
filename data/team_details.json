@@ -1,0 +1,1827 @@
+{
+ "Mexique": {
+  "note": "Excellente forme : vainqueur Gold Cup 2025 et victoire d'ouverture en CDM.",
+  "injuries": [],
+  "recent": [
+   {
+    "date": "2026-06",
+    "comp": "Coupe du Monde",
+    "match": "Mexique 2-0 Afrique du Sud",
+    "res": "V"
+   },
+   {
+    "date": "2026-02",
+    "comp": "Amical",
+    "match": "Mexique 4-0 Islande",
+    "res": "V"
+   },
+   {
+    "date": "2026-01",
+    "comp": "Amical",
+    "match": "Mexique 1-0 Bolivie",
+    "res": "V"
+   },
+   {
+    "date": "2025-11",
+    "comp": "Amical",
+    "match": "Mexique 1-2 Paraguay",
+    "res": "D"
+   },
+   {
+    "date": "2025-11",
+    "comp": "Amical",
+    "match": "Mexique 0-0 Uruguay",
+    "res": "N"
+   }
+  ]
+ },
+ "Afrique du Sud": {
+  "note": "1ère CDM depuis 16 ans ; 8e de finale CAN, battue d'entrée par le Mexique.",
+  "injuries": [
+   "Aubrey Modiba (incertain)",
+   "Brandon Petersen (appendicite, écarté)"
+  ],
+  "recent": [
+   {
+    "date": "2026-06",
+    "comp": "Coupe du Monde",
+    "match": "Mexique 2-0 Afrique du Sud",
+    "res": "D"
+   },
+   {
+    "date": "2026-01",
+    "comp": "CAN",
+    "match": "Afrique du Sud 1-2 Cameroun",
+    "res": "D"
+   },
+   {
+    "date": "2025-11",
+    "comp": "Amical",
+    "match": "Afrique du Sud 0-1 Panama",
+    "res": "D"
+   },
+   {
+    "date": "2025-10",
+    "comp": "Qualif CDM",
+    "match": "Afrique du Sud 3-0 Rwanda",
+    "res": "V"
+   },
+   {
+    "date": "2025-10",
+    "comp": "Qualif CDM",
+    "match": "Afrique du Sud 1-1 Nigeria",
+    "res": "N"
+   }
+  ]
+ },
+ "Corée du Sud": {
+  "note": "Qualifiée invaincue (11e participation) ; profondeur d'effectif limitée.",
+  "injuries": [
+   "Cho Yu-min (forfait, blessé)",
+   "Lee Kang-in (cheville, incertain)"
+  ],
+  "recent": [
+   {
+    "date": "2026-06",
+    "comp": "Amical",
+    "match": "Corée du Sud 2-1 Trinité-et-Tobago",
+    "res": "V"
+   },
+   {
+    "date": "2025-06",
+    "comp": "Qualif CDM",
+    "match": "Corée du Sud 4-0 Koweït",
+    "res": "V"
+   },
+   {
+    "date": "2025-06",
+    "comp": "Qualif CDM",
+    "match": "Irak 0-2 Corée du Sud",
+    "res": "V"
+   },
+   {
+    "date": "2025-03",
+    "comp": "Qualif CDM",
+    "match": "Corée du Sud 1-1 Jordanie",
+    "res": "N"
+   },
+   {
+    "date": "2025-03",
+    "comp": "Qualif CDM",
+    "match": "Corée du Sud 1-1 Oman",
+    "res": "N"
+   }
+  ]
+ },
+ "Tchéquie": {
+  "note": "Forme correcte ; Hložek de retour de blessure, aucun forfait majeur.",
+  "injuries": [],
+  "recent": [
+   {
+    "date": "2026-03",
+    "comp": "Barrage",
+    "match": "Tchéquie 2-2 (4-3 tab) Irlande",
+    "res": "V"
+   },
+   {
+    "date": "2025-11",
+    "comp": "Qualif CDM",
+    "match": "Tchéquie 6-0 Gibraltar",
+    "res": "V"
+   },
+   {
+    "date": "2025-10",
+    "comp": "Qualif CDM",
+    "match": "Tchéquie 1-2 Îles Féroé",
+    "res": "D"
+   },
+   {
+    "date": "2025-10",
+    "comp": "Qualif CDM",
+    "match": "Tchéquie 0-0 Croatie",
+    "res": "N"
+   }
+  ]
+ },
+ "Canada": {
+  "note": "Co-hôte frappé par les blessures (Davies) ; bonne Gold Cup.",
+  "injuries": [
+   "Alphonso Davies (ischio/LCA, forfait probable de l'ouverture)",
+   "Moïse Bombito (jambe, de retour)"
+  ],
+  "recent": [
+   {
+    "date": "2026-06",
+    "comp": "Coupe du Monde",
+    "match": "Canada 1-1 Bosnie-Herzégovine",
+    "res": "N"
+   },
+   {
+    "date": "2025-07",
+    "comp": "Gold Cup",
+    "match": "Canada 1-1 (5-6 tab) Guatemala",
+    "res": "D"
+   },
+   {
+    "date": "2025-06",
+    "comp": "Gold Cup",
+    "match": "Canada 2-0 Salvador",
+    "res": "V"
+   },
+   {
+    "date": "2025-06",
+    "comp": "Gold Cup",
+    "match": "Canada 6-0 Honduras",
+    "res": "V"
+   }
+  ]
+ },
+ "Suisse": {
+  "note": "Qualifiée en tête invaincue ; nul d'entrée concédé au Qatar.",
+  "injuries": [
+   "Zeki Amdouni (retour de LCA, incertain)",
+   "Xherdan Shaqiri (absent du groupe)"
+  ],
+  "recent": [
+   {
+    "date": "2026-06",
+    "comp": "Coupe du Monde",
+    "match": "Suisse 1-1 Qatar",
+    "res": "N"
+   },
+   {
+    "date": "2026-03",
+    "comp": "Amical",
+    "match": "Suisse 0-0 Norvège",
+    "res": "N"
+   },
+   {
+    "date": "2026-03",
+    "comp": "Amical",
+    "match": "Suisse 3-4 Allemagne",
+    "res": "D"
+   },
+   {
+    "date": "2025-11",
+    "comp": "Qualif CDM",
+    "match": "Suisse 4-1 Suède",
+    "res": "V"
+   },
+   {
+    "date": "2025-10",
+    "comp": "Qualif CDM",
+    "match": "Slovénie 0-0 Suisse",
+    "res": "N"
+   }
+  ]
+ },
+ "Qatar": {
+  "note": "1ère qualif via éliminatoires (Lopetegui) ; 1er point historique en CDM.",
+  "injuries": [
+   "Almoez Ali (suspendu, forfait 1er match)"
+  ],
+  "recent": [
+   {
+    "date": "2026-06",
+    "comp": "Coupe du Monde",
+    "match": "Qatar 1-1 Suisse",
+    "res": "N"
+   },
+   {
+    "date": "2026-05",
+    "comp": "Amical",
+    "match": "Irlande 1-0 Qatar",
+    "res": "D"
+   },
+   {
+    "date": "2025-10",
+    "comp": "Qualif CDM",
+    "match": "Qatar 2-1 Émirats arabes unis",
+    "res": "V"
+   },
+   {
+    "date": "2025-10",
+    "comp": "Qualif CDM",
+    "match": "Qatar 0-0 Oman",
+    "res": "N"
+   }
+  ]
+ },
+ "Bosnie-Herzégovine": {
+  "note": "Qualif héroïque aux tirs au but ; menée par Džeko (40 ans).",
+  "injuries": [],
+  "recent": [
+   {
+    "date": "2026-06",
+    "comp": "Coupe du Monde",
+    "match": "Canada 1-1 Bosnie-Herzégovine",
+    "res": "N"
+   },
+   {
+    "date": "2026-03",
+    "comp": "Barrage",
+    "match": "Bosnie 1-1 (4-1 tab) Italie",
+    "res": "V"
+   },
+   {
+    "date": "2026-03",
+    "comp": "Barrage",
+    "match": "Pays de Galles 1-1 (2-4 tab) Bosnie",
+    "res": "V"
+   },
+   {
+    "date": "2025-10",
+    "comp": "Qualif CDM",
+    "match": "Bosnie 3-1 Roumanie",
+    "res": "V"
+   },
+   {
+    "date": "2025-09",
+    "comp": "Qualif CDM",
+    "match": "Bosnie 1-2 Autriche",
+    "res": "D"
+   }
+  ]
+ },
+ "Brésil": {
+  "note": "Sous Ancelotti, qualif laborieuse et nul d'entrée 1-1 vs Maroc ; cadres offensifs blessés.",
+  "injuries": [
+   "Rodrygo (LCA + ménisque)",
+   "Estêvão (ischio)",
+   "Éder Militão (ischio, opéré)"
+  ],
+  "recent": [
+   {
+    "date": "2026-06",
+    "comp": "Coupe du Monde",
+    "match": "Brésil 1-1 Maroc",
+    "res": "N"
+   },
+   {
+    "date": "2026-06",
+    "comp": "Amical",
+    "match": "Brésil 2-1 Égypte",
+    "res": "V"
+   },
+   {
+    "date": "2026-03",
+    "comp": "Amical",
+    "match": "Brésil 1-2 France",
+    "res": "D"
+   },
+   {
+    "date": "2025-10",
+    "comp": "Amical",
+    "match": "Japon 3-2 Brésil",
+    "res": "D"
+   },
+   {
+    "date": "2025-09",
+    "comp": "Qualif CDM",
+    "match": "Brésil 3-0 Chili",
+    "res": "V"
+   }
+  ]
+ },
+ "Maroc": {
+  "note": "Champion d'Afrique 2025, invaincu en qualifs (8/8) ; quelques blessures défensives.",
+  "injuries": [
+   "Nayef Aguerd (pubis, opéré, forfait)",
+   "Abdessamad Ezzalzouli (genou, forfait)",
+   "Noussair Mazraoui (épaule, incertain)"
+  ],
+  "recent": [
+   {
+    "date": "2026-06",
+    "comp": "Coupe du Monde",
+    "match": "Brésil 1-1 Maroc",
+    "res": "N"
+   },
+   {
+    "date": "2026-06",
+    "comp": "Amical",
+    "match": "Maroc 1-1 Norvège",
+    "res": "N"
+   },
+   {
+    "date": "2026-01",
+    "comp": "CAN",
+    "match": "Maroc 0-0 (3-0 tv) Sénégal",
+    "res": "V"
+   },
+   {
+    "date": "2026-01",
+    "comp": "CAN",
+    "match": "Maroc 0-0 (4-2 tab) Nigeria",
+    "res": "V"
+   },
+   {
+    "date": "2026-01",
+    "comp": "CAN",
+    "match": "Maroc 2-0 Cameroun",
+    "res": "V"
+   }
+  ]
+ },
+ "Écosse": {
+  "note": "1ère CDM depuis 1998 (1ère du groupe) ; coup dur Gilmour blessé.",
+  "injuries": [
+   "Billy Gilmour (genou, forfait)",
+   "Tommy Conway (cheville)"
+  ],
+  "recent": [
+   {
+    "date": "2026-05",
+    "comp": "Amical",
+    "match": "Écosse 4-1 Curaçao",
+    "res": "V"
+   },
+   {
+    "date": "2025-11",
+    "comp": "Qualif CDM",
+    "match": "Écosse 4-2 Danemark",
+    "res": "V"
+   },
+   {
+    "date": "2025-11",
+    "comp": "Qualif CDM",
+    "match": "Grèce 3-2 Écosse",
+    "res": "D"
+   },
+   {
+    "date": "2025-10",
+    "comp": "Qualif CDM",
+    "match": "Écosse 3-1 Grèce",
+    "res": "V"
+   },
+   {
+    "date": "2025-09",
+    "comp": "Qualif CDM",
+    "match": "Biélorussie 0-2 Écosse",
+    "res": "V"
+   }
+  ]
+ },
+ "Haïti": {
+  "note": "1ère CDM depuis 1974 ; groupe très difficile, battue d'entrée par l'Écosse.",
+  "injuries": [
+   "Frantzdy Pierrot (blessure)",
+   "Leverton Pierre (musculaire)"
+  ],
+  "recent": [
+   {
+    "date": "2026-06",
+    "comp": "Coupe du Monde",
+    "match": "Haïti 0-1 Écosse",
+    "res": "D"
+   },
+   {
+    "date": "2026-06",
+    "comp": "Amical",
+    "match": "Haïti 1-2 Pérou",
+    "res": "D"
+   },
+   {
+    "date": "2026-06",
+    "comp": "Amical",
+    "match": "Haïti 4-0 Nouvelle-Zélande",
+    "res": "V"
+   },
+   {
+    "date": "2026-03",
+    "comp": "Amical",
+    "match": "Haïti 1-1 Islande",
+    "res": "N"
+   },
+   {
+    "date": "2025-11",
+    "comp": "Élim. CONCACAF",
+    "match": "Haïti 2-0 Nicaragua",
+    "res": "V"
+   }
+  ]
+ },
+ "États-Unis": {
+  "note": "Pays hôte ; forme inquiétante en préparation, sous Pochettino (Pulisic).",
+  "injuries": [
+   "Cameron Carter-Vickers (tendon d'Achille)",
+   "Patrick Agyemang (tendon d'Achille)",
+   "Johnny Cardoso (cheville)"
+  ],
+  "recent": [
+   {
+    "date": "2026-06",
+    "comp": "Amical",
+    "match": "États-Unis 1-2 Allemagne",
+    "res": "D"
+   },
+   {
+    "date": "2026-05",
+    "comp": "Amical",
+    "match": "États-Unis 3-2 Sénégal",
+    "res": "V"
+   },
+   {
+    "date": "2026-03",
+    "comp": "Amical",
+    "match": "États-Unis 0-2 Portugal",
+    "res": "D"
+   },
+   {
+    "date": "2026-03",
+    "comp": "Amical",
+    "match": "États-Unis 2-5 Belgique",
+    "res": "D"
+   },
+   {
+    "date": "2025-07",
+    "comp": "Gold Cup",
+    "match": "États-Unis 1-2 Mexique",
+    "res": "D"
+   }
+  ]
+ },
+ "Australie": {
+  "note": "6e CDM consécutive (1ère du groupe AFC), coach Popovic ; McGree blessé.",
+  "injuries": [
+   "Riley McGree (ischio)",
+   "Patrick Yazbek (quadriceps)"
+  ],
+  "recent": [
+   {
+    "date": "2026-03",
+    "comp": "Amical",
+    "match": "Australie 1-0 Cameroun",
+    "res": "V"
+   },
+   {
+    "date": "2025-11",
+    "comp": "Amical",
+    "match": "Australie 0-3 Colombie",
+    "res": "D"
+   },
+   {
+    "date": "2025-11",
+    "comp": "Amical",
+    "match": "Australie 0-1 Venezuela",
+    "res": "D"
+   },
+   {
+    "date": "2025-10",
+    "comp": "Amical",
+    "match": "Australie 1-0 Canada",
+    "res": "V"
+   },
+   {
+    "date": "2025-06",
+    "comp": "Qualif CDM",
+    "match": "Australie 2-1 Arabie saoudite",
+    "res": "V"
+   }
+  ]
+ },
+ "Paraguay": {
+  "note": "Qualifié direct (fin de 16 ans d'absence, Alfaro) ; battu d'entrée 1-4.",
+  "injuries": [
+   "Mathías Villasanti (genou)",
+   "Julio Enciso (cuisse)"
+  ],
+  "recent": [
+   {
+    "date": "2026-06",
+    "comp": "Coupe du Monde",
+    "match": "Paraguay 1-4 États-Unis",
+    "res": "D"
+   },
+   {
+    "date": "2026-06",
+    "comp": "Amical",
+    "match": "Paraguay 4-0 Nicaragua",
+    "res": "V"
+   },
+   {
+    "date": "2025-09",
+    "comp": "Qualif CDM",
+    "match": "Paraguay 1-0 Pérou",
+    "res": "V"
+   },
+   {
+    "date": "2025-09",
+    "comp": "Qualif CDM",
+    "match": "Paraguay 0-0 Équateur",
+    "res": "N"
+   },
+   {
+    "date": "2025-06",
+    "comp": "Qualif CDM",
+    "match": "Paraguay 2-0 Uruguay",
+    "res": "V"
+   }
+  ]
+ },
+ "Turquie": {
+  "note": "1ère CDM depuis 2002 (barrages) ; Güler/Yıldız/Çalhanoğlu, battue d'entrée.",
+  "injuries": [
+   "Kenan Yıldız (mollet, doute majeur)"
+  ],
+  "recent": [
+   {
+    "date": "2026-06",
+    "comp": "Coupe du Monde",
+    "match": "Turquie 0-2 Australie",
+    "res": "D"
+   },
+   {
+    "date": "2026-03",
+    "comp": "Barrage",
+    "match": "Turquie 1-0 Kosovo",
+    "res": "V"
+   },
+   {
+    "date": "2026-03",
+    "comp": "Barrage",
+    "match": "Turquie 1-0 Roumanie",
+    "res": "V"
+   },
+   {
+    "date": "2025-11",
+    "comp": "Qualif CDM",
+    "match": "Turquie 2-2 Espagne",
+    "res": "N"
+   },
+   {
+    "date": "2025-10",
+    "comp": "Qualif CDM",
+    "match": "Turquie 4-1 Géorgie",
+    "res": "V"
+   }
+  ]
+ },
+ "Allemagne": {
+  "note": "Qualifiée en tête malgré une défaite inaugurale ; en forme sous Nagelsmann.",
+  "injuries": [
+   "Serge Gnabry (adducteurs, forfait)",
+   "Lennart Karl (cuisse, forfait)",
+   "Manuel Neuer (mollet, doute)"
+  ],
+  "recent": [
+   {
+    "date": "2025-11",
+    "comp": "Qualif CDM",
+    "match": "Allemagne 6-0 Slovaquie",
+    "res": "V"
+   },
+   {
+    "date": "2025-11",
+    "comp": "Qualif CDM",
+    "match": "Allemagne 2-0 Luxembourg",
+    "res": "V"
+   },
+   {
+    "date": "2025-10",
+    "comp": "Qualif CDM",
+    "match": "Allemagne 1-0 Irlande du Nord",
+    "res": "V"
+   },
+   {
+    "date": "2025-09",
+    "comp": "Qualif CDM",
+    "match": "Allemagne 3-1 Irlande du Nord",
+    "res": "V"
+   },
+   {
+    "date": "2025-09",
+    "comp": "Qualif CDM",
+    "match": "Allemagne 0-2 Slovaquie",
+    "res": "D"
+   }
+  ]
+ },
+ "Équateur": {
+  "note": "2e CONMEBOL, meilleure défense des qualifs ; série invaincue stoppée d'entrée.",
+  "injuries": [
+   "Piero Hincapié (rétabli, sélectionné)"
+  ],
+  "recent": [
+   {
+    "date": "2026-06",
+    "comp": "Coupe du Monde",
+    "match": "Équateur 0-1 Côte d'Ivoire",
+    "res": "D"
+   },
+   {
+    "date": "2026-06",
+    "comp": "Amical",
+    "match": "Équateur 3-0 Guatemala",
+    "res": "V"
+   },
+   {
+    "date": "2026-05",
+    "comp": "Amical",
+    "match": "Équateur 2-1 Arabie saoudite",
+    "res": "V"
+   },
+   {
+    "date": "2026-03",
+    "comp": "Amical",
+    "match": "Équateur 1-1 Pays-Bas",
+    "res": "N"
+   },
+   {
+    "date": "2025-09",
+    "comp": "Qualif CDM",
+    "match": "Équateur 1-0 Argentine",
+    "res": "V"
+   }
+  ]
+ },
+ "Côte d'Ivoire": {
+  "note": "Championne CAN 2024, qualifiée invaincue ; Ndicka blessé, victoire d'entrée.",
+  "injuries": [
+   "Evan Ndicka (cuisse)",
+   "Sébastien Haller (écarté, forme)",
+   "Wilfried Zaha (non retenu)"
+  ],
+  "recent": [
+   {
+    "date": "2026-06",
+    "comp": "Coupe du Monde",
+    "match": "Côte d'Ivoire 1-0 Équateur",
+    "res": "V"
+   },
+   {
+    "date": "2026-06",
+    "comp": "Amical",
+    "match": "Côte d'Ivoire 2-1 France",
+    "res": "V"
+   },
+   {
+    "date": "2026-01",
+    "comp": "CAN",
+    "match": "Côte d'Ivoire 2-3 Égypte",
+    "res": "D"
+   },
+   {
+    "date": "2026-01",
+    "comp": "CAN",
+    "match": "Côte d'Ivoire 3-0 Burkina Faso",
+    "res": "V"
+   },
+   {
+    "date": "2025-12",
+    "comp": "CAN",
+    "match": "Côte d'Ivoire 1-1 Cameroun",
+    "res": "N"
+   }
+  ]
+ },
+ "Curaçao": {
+  "note": "1ère CDM, plus petite nation jamais qualifiée (Advocaat).",
+  "injuries": [],
+  "recent": [
+   {
+    "date": "2025-11",
+    "comp": "Élim. CONCACAF",
+    "match": "Jamaïque 0-0 Curaçao",
+    "res": "N"
+   },
+   {
+    "date": "2025-11",
+    "comp": "Élim. CONCACAF",
+    "match": "Bermudes 0-7 Curaçao",
+    "res": "V"
+   },
+   {
+    "date": "2025-10",
+    "comp": "Élim. CONCACAF",
+    "match": "Curaçao 2-0 Jamaïque",
+    "res": "V"
+   },
+   {
+    "date": "2025-06",
+    "comp": "Gold Cup",
+    "match": "Honduras 2-1 Curaçao",
+    "res": "D"
+   },
+   {
+    "date": "2025-06",
+    "comp": "Gold Cup",
+    "match": "Curaçao 1-1 Canada",
+    "res": "N"
+   }
+  ]
+ },
+ "Pays-Bas": {
+  "note": "Vainqueur de son groupe qualif ; Simons et Timber forfaits.",
+  "injuries": [
+   "Xavi Simons (LCA)",
+   "Jurriën Timber (genou, forfait)",
+   "Jeremie Frimpong (écarté)",
+   "Matthijs de Ligt (blessure)"
+  ],
+  "recent": [
+   {
+    "date": "2026-06",
+    "comp": "Coupe du Monde",
+    "match": "Pays-Bas 2-2 Japon",
+    "res": "N"
+   },
+   {
+    "date": "2026-06",
+    "comp": "Amical",
+    "match": "Pays-Bas 2-1 Ouzbékistan",
+    "res": "V"
+   },
+   {
+    "date": "2026-06",
+    "comp": "Amical",
+    "match": "Pays-Bas 0-1 Algérie",
+    "res": "D"
+   },
+   {
+    "date": "2026-03",
+    "comp": "Amical",
+    "match": "Pays-Bas 2-1 Norvège",
+    "res": "V"
+   },
+   {
+    "date": "2025-11",
+    "comp": "Qualif CDM",
+    "match": "Pays-Bas 4-0 Lituanie",
+    "res": "V"
+   }
+  ]
+ },
+ "Japon": {
+  "note": "1er qualifié (8e CDM consécutive) ; privé de Mitoma, Endo et Minamino.",
+  "injuries": [
+   "Kaoru Mitoma (ischio)",
+   "Wataru Endo (pied, retraite intl.)",
+   "Takumi Minamino (LCA)"
+  ],
+  "recent": [
+   {
+    "date": "2026-06",
+    "comp": "Coupe du Monde",
+    "match": "Pays-Bas 2-2 Japon",
+    "res": "N"
+   },
+   {
+    "date": "2026-05",
+    "comp": "Amical",
+    "match": "Japon 1-0 Islande",
+    "res": "V"
+   },
+   {
+    "date": "2025-11",
+    "comp": "Amical",
+    "match": "Japon 3-0 Bolivie",
+    "res": "V"
+   },
+   {
+    "date": "2025-10",
+    "comp": "Amical",
+    "match": "Japon 3-2 Brésil",
+    "res": "V"
+   },
+   {
+    "date": "2025-10",
+    "comp": "Amical",
+    "match": "Japon 2-2 Paraguay",
+    "res": "N"
+   }
+  ]
+ },
+ "Tunisie": {
+  "note": "Qualifiée tôt (CAF) ; défense effondrée d'entrée (1-5 vs Suède).",
+  "injuries": [
+   "Hannibal Mejbri (forme/blessure, doute)",
+   "Dylan Bronn (gestion physique)"
+  ],
+  "recent": [
+   {
+    "date": "2026-06",
+    "comp": "Coupe du Monde",
+    "match": "Suède 5-1 Tunisie",
+    "res": "D"
+   },
+   {
+    "date": "2026-06",
+    "comp": "Amical",
+    "match": "Autriche 1-0 Tunisie",
+    "res": "D"
+   },
+   {
+    "date": "2026-03",
+    "comp": "Amical",
+    "match": "Canada 0-0 Tunisie",
+    "res": "N"
+   },
+   {
+    "date": "2026-01",
+    "comp": "CAN (8e)",
+    "match": "Tunisie 1-1 (2-3 tab) Mali",
+    "res": "N"
+   },
+   {
+    "date": "2025-10",
+    "comp": "Qualif CDM",
+    "match": "Tunisie 3-0 Namibie",
+    "res": "V"
+   }
+  ]
+ },
+ "Suède": {
+  "note": "Qualifiée via barrages (Potter) ; duo Isak/Gyökeres dévastateur d'entrée.",
+  "injuries": [
+   "Dejan Kulusevski (genou, absent)",
+   "Emil Holm (forfait)"
+  ],
+  "recent": [
+   {
+    "date": "2026-06",
+    "comp": "Coupe du Monde",
+    "match": "Suède 5-1 Tunisie",
+    "res": "V"
+   },
+   {
+    "date": "2026-03",
+    "comp": "Barrage",
+    "match": "Suède 3-2 Pologne",
+    "res": "V"
+   },
+   {
+    "date": "2026-03",
+    "comp": "Barrage",
+    "match": "Suède 3-1 Ukraine",
+    "res": "V"
+   },
+   {
+    "date": "2025-11",
+    "comp": "Qualif CDM",
+    "match": "Suisse 4-1 Suède",
+    "res": "D"
+   },
+   {
+    "date": "2025-09",
+    "comp": "Qualif CDM",
+    "match": "Kosovo 2-0 Suède",
+    "res": "D"
+   }
+  ]
+ },
+ "Belgique": {
+  "note": "Génération De Bruyne/Lukaku diminués ; accrochée d'entrée par l'Égypte.",
+  "injuries": [
+   "Romelu Lukaku (musculaire, peu de temps de jeu)",
+   "Kevin De Bruyne (retour d'opération)"
+  ],
+  "recent": [
+   {
+    "date": "2026-06",
+    "comp": "Coupe du Monde",
+    "match": "Belgique 1-1 Égypte",
+    "res": "N"
+   },
+   {
+    "date": "2026-06",
+    "comp": "Amical",
+    "match": "Belgique 2-0 Croatie",
+    "res": "V"
+   },
+   {
+    "date": "2025-11",
+    "comp": "Qualif CDM",
+    "match": "Belgique 7-0 Liechtenstein",
+    "res": "V"
+   },
+   {
+    "date": "2025-10",
+    "comp": "Qualif CDM",
+    "match": "Belgique 4-2 Pays de Galles",
+    "res": "V"
+   },
+   {
+    "date": "2025-10",
+    "comp": "Qualif CDM",
+    "match": "Belgique 0-0 Macédoine du Nord",
+    "res": "N"
+   }
+  ]
+ },
+ "Iran": {
+  "note": "Qualifié tôt ; bloc défensif solide, accroché d'entrée par la NZ.",
+  "injuries": [
+   "Alireza Jahanbakhsh (incertain)",
+   "Sardar Azmoun (écarté)"
+  ],
+  "recent": [
+   {
+    "date": "2026-06",
+    "comp": "Coupe du Monde",
+    "match": "Iran 2-2 Nouvelle-Zélande",
+    "res": "N"
+   },
+   {
+    "date": "2026-06",
+    "comp": "Amical",
+    "match": "Iran 2-0 Mali",
+    "res": "V"
+   },
+   {
+    "date": "2026-05",
+    "comp": "Amical",
+    "match": "Iran 3-1 Gambie",
+    "res": "V"
+   },
+   {
+    "date": "2026-03",
+    "comp": "Amical",
+    "match": "Iran 5-0 Costa Rica",
+    "res": "V"
+   },
+   {
+    "date": "2026-03",
+    "comp": "Amical",
+    "match": "Iran 1-2 Nigeria",
+    "res": "D"
+   }
+  ]
+ },
+ "Argentine": {
+  "note": "Championne du monde en titre ; gestion de Messi et plusieurs blessures.",
+  "injuries": [
+   "Juan Foyth (tendon d'Achille)",
+   "Leonardo Balerdi (cuisse, forfait)",
+   "Nicolás Tagliafico (mollet, incertain)"
+  ],
+  "recent": [
+   {
+    "date": "2026-06",
+    "comp": "Amical",
+    "match": "Argentine 3-0 Islande",
+    "res": "V"
+   },
+   {
+    "date": "2026-06",
+    "comp": "Amical",
+    "match": "Argentine 2-0 Honduras",
+    "res": "V"
+   },
+   {
+    "date": "2026-03",
+    "comp": "Amical",
+    "match": "Argentine 5-0 Zambie",
+    "res": "V"
+   },
+   {
+    "date": "2025-11",
+    "comp": "Amical",
+    "match": "Argentine 2-0 Angola",
+    "res": "V"
+   },
+   {
+    "date": "2025-09",
+    "comp": "Qualif CDM",
+    "match": "Argentine 0-1 Équateur",
+    "res": "D"
+   }
+  ]
+ },
+ "Autriche": {
+  "note": "Retour au Mondial après 28 ans (Rangnick).",
+  "injuries": [
+   "Christoph Baumgartner (cuisse)",
+   "Gernot Trauner (blessure)",
+   "Maximilian Wöber (blessure)"
+  ],
+  "recent": [
+   {
+    "date": "2025-11",
+    "comp": "Qualif CDM",
+    "match": "Chypre 0-2 Autriche",
+    "res": "V"
+   },
+   {
+    "date": "2025-11",
+    "comp": "Qualif CDM",
+    "match": "Bosnie 1-1 Autriche",
+    "res": "N"
+   },
+   {
+    "date": "2025-10",
+    "comp": "Qualif CDM",
+    "match": "Autriche 10-0 Saint-Marin",
+    "res": "V"
+   },
+   {
+    "date": "2025-10",
+    "comp": "Qualif CDM",
+    "match": "Roumanie 1-0 Autriche",
+    "res": "D"
+   },
+   {
+    "date": "2025-09",
+    "comp": "Qualif CDM",
+    "match": "Autriche 2-1 Bosnie-Herzégovine",
+    "res": "V"
+   }
+  ]
+ },
+ "Algérie": {
+  "note": "Qualifiée (Petković) ; CAN 2025 stoppée en quart par le Nigeria.",
+  "injuries": [
+   "Youcef Atal (tendon d'Achille)",
+   "Youcef Belaïli (forfait)",
+   "Ismaël Bennacer (blessures à répétition)"
+  ],
+  "recent": [
+   {
+    "date": "2026-01",
+    "comp": "CAN (quart)",
+    "match": "Algérie 0-2 Nigeria",
+    "res": "D"
+   },
+   {
+    "date": "2026-01",
+    "comp": "CAN (8e)",
+    "match": "Algérie 1-0 RD Congo (ap)",
+    "res": "V"
+   },
+   {
+    "date": "2025-12",
+    "comp": "CAN",
+    "match": "Algérie 3-1 Guinée équatoriale",
+    "res": "V"
+   },
+   {
+    "date": "2025-12",
+    "comp": "CAN",
+    "match": "Algérie 1-0 Burkina Faso",
+    "res": "V"
+   },
+   {
+    "date": "2025-10",
+    "comp": "Qualif CDM",
+    "match": "Algérie 2-1 Ouganda",
+    "res": "V"
+   }
+  ]
+ },
+ "Jordanie": {
+  "note": "1ère qualif de son histoire ; finale de Coupe Arabe perdue, privée d'Al-Naimat.",
+  "injuries": [
+   "Yazan Al-Naimat (LCA)",
+   "Ibrahim Sabra (blessure)"
+  ],
+  "recent": [
+   {
+    "date": "2025-12",
+    "comp": "Coupe Arabe (finale)",
+    "match": "Jordanie 2-3 Maroc (ap)",
+    "res": "D"
+   },
+   {
+    "date": "2025-12",
+    "comp": "Coupe Arabe (demi)",
+    "match": "Jordanie 1-0 Arabie saoudite",
+    "res": "V"
+   },
+   {
+    "date": "2025-12",
+    "comp": "Coupe Arabe (quart)",
+    "match": "Jordanie 1-0 Irak",
+    "res": "V"
+   },
+   {
+    "date": "2025-12",
+    "comp": "Coupe Arabe",
+    "match": "Jordanie 3-0 Égypte",
+    "res": "V"
+   },
+   {
+    "date": "2025-06",
+    "comp": "Qualif CDM",
+    "match": "Jordanie 3-0 Oman",
+    "res": "V"
+   }
+  ]
+ },
+ "Portugal": {
+  "note": "Vainqueur Ligue des Nations 2025, qualif maîtrisée (Ronaldo).",
+  "injuries": [
+   "Diogo Jota (décédé, juillet 2025)",
+   "Geovany Quenda (pied, écarté)"
+  ],
+  "recent": [
+   {
+    "date": "2026-06",
+    "comp": "Amical",
+    "match": "Portugal 2-1 Nigeria",
+    "res": "V"
+   },
+   {
+    "date": "2026-06",
+    "comp": "Amical",
+    "match": "Portugal 2-1 Chili",
+    "res": "V"
+   },
+   {
+    "date": "2026-03",
+    "comp": "Amical",
+    "match": "USA 0-2 Portugal",
+    "res": "V"
+   },
+   {
+    "date": "2025-11",
+    "comp": "Qualif CDM",
+    "match": "Portugal 9-1 Arménie",
+    "res": "V"
+   },
+   {
+    "date": "2025-06",
+    "comp": "Finale L. des Nations",
+    "match": "Portugal 2-2 (5-3 tab) Espagne",
+    "res": "V"
+   }
+  ]
+ },
+ "Colombie": {
+  "note": "Qualifiée (groupe K) ; bonne forme malgré deux revers en mars.",
+  "injuries": [
+   "Cristian Borja (genou, LLI)"
+  ],
+  "recent": [
+   {
+    "date": "2026-06",
+    "comp": "Amical",
+    "match": "Colombie 2-0 Jordanie",
+    "res": "V"
+   },
+   {
+    "date": "2026-06",
+    "comp": "Amical",
+    "match": "Colombie 3-1 Costa Rica",
+    "res": "V"
+   },
+   {
+    "date": "2026-03",
+    "comp": "Amical",
+    "match": "France 3-1 Colombie",
+    "res": "D"
+   },
+   {
+    "date": "2026-03",
+    "comp": "Amical",
+    "match": "Colombie 1-2 Croatie",
+    "res": "D"
+   },
+   {
+    "date": "2025-09",
+    "comp": "Qualif CDM",
+    "match": "Venezuela 3-6 Colombie",
+    "res": "V"
+   }
+  ]
+ },
+ "Ouzbékistan": {
+  "note": "1ère qualification de l'histoire (AFC, Cannavaro).",
+  "injuries": [],
+  "recent": [
+   {
+    "date": "2026-06",
+    "comp": "Amical",
+    "match": "Pays-Bas 2-1 Ouzbékistan",
+    "res": "D"
+   },
+   {
+    "date": "2026-06",
+    "comp": "Amical",
+    "match": "Canada 2-0 Ouzbékistan",
+    "res": "D"
+   },
+   {
+    "date": "2026-03",
+    "comp": "Amical",
+    "match": "Ouzbékistan 0-0 Venezuela",
+    "res": "N"
+   },
+   {
+    "date": "2026-03",
+    "comp": "Amical",
+    "match": "Ouzbékistan 3-1 Gabon",
+    "res": "V"
+   },
+   {
+    "date": "2025-11",
+    "comp": "Amical",
+    "match": "Ouzbékistan 0-0 Iran",
+    "res": "N"
+   }
+  ]
+ },
+ "RD Congo": {
+  "note": "Retour au Mondial 52 ans après (barrages CAF + intercontinental, Desabre).",
+  "injuries": [],
+  "recent": [
+   {
+    "date": "2026-06",
+    "comp": "Amical",
+    "match": "RD Congo 1-2 Chili",
+    "res": "D"
+   },
+   {
+    "date": "2026-06",
+    "comp": "Amical",
+    "match": "RD Congo 0-0 Danemark",
+    "res": "N"
+   },
+   {
+    "date": "2026-03",
+    "comp": "Barrage intercontinental",
+    "match": "RD Congo 1-0 Jamaïque",
+    "res": "V"
+   },
+   {
+    "date": "2026-01",
+    "comp": "CAN",
+    "match": "Algérie 1-0 RD Congo",
+    "res": "D"
+   },
+   {
+    "date": "2025-11",
+    "comp": "Barrage CAF",
+    "match": "RD Congo 1-1 (4-3 tab) Nigeria",
+    "res": "V"
+   }
+  ]
+ },
+ "Angleterre": {
+  "note": "Qualif parfaite sous Tuchel ; sélection surprise (Palmer/Foden/Maguire écartés).",
+  "injuries": [
+   "Cole Palmer (non retenu)",
+   "Phil Foden (non retenu)",
+   "Harry Maguire (non retenu)"
+  ],
+  "recent": [
+   {
+    "date": "2026-03",
+    "comp": "Amical",
+    "match": "Japon 1-0 Angleterre",
+    "res": "D"
+   },
+   {
+    "date": "2026-03",
+    "comp": "Amical",
+    "match": "Angleterre 1-1 Uruguay",
+    "res": "N"
+   },
+   {
+    "date": "2025-11",
+    "comp": "Qualif CDM",
+    "match": "Albanie 0-2 Angleterre",
+    "res": "V"
+   },
+   {
+    "date": "2025-11",
+    "comp": "Qualif CDM",
+    "match": "Angleterre 2-0 Serbie",
+    "res": "V"
+   },
+   {
+    "date": "2025-10",
+    "comp": "Qualif CDM",
+    "match": "Lettonie 0-5 Angleterre",
+    "res": "V"
+   }
+  ]
+ },
+ "Croatie": {
+  "note": "Qualifiée en tête ; Modrić (record) capitaine pour une 6e CDM.",
+  "injuries": [
+   "Joško Gvardiol (tibia janv. 2026, rétabli)",
+   "Mateo Kovačić (rétabli)",
+   "Luka Modrić (fracture faciale, rétabli)"
+  ],
+  "recent": [
+   {
+    "date": "2026-06",
+    "comp": "Amical",
+    "match": "Croatie 0-2 Belgique",
+    "res": "D"
+   },
+   {
+    "date": "2026-03",
+    "comp": "Amical",
+    "match": "Brésil 3-1 Croatie",
+    "res": "D"
+   },
+   {
+    "date": "2025-11",
+    "comp": "Qualif CDM",
+    "match": "Croatie 3-1 Îles Féroé",
+    "res": "V"
+   },
+   {
+    "date": "2025-11",
+    "comp": "Qualif CDM",
+    "match": "Monténégro 2-3 Croatie",
+    "res": "V"
+   },
+   {
+    "date": "2025-10",
+    "comp": "Qualif CDM",
+    "match": "Tchéquie 0-0 Croatie",
+    "res": "N"
+   }
+  ]
+ },
+ "Panama": {
+  "note": "2e CDM via éliminatoires CONCACAF (Christiansen) ; forme en dents de scie.",
+  "injuries": [
+   "Adalberto Carrasquilla (aine, incertain)"
+  ],
+  "recent": [
+   {
+    "date": "2026-06",
+    "comp": "Amical",
+    "match": "Panama 1-1 Bosnie-Herzégovine",
+    "res": "N"
+   },
+   {
+    "date": "2026-03",
+    "comp": "Amical",
+    "match": "Panama 2-1 Afrique du Sud",
+    "res": "V"
+   },
+   {
+    "date": "2026-01",
+    "comp": "Amical",
+    "match": "Mexique 1-0 Panama",
+    "res": "D"
+   },
+   {
+    "date": "2026-01",
+    "comp": "Amical",
+    "match": "Bolivie 1-1 Panama",
+    "res": "N"
+   },
+   {
+    "date": "2025-11",
+    "comp": "Élim. CONCACAF",
+    "match": "Panama 3-0 Salvador",
+    "res": "V"
+   }
+  ]
+ },
+ "Ghana": {
+  "note": "Qualifiée en tête (CAF) ; Queiroz nommé, préparation difficile et blessures.",
+  "injuries": [
+   "Mohammed Kudus (quadriceps, opéré)",
+   "Mohammed Salisu (LCA)",
+   "Alexander Djiku (musculaire)"
+  ],
+  "recent": [
+   {
+    "date": "2026-06",
+    "comp": "Amical",
+    "match": "Pays de Galles 1-1 Ghana",
+    "res": "N"
+   },
+   {
+    "date": "2026-05",
+    "comp": "Amical",
+    "match": "Mexique 2-0 Ghana",
+    "res": "D"
+   },
+   {
+    "date": "2026-03",
+    "comp": "Amical",
+    "match": "Allemagne 2-1 Ghana",
+    "res": "D"
+   },
+   {
+    "date": "2026-03",
+    "comp": "Amical",
+    "match": "Autriche 5-1 Ghana",
+    "res": "D"
+   },
+   {
+    "date": "2025-10",
+    "comp": "Qualif CDM",
+    "match": "Ghana 1-0 Comores",
+    "res": "V"
+   }
+  ]
+ },
+ "Égypte": {
+  "note": "Menée par Salah (apte et titulaire) ; demi-finaliste CAN 2025, accrochée d'entrée par la Belgique.",
+  "injuries": [
+   "Mohamed Salah (ischio en club, rétabli)"
+  ],
+  "recent": [
+   {
+    "date": "2026-06",
+    "comp": "Coupe du Monde",
+    "match": "Belgique 1-1 Égypte",
+    "res": "N"
+   },
+   {
+    "date": "2026-01",
+    "comp": "CAN (demi)",
+    "match": "Sénégal 1-0 Égypte",
+    "res": "D"
+   },
+   {
+    "date": "2026-01",
+    "comp": "CAN (quart)",
+    "match": "Égypte 3-2 Côte d'Ivoire",
+    "res": "V"
+   },
+   {
+    "date": "2026-01",
+    "comp": "CAN (8e)",
+    "match": "Égypte 3-1 Bénin (ap)",
+    "res": "V"
+   },
+   {
+    "date": "2025-12",
+    "comp": "CAN",
+    "match": "Égypte 1-0 Afrique du Sud",
+    "res": "V"
+   }
+  ]
+ },
+ "Nouvelle-Zélande": {
+  "note": "Vainqueur OFC ; série difficile, a accroché l'Iran d'entrée (2-2).",
+  "injuries": [
+   "Matt Garbett (ischio, forfait probable J1)"
+  ],
+  "recent": [
+   {
+    "date": "2026-06",
+    "comp": "Coupe du Monde",
+    "match": "Iran 2-2 Nouvelle-Zélande",
+    "res": "N"
+   },
+   {
+    "date": "2026-06",
+    "comp": "Amical",
+    "match": "Angleterre 1-0 Nouvelle-Zélande",
+    "res": "D"
+   },
+   {
+    "date": "2026-06",
+    "comp": "Amical",
+    "match": "Haïti 4-0 Nouvelle-Zélande",
+    "res": "D"
+   },
+   {
+    "date": "2025-11",
+    "comp": "Amical",
+    "match": "Colombie 2-1 Nouvelle-Zélande",
+    "res": "D"
+   },
+   {
+    "date": "2025-10",
+    "comp": "Amical",
+    "match": "Norvège 1-1 Nouvelle-Zélande",
+    "res": "N"
+   }
+  ]
+ },
+ "Espagne": {
+  "note": "Championne d'Europe 2024, n°1 Elo, qualif parfaite (21-2) ; tenue en échec 0-0 d'entrée par le Cap-Vert.",
+  "injuries": [],
+  "recent": [
+   {
+    "date": "2026-06",
+    "comp": "Coupe du Monde",
+    "match": "Espagne 0-0 Cap-Vert",
+    "res": "N"
+   },
+   {
+    "date": "2025-09",
+    "comp": "Qualif CDM",
+    "match": "Espagne 6-0 Turquie",
+    "res": "V"
+   },
+   {
+    "date": "2025-06",
+    "comp": "Finale L. des Nations",
+    "match": "Portugal 2-2 (5-3 tab) Espagne",
+    "res": "D"
+   }
+  ]
+ },
+ "Uruguay": {
+  "note": "Sous Bielsa, demi-finaliste Copa América 2024 ; aucun amical de prépa, accroché d'entrée par l'Arabie.",
+  "injuries": [],
+  "recent": [
+   {
+    "date": "2026-06",
+    "comp": "Coupe du Monde",
+    "match": "Arabie saoudite 1-1 Uruguay",
+    "res": "N"
+   },
+   {
+    "date": "2026-03",
+    "comp": "Amical",
+    "match": "Uruguay 0-0 Algérie",
+    "res": "N"
+   },
+   {
+    "date": "2025-11",
+    "comp": "Amical",
+    "match": "USA 5-1 Uruguay",
+    "res": "D"
+   },
+   {
+    "date": "2025-11",
+    "comp": "Amical",
+    "match": "Uruguay 1-1 Angleterre",
+    "res": "N"
+   },
+   {
+    "date": "2025-10",
+    "comp": "Amical",
+    "match": "Uruguay 0-0 Mexique",
+    "res": "N"
+   }
+  ]
+ },
+ "France": {
+  "note": "Qualifiée invaincue (Deschamps) ; effectif ultra-profond (Mbappé, Dembélé).",
+  "injuries": [
+   "Hugo Ekitike (tendon d'Achille, forfait)",
+   "Eduardo Camavinga (écarté)",
+   "Randal Kolo Muani (écarté)",
+   "William Saliba (dos, incertain)"
+  ],
+  "recent": [
+   {
+    "date": "2026-06",
+    "comp": "Amical",
+    "match": "Côte d'Ivoire 2-1 France",
+    "res": "D"
+   },
+   {
+    "date": "2026-06",
+    "comp": "Amical",
+    "match": "France 3-1 Irlande du Nord",
+    "res": "V"
+   },
+   {
+    "date": "2026-03",
+    "comp": "Amical",
+    "match": "Brésil 1-2 France",
+    "res": "V"
+   },
+   {
+    "date": "2025-11",
+    "comp": "Qualif CDM",
+    "match": "France 4-0 Ukraine",
+    "res": "V"
+   },
+   {
+    "date": "2025-11",
+    "comp": "Qualif CDM",
+    "match": "Azerbaïdjan 1-3 France",
+    "res": "V"
+   }
+  ]
+ },
+ "Sénégal": {
+  "note": "Qualifié directement (1er groupe B CAF, Pape Thiaw).",
+  "injuries": [
+   "Boulaye Dia (écarté)",
+   "Abdou Diallo (écarté)",
+   "Nampalys Mendy (écarté)"
+  ],
+  "recent": [
+   {
+    "date": "2026-06",
+    "comp": "Amical",
+    "match": "Arabie saoudite 0-0 Sénégal",
+    "res": "N"
+   },
+   {
+    "date": "2026-05",
+    "comp": "Amical",
+    "match": "USA 3-2 Sénégal",
+    "res": "D"
+   },
+   {
+    "date": "2026-03",
+    "comp": "Amical",
+    "match": "Sénégal 3-1 Gambie",
+    "res": "V"
+   },
+   {
+    "date": "2026-03",
+    "comp": "Amical",
+    "match": "Sénégal 2-0 Pérou",
+    "res": "V"
+   },
+   {
+    "date": "2025-10",
+    "comp": "Qualif CDM",
+    "match": "Sénégal 4-0 Mauritanie",
+    "res": "V"
+   }
+  ]
+ },
+ "Norvège": {
+  "note": "Qualifiée (8/8 victoires), 1er Mondial depuis 1998 ; Haaland + Ødegaard.",
+  "injuries": [
+   "Martin Ødegaard (forme/blessures en club, retenu)"
+  ],
+  "recent": [
+   {
+    "date": "2026-06",
+    "comp": "Amical",
+    "match": "Maroc 1-1 Norvège",
+    "res": "N"
+   },
+   {
+    "date": "2026-06",
+    "comp": "Amical",
+    "match": "Norvège 3-1 Suède",
+    "res": "V"
+   },
+   {
+    "date": "2026-03",
+    "comp": "Amical",
+    "match": "Pays-Bas 2-1 Norvège",
+    "res": "D"
+   },
+   {
+    "date": "2025-11",
+    "comp": "Qualif CDM",
+    "match": "Italie 1-4 Norvège",
+    "res": "V"
+   },
+   {
+    "date": "2025-11",
+    "comp": "Qualif CDM",
+    "match": "Norvège 4-1 Estonie",
+    "res": "V"
+   }
+  ]
+ },
+ "Irak": {
+  "note": "Qualifié via barrage interconfédération (1re depuis 1986, Arnold).",
+  "injuries": [
+   "Montader Madjed (écarté)",
+   "Jussef Nasrawe (écarté)"
+  ],
+  "recent": [
+   {
+    "date": "2026-06",
+    "comp": "Amical",
+    "match": "Irak 0-2 Venezuela",
+    "res": "D"
+   },
+   {
+    "date": "2026-06",
+    "comp": "Amical",
+    "match": "Irak 1-1 Espagne",
+    "res": "N"
+   },
+   {
+    "date": "2026-03",
+    "comp": "Barrage interconf.",
+    "match": "Irak 2-1 Bolivie",
+    "res": "V"
+   },
+   {
+    "date": "2025-11",
+    "comp": "Barrage AFC",
+    "match": "Irak 2-1 Émirats arabes unis",
+    "res": "V"
+   },
+   {
+    "date": "2025-11",
+    "comp": "Barrage AFC",
+    "match": "Émirats arabes unis 1-1 Irak",
+    "res": "N"
+   }
+  ]
+ },
+ "Arabie saoudite": {
+  "note": "Qualifiée (AFC, 7e Mondial) ; 1er point pris face à l'Uruguay.",
+  "injuries": [
+   "Nawaf Al-Aqidi (ischio, forfait probable J1)"
+  ],
+  "recent": [
+   {
+    "date": "2026-06",
+    "comp": "Coupe du Monde",
+    "match": "Arabie saoudite 1-1 Uruguay",
+    "res": "N"
+   },
+   {
+    "date": "2026-06",
+    "comp": "Amical",
+    "match": "Porto Rico 0-3 Arabie saoudite",
+    "res": "V"
+   },
+   {
+    "date": "2026-05",
+    "comp": "Amical",
+    "match": "Équateur 2-1 Arabie saoudite",
+    "res": "D"
+   },
+   {
+    "date": "2026-03",
+    "comp": "Amical",
+    "match": "Arabie saoudite 0-4 Égypte",
+    "res": "D"
+   },
+   {
+    "date": "2025-10",
+    "comp": "Qualif CDM",
+    "match": "Arabie saoudite 0-0 Irak",
+    "res": "N"
+   }
+  ]
+ },
+ "Cap-Vert": {
+  "note": "1ère qualification historique (1er groupe D CAF) ; a tenu l'Espagne 0-0.",
+  "injuries": [
+   "Bruno Varela (écarté de la liste)"
+  ],
+  "recent": [
+   {
+    "date": "2026-06",
+    "comp": "Coupe du Monde",
+    "match": "Espagne 0-0 Cap-Vert",
+    "res": "N"
+   },
+   {
+    "date": "2026-06",
+    "comp": "Amical",
+    "match": "Cap-Vert 3-0 Bermudes",
+    "res": "V"
+   },
+   {
+    "date": "2026-05",
+    "comp": "Amical",
+    "match": "Cap-Vert 3-0 Serbie",
+    "res": "V"
+   },
+   {
+    "date": "2026-03",
+    "comp": "FIFA Series",
+    "match": "Chili 4-2 Cap-Vert",
+    "res": "D"
+   },
+   {
+    "date": "2025-10",
+    "comp": "Qualif CDM",
+    "match": "Cap-Vert 3-0 Eswatini",
+    "res": "V"
+   }
+  ]
+ }
+}

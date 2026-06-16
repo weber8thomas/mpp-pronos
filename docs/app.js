@@ -39,6 +39,9 @@ const teamCoach = t => (TEAMS[t]&&TEAMS[t].coach)||null;
 const coachLine = t => { const c=teamCoach(t); return c?`<small class="coach"><i class="mdi mdi-account-tie"></i>${esc(c)}</small>`:""; };
 /* nom d'équipe cliquable -> effectif Transfermarkt (à n'utiliser que hors lignes-match cliquables) */
 const teamLink = t => `${flag(t)}<a class="tn" href="${tmUrl(t)}" target="_blank" rel="noopener noreferrer" title="Effectif de ${esc(t)} sur Transfermarkt">${esc(t)}</a>`;
+/* slug équipe (sans accents) -> URL confrontations AiScore */
+const slugTeam = t => t.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().replace(/['’]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
+const h2hUrl = (dom,ext) => `https://m.aiscore.com/fr/head-to-head/soccer-${slugTeam(dom)}-vs-${slugTeam(ext)}`;
 
 function probBar(pv,pn,pd){
   const w=x=>Math.round(x*100);
@@ -247,20 +250,25 @@ const LAYOUT = extra => {
   const ax = base => Object.assign({gridcolor:t.grid, zerolinecolor:t.grid, linecolor:t.grid,
     tickfont:{color:t.font}, titlefont:{color:t.font}}, base||{});
   return Object.assign({
+    autosize:true,
     paper_bgcolor:t.paper, plot_bgcolor:t.paper,
     font:{color:t.font, size:12, family:"Inter, system-ui, sans-serif"},
-    margin:{l:10,r:10,t:54,b:40}, legend:{orientation:"h",y:1.12,x:0},
-    title:{font:{family:"Sora, Inter, sans-serif", size:15}}
+    // marges généreuses : titres d'axes + légende ne chevauchent ni le titre ni l'aire de tracé
+    margin:{l:58,r:24,t:78,b:52},
+    legend:{orientation:"h",y:1.06,x:0,yanchor:"bottom"},
+    title:{font:{family:"Sora, Inter, sans-serif", size:15},y:0.97,yanchor:"top",x:0,xanchor:"left",pad:{l:6}}
   }, extra, {xaxis:ax(extra.xaxis), yaxis:ax(extra.yaxis)});
 };
-const CFG={responsive:false,displayModeBar:false};
-// Trace un graphe en fixant explicitement la largeur = largeur exacte du conteneur (anti-débordement déterministe)
+// Plotly gère lui-même la largeur (responsive) -> plus de débordement/overlap dû à une largeur figée
+const CFG={responsive:true,displayModeBar:false};
+// Trace un graphe : Plotly s'adapte à la largeur réelle du conteneur (autosize), hauteur fixée par le layout
 function PNP(id, traces, layout, cfg){
   const el=typeof id==="string"?document.getElementById(id):id;
   if(!el||!window.Plotly) return;
-  const w=Math.floor(el.getBoundingClientRect().width)||el.clientWidth||600;
-  layout=Object.assign({}, layout||{}, {width:w, autosize:false});
-  return window["Plotly"].newPlot(el, traces, layout, cfg||CFG);
+  layout=Object.assign({}, layout||{}); delete layout.width;        // jamais de largeur figée
+  return window["Plotly"].newPlot(el, traces, layout, cfg||CFG).then(()=>{
+    requestAnimationFrame(()=>{ if(el.data&&window.Plotly) Plotly.Plots.resize(el); }); // recale sur la largeur réelle
+  });
 }
 
 function renderAnalyses(){
@@ -313,7 +321,7 @@ let _RO=null;
 function ensureRO(){
   if(_RO||!window.ResizeObserver) return;
   _RO=new ResizeObserver(es=>{for(const e of es){const el=e.target,w=Math.round(e.contentRect.width);
-    if(el._pw===w) continue; el._pw=w; if(el.data&&window.Plotly) Plotly.relayout(el,{width:w});}});
+    if(w<=0||el._pw===w) continue; el._pw=w; if(el.data&&window.Plotly) Plotly.Plots.resize(el);}});
 }
 function observeCharts(sec){ensureRO(); if(!_RO) return; document.querySelectorAll("#"+sec+" .chart").forEach(c=>_RO.observe(c));}
 
@@ -530,11 +538,8 @@ function teamPanel(name){
     h+=(det.injuries&&det.injuries.length)?`<ul class="inj">${det.injuries.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`
       :'<span class="faint">Aucun absent notable connu.</span>';
   } else h+=`<p class="faint">Données détaillées indisponibles pour cette équipe.</p>`;
-  const q=encodeURIComponent(name);
   h+=`<div class="extlinks">
     <a class="extlink" target="_blank" rel="noopener" href="${tmUrl(name)}"><i class="mdi mdi-account-group"></i>Effectif (Transfermarkt)</a>
-    <a class="extlink" target="_blank" rel="noopener" href="https://fbref.com/fr/search/search.fcgi?search=${q}"><i class="mdi mdi-chart-line"></i>FBref</a>
-    <a class="extlink" target="_blank" rel="noopener" href="https://www.eloratings.net/${q}"><i class="mdi mdi-trophy-variant"></i>Elo</a>
   </div>`;
   return h+`</div>`;
 }
@@ -582,8 +587,8 @@ function openMatch(i){
     <div class="card" style="margin-top:14px"><h3><i class="mdi mdi-scale-balance"></i> Comparaison (phase de groupes)</h3>
       <div class="chart" id="mCompare"></div>
       <div class="extlinks"><a class="extlink" target="_blank" rel="noopener"
-        href="https://www.google.com/search?q=${encodeURIComponent(p.dom+" vs "+p.ext+" head to head historique confrontations")}">
-        <i class="mdi mdi-history"></i>Confrontations (10 dernières années)</a></div></div>
+        href="${h2hUrl(p.dom,p.ext)}">
+        <i class="mdi mdi-history"></i>Confrontations (AiScore)</a></div></div>
     <div class="card" style="margin-top:14px"><h3><i class="mdi mdi-grid"></i> Matrice des scores (Poisson)</h3>
       <div class="chart" id="mMatrix"></div></div>
     <div class="grid2" style="margin-top:14px">${teamPanel(p.dom)}${teamPanel(p.ext)}</div>`;

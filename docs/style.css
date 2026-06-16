@@ -200,3 +200,28 @@ th.sortable.active{color:var(--accent)}
 .an-intro{color:var(--muted);font-size:.9rem;margin:.2em 0 .4em}
 .selrow{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:8px 0}
 .selrow select{background:var(--card);color:var(--txt);border:1px solid var(--line2);border-radius:9px;padding:8px 10px;font-family:var(--font)}
+
+/* ---------- Plotly : largeur pleine, jamais compressé ---------- */
+.chart{width:100%;min-height:340px}
+.chart .js-plotly-plot,.chart .plot-container,.chart .svg-container{width:100%!important}
+.chart .js-plotly-plot{margin:0 auto}
+
+/* ---------- Badge de score coloré par issue (V/N/D) ---------- */
+.scoreb{display:inline-block;font-family:var(--display);font-weight:800;font-size:.82rem;
+  padding:3px 9px;border-radius:7px;border:1px solid transparent;white-space:nowrap;font-variant-numeric:tabular-nums}
+.scoreb.sc-win{color:var(--green);background:color-mix(in srgb,var(--green) 13%,transparent);border-color:color-mix(in srgb,var(--green) 30%,transparent)}
+.scoreb.sc-draw{color:var(--amber);background:color-mix(in srgb,var(--amber) 14%,transparent);border-color:color-mix(in srgb,var(--amber) 32%,transparent)}
+.scoreb.sc-loss{color:var(--red);background:color-mix(in srgb,var(--red) 12%,transparent);border-color:color-mix(in srgb,var(--red) 28%,transparent)}
+.legend{display:flex;flex-wrap:wrap;gap:12px;align-items:center;font-size:.8rem;color:var(--muted);margin:2px 0 6px}
+.legend .scoreb{font-size:.72rem}
+
+/* ---------- Méthodo ---------- */
+.method{display:flex;flex-direction:column;gap:14px}
+.method .card{padding:18px 20px}
+.method h3{display:flex;align-items:center;gap:8px}
+.method .step{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;
+  background:color-mix(in srgb,var(--accent) 18%,transparent);color:var(--accent);font-weight:800;font-size:.8rem;flex:0 0 auto}
+.method ul{margin:.4em 0 0;padding-left:1.1em}.method li{margin:.25em 0;color:var(--muted)}
+.formula{background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:.6em 0;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.84rem;overflow-x:auto;color:var(--txt)}
+.kbd{font-family:ui-monospace,monospace;background:var(--card2);border:1px solid var(--line);border-radius:5px;padding:1px 5px;font-size:.85em}

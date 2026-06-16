@@ -1,0 +1,73 @@
+groupe,journee,date,equipe_dom,equipe_ext,statut,score_reel,kickoff_utc,kickoff_cest
+A,1,2026-06-11,Mexique,Afrique du Sud,joue,2-0,2026-06-11T19:00,2026-06-11 21:00
+A,1,2026-06-11,Corée du Sud,Tchéquie,joue,2-1,2026-06-12T02:00,2026-06-12 04:00
+A,2,2026-06-18,Tchéquie,Afrique du Sud,a_venir,,2026-06-18T16:00,2026-06-18 18:00
+A,2,2026-06-18,Mexique,Corée du Sud,a_venir,,2026-06-19T01:00,2026-06-19 03:00
+A,3,2026-06-24,Tchéquie,Mexique,a_venir,,2026-06-25T01:00,2026-06-25 03:00
+A,3,2026-06-24,Afrique du Sud,Corée du Sud,a_venir,,2026-06-25T01:00,2026-06-25 03:00
+B,1,2026-06-12,Canada,Bosnie-Herzégovine,joue,1-1,2026-06-12T19:00,2026-06-12 21:00
+B,1,2026-06-13,Qatar,Suisse,joue,1-1,2026-06-13T19:00,2026-06-13 21:00
+B,2,2026-06-18,Suisse,Bosnie-Herzégovine,a_venir,,2026-06-18T19:00,2026-06-18 21:00
+B,2,2026-06-18,Canada,Qatar,a_venir,,2026-06-18T22:00,2026-06-19 00:00
+B,3,2026-06-24,Suisse,Canada,a_venir,,2026-06-24T19:00,2026-06-24 21:00
+B,3,2026-06-24,Bosnie-Herzégovine,Qatar,a_venir,,2026-06-24T19:00,2026-06-24 21:00
+C,1,2026-06-13,Brésil,Maroc,joue,1-1,2026-06-13T22:00,2026-06-14 00:00
+C,1,2026-06-13,Haïti,Écosse,joue,0-1,2026-06-14T01:00,2026-06-14 03:00
+C,2,2026-06-19,Écosse,Maroc,a_venir,,2026-06-19T22:00,2026-06-20 00:00
+C,2,2026-06-19,Brésil,Haïti,a_venir,,2026-06-20T01:00,2026-06-20 03:00
+C,3,2026-06-24,Écosse,Brésil,a_venir,,2026-06-24T22:00,2026-06-25 00:00
+C,3,2026-06-24,Maroc,Haïti,a_venir,,2026-06-24T22:00,2026-06-25 00:00
+D,1,2026-06-12,États-Unis,Paraguay,joue,4-1,2026-06-12T19:00,2026-06-12 21:00
+D,1,2026-06-13,Australie,Turquie,joue,2-0,2026-06-14T01:00,2026-06-14 03:00
+D,2,2026-06-19,États-Unis,Australie,a_venir,,2026-06-19T19:00,2026-06-19 21:00
+D,2,2026-06-19,Turquie,Paraguay,a_venir,,2026-06-20T04:00,2026-06-20 06:00
+D,3,2026-06-25,Turquie,États-Unis,a_venir,,2026-06-26T02:00,2026-06-26 04:00
+D,3,2026-06-25,Paraguay,Australie,a_venir,,2026-06-26T02:00,2026-06-26 04:00
+E,1,2026-06-14,Allemagne,Curaçao,joue,7-1,2026-06-14T17:00,2026-06-14 19:00
+E,1,2026-06-14,Côte d'Ivoire,Équateur,joue,1-0,2026-06-14T23:00,2026-06-15 01:00
+E,2,2026-06-20,Allemagne,Côte d'Ivoire,a_venir,,2026-06-20T20:00,2026-06-20 22:00
+E,2,2026-06-20,Équateur,Curaçao,a_venir,,2026-06-21T00:00,2026-06-21 02:00
+E,3,2026-06-25,Curaçao,Côte d'Ivoire,a_venir,,2026-06-25T20:00,2026-06-25 22:00
+E,3,2026-06-25,Équateur,Allemagne,a_venir,,2026-06-25T20:00,2026-06-25 22:00
+F,1,2026-06-14,Pays-Bas,Japon,joue,2-2,2026-06-14T20:00,2026-06-14 22:00
+F,1,2026-06-14,Suède,Tunisie,joue,5-1,2026-06-15T02:00,2026-06-15 04:00
+F,2,2026-06-20,Pays-Bas,Suède,a_venir,,2026-06-20T17:00,2026-06-20 19:00
+F,2,2026-06-20,Tunisie,Japon,a_venir,,2026-06-21T04:00,2026-06-21 06:00
+F,3,2026-06-25,Japon,Suède,a_venir,,2026-06-25T23:00,2026-06-26 01:00
+F,3,2026-06-25,Tunisie,Pays-Bas,a_venir,,2026-06-25T23:00,2026-06-26 01:00
+G,1,2026-06-15,Belgique,Égypte,joue,1-1,2026-06-15T19:00,2026-06-15 21:00
+G,1,2026-06-15,Iran,Nouvelle-Zélande,joue,2-2,2026-06-16T01:00,2026-06-16 03:00
+G,2,2026-06-21,Belgique,Iran,a_venir,,2026-06-21T19:00,2026-06-21 21:00
+G,2,2026-06-21,Nouvelle-Zélande,Égypte,a_venir,,2026-06-22T01:00,2026-06-22 03:00
+G,3,2026-06-26,Égypte,Iran,a_venir,,2026-06-27T03:00,2026-06-27 05:00
+G,3,2026-06-26,Nouvelle-Zélande,Belgique,a_venir,,2026-06-27T03:00,2026-06-27 05:00
+H,1,2026-06-15,Espagne,Cap-Vert,joue,0-0,2026-06-15T16:00,2026-06-15 18:00
+H,1,2026-06-15,Arabie saoudite,Uruguay,joue,1-1,2026-06-15T22:00,2026-06-16 00:00
+H,2,2026-06-21,Espagne,Arabie saoudite,a_venir,,2026-06-21T16:00,2026-06-21 18:00
+H,2,2026-06-21,Uruguay,Cap-Vert,a_venir,,2026-06-21T22:00,2026-06-22 00:00
+H,3,2026-06-26,Cap-Vert,Arabie saoudite,a_venir,,2026-06-27T00:00,2026-06-27 02:00
+H,3,2026-06-26,Uruguay,Espagne,a_venir,,2026-06-27T00:00,2026-06-27 02:00
+I,1,2026-06-16,France,Sénégal,a_venir,,2026-06-16T19:00,2026-06-16 21:00
+I,1,2026-06-16,Irak,Norvège,a_venir,,2026-06-16T22:00,2026-06-17 00:00
+I,2,2026-06-22,France,Irak,a_venir,,2026-06-22T21:00,2026-06-22 23:00
+I,2,2026-06-22,Norvège,Sénégal,a_venir,,2026-06-23T00:00,2026-06-23 02:00
+I,3,2026-06-26,Norvège,France,a_venir,,2026-06-26T19:00,2026-06-26 21:00
+I,3,2026-06-26,Sénégal,Irak,a_venir,,2026-06-26T19:00,2026-06-26 21:00
+J,1,2026-06-16,Argentine,Algérie,a_venir,,2026-06-17T01:00,2026-06-17 03:00
+J,1,2026-06-16,Autriche,Jordanie,a_venir,,2026-06-17T04:00,2026-06-17 06:00
+J,2,2026-06-22,Argentine,Autriche,a_venir,,2026-06-22T17:00,2026-06-22 19:00
+J,2,2026-06-22,Jordanie,Algérie,a_venir,,2026-06-23T03:00,2026-06-23 05:00
+J,3,2026-06-27,Jordanie,Argentine,a_venir,,2026-06-28T02:00,2026-06-28 04:00
+J,3,2026-06-27,Algérie,Autriche,a_venir,,2026-06-28T02:00,2026-06-28 04:00
+K,1,2026-06-17,Portugal,RD Congo,a_venir,,2026-06-17T17:00,2026-06-17 19:00
+K,1,2026-06-17,Ouzbékistan,Colombie,a_venir,,2026-06-18T02:00,2026-06-18 04:00
+K,2,2026-06-23,Portugal,Ouzbékistan,a_venir,,2026-06-23T17:00,2026-06-23 19:00
+K,2,2026-06-23,Colombie,RD Congo,a_venir,,2026-06-24T02:00,2026-06-24 04:00
+K,3,2026-06-27,Colombie,Portugal,a_venir,,2026-06-27T23:30,2026-06-28 01:30
+K,3,2026-06-27,RD Congo,Ouzbékistan,a_venir,,2026-06-27T23:30,2026-06-28 01:30
+L,1,2026-06-17,Angleterre,Croatie,a_venir,,2026-06-17T20:00,2026-06-17 22:00
+L,1,2026-06-17,Ghana,Panama,a_venir,,2026-06-17T23:00,2026-06-18 01:00
+L,2,2026-06-23,Angleterre,Ghana,a_venir,,2026-06-23T20:00,2026-06-23 22:00
+L,2,2026-06-23,Panama,Croatie,a_venir,,2026-06-23T23:00,2026-06-24 01:00
+L,3,2026-06-27,Panama,Angleterre,a_venir,,2026-06-27T21:00,2026-06-27 23:00
+L,3,2026-06-27,Croatie,Ghana,a_venir,,2026-06-27T21:00,2026-06-27 23:00

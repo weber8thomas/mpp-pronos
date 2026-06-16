@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CDM 2026 · Pronostics</title>
+<meta name="description" content="Pronostics des 72 matchs de phase de groupes de la Coupe du Monde 2026 : scores, classements, qualifiés et analyses." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css" />
+<link rel="preconnect" href="https://cdn.plot.ly" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body data-theme="light">
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand"><b>WORLD CUP</b> 2026<small>Pronostics</small></div>
+    <nav id="nav">
+      <a href="#accueil" class="active" data-sec="accueil"><i class="mdi mdi-view-dashboard-outline"></i>Accueil</a>
+      <a href="#calendrier" data-sec="calendrier"><i class="mdi mdi-calendar-month-outline"></i>Calendrier</a>
+      <a href="#groupes" data-sec="groupes"><i class="mdi mdi-soccer"></i>Groupes</a>
+      <a href="#qualifies" data-sec="qualifies"><i class="mdi mdi-trophy-outline"></i>Qualifiés</a>
+      <a href="#analyses" data-sec="analyses"><i class="mdi mdi-chart-box-outline"></i>Analyses</a>
+      <a href="#rapport" data-sec="rapport"><i class="mdi mdi-file-document-outline"></i>Rapport</a>
+      <a href="#methodo" data-sec="methodo"><i class="mdi mdi-flask-outline"></i>Méthodo</a>
+    </nav>
+    <div class="side-foot">
+      <button id="themeBtn" class="themebtn" type="button">◐ <span id="themeLbl">Sombre</span></button>
+      <p class="faint">Modèle Poisson + agents · J1 réels, J2/J3 pronos</p>
+    </div>
+  </aside>
+
+  <div class="content">
+    <main>
+      <section id="accueil" class="sec active"></section>
+      <section id="calendrier" class="sec"></section>
+      <section id="groupes" class="sec"></section>
+      <section id="qualifies" class="sec"></section>
+      <section id="analyses" class="sec"></section>
+      <section id="rapport" class="sec"></section>
+      <section id="methodo" class="sec"></section>
+    </main>
+    <footer>
+      Pronostics générés par un modèle de Poisson (Elo) + agents experts &amp; critiques · probas <strong>mpp</strong> = mpp.football · données indicatives, non contractuelles.
+    </footer>
+  </div>
+</div>
+
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js" charset="utf-8"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

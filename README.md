@@ -1,0 +1,84 @@
+# mpp-pronos — Pronostics Coupe du Monde 2026 (phase de groupes)
+
+Pronostics de scores des **72 matchs de phase de groupes** de la CDM 2026 (48 équipes,
+12 groupes), avec classements et qualifiés déduits. Méthodologie **hybride** : un modèle
+quantitatif (Poisson sur base Elo) ajusté et challengé par une dizaine d'**agents experts**
+(prédicteurs + critiques) s'appuyant sur la forme récente, les effectifs, les blessures et
+les compétitions précédentes.
+
+> 📅 Le tournoi a débuté le 11/06/2026. **J1 = résultats réels** (groupes A–H),
+> **J2/J3 = pronostics**. Groupes I–L : entièrement pronostiqués (non joués au 16/06/2026).
+
+## 📂 Contenu
+
+| Fichier | Rôle |
+|---|---|
+| `rapport/pronostics_cdm2026.md` | **Rapport principal** : calendrier chronologique (date + heure CEST + groupe) en tête, puis scores des 72 matchs, classements, 32 qualifiés |
+| `notebooks/analyse_pronos.ipynb` | **Notebook explorable (Plotly Express)** : modèle Poisson, validation J1, classements, qualifiés, frise — graphiques interactifs |
+| `data/groups.json` | Composition des 12 groupes |
+| `data/team_ratings.csv` | Notes de force (Elo, classement FIFA, forme) des 48 équipes + sources |
+| `data/fixtures.csv` | Calendrier des 72 matchs (+ horaires UTC/CEST, résultats réels J1) |
+| `data/predictions.csv` | Pronostics finaux : score, probabilités V/N/D, xG du modèle |
+| `data/predictions_baseline.csv` | Sortie brute du modèle Poisson (avant ajustement experts) |
+| `model_pronos.py` | Modèle de Poisson (Elo → buts attendus → score + probas) |
+| `standings.py` | Calcul des classements (départages FIFA) et des qualifiés |
+| `build_predictions.py` | Assemble `predictions.csv` (source de vérité des scores finaux) |
+| `research/notes_agents.md` | Traçabilité : analyses des agents prédicteurs + synthèse des critiques |
+
+## 🌐 Site / dashboard partageable (GitHub Pages)
+
+Un mini-site statique (dans `docs/`) présente tout le contenu en sous-sections —
+**Accueil, Calendrier, Groupes, Qualifiés, Analyses (Plotly interactif), Rapport, Méthodo**.
+Aucune dépendance/build : HTML + CSS + JS, données embarquées dans `docs/data.js`.
+
+**Activer la publication (une fois) :** dans le dépôt → *Settings → Pages → Build and deployment →
+Source : **GitHub Actions***. À chaque push sur la branche, le workflow `.github/workflows/pages.yml`
+publie le site. URL : `https://weber8thomas.github.io/mpp-pronos/`.
+*(Alternative sans Actions : Source = « Deploy from a branch » → branche + dossier `/docs`.)*
+
+Régénérer les données du site après un changement de pronostics :
+```bash
+python3 build_site.py        # met à jour docs/data.js
+# ouvrir docs/index.html directement dans un navigateur fonctionne aussi (données embarquées)
+```
+
+## 🔬 Méthodologie
+
+1. **Modèle quantitatif** (`model_pronos.py`) — pour chaque match, la différence Elo (avec
+   avantage hôte pour Mexique/USA/Canada) donne une *supremacy* bornée
+   (`3.6·tanh(Δelo/350)`) et un volume de buts croissant avec le déséquilibre, d'où
+   `λ_dom`/`λ_ext` et une matrice de scores Poisson → score le plus probable + P(V/N/D).
+2. **Agents prédicteurs** (12, un par groupe) — recherche web (forme 2024-2026, effectifs,
+   blessures) pour ajuster le baseline.
+3. **Agents critiques** (4) — review adverse : réalisme des scores, biais, cohérence interne
+   (différences de buts, départages), excès de nuls.
+4. **Synthèse** — scores finaux dans `predictions.csv`, classements et qualifiés calculés.
+
+Validation : confronté à la J1 réelle, le modèle Elo pur a anticipé ~38 % des issues — une J1
+très nulle et surprenante (8 nuls/16), ce qui justifie la couche experts.
+
+## ▶️ Reproduire / explorer
+
+```bash
+pip install numpy pandas scipy matplotlib plotly jupyter nbformat nbconvert
+
+python3 add_kickoff_times.py        # ajoute horaires UTC/CEST à fixtures.csv
+python3 build_predictions.py        # (re)génère data/predictions.csv
+python3 standings.py                # affiche classements + qualifiés
+python3 _build_report.py            # régénère le rapport Markdown
+python3 build_site.py               # régénère les données du site (docs/data.js)
+python3 notebooks/_build_notebook.py && jupyter nbconvert --execute --inplace notebooks/analyse_pronos.ipynb
+jupyter notebook notebooks/analyse_pronos.ipynb   # exploration interactive (Plotly)
+```
+
+> 🕐 Les horaires (`data/fixtures.csv`, colonnes `kickoff_utc`/`kickoff_cest`) sont **indicatifs** (CEST = UTC+2), à confirmer près du coup d'envoi.
+> 📊 **Probas mpp.football** : non intégrées (site authentifié, 403). La colonne `mpp` du rapport est prête ; fournir un export JSON/HTML de la page permet de la remplir.
+
+Pour explorer la sensibilité : modifiez un Elo dans `data/team_ratings.csv` ou un paramètre
+de `model_pronos.py`, relancez `build_predictions.py`, puis le notebook.
+
+## ⚠️ Limites
+
+Un pronostic n'est pas une prédiction certaine. La course aux meilleurs 3es se joue à un but
+près et plusieurs départages sont des quasi-pile-ou-face. La phase à élimination directe est
+hors périmètre.

@@ -1,0 +1,27 @@
+{
+  "tournoi": "Coupe du Monde FIFA 2026",
+  "hotes": ["États-Unis", "Mexique", "Canada"],
+  "format": {
+    "equipes": 48,
+    "groupes": 12,
+    "equipes_par_groupe": 4,
+    "matchs_phase_groupes": 72,
+    "qualifies_phase_finale": 32,
+    "regle_qualification": "1ers + 2es de chaque groupe (24) + 8 meilleurs 3es"
+  },
+  "tirage": "2025-12-05, Kennedy Center, Washington D.C.",
+  "groupes": {
+    "A": ["Mexique", "Corée du Sud", "Afrique du Sud", "Tchéquie"],
+    "B": ["Canada", "Suisse", "Qatar", "Bosnie-Herzégovine"],
+    "C": ["Brésil", "Maroc", "Écosse", "Haïti"],
+    "D": ["États-Unis", "Australie", "Paraguay", "Turquie"],
+    "E": ["Allemagne", "Équateur", "Côte d'Ivoire", "Curaçao"],
+    "F": ["Pays-Bas", "Japon", "Tunisie", "Suède"],
+    "G": ["Belgique", "Iran", "Égypte", "Nouvelle-Zélande"],
+    "H": ["Espagne", "Uruguay", "Arabie saoudite", "Cap-Vert"],
+    "I": ["France", "Sénégal", "Norvège", "Irak"],
+    "J": ["Argentine", "Autriche", "Algérie", "Jordanie"],
+    "K": ["Portugal", "Colombie", "Ouzbékistan", "RD Congo"],
+    "L": ["Angleterre", "Croatie", "Panama", "Ghana"]
+  }
+}

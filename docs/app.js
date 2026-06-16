@@ -42,6 +42,8 @@ const teamLink = t => `${flag(t)}<a class="tn" href="${tmUrl(t)}" target="_blank
 /* slug équipe (sans accents) -> URL confrontations AiScore */
 const slugTeam = t => t.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().replace(/['’]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
 const h2hUrl = (dom,ext) => `https://m.aiscore.com/fr/head-to-head/soccer-${slugTeam(dom)}-vs-${slugTeam(ext)}`;
+/* abrège les noms de compétitions (ex. "Coupe du Monde" -> "CDM") */
+const compShort = c => String(c||"").replace(/coupe du monde/ig,"CDM");
 
 function probBar(pv,pn,pd){
   const w=x=>Math.round(x*100);
@@ -81,7 +83,8 @@ function renderAccueil(){
      </div>
      <p class="lead">Pronostics via une méthode hybride : un modèle de <strong>Poisson</strong> (basé sur l'Elo)
      ajusté et critiqué par une dizaine d'<strong>agents experts</strong>.
-     J1 = résultats réels · J2/J3 = pronostics. Probas <strong>mpp</strong> issues de mpp.football.
+     J1 = résultats réels · J2/J3 = pronostics. Probas <strong>mpp</strong> issues de
+     <a class="mpp-link" href="https://mpp.football" target="_blank" rel="noopener"><img class="mpp-logo" src="mpp-logo.png" alt="mpp.football"></a>.
      <em>Astuce : cliquez un match pour ouvrir sa fiche détaillée.</em></p>
    </div>
    <div class="kpis">
@@ -249,15 +252,16 @@ const LAYOUT = extra => {
   const t = THEME[curTheme()]; extra = extra || {};
   const ax = base => Object.assign({gridcolor:t.grid, zerolinecolor:t.grid, linecolor:t.grid,
     tickfont:{color:t.font}, titlefont:{color:t.font}}, base||{});
-  return Object.assign({
+  const lay = Object.assign({
     autosize:true,
     paper_bgcolor:t.paper, plot_bgcolor:t.paper,
     font:{color:t.font, size:12, family:"Inter, system-ui, sans-serif"},
-    // marges généreuses : titres d'axes + légende ne chevauchent ni le titre ni l'aire de tracé
-    margin:{l:58,r:24,t:78,b:52},
-    legend:{orientation:"h",y:1.06,x:0,yanchor:"bottom"},
-    title:{font:{family:"Sora, Inter, sans-serif", size:15},y:0.97,yanchor:"top",x:0,xanchor:"left",pad:{l:6}}
+    // pas de titre Plotly (déjà en <h2>/<h3> HTML) -> marge haute juste pour la légende
+    margin:{l:56,r:22,t:34,b:46},
+    legend:{orientation:"h",y:1.0,x:0,yanchor:"bottom",font:{size:11}}
   }, extra, {xaxis:ax(extra.xaxis), yaxis:ax(extra.yaxis)});
+  delete lay.title;   // les call-sites passent un title (string) : on le retire pour éviter doublon/chevauchement
+  return lay;
 };
 // Plotly gère lui-même la largeur (responsive) -> plus de débordement/overlap dû à une largeur figée
 const CFG={responsive:true,displayModeBar:false};
@@ -520,7 +524,7 @@ buts_totaux = 2.5 + 0.35 · |supremacy|  ← un match déséquilibré produit pl
 function recentLine(r){
   const c=r.res==="V"?"rl-w":r.res==="N"?"rl-d":"rl-l";
   return `<div class="rl"><span class="rl-b ${c}">${r.res}</span>
-    <span class="rl-meta">${esc(r.date)} · ${esc(r.comp)}</span>
+    <span class="rl-meta">${esc(r.date)} · ${esc(compShort(r.comp))}</span>
     <span class="rl-m">${esc(r.match)}</span></div>`;
 }
 function teamPanel(name){
@@ -555,7 +559,7 @@ function h2hCard(p){
       if(ds>xs)w++; else if(ds<xs)l++; else n++;
       const cls=m.hs>m.as?"sc-win":m.hs<m.as?"sc-loss":"sc-draw";
       return `<tr><td class="faint" style="white-space:nowrap">${esc(m.date||"")}</td>
-        <td class="faint">${esc(m.comp||"")}</td>
+        <td class="faint">${esc(compShort(m.comp))}</td>
         <td class="c"><span class="vs">${flag(m.home)}<span class="tn">${esc(m.home)}</span></span></td>
         <td class="c"><span class="scoreb ${cls}">${m.hs}-${m.as}</span></td>
         <td class="c"><span class="vs">${flag(m.away)}<span class="tn">${esc(m.away)}</span></span></td></tr>`;
@@ -648,8 +652,10 @@ function show(sec){
   document.querySelectorAll(".sec").forEach(s=>s.classList.toggle("active",s.id===sec));
   document.querySelectorAll("#nav a").forEach(a=>a.classList.toggle("active",a.dataset.sec===sec));
   // Dessin différé : la section vient d'être affichée, on attend le layout (largeur réelle)
-  if(sec==="analyses") requestAnimationFrame(()=>{drawAnalyses(); resizeIn("analyses"); observeCharts("analyses"); setTimeout(()=>resizeIn("analyses"),80);});
-  if(sec==="qualifies") requestAnimationFrame(()=>{drawThirds(); resizeIn("qualifies"); observeCharts("qualifies"); setTimeout(()=>resizeIn("qualifies"),80);});
+  if(sec==="analyses"){ const a=document.getElementById("analyses"); void a.offsetWidth;   // force le layout -> largeurs réelles
+    requestAnimationFrame(()=>{drawAnalyses(); observeCharts("analyses"); resizeIn("analyses"); setTimeout(()=>resizeIn("analyses"),120);}); }
+  if(sec==="qualifies"){ const a=document.getElementById("qualifies"); void a.offsetWidth;
+    requestAnimationFrame(()=>{drawThirds(); observeCharts("qualifies"); resizeIn("qualifies"); setTimeout(()=>resizeIn("qualifies"),120);}); }
   if(sec==="calendrier" && !_calJumped && NEXT_I>=0){_calJumped=true;
     const s=document.getElementById("calendrier");
     requestAnimationFrame(()=>{ if(s&&s._jumpNext) s._jumpNext(); });

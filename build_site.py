@@ -12,6 +12,7 @@ os.makedirs("docs", exist_ok=True)
 pred = pd.read_csv("data/predictions.csv")
 ratings = pd.read_csv("data/team_ratings.csv")
 analyses = json.load(open("data/group_analyses.json"))
+teams = json.load(open("data/teams.json", encoding="utf-8"))  # équipe -> {coach, tm (lien effectif)}
 report_md = open("rapport/pronostics_cdm2026.md", encoding="utf-8").read()
 
 cls = S.tous_classements(pred)
@@ -95,7 +96,7 @@ meta = {
 
 DATA = {"meta": meta, "predictions": predictions, "standings": standings,
         "qualifiers": qualifiers, "ratings": ratings_l, "analyses": analyses,
-        "j1": j1, "reportMarkdown": report_md}
+        "teams": teams, "j1": j1, "reportMarkdown": report_md}
 
 with open("docs/data.js", "w", encoding="utf-8") as f:
     f.write("// Généré par build_site.py — ne pas éditer à la main.\n")

@@ -25,7 +25,12 @@ const FLAG={
  "Portugal":"pt","Colombie":"co","Ouzbékistan":"uz","RD Congo":"cd",
  "Angleterre":"gb-eng","Croatie":"hr","Panama":"pa","Ghana":"gh"};
 const flag = t => FLAG[t]?`<span class="flag"><img loading="lazy" src="https://flagcdn.com/w40/${FLAG[t]}.png" alt=""></span>`:`<span class="flag flag--none"></span>`;
-const team = t => `${flag(t)}<span class="tn">${esc(t)}</span>`;
+/* Infos équipe (entraîneur + lien effectif Transfermarkt), depuis window.DATA.teams */
+const TEAMS = D.teams || {};
+const tmUrl = t => (TEAMS[t] && TEAMS[t].tm) || ("https://www.transfermarkt.com/schnellsuche/ergebnis/schnellsuche?query="+encodeURIComponent(t));
+/* nom d'équipe : lien vers l'effectif Transfermarkt (s'ouvre dans un nouvel onglet) */
+const team = t => `${flag(t)}<a class="tn" href="${tmUrl(t)}" target="_blank" rel="noopener noreferrer" title="Effectif de ${esc(t)} sur Transfermarkt">${esc(t)}</a>`;
+const coachLine = t => { const c = TEAMS[t] && TEAMS[t].coach; return c?`<small class="coach"><i class="mdi mdi-account-tie"></i>${esc(c)}</small>`:""; };
 
 function probBar(pv,pn,pd){
   const w=x=>Math.round(x*100);
@@ -47,6 +52,7 @@ function renderAccueil(){
   const vain=D.qualifiers.premiers.map(x=>`<div class="winrow"><span class="grouptag">${x.groupe}</span>${flag(x.equipe)}<span>${esc(x.equipe)}</span></div>`).join("");
   document.getElementById("accueil").innerHTML=`
    <div class="hero">
+     <img class="hero-emblem" src="emblem.svg" alt="Emblème Coupe du Monde 2026" />
      <div class="eyebrow">FIFA World Cup · USA · Canada · Mexique</div>
      <h1>Pronostics de la phase de groupes</h1>
      <p class="lead">Les <strong>72 matchs</strong> des 12 groupes, pronostiqués via une méthode hybride :
@@ -168,7 +174,7 @@ function renderGroupes(){
     }).join("");
     const stand=D.standings[g].map(r=>`<tr>
         <td class="c num">${r.rang}</td>
-        <td><span class="vs">${team(r.equipe)}</span> ${stPill(r.statut)}</td>
+        <td><span class="vs">${team(r.equipe)}</span> ${stPill(r.statut)}${coachLine(r.equipe)}</td>
         <td class="c num"><strong>${r.pts}</strong></td><td class="c num">${r.g}-${r.n}-${r.p}</td>
         <td class="c num">${r.bp}:${r.bc}</td><td class="c num">${r.diff>=0?'+':''}${r.diff}</td></tr>`).join("");
     html+=`<div class="group-block">
@@ -506,4 +512,18 @@ renderAnalyses(); renderRapport(); renderMethodo();
 const SECS=["accueil","calendrier","groupes","qualifies","analyses","rapport","methodo"];
 const start=(location.hash||"#accueil").slice(1);
 show(SECS.includes(start)?start:"accueil");
-window.addEventListener("resize",()=>{if(drawn.analyses)resizeIn("analyses");if(drawn.thirds)resizeIn("qualifies");});
+/* ResizeObserver : redimensionne chaque plot quand son conteneur change de taille.
+   Couvre nativement le passage display:none -> block (navigation) et le responsive,
+   sans dépendre de timings : c'est le correctif de positionnement des graphiques. */
+if(window.ResizeObserver){
+  const ro=new ResizeObserver(entries=>{
+    for(const e of entries){
+      if(e.contentRect.width<=0||!window.Plotly) continue;
+      const plot=e.target.querySelector(".js-plotly-plot");
+      if(plot) Plotly.Plots.resize(plot);
+    }
+  });
+  document.querySelectorAll(".chart").forEach(c=>ro.observe(c));
+}else{
+  window.addEventListener("resize",()=>{if(drawn.analyses)resizeIn("analyses");if(drawn.thirds)resizeIn("qualifies");});
+}

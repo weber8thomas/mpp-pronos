@@ -25,9 +25,9 @@ a{color:var(--accent);text-decoration:none}
 
 /* ---------- Layout : sidebar + content ---------- */
 .layout{display:flex;min-height:100vh}
-.sidebar{position:sticky;top:0;align-self:flex-start;height:100vh;width:236px;flex:0 0 236px;
+.sidebar{position:fixed;top:0;left:0;z-index:30;height:100vh;width:236px;
   background:var(--side);border-right:1px solid var(--line);display:flex;flex-direction:column;
-  padding:22px 14px;gap:6px}
+  padding:22px 14px;gap:6px;overflow-y:auto}
 .brand{font-family:var(--display);font-weight:800;font-size:.95rem;letter-spacing:.06em;
   padding:6px 10px 18px;line-height:1.3}
 .brand b{color:var(--accent)} .brand small{display:block;color:var(--muted);font-weight:600;
@@ -47,7 +47,7 @@ a{color:var(--accent);text-decoration:none}
   padding:9px;font-family:var(--font);font-size:.82rem;font-weight:600}
 .themebtn:hover{border-color:var(--accent)}
 
-.content{flex:1;min-width:0}
+.content{flex:1;min-width:0;margin-left:236px}
 main{max-width:1080px;margin:0 auto;padding:34px 30px 70px}
 .sec{display:none;animation:fade .3s ease}
 .sec.active{display:block}
@@ -78,6 +78,11 @@ h3{font-family:var(--display);font-size:.95rem;font-weight:700;margin:0 0 .5em}
   linear-gradient(135deg,color-mix(in srgb,var(--accent) 12%,transparent),transparent 55%),var(--card);
   border:1px solid var(--line);border-radius:18px;padding:32px 30px;box-shadow:var(--shadow)}
 .hero h1{font-size:2rem}
+.hero>*{position:relative;z-index:1;max-width:calc(100% - 160px)}
+.hero-emblem{position:absolute;z-index:0;top:50%;right:26px;transform:translateY(-50%);
+  width:140px;height:140px;max-width:140px;opacity:.96;pointer-events:none;
+  filter:drop-shadow(0 4px 14px rgba(15,157,118,.18))}
+@media(max-width:620px){.hero-emblem{display:none}.hero>*{max-width:100%}}
 
 /* ---------- KPIs ---------- */
 .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:14px;margin:22px 0}
@@ -141,20 +146,30 @@ a.grouptag:hover{border-color:var(--accent)}
 
 footer{border-top:1px solid var(--line);color:var(--faint);font-size:.78rem;padding:22px 30px;text-align:center}
 
-/* ---------- Responsive : sidebar -> topbar ---------- */
+/* ---------- Responsive : sidebar -> barre d'icônes en bas ---------- */
 @media(max-width:820px){
   .layout{flex-direction:column}
-  .sidebar{position:sticky;top:0;z-index:20;width:auto;height:auto;flex:none;flex-direction:row;
-    align-items:center;gap:8px;padding:10px 14px;border-right:none;border-bottom:1px solid var(--line);
-    overflow-x:auto;backdrop-filter:blur(10px)}
-  .brand{padding:0 8px 0 2px;white-space:nowrap}.brand small{display:none}
-  .sidebar nav{flex-direction:row;gap:2px}
-  .sidebar nav a{padding:8px 10px;font-size:.78rem;white-space:nowrap}
-  .sidebar nav a.active::before{left:8px;right:8px;top:auto;bottom:2px;width:auto;height:2px}
+  .content{margin-left:0}
+  /* barre de navigation fixée en bas, icônes seules */
+  .sidebar{position:fixed;left:0;right:0;bottom:0;top:auto;z-index:30;width:auto;height:auto;
+    flex-direction:row;align-items:stretch;gap:0;padding:4px 4px env(safe-area-inset-bottom,4px);
+    border-right:none;border-top:1px solid var(--line);overflow:visible;
+    background:color-mix(in srgb,var(--side) 92%,transparent);backdrop-filter:blur(12px)}
+  .brand{display:none}
+  .sidebar nav{flex:1;flex-direction:row;gap:0;justify-content:space-around}
+  .sidebar nav a{flex:1;justify-content:center;padding:9px 4px;border-radius:9px;gap:0}
+  .sidebar nav a .lbl{display:none}              /* icônes seules en mobile */
+  .sidebar nav a .mdi{font-size:22px;opacity:.8}
+  .sidebar nav a.active{background:transparent}
+  .sidebar nav a.active .mdi{opacity:1}
+  .sidebar nav a.active::before{left:50%;transform:translateX(-50%);right:auto;top:2px;bottom:auto;
+    width:18px;height:3px;border-radius:3px}
   .sidebar nav a .dot{display:none}
-  .side-foot{margin:0 0 0 auto;flex-direction:row;padding:0}
+  /* bouton thème : icône seule, à droite de la barre */
+  .side-foot{margin:0;padding:0;flex-direction:row;align-items:center}
   .side-foot .faint{display:none}
-  main{padding:24px 18px 60px}
+  .themebtn{padding:9px 12px}.themebtn #themeLbl{display:none}
+  main{padding:24px 18px calc(72px + env(safe-area-inset-bottom,0px))}
 }
 ::-webkit-scrollbar{height:9px;width:9px}
 ::-webkit-scrollbar-thumb{background:color-mix(in srgb,var(--muted) 40%,transparent);border-radius:6px}
@@ -174,6 +189,12 @@ h3 .mdi{color:var(--accent);font-size:1.05em;vertical-align:-2px;margin-right:3p
 .vs{display:inline-flex;align-items:center;gap:7px;flex-wrap:nowrap;white-space:nowrap}
 .vs .tn{font-weight:500}
 .vs .muted{margin:0 1px}
+/* nom d'équipe cliquable -> Transfermarkt (effectif) */
+a.tn{color:inherit;text-decoration:none;border-bottom:1px dotted color-mix(in srgb,var(--accent) 55%,transparent)}
+a.tn:hover{color:var(--accent);border-bottom-color:var(--accent)}
+/* entraîneur sous l'équipe (classement de groupe) */
+.coach{display:block;color:var(--muted);font-size:.72rem;margin-top:2px;font-weight:500}
+.coach .mdi{font-size:.95em;opacity:.7;margin-right:2px}
 
 /* ---------- Vainqueurs / colonnes qualifiés ---------- */
 .winners{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:8px;margin-top:8px}
@@ -201,10 +222,9 @@ th.sortable.active{color:var(--accent)}
 .selrow{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:8px 0}
 .selrow select{background:var(--card);color:var(--txt);border:1px solid var(--line2);border-radius:9px;padding:8px 10px;font-family:var(--font)}
 
-/* ---------- Plotly : largeur pleine, jamais compressé ---------- */
-.chart{width:100%;min-height:340px}
-.chart .js-plotly-plot,.chart .plot-container,.chart .svg-container{width:100%!important}
-.chart .js-plotly-plot{margin:0 auto}
+/* ---------- Plotly : largeur pleine (Plotly gère sa taille via ResizeObserver) ---------- */
+.chart{width:100%;min-height:340px;overflow:hidden}
+.chart .js-plotly-plot{width:100%}
 
 /* ---------- Badge de score coloré par issue (V/N/D) ---------- */
 .scoreb{display:inline-block;font-family:var(--display);font-weight:800;font-size:.82rem;

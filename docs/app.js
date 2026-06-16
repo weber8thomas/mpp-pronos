@@ -543,6 +543,32 @@ function teamPanel(name){
   </div>`;
   return h+`</div>`;
 }
+/* Confrontations directes (H2H) rendues dans l'app à partir de window.DATA.h2h */
+function h2hCard(p){
+  const rec=(D.h2h||{})[p.dom+" | "+p.ext];
+  const more=`<div class="extlinks"><a class="extlink" target="_blank" rel="noopener" href="${h2hUrl(p.dom,p.ext)}"><i class="mdi mdi-open-in-new"></i>Voir le détail (AiScore)</a></div>`;
+  let inner;
+  if(rec&&rec.meetings&&rec.meetings.length){
+    let w=0,n=0,l=0;
+    const rows=rec.meetings.map(m=>{
+      const ds=m.home===p.dom?m.hs:m.as, xs=m.home===p.dom?m.as:m.hs;   // score vu côté p.dom
+      if(ds>xs)w++; else if(ds<xs)l++; else n++;
+      const cls=m.hs>m.as?"sc-win":m.hs<m.as?"sc-loss":"sc-draw";
+      return `<tr><td class="faint" style="white-space:nowrap">${esc(m.date||"")}</td>
+        <td class="faint">${esc(m.comp||"")}</td>
+        <td class="c"><span class="vs">${flag(m.home)}<span class="tn">${esc(m.home)}</span></span></td>
+        <td class="c"><span class="scoreb ${cls}">${m.hs}-${m.as}</span></td>
+        <td class="c"><span class="vs">${flag(m.away)}<span class="tn">${esc(m.away)}</span></span></td></tr>`;
+    }).join("");
+    inner=`<div class="h2h-tally">${rec.meetings.length} dernière${rec.meetings.length>1?"s":""} confrontation${rec.meetings.length>1?"s":""} ·
+      <b style="color:var(--green)">${w} V</b> · <b>${n} N</b> · <b style="color:var(--red)">${l} D</b>
+      <span class="faint">(côté ${esc(p.dom)})</span></div>
+      <div class="tablewrap"><table><tbody>${rows}</tbody></table></div>`;
+  } else {
+    inner=`<p class="faint">Aucune confrontation directe récente connue entre ${esc(p.dom)} et ${esc(p.ext)}.</p>`;
+  }
+  return `<div class="card" style="margin-top:14px"><h3><i class="mdi mdi-history"></i> Confrontations directes</h3>${inner}${more}</div>`;
+}
 let _modal=null;
 function ensureModal(){
   if(_modal) return _modal;
@@ -584,11 +610,9 @@ function openMatch(i){
         <div class="mm-kv"><span>Total de buts attendu</span><b>${(p.xg_dom+p.xg_ext).toFixed(2)}</b></div>
       </div>
     </div>
+    ${h2hCard(p)}
     <div class="card" style="margin-top:14px"><h3><i class="mdi mdi-scale-balance"></i> Comparaison (phase de groupes)</h3>
-      <div class="chart" id="mCompare"></div>
-      <div class="extlinks"><a class="extlink" target="_blank" rel="noopener"
-        href="${h2hUrl(p.dom,p.ext)}">
-        <i class="mdi mdi-history"></i>Confrontations (AiScore)</a></div></div>
+      <div class="chart" id="mCompare"></div></div>
     <div class="card" style="margin-top:14px"><h3><i class="mdi mdi-grid"></i> Matrice des scores (Poisson)</h3>
       <div class="chart" id="mMatrix"></div></div>
     <div class="grid2" style="margin-top:14px">${teamPanel(p.dom)}${teamPanel(p.ext)}</div>`;

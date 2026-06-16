@@ -191,6 +191,9 @@ a.tn:hover{color:var(--accent);border-bottom-color:var(--accent)}
 .coach .mdi{font-size:.95em;opacity:.7;margin-right:2px}
 /* sélectionneur dans la fiche équipe (modal) */
 .tp-coach{font-size:.84rem;margin:2px 0 6px}.tp-coach .mdi{color:var(--accent);margin-right:2px}
+/* confrontations directes (H2H) */
+.h2h-tally{font-size:.86rem;margin:2px 0 10px}.h2h-tally b{font-variant-numeric:tabular-nums}
+.h2h-tally .faint{margin-left:4px}
 
 /* ---------- Vainqueurs / colonnes qualifiés ---------- */
 .winners{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:8px;margin-top:8px}

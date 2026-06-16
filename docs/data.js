@@ -2883,6 +2883,7 @@ window.DATA = {
    "tm": "https://www.transfermarkt.com/ghana/kader/verein/3441"
   }
  },
+ "h2h": {},
  "j1": [
   {
    "match": "Mexique – Afrique du Sud",

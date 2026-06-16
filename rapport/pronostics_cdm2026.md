@@ -7,6 +7,88 @@
 Données : `data/predictions.csv` · Modèle : `model_pronos.py` · Classements : `standings.py` · Analyse explorable : `notebooks/analyse_pronos.ipynb` · Traçabilité agents : `research/notes_agents.md`
 
 
+## 📅 Calendrier chronologique des 72 pronostics
+
+Trié par coup d'envoi. Heure en **CEST** (Europe/Paris, UTC+2) — *indicative, à confirmer*. Type : ✅ résultat réel · 🔮 pronostic. `P(V/N/D)` = probabilités victoire / nul / défaite (modèle).
+
+> ℹ️ **Probas mpp.football** : la colonne `mpp` est prête mais non remplie — le site est une application authentifiée (403) dont les probabilités communautaires ne sont pas accessibles publiquement. Fournir un export (JSON réseau ou HTML de la page) permet de la compléter automatiquement.
+
+
+| Date (CEST) | Heure | Gr. | Match | Prono | P(V/N/D) | mpp |
+|:--|:--:|:--:|:--|:--:|:--:|:--:|
+| Jeu 11/06 | 21h00 | A | Mexique – Afrique du Sud | **2-0** ✅ | 0.86/0.10/0.04 | — |
+| Ven 12/06 | 04h00 | A | Corée du Sud – Tchéquie | **2-1** ✅ | 0.48/0.25/0.27 | — |
+| Ven 12/06 | 21h00 | B | Canada – Bosnie-Herzégovine | **1-1** ✅ | 0.30/0.40/0.30 | — |
+| Ven 12/06 | 21h00 | D | États-Unis – Paraguay | **4-1** ✅ | 0.61/0.22/0.17 | — |
+| Sam 13/06 | 21h00 | B | Qatar – Suisse | **1-1** ✅ | 0.18/0.40/0.42 | — |
+| Dim 14/06 | 00h00 | C | Brésil – Maroc | **1-1** ✅ | 0.40/0.32/0.28 | — |
+| Dim 14/06 | 03h00 | D | Australie – Turquie | **2-0** ✅ | 0.19/0.23/0.58 | — |
+| Dim 14/06 | 03h00 | C | Haïti – Écosse | **0-1** ✅ | 0.12/0.22/0.66 | — |
+| Dim 14/06 | 19h00 | E | Allemagne – Curaçao | **7-1** ✅ | 0.93/0.06/0.01 | — |
+| Dim 14/06 | 22h00 | F | Pays-Bas – Japon | **2-2** ✅ | 0.45/0.30/0.25 | — |
+| Lun 15/06 | 01h00 | E | Côte d'Ivoire – Équateur | **1-0** ✅ | 0.40/0.30/0.30 | — |
+| Lun 15/06 | 04h00 | F | Suède – Tunisie | **5-1** ✅ | 0.59/0.22/0.19 | — |
+| Lun 15/06 | 18h00 | H | Espagne – Cap-Vert | **0-0** ✅ | 0.85/0.12/0.03 | — |
+| Lun 15/06 | 21h00 | G | Belgique – Égypte | **1-1** ✅ | 0.45/0.30/0.25 | — |
+| Mar 16/06 | 00h00 | H | Arabie saoudite – Uruguay | **1-1** ✅ | 0.18/0.30/0.52 | — |
+| Mar 16/06 | 03h00 | G | Iran – Nouvelle-Zélande | **2-2** ✅ | 0.55/0.25/0.20 | — |
+| Mar 16/06 | 21h00 | I | France – Sénégal | **2-1** 🔮 | 0.58/0.24/0.18 | — |
+| Mer 17/06 | 00h00 | I | Irak – Norvège | **0-1** 🔮 | 0.12/0.24/0.64 | — |
+| Mer 17/06 | 03h00 | J | Argentine – Algérie | **2-0** 🔮 | 0.72/0.18/0.10 | — |
+| Mer 17/06 | 06h00 | J | Autriche – Jordanie | **2-0** 🔮 | 0.64/0.24/0.12 | — |
+| Mer 17/06 | 19h00 | K | Portugal – RD Congo | **2-0** 🔮 | 0.66/0.20/0.14 | — |
+| Mer 17/06 | 22h00 | L | Angleterre – Croatie | **2-0** 🔮 | 0.68/0.22/0.10 | — |
+| Jeu 18/06 | 01h00 | L | Ghana – Panama | **1-1** 🔮 | 0.38/0.32/0.30 | — |
+| Jeu 18/06 | 04h00 | K | Ouzbékistan – Colombie | **0-2** 🔮 | 0.12/0.22/0.66 | — |
+| Jeu 18/06 | 18h00 | A | Tchéquie – Afrique du Sud | **1-0** 🔮 | 0.58/0.27/0.15 | — |
+| Jeu 18/06 | 21h00 | B | Suisse – Bosnie-Herzégovine | **2-0** 🔮 | 0.74/0.16/0.10 | — |
+| Ven 19/06 | 00h00 | B | Canada – Qatar | **2-0** 🔮 | 0.78/0.15/0.07 | — |
+| Ven 19/06 | 03h00 | A | Mexique – Corée du Sud | **1-1** 🔮 | 0.40/0.30/0.30 | — |
+| Ven 19/06 | 21h00 | D | États-Unis – Australie | **2-0** 🔮 | 0.66/0.21/0.13 | — |
+| Sam 20/06 | 00h00 | C | Écosse – Maroc | **1-2** 🔮 | 0.18/0.22/0.60 | — |
+| Sam 20/06 | 03h00 | C | Brésil – Haïti | **3-0** 🔮 | 0.91/0.07/0.02 | — |
+| Sam 20/06 | 06h00 | D | Turquie – Paraguay | **2-1** 🔮 | 0.54/0.25/0.21 | — |
+| Sam 20/06 | 19h00 | F | Pays-Bas – Suède | **2-2** 🔮 | 0.35/0.30/0.35 | — |
+| Sam 20/06 | 22h00 | E | Allemagne – Côte d'Ivoire | **2-1** 🔮 | 0.60/0.24/0.16 | — |
+| Dim 21/06 | 02h00 | E | Équateur – Curaçao | **2-0** 🔮 | 0.78/0.16/0.06 | — |
+| Dim 21/06 | 06h00 | F | Tunisie – Japon | **0-2** 🔮 | 0.18/0.27/0.55 | — |
+| Dim 21/06 | 18h00 | H | Espagne – Arabie saoudite | **3-0** 🔮 | 0.80/0.14/0.06 | — |
+| Dim 21/06 | 21h00 | G | Belgique – Iran | **2-1** 🔮 | 0.55/0.25/0.20 | — |
+| Lun 22/06 | 00h00 | H | Uruguay – Cap-Vert | **1-0** 🔮 | 0.58/0.27/0.15 | — |
+| Lun 22/06 | 03h00 | G | Nouvelle-Zélande – Égypte | **1-2** 🔮 | 0.18/0.24/0.58 | — |
+| Lun 22/06 | 19h00 | J | Argentine – Autriche | **2-1** 🔮 | 0.66/0.21/0.13 | — |
+| Lun 22/06 | 23h00 | I | France – Irak | **3-0** 🔮 | 0.86/0.10/0.04 | — |
+| Mar 23/06 | 02h00 | I | Norvège – Sénégal | **1-1** 🔮 | 0.32/0.30/0.38 | — |
+| Mar 23/06 | 05h00 | J | Jordanie – Algérie | **0-2** 🔮 | 0.14/0.26/0.60 | — |
+| Mar 23/06 | 19h00 | K | Portugal – Ouzbékistan | **3-0** 🔮 | 0.78/0.15/0.07 | — |
+| Mar 23/06 | 22h00 | L | Angleterre – Ghana | **2-0** 🔮 | 0.78/0.16/0.06 | — |
+| Mer 24/06 | 01h00 | L | Panama – Croatie | **1-2** 🔮 | 0.16/0.24/0.60 | — |
+| Mer 24/06 | 04h00 | K | Colombie – RD Congo | **2-1** 🔮 | 0.56/0.24/0.20 | — |
+| Mer 24/06 | 21h00 | B | Suisse – Canada | **2-1** 🔮 | 0.50/0.27/0.23 | — |
+| Mer 24/06 | 21h00 | B | Bosnie-Herzégovine – Qatar | **2-1** 🔮 | 0.50/0.26/0.24 | — |
+| Jeu 25/06 | 00h00 | C | Maroc – Haïti | **2-0** 🔮 | 0.85/0.11/0.04 | — |
+| Jeu 25/06 | 00h00 | C | Écosse – Brésil | **0-2** 🔮 | 0.06/0.14/0.80 | — |
+| Jeu 25/06 | 03h00 | A | Afrique du Sud – Corée du Sud | **0-2** 🔮 | 0.12/0.22/0.66 | — |
+| Jeu 25/06 | 03h00 | A | Tchéquie – Mexique | **1-1** 🔮 | 0.24/0.31/0.45 | — |
+| Jeu 25/06 | 22h00 | E | Curaçao – Côte d'Ivoire | **0-2** 🔮 | 0.08/0.17/0.75 | — |
+| Jeu 25/06 | 22h00 | E | Équateur – Allemagne | **1-1** 🔮 | 0.26/0.38/0.36 | — |
+| Ven 26/06 | 01h00 | F | Tunisie – Pays-Bas | **0-2** 🔮 | 0.14/0.26/0.60 | — |
+| Ven 26/06 | 01h00 | F | Japon – Suède | **1-2** 🔮 | 0.30/0.26/0.44 | — |
+| Ven 26/06 | 04h00 | D | Paraguay – Australie | **1-1** 🔮 | 0.45/0.27/0.28 | — |
+| Ven 26/06 | 04h00 | D | Turquie – États-Unis | **1-1** 🔮 | 0.29/0.27/0.44 | — |
+| Ven 26/06 | 21h00 | I | Norvège – France | **1-2** 🔮 | 0.22/0.24/0.54 | — |
+| Ven 26/06 | 21h00 | I | Sénégal – Irak | **2-0** 🔮 | 0.78/0.15/0.07 | — |
+| Sam 27/06 | 02h00 | H | Uruguay – Espagne | **1-2** 🔮 | 0.22/0.26/0.52 | — |
+| Sam 27/06 | 02h00 | H | Cap-Vert – Arabie saoudite | **1-1** 🔮 | 0.33/0.34/0.33 | — |
+| Sam 27/06 | 05h00 | G | Nouvelle-Zélande – Belgique | **0-2** 🔮 | 0.12/0.20/0.68 | — |
+| Sam 27/06 | 05h00 | G | Égypte – Iran | **1-1** 🔮 | 0.38/0.35/0.27 | — |
+| Sam 27/06 | 23h00 | L | Panama – Angleterre | **0-2** 🔮 | 0.06/0.14/0.80 | — |
+| Sam 27/06 | 23h00 | L | Croatie – Ghana | **2-1** 🔮 | 0.60/0.24/0.16 | — |
+| Dim 28/06 | 01h30 | K | Colombie – Portugal | **1-1** 🔮 | 0.32/0.36/0.32 | — |
+| Dim 28/06 | 01h30 | K | RD Congo – Ouzbékistan | **2-1** 🔮 | 0.50/0.27/0.23 | — |
+| Dim 28/06 | 04h00 | J | Jordanie – Argentine | **1-2** 🔮 | 0.12/0.20/0.68 | — |
+| Dim 28/06 | 04h00 | J | Algérie – Autriche | **1-1** 🔮 | 0.33/0.30/0.37 | — |
+
 ---
 
 

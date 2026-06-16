@@ -113,6 +113,7 @@ def main():
         b = bidx[key]
         rows.append({
             "groupe": r.groupe, "journee": r.journee, "date": r.date,
+            "kickoff_utc": r.kickoff_utc, "kickoff_cest": r.kickoff_cest,
             "equipe_dom": r.equipe_dom, "equipe_ext": r.equipe_ext,
             "statut": r.statut,
             "score_pronostic": f"{bd}-{be}",

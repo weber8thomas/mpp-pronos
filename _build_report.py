@@ -42,6 +42,27 @@ W("**Convention** : le tournoi ayant débuté le 11/06/2026, **J1 = résultats r
   "(16/06/2026) et sont entièrement pronostiqués.\n")
 W("Données : `data/predictions.csv` · Modèle : `model_pronos.py` · Classements : `standings.py` · "
   "Analyse explorable : `notebooks/analyse_pronos.ipynb` · Traçabilité agents : `research/notes_agents.md`\n")
+
+# ----- Tableau chronologique en tête -----
+JOURS = ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"]
+W("\n## 📅 Calendrier chronologique des 72 pronostics\n")
+W("Trié par coup d'envoi. Heure en **CEST** (Europe/Paris, UTC+2) — *indicative, à confirmer*. "
+  "Type : ✅ résultat réel · 🔮 pronostic. `P(V/N/D)` = probabilités victoire / nul / défaite (modèle).\n")
+W("> ℹ️ **Probas mpp.football** : la colonne `mpp` est prête mais non remplie — le site est une "
+  "application authentifiée (403) dont les probabilités communautaires ne sont pas accessibles "
+  "publiquement. Fournir un export (JSON réseau ou HTML de la page) permet de la compléter automatiquement.\n")
+W("\n| Date (CEST) | Heure | Gr. | Match | Prono | P(V/N/D) | mpp |")
+W("|:--|:--:|:--:|:--|:--:|:--:|:--:|")
+chrono = pred.sort_values("kickoff_utc")
+for _, r in chrono.iterrows():
+    dt = pd.to_datetime(r.kickoff_cest)
+    date_s = f"{JOURS[dt.weekday()]} {dt.strftime('%d/%m')}"
+    heure = dt.strftime("%Hh%M")
+    typ = "✅" if r.statut == "joue" else "🔮"
+    W(f"| {date_s} | {heure} | {r.groupe} | {r.equipe_dom} – {r.equipe_ext} | "
+      f"**{r.buts_dom}-{r.buts_ext}** {typ} | "
+      f"{r.p_victoire_dom:.2f}/{r.p_nul:.2f}/{r.p_victoire_ext:.2f} | — |")
+
 W("\n---\n")
 
 for g in sorted(cls):

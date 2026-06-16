@@ -13,11 +13,11 @@ les compétitions précédentes.
 
 | Fichier | Rôle |
 |---|---|
-| `rapport/pronostics_cdm2026.md` | **Rapport principal** : scores des 72 matchs, classements, 32 qualifiés |
-| `notebooks/analyse_pronos.ipynb` | **Notebook explorable** : modèle Poisson, validation J1, classements, visualisations |
+| `rapport/pronostics_cdm2026.md` | **Rapport principal** : calendrier chronologique (date + heure CEST + groupe) en tête, puis scores des 72 matchs, classements, 32 qualifiés |
+| `notebooks/analyse_pronos.ipynb` | **Notebook explorable (Plotly Express)** : modèle Poisson, validation J1, classements, qualifiés, frise — graphiques interactifs |
 | `data/groups.json` | Composition des 12 groupes |
 | `data/team_ratings.csv` | Notes de force (Elo, classement FIFA, forme) des 48 équipes + sources |
-| `data/fixtures.csv` | Calendrier des 72 matchs (+ résultats réels J1) |
+| `data/fixtures.csv` | Calendrier des 72 matchs (+ horaires UTC/CEST, résultats réels J1) |
 | `data/predictions.csv` | Pronostics finaux : score, probabilités V/N/D, xG du modèle |
 | `data/predictions_baseline.csv` | Sortie brute du modèle Poisson (avant ajustement experts) |
 | `model_pronos.py` | Modèle de Poisson (Elo → buts attendus → score + probas) |
@@ -43,12 +43,18 @@ très nulle et surprenante (8 nuls/16), ce qui justifie la couche experts.
 ## ▶️ Reproduire / explorer
 
 ```bash
-pip install numpy pandas scipy matplotlib jupyter nbformat nbconvert
+pip install numpy pandas scipy matplotlib plotly jupyter nbformat nbconvert
 
+python3 add_kickoff_times.py        # ajoute horaires UTC/CEST à fixtures.csv
 python3 build_predictions.py        # (re)génère data/predictions.csv
 python3 standings.py                # affiche classements + qualifiés
-jupyter notebook notebooks/analyse_pronos.ipynb   # exploration interactive
+python3 _build_report.py            # régénère le rapport Markdown
+python3 notebooks/_build_notebook.py && jupyter nbconvert --execute --inplace notebooks/analyse_pronos.ipynb
+jupyter notebook notebooks/analyse_pronos.ipynb   # exploration interactive (Plotly)
 ```
+
+> 🕐 Les horaires (`data/fixtures.csv`, colonnes `kickoff_utc`/`kickoff_cest`) sont **indicatifs** (CEST = UTC+2), à confirmer près du coup d'envoi.
+> 📊 **Probas mpp.football** : non intégrées (site authentifié, 403). La colonne `mpp` du rapport est prête ; fournir un export JSON/HTML de la page permet de la remplir.
 
 Pour explorer la sensibilité : modifiez un Elo dans `data/team_ratings.csv` ou un paramètre
 de `model_pronos.py`, relancez `build_predictions.py`, puis le notebook.

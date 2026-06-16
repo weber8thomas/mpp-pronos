@@ -408,8 +408,9 @@ function renderMethodo(){
 function show(sec){
   document.querySelectorAll(".sec").forEach(s=>s.classList.toggle("active",s.id===sec));
   document.querySelectorAll("#nav a").forEach(a=>a.classList.toggle("active",a.dataset.sec===sec));
-  if(sec==="analyses"){drawAnalyses(); resizeIn("analyses");}
-  if(sec==="qualifies"){drawThirds(); resizeIn("qualifies");}
+  // Dessin différé : la section vient d'être affichée, on attend le layout (largeur réelle)
+  if(sec==="analyses") requestAnimationFrame(()=>{drawAnalyses(); resizeIn("analyses"); setTimeout(()=>resizeIn("analyses"),80);});
+  if(sec==="qualifies") requestAnimationFrame(()=>{drawThirds(); resizeIn("qualifies"); setTimeout(()=>resizeIn("qualifies"),80);});
   window.scrollTo({top:0,behavior:"smooth"});
 }
 document.addEventListener("click",e=>{
@@ -430,8 +431,10 @@ function applyTheme(t){
   });
   drawn.analyses=false; drawn.thirds=false;
   const active=document.querySelector(".sec.active");
-  if(active&&active.id==="analyses") drawAnalyses();
-  if(active&&active.id==="qualifies") drawThirds();
+  requestAnimationFrame(()=>{
+    if(active&&active.id==="analyses"){drawAnalyses(); resizeIn("analyses");}
+    if(active&&active.id==="qualifies"){drawThirds(); resizeIn("qualifies");}
+  });
 }
 (function initTheme(){
   let t="light"; try{t=localStorage.getItem("cdm-theme")||"light";}catch(e){}

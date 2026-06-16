@@ -200,3 +200,8 @@ th.sortable.active{color:var(--accent)}
 .an-intro{color:var(--muted);font-size:.9rem;margin:.2em 0 .4em}
 .selrow{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:8px 0}
 .selrow select{background:var(--card);color:var(--txt);border:1px solid var(--line2);border-radius:9px;padding:8px 10px;font-family:var(--font)}
+
+/* ---------- Plotly : largeur pleine, jamais compressé ---------- */
+.chart{width:100%;min-height:340px}
+.chart .js-plotly-plot,.chart .plot-container,.chart .svg-container{width:100%!important}
+.chart .js-plotly-plot{margin:0 auto}

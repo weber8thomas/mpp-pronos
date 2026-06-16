@@ -106,7 +106,7 @@ function matchRow(p){
   const nx = p._i===NEXT_I;
   return `<tr class="clik${nx?' isnext':''}"${nx?' id="cal-next"':''} data-match="${p._i}" data-g="${p.groupe}" data-s="${p.statut}" data-t="${esc(p.dom+' '+p.ext)}">
     <td>${dt}</td><td class="c"><span class="grouptag">${p.groupe}</span></td>
-    <td><span class="vs">${team(p.dom)}<span class="muted">–</span>${team(p.ext)}</span>${nx?'<span class="nextbadge">à suivre</span>':''}</td>
+    <td><div class="matchcell"><span class="vs">${team(p.dom)}<span class="muted">–</span>${team(p.ext)}</span>${nx?'<span class="nextbadge">à suivre</span>':''}</div></td>
     <td class="c">${scoreBadge(p.bd,p.be)}</td><td class="c">${typ}</td>
     <td>${probBar(p.pv,p.pn,p.pd)}</td><td class="c">${mpp}</td></tr>`;
 }
@@ -247,41 +247,14 @@ function renderQualifies(){
     <div class="chart" id="chartThirds"></div>`;
 }
 
-/* ---------- Analyses (Plotly) ---------- */
-const LAYOUT = extra => {
-  const t = THEME[curTheme()]; extra = extra || {};
-  const ax = base => Object.assign({gridcolor:t.grid, zerolinecolor:t.grid, linecolor:t.grid,
-    tickfont:{color:t.font}, titlefont:{color:t.font}}, base||{});
-  const lay = Object.assign({
-    autosize:true,
-    paper_bgcolor:t.paper, plot_bgcolor:t.paper,
-    font:{color:t.font, size:12, family:"Inter, system-ui, sans-serif"},
-    // pas de titre Plotly (déjà en <h2>/<h3> HTML) -> marge haute juste pour la légende
-    margin:{l:56,r:22,t:34,b:46},
-    legend:{orientation:"h",y:1.0,x:0,yanchor:"bottom",font:{size:11}}
-  }, extra, {xaxis:ax(extra.xaxis), yaxis:ax(extra.yaxis)});
-  delete lay.title;   // les call-sites passent un title (string) : on le retire pour éviter doublon/chevauchement
-  return lay;
-};
-// Plotly gère lui-même la largeur (responsive) -> plus de débordement/overlap dû à une largeur figée
-const CFG={responsive:true,displayModeBar:false};
-// Trace un graphe : Plotly s'adapte à la largeur réelle du conteneur (autosize), hauteur fixée par le layout
-function PNP(id, traces, layout, cfg){
-  const el=typeof id==="string"?document.getElementById(id):id;
-  if(!el||!window.Plotly) return;
-  layout=Object.assign({}, layout||{}); delete layout.width;        // jamais de largeur figée
-  return window["Plotly"].newPlot(el, traces, layout, cfg||CFG).then(()=>{
-    requestAnimationFrame(()=>{ if(el.data&&window.Plotly) Plotly.Plots.resize(el); }); // recale sur la largeur réelle
-  });
-}
-
+/* ---------- Analyses : structure HTML (les graphes SVG sont injectés par drawAnalyses) ---------- */
 function renderAnalyses(){
   document.getElementById("analyses").innerHTML=`
     <h1>Analyses</h1>
-    <p class="lead">Graphiques interactifs : survol pour le détail, zoom, légende cliquable. Thème clair/sombre pris en charge.</p>
+    <p class="lead">Graphiques interactifs (survol pour le détail). Thème clair/sombre pris en charge.</p>
 
     <h2>Niveau des groupes</h2>
-    <p class="an-intro">Elo moyen des 4 équipes — quels groupes sont les plus relevés (barres = min→max du groupe).</p>
+    <p class="an-intro">Elo moyen des 4 équipes — quels groupes sont les plus relevés (moustache = min→max du groupe).</p>
     <div class="chart" id="chartGroupStrength"></div>
 
     <h2>Attaque vs défense (pronostiqué)</h2>
@@ -289,12 +262,12 @@ function renderAnalyses(){
     En haut à droite = marque beaucoup ET encaisse peu. Couleur = sort final, taille = points.</p>
     <div class="chart" id="chartAttDef"></div>
 
-    <h2>Points & qualification</h2>
+    <h2>Points &amp; qualification</h2>
     <p class="an-intro">Total de points pronostiqués des 48 équipes (vert = 1er/2e, or = 3e qualifié, rouge = éliminé).</p>
     <div class="chart" id="chartPoints"></div>
 
-    <h2>Notre modèle vs mpp.football</h2>
-    <p class="an-intro" id="mppNote">Proba de victoire à domicile : notre modèle (X) vs mpp (Y). Points sur la diagonale = accord.</p>
+    <h2>Notre modèle vs <a class="mpp-link" href="https://mpp.football" target="_blank" rel="noopener"><img class="mpp-logo" src="mpp-logo.png" alt="mpp.football"></a></h2>
+    <p class="an-intro" id="mppNote">Proba de victoire à domicile : notre modèle (axe X) vs mpp (axe Y). Points sur la diagonale = accord.</p>
     <div class="chart" id="chartMpp"></div>
 
     <h2>Distribution des buts par match</h2>
@@ -310,141 +283,193 @@ function renderAnalyses(){
     <div class="selrow"><label for="matchSel">Match :</label><select id="matchSel"></select></div>
     <div class="chart" id="chartMatrix"></div>`;
 }
+
+/* ---------- Graphiques : rendu SVG maison (responsive via viewBox, sans dépendance) ---------- */
+/* Un <svg viewBox> en width:100% s'adapte tout seul à la largeur du conteneur :
+   plus aucun problème de positionnement/overlap/affichage lié à Plotly. */
+function svgWrap(w,h,inner,cls){
+  return `<svg class="cv ${cls||''}" viewBox="0 0 ${w} ${h}" width="100%" preserveAspectRatio="xMidYMin meet" role="img">${inner}</svg>`;
+}
+function svT(x,y,s,o){o=o||{};const f=o.cls?'':` fill="${o.fill||'currentColor'}"`;
+  return `<text x="${(+x).toFixed(1)}" y="${(+y).toFixed(1)}" font-size="${o.fs||13}"${f}${o.cls?` class="${o.cls}"`:''} text-anchor="${o.anchor||'start'}"${o.weight?` font-weight="${o.weight}"`:''}${o.op!=null?` opacity="${o.op}"`:''}>${esc(s)}</text>`;}
+function svR(x,y,w,h,o){o=o||{};const f=o.cls?'':` fill="${o.fill||'currentColor'}"`;
+  return `<rect x="${(+x).toFixed(1)}" y="${(+y).toFixed(1)}" width="${Math.max(0,w).toFixed(1)}" height="${Math.max(0,h).toFixed(1)}" rx="${o.rx==null?2:o.rx}"${f}${o.cls?` class="${o.cls}"`:''}${o.op!=null?` opacity="${o.op}"`:''}>${o.title?`<title>${esc(o.title)}</title>`:''}</rect>`;}
+function svL(x1,y1,x2,y2,o){o=o||{};
+  return `<line x1="${(+x1).toFixed(1)}" y1="${(+y1).toFixed(1)}" x2="${(+x2).toFixed(1)}" y2="${(+y2).toFixed(1)}"${o.cls?` class="${o.cls}"`:` stroke="${o.stroke||'currentColor'}"`} stroke-width="${o.sw||1}"${o.dash?` stroke-dasharray="${o.dash}"`:''}${o.op!=null?` opacity="${o.op}"`:''}/>`;}
+function svC(cx,cy,r,o){o=o||{};
+  return `<circle cx="${(+cx).toFixed(1)}" cy="${(+cy).toFixed(1)}" r="${(+r).toFixed(1)}"${o.cls?` class="${o.cls}"`:` fill="${o.fill||'currentColor'}"`}${o.stroke?` stroke="${o.stroke}" stroke-width="${o.sw||1}"`:''}${o.op!=null?` opacity="${o.op}"`:''}>${o.title?`<title>${esc(o.title)}</title>`:''}</circle>`;}
+function cvLegend(items){return `<div class="cv-legend">${items.map(it=>`<span><i style="background:${it.c}"></i>${esc(it.l)}</span>`).join("")}</div>`;}
+function lerp(a,b,t){const pa=[1,3,5].map(i=>parseInt(a.substr(i,2),16)),pb=[1,3,5].map(i=>parseInt(b.substr(i,2),16));
+  const p=pa.map((v,i)=>Math.round(v+(pb[i]-v)*Math.max(0,Math.min(1,t))));return `rgb(${p[0]},${p[1]},${p[2]})`;}
+
 /* Poisson (client) pour la matrice des scores */
 function pois(k,l){let p=Math.exp(-l);for(let i=1;i<=k;i++)p*=l/i;return p;}
-function scoreMatrix(ld,le,n){
-  const z=[],txt=[];
-  for(let i=0;i<=n;i++){const row=[],tr=[];for(let j=0;j<=n;j++){const v=pois(i,ld)*pois(j,le)*100;row.push(v);tr.push(v>=1?v.toFixed(0):"");}z.push(row);txt.push(tr);}
-  return {z,txt};
-}
+function scoreMatrix(ld,le,n){const z=[];for(let i=0;i<=n;i++){const row=[];for(let j=0;j<=n;j++)row.push(pois(i,ld)*pois(j,le)*100);z.push(row);}return {z};}
+
 const drawn={analyses:false,thirds:false};
 let _calJumped=false;
-function resizeIn(sec){document.querySelectorAll("#"+sec+" .js-plotly-plot").forEach(el=>{if(window.Plotly)Plotly.Plots.resize(el);});}
-// ResizeObserver : recale chaque graphe sur la largeur réelle de son conteneur (anti-débordement/compression)
-let _RO=null;
-function ensureRO(){
-  if(_RO||!window.ResizeObserver) return;
-  _RO=new ResizeObserver(es=>{for(const e of es){const el=e.target,w=Math.round(e.contentRect.width);
-    if(w<=0||el._pw===w) continue; el._pw=w; if(el.data&&window.Plotly) Plotly.Plots.resize(el);}});
-}
-function observeCharts(sec){ensureRO(); if(!_RO) return; document.querySelectorAll("#"+sec+" .chart").forEach(c=>_RO.observe(c));}
 
-function drawThirds(){
-  if(drawn.thirds) return; drawn.thirds=true;
-  const t3=D.qualifiers.troisiemes;
-  PNP("chartThirds",[{
-    type:"bar",orientation:"h",x:t3.map(t=>t.pts).reverse(),y:t3.map(t=>t.groupe+" · "+t.equipe).reverse(),
-    marker:{color:t3.map(t=>t.qualifie?"#2ecc71":"#ef5350").reverse()},
-    text:t3.map(t=>t.pts+" pts, "+(t.diff>=0?'+':'')+t.diff).reverse(),textposition:"outside",
-    hovertemplate:"%{y}<extra></extra>"
-  }],LAYOUT({height:420,title:"Course aux 8 meilleurs 3es (vert = qualifié)"}),CFG);
+/* --- 1) Elo moyen par groupe (barres + moustache min/max) --- */
+function svgGroupStrength(){
+  const gs=D.meta.groupes.map(g=>{const es=D.ratings.filter(t=>t.groupe===g).map(t=>t.elo);
+    const mean=es.reduce((a,b)=>a+b,0)/es.length;return {g,mean,min:Math.min(...es),max:Math.max(...es)};}).sort((a,b)=>b.mean-a.mean);
+  const W=720,H=360,xL=52,xR=706,yT=22,yB=312,vmin=1550,vmax=1950,Y=v=>yB-(v-vmin)/(vmax-vmin)*(yB-yT);
+  let s="";
+  for(let v=vmin;v<=vmax;v+=100){const y=Y(v);s+=svL(xL,y,xR,y,{cls:'cv-grid'});s+=svT(xL-6,y+4,v,{anchor:'end',fs:11,cls:'cv-mut'});}
+  const n=gs.length,slot=(xR-xL)/n,bw=slot*0.56;
+  gs.forEach((d,i)=>{const cx=xL+slot*(i+0.5),x=cx-bw/2,y=Y(d.mean);
+    s+=svR(x,y,bw,yB-y,{cls:'cv-acc',rx:3,title:`Groupe ${d.g} · Elo moyen ${Math.round(d.mean)}`});
+    s+=svL(cx,Y(d.min),cx,Y(d.max),{stroke:'#8a98a8',sw:1.4});
+    s+=svL(cx-5,Y(d.max),cx+5,Y(d.max),{stroke:'#8a98a8',sw:1.4});
+    s+=svL(cx-5,Y(d.min),cx+5,Y(d.min),{stroke:'#8a98a8',sw:1.4});
+    s+=svT(cx,y-6,Math.round(d.mean),{anchor:'middle',fs:11,weight:700});
+    s+=svT(cx,yB+17,'Gr. '+d.g,{anchor:'middle',fs:11,cls:'cv-mut'});});
+  return svgWrap(W,H,s);
 }
 
-function drawAnalyses(){
-  if(drawn.analyses) return; drawn.analyses=true;
-  const ACC=THEME[curTheme()].accent;
-
-  // 1) Niveau des groupes (Elo moyen + min/max)
-  const gs=D.meta.groupes.map(g=>{
-    const es=D.ratings.filter(t=>t.groupe===g).map(t=>t.elo);
-    const mean=es.reduce((a,b)=>a+b,0)/es.length;
-    return {g,mean,min:Math.min(...es),max:Math.max(...es)};
-  }).sort((a,b)=>b.mean-a.mean);
-  PNP("chartGroupStrength",[{
-    type:"bar",x:gs.map(d=>"Groupe "+d.g),y:gs.map(d=>Math.round(d.mean)),
-    marker:{color:gs.map(d=>d.mean),colorscale:[[0,"#9fb2c6"],[1,ACC]],line:{width:0}},
-    error_y:{type:"data",symmetric:false,array:gs.map(d=>d.max-d.mean),arrayminus:gs.map(d=>d.mean-d.min),color:"#8a98a8",thickness:1.2,width:4},
-    text:gs.map(d=>Math.round(d.mean)),textposition:"outside",
-    hovertemplate:"%{x}<br>Elo moyen %{y}<extra></extra>"
-  }],LAYOUT({height:420,title:"Elo moyen par groupe (barre d'erreur = min→max)",
-     yaxis:{title:"Elo",range:[1550,1950]}}),CFG);
-
-  // 2) Attaque vs défense (buts marqués / encaissés pronostiqués)
-  const agg={};
-  D.predictions.forEach(p=>{
-    (agg[p.dom]=agg[p.dom]||{f:0,a:0}); (agg[p.ext]=agg[p.ext]||{f:0,a:0});
-    agg[p.dom].f+=p.bd; agg[p.dom].a+=p.be; agg[p.ext].f+=p.be; agg[p.ext].a+=p.bd;
-  });
-  const stMap={},ptMap={};
-  D.ratings.forEach(t=>stMap[t.equipe]=t.statut);
+/* --- 2) Attaque vs défense (scatter) --- */
+function svgAttDef(){
+  const agg={};D.predictions.forEach(p=>{(agg[p.dom]=agg[p.dom]||{f:0,a:0});(agg[p.ext]=agg[p.ext]||{f:0,a:0});
+    agg[p.dom].f+=p.bd;agg[p.dom].a+=p.be;agg[p.ext].f+=p.be;agg[p.ext].a+=p.bd;});
+  const stMap={},ptMap={};D.ratings.forEach(t=>stMap[t.equipe]=t.statut);
   Object.values(D.standings).forEach(arr=>arr.forEach(t=>ptMap[t.equipe]=t.pts));
-  const ad=Object.keys(agg).map(t=>({t,f:agg[t].f,a:agg[t].a,st:stMap[t],pts:ptMap[t]||0}));
-  const adTrace=st=>({type:"scatter",mode:"markers",name:ST_LABEL[st]==="Élim."?"Éliminé":ST_LABEL[st],
-    x:ad.filter(d=>d.st===st).map(d=>d.f), y:ad.filter(d=>d.st===st).map(d=>d.a),
-    text:ad.filter(d=>d.st===st).map(d=>d.t),
-    marker:{size:ad.filter(d=>d.st===st).map(d=>8+d.pts*1.4),color:ST_COLOR[st],line:{color:"#fff",width:.5},opacity:.9},
-    hovertemplate:"%{text}<br>marqués %{x} · encaissés %{y}<extra></extra>"});
-  PNP("chartAttDef",["1er","2e","3e","out"].map(adTrace),
-    LAYOUT({height:520,title:"Attaque vs défense — buts marqués (x) / encaissés (y)",
-      xaxis:{title:"Buts marqués (3 matchs)"},yaxis:{title:"Buts encaissés",autorange:"reversed"}}),CFG);
+  const ad=Object.keys(agg).map(t=>({t,f:agg[t].f,a:agg[t].a,st:stMap[t]||'out',pts:ptMap[t]||0}));
+  const W=720,H=480,xL=46,xR=702,yT=16,yB=436;
+  const maxF=Math.max(...ad.map(d=>d.f))+1,maxA=Math.max(...ad.map(d=>d.a))+1;
+  const X=v=>xL+v/maxF*(xR-xL),Y=v=>yT+v/maxA*(yB-yT);
+  let s="";
+  for(let i=0;i<=maxF;i++){const x=X(i);s+=svL(x,yT,x,yB,{cls:'cv-grid'});s+=svT(x,yB+15,i,{anchor:'middle',fs:10,cls:'cv-mut'});}
+  const stepA=Math.max(1,Math.ceil(maxA/8));
+  for(let j=0;j<=maxA;j+=stepA){const y=Y(j);s+=svL(xL,y,xR,y,{cls:'cv-grid'});s+=svT(xL-5,y+3,j,{anchor:'end',fs:10,cls:'cv-mut'});}
+  ad.forEach(d=>{s+=svC(X(d.f),Y(d.a),4+d.pts*0.7,{fill:ST_COLOR[d.st],op:.85,stroke:'#fff',sw:.5,title:`${d.t} · marqués ${d.f} · encaissés ${d.a} · ${d.pts} pts`});});
+  s+=svT((xL+xR)/2,H-3,'Buts marqués →',{anchor:'middle',fs:11,cls:'cv-mut'});
+  s+=`<text x="13" y="${(yT+yB)/2}" font-size="11" class="cv-mut" text-anchor="middle" transform="rotate(-90 13 ${((yT+yB)/2).toFixed(1)})">← Buts encaissés</text>`;
+  return cvLegend([{c:ST_COLOR['1er'],l:'1er'},{c:ST_COLOR['2e'],l:'2e'},{c:ST_COLOR['3e'],l:'3e qualifié'},{c:ST_COLOR.out,l:'Éliminé'}])+svgWrap(W,H,s);
+}
 
-  // 3) Points & qualification
-  const teams=[]; Object.values(D.standings).forEach(g=>g.forEach(t=>teams.push(t)));
-  teams.sort((a,b)=>a.pts-b.pts || a.diff-b.diff);
-  PNP("chartPoints",[{
-    type:"bar",orientation:"h",x:teams.map(t=>t.pts),y:teams.map(t=>t.equipe),
-    marker:{color:teams.map(t=>ST_COLOR[t.statut])},text:teams.map(t=>t.pts),textposition:"outside",
-    hovertemplate:"%{y}<br>%{x} pts<extra></extra>"
-  }],LAYOUT({height:1050,title:"Points pronostiqués (48 équipes)"}),CFG);
+/* --- 3) Points pronostiqués (barres horizontales, 48 équipes) --- */
+function svgPoints(){
+  const teams=[];Object.values(D.standings).forEach(g=>g.forEach(t=>teams.push(t)));
+  teams.sort((a,b)=>b.pts-a.pts||b.diff-a.diff);
+  const n=teams.length,rowH=18,padT=8,padB=8,xL=140,xR=686,W=720,H=padT+padB+n*rowH;
+  const maxP=Math.max(...teams.map(t=>t.pts),1);let s="";
+  teams.forEach((t,i)=>{const y=padT+i*rowH,cy=y+rowH/2,bw=(t.pts/maxP)*(xR-xL);
+    s+=svT(xL-6,cy+4,t.equipe,{anchor:'end',fs:11});
+    s+=svR(xL,y+3,bw,rowH-6,{fill:ST_COLOR[t.statut],rx:2,title:`${t.equipe} · ${t.pts} pts`});
+    s+=svT(xL+bw+5,cy+4,t.pts,{fs:11,weight:700});});
+  return cvLegend([{c:ST_COLOR['1er'],l:'1er'},{c:ST_COLOR['2e'],l:'2e'},{c:ST_COLOR['3e'],l:'3e qualifié'},{c:ST_COLOR.out,l:'Éliminé'}])+svgWrap(W,H,s);
+}
 
-  // 4) Modèle vs mpp
+/* --- 4) Modèle vs mpp (scatter + diagonale) --- */
+function svgMpp(){
   const mp=D.predictions.filter(p=>p.mpp_v!=null);
   const same=p=>Math.sign(p.pv-p.pd)===Math.sign(p.mpp_v-p.mpp_d);
   const agree=mp.filter(same).length;
   const note=document.getElementById("mppNote");
-  if(note) note.innerHTML=`Proba de victoire à domicile : notre modèle (X) vs mpp (Y). Même favori dans <strong>${agree}/${mp.length}</strong> matchs.`;
-  const mk=(cond,col,name)=>({type:"scatter",mode:"markers",name,
-     x:mp.filter(cond).map(p=>p.pv),y:mp.filter(cond).map(p=>p.mpp_v),
-     text:mp.filter(cond).map(p=>p.dom+" – "+p.ext),
-     marker:{size:10,color:col,line:{color:"#fff",width:.5}},
-     hovertemplate:"%{text}<br>modèle %{x:.0%} · mpp %{y:.0%}<extra></extra>"});
-  PNP("chartMpp",[
-     mk(p=>same(p),ST_COLOR["1er"],"Même favori"),
-     mk(p=>!same(p),ST_COLOR.out,"Favori différent"),
-     {type:"scatter",mode:"lines",x:[0,1],y:[0,1],line:{dash:"dash",color:"#8a98a8"},hoverinfo:"skip",showlegend:false}
-  ],LAYOUT({height:520,title:"P(victoire domicile) — modèle vs mpp",
-     xaxis:{range:[0,1],title:"modèle",tickformat:".0%"},yaxis:{range:[0,1],title:"mpp",tickformat:".0%"}}),CFG);
+  if(note)note.innerHTML=`Proba de victoire à domicile : notre modèle (axe X) vs mpp (axe Y). Même favori dans <strong>${agree}/${mp.length}</strong> matchs.`;
+  const W=720,H=480,xL=48,xR=702,yT=16,yB=436,X=v=>xL+v*(xR-xL),Y=v=>yB-v*(yB-yT);let s="";
+  for(let i=0;i<=10;i+=2){const x=X(i/10),y=Y(i/10);s+=svL(x,yT,x,yB,{cls:'cv-grid'});s+=svL(xL,y,xR,y,{cls:'cv-grid'});
+    s+=svT(x,yB+15,i*10+'%',{anchor:'middle',fs:10,cls:'cv-mut'});s+=svT(xL-5,y+3,i*10+'%',{anchor:'end',fs:10,cls:'cv-mut'});}
+  s+=svL(X(0),Y(0),X(1),Y(1),{stroke:'#8a98a8',sw:1,dash:'5 4'});
+  mp.forEach(p=>{s+=svC(X(p.pv),Y(p.mpp_v),5,{fill:same(p)?ST_COLOR['1er']:ST_COLOR.out,op:.85,stroke:'#fff',sw:.5,title:`${p.dom} – ${p.ext} · modèle ${Math.round(p.pv*100)}% · mpp ${Math.round(p.mpp_v*100)}%`});});
+  s+=svT((xL+xR)/2,H-3,'Modèle — P(victoire dom) →',{anchor:'middle',fs:11,cls:'cv-mut'});
+  s+=`<text x="13" y="${((yT+yB)/2).toFixed(1)}" font-size="11" class="cv-mut" text-anchor="middle" transform="rotate(-90 13 ${((yT+yB)/2).toFixed(1)})">mpp →</text>`;
+  return cvLegend([{c:ST_COLOR['1er'],l:'Même favori'},{c:ST_COLOR.out,l:'Favori différent'}])+svgWrap(W,H,s);
+}
 
-  // 5) Distribution des buts par match
-  const goals={};
-  D.predictions.forEach(p=>{const tot=p.bd+p.be;goals[tot]=(goals[tot]||0)+1;});
+/* --- 5) Distribution des buts par match (barres) --- */
+function svgGoals(){
+  const goals={};D.predictions.forEach(p=>{const tot=p.bd+p.be;goals[tot]=(goals[tot]||0)+1;});
   const gk=Object.keys(goals).map(Number).sort((a,b)=>a-b);
-  PNP("chartGoals",[{
-    type:"bar",x:gk.map(k=>k+" but"+(k>1?"s":"")),y:gk.map(k=>goals[k]),
-    marker:{color:ACC},text:gk.map(k=>goals[k]),textposition:"outside",
-    hovertemplate:"%{x} : %{y} matchs<extra></extra>"
-  }],LAYOUT({height:380,title:"Nombre de buts par match (72 matchs)",yaxis:{title:"matchs"}}),CFG);
+  const W=720,H=340,xL=44,xR=706,yT=20,yB=300,maxV=Math.max(...gk.map(k=>goals[k])),Y=v=>yB-v/maxV*(yB-yT);
+  const n=gk.length,slot=(xR-xL)/n,bw=slot*0.6,step=Math.max(1,Math.ceil(maxV/5));let s="";
+  for(let i=0;i<=maxV;i+=step){const y=Y(i);s+=svL(xL,y,xR,y,{cls:'cv-grid'});s+=svT(xL-5,y+3,i,{anchor:'end',fs:10,cls:'cv-mut'});}
+  gk.forEach((k,i)=>{const cx=xL+slot*(i+0.5),x=cx-bw/2,y=Y(goals[k]);
+    s+=svR(x,y,bw,yB-y,{cls:'cv-acc',rx:3,title:`${k} but(s) : ${goals[k]} matchs`});
+    s+=svT(cx,y-5,goals[k],{anchor:'middle',fs:11,weight:700});
+    s+=svT(cx,yB+16,k+(k>1?' buts':' but'),{anchor:'middle',fs:11,cls:'cv-mut'});});
+  return svgWrap(W,H,s);
+}
 
-  // 6) Validation J1 : issues réelles vs modèle (groupé V/N/D)
-  const iss=s=>{const[a,b]=s.split("-").map(Number);return a>b?"V":a<b?"N":"D";};
+/* --- 6) Validation J1 : réel vs modèle (barres groupées) --- */
+function svgJ1(){
+  const iss=s=>{const a=s.split("-").map(Number);return a[0]>a[1]?"V":a[0]<a[1]?"N":"D";};
   const cntReal={V:0,N:0,D:0},cntMod={V:0,N:0,D:0};
   D.j1.forEach(m=>{cntReal[iss(m.reel)]++;cntMod[iss(m.modele)]++;});
   const order=["V","N","D"],lab={V:"Victoire dom",N:"Nul",D:"Victoire ext"};
-  PNP("chartJ1",[
-    {type:"bar",name:"Réel",x:order.map(k=>lab[k]),y:order.map(k=>cntReal[k]),marker:{color:ST_COLOR["1er"]},text:order.map(k=>cntReal[k]),textposition:"outside"},
-    {type:"bar",name:"Modèle Elo",x:order.map(k=>lab[k]),y:order.map(k=>cntMod[k]),marker:{color:"#8a98a8"},text:order.map(k=>cntMod[k]),textposition:"outside"}
-  ],LAYOUT({height:380,barmode:"group",
-     title:`J1 réelle vs modèle — ${Math.round(D.meta.j1_accuracy*100)}% d'issues correctes (8 nuls sur 16)`}),CFG);
+  const W=720,H=340,xL=44,xR=706,yT=20,yB=300,maxV=Math.max(...order.map(k=>Math.max(cntReal[k],cntMod[k])),1),Y=v=>yB-v/maxV*(yB-yT);
+  const n=order.length,slot=(xR-xL)/n,bw=slot*0.3,step=Math.max(1,Math.ceil(maxV/5));let s="";
+  for(let i=0;i<=maxV;i+=step){const y=Y(i);s+=svL(xL,y,xR,y,{cls:'cv-grid'});s+=svT(xL-5,y+3,i,{anchor:'end',fs:10,cls:'cv-mut'});}
+  order.forEach((k,i)=>{const cx=xL+slot*(i+0.5),xr=cx-bw-2,xm=cx+2,yr=Y(cntReal[k]),ym=Y(cntMod[k]);
+    s+=svR(xr,yr,bw,yB-yr,{fill:ST_COLOR['1er'],rx:2,title:`Réel ${lab[k]} : ${cntReal[k]}`});
+    s+=svR(xm,ym,bw,yB-ym,{fill:'#8a98a8',rx:2,title:`Modèle ${lab[k]} : ${cntMod[k]}`});
+    s+=svT(xr+bw/2,yr-4,cntReal[k],{anchor:'middle',fs:10,weight:700});
+    s+=svT(xm+bw/2,ym-4,cntMod[k],{anchor:'middle',fs:10,weight:700});
+    s+=svT(cx,yB+16,lab[k],{anchor:'middle',fs:11,cls:'cv-mut'});});
+  return cvLegend([{c:ST_COLOR['1er'],l:'Réel'},{c:'#8a98a8',l:'Modèle Elo'}])+svgWrap(W,H,s);
+}
 
-  // 7) Explorateur de match -> matrice Poisson
+/* --- 7) Matrice des scores (heatmap) --- */
+function svgMatrix(p,n){
+  n=n||6;const m=scoreMatrix(p.xg_dom,p.xg_ext,n),th=THEME[curTheme()];
+  const W=460,H=440,xL=44,xR=430,yT=24,yB=410,cw=(xR-xL)/(n+1),ch=(yB-yT)/(n+1);
+  let maxz=0;m.z.forEach(r=>r.forEach(v=>{if(v>maxz)maxz=v;}));let s="";
+  for(let i=0;i<=n;i++)for(let j=0;j<=n;j++){const v=m.z[i][j],x=xL+j*cw,y=yT+i*ch,r=v/(maxz||1);
+    const col=lerp(th.paper,th.accent,r),pred=(i===p.bd&&j===p.be);
+    s+=`<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${cw.toFixed(1)}" height="${ch.toFixed(1)}" fill="${col}" stroke="${pred?th.accent:'rgba(128,128,128,.18)'}" stroke-width="${pred?2:.5}"><title>score ${i}-${j} : ${v.toFixed(1)}%</title></rect>`;
+    if(v>=5)s+=svT(x+cw/2,y+ch/2+3,Math.round(v),{anchor:'middle',fs:9,fill:r>0.5?'#fff':th.font});}
+  for(let j=0;j<=n;j++)s+=svT(xL+j*cw+cw/2,yB+15,j,{anchor:'middle',fs:10,cls:'cv-mut'});
+  for(let i=0;i<=n;i++)s+=svT(xL-6,yT+i*ch+ch/2+3,i,{anchor:'end',fs:10,cls:'cv-mut'});
+  s+=svT((xL+xR)/2,H-4,'Buts '+p.ext+' →',{anchor:'middle',fs:11,cls:'cv-mut'});
+  s+=`<text x="12" y="${((yT+yB)/2).toFixed(1)}" font-size="11" class="cv-mut" text-anchor="middle" transform="rotate(-90 12 ${((yT+yB)/2).toFixed(1)})">Buts ${esc(p.dom)} →</text>`;
+  return svgWrap(W,H,s,'cv-matrix');
+}
+
+/* --- Comparaison (fiche match) : barres groupées --- */
+function svgCompare(p){
+  const agg={};D.predictions.forEach(q=>{(agg[q.dom]=agg[q.dom]||{f:0,a:0});(agg[q.ext]=agg[q.ext]||{f:0,a:0});
+    agg[q.dom].f+=q.bd;agg[q.dom].a+=q.be;agg[q.ext].f+=q.be;agg[q.ext].a+=q.bd;});
+  const ptsOf=tm=>{for(const g of Object.values(D.standings)){const r=g.find(x=>x.equipe===tm);if(r)return r.pts;}return 0;};
+  const cats=[["Points",ptsOf],["Buts marqués",tm=>(agg[tm]||{}).f||0],["Buts encaissés",tm=>(agg[tm]||{}).a||0]];
+  const W=560,H=290,xL=40,xR=548,yT=16,yB=244;
+  const maxV=Math.max(1,...cats.flatMap(c=>[c[1](p.dom),c[1](p.ext)])),Y=v=>yB-v/maxV*(yB-yT);
+  const n=cats.length,slot=(xR-xL)/n,bw=slot*0.28,step=Math.max(1,Math.ceil(maxV/5));let s="";
+  for(let i=0;i<=maxV;i+=step){const y=Y(i);s+=svL(xL,y,xR,y,{cls:'cv-grid'});s+=svT(xL-5,y+3,i,{anchor:'end',fs:10,cls:'cv-mut'});}
+  cats.forEach((c,i)=>{const cx=xL+slot*(i+0.5),vd=c[1](p.dom),ve=c[1](p.ext),xd=cx-bw-2,xe=cx+2,yd=Y(vd),ye=Y(ve);
+    s+=svR(xd,yd,bw,yB-yd,{cls:'cv-acc',rx:2,title:`${p.dom} : ${vd}`});
+    s+=svR(xe,ye,bw,yB-ye,{fill:'#8a98a8',rx:2,title:`${p.ext} : ${ve}`});
+    s+=svT(xd+bw/2,yd-4,vd,{anchor:'middle',fs:10,weight:700});
+    s+=svT(xe+bw/2,ye-4,ve,{anchor:'middle',fs:10,weight:700});
+    s+=svT(cx,yB+16,c[0],{anchor:'middle',fs:10,cls:'cv-mut'});});
+  return cvLegend([{c:'var(--accent)',l:p.dom},{c:'#8a98a8',l:p.ext}])+svgWrap(W,H,s);
+}
+
+function drawThirds(){if(drawn.thirds)return;drawn.thirds=true;
+  const el=document.getElementById("chartThirds");if(el)el.innerHTML=svgThirds();}
+function svgThirds(){
+  const t3=D.qualifiers.troisiemes,n=t3.length,rowH=22,padT=6,padB=6,xL=150,xR=686,W=720,H=padT+padB+n*rowH;
+  const maxP=Math.max(...t3.map(t=>t.pts),1);let s="";
+  t3.forEach((t,i)=>{const y=padT+i*rowH,cy=y+rowH/2,bw=(t.pts/maxP)*(xR-xL);
+    s+=svT(xL-6,cy+4,t.groupe+' · '+t.equipe,{anchor:'end',fs:11});
+    s+=svR(xL,y+4,bw,rowH-8,{fill:t.qualifie?'#2ecc71':'#ef5350',rx:2,title:`${t.equipe} · ${t.pts} pts`});
+    s+=svT(xL+bw+5,cy+4,`${t.pts} pts, ${t.diff>=0?'+':''}${t.diff}`,{fs:10,weight:700});});
+  return cvLegend([{c:'#2ecc71',l:'Qualifié'},{c:'#ef5350',l:'Éliminé'}])+svgWrap(W,H,s);
+}
+
+function drawAnalyses(){if(drawn.analyses)return;drawn.analyses=true;
+  const set=(id,html)=>{const el=document.getElementById(id);if(el)el.innerHTML=html;};
+  set("chartGroupStrength",svgGroupStrength());
+  set("chartAttDef",svgAttDef());
+  set("chartPoints",svgPoints());
+  set("chartMpp",svgMpp());
+  set("chartGoals",svgGoals());
+  set("chartJ1",svgJ1());
   const sel=document.getElementById("matchSel");
-  if(sel){
-    sel.innerHTML=D.predictions.map((p,i)=>`<option value="${i}">${p.groupe} · ${esc(p.dom)} – ${esc(p.ext)}</option>`).join("");
-    const drawMatrix=i=>{
-      const p=D.predictions[i],n=6,m=scoreMatrix(p.xg_dom,p.xg_ext,n);
-      PNP("chartMatrix",[{
-        type:"heatmap",z:m.z,text:m.txt,texttemplate:"%{text}",textfont:{size:10},
-        x:[...Array(n+1).keys()],y:[...Array(n+1).keys()],
-        colorscale:[[0,THEME[curTheme()].paper],[1,ACC]],showscale:false,
-        hovertemplate:"score %{y}-%{x} : %{z:.1f}%<extra></extra>"
-      }],LAYOUT({height:460,
-         title:`${esc(p.dom)} ${p.bd}-${p.be} ${esc(p.ext)} — λ ${p.xg_dom.toFixed(2)} / ${p.xg_ext.toFixed(2)}`,
-         xaxis:{title:"Buts "+esc(p.ext),dtick:1},yaxis:{title:"Buts "+esc(p.dom),dtick:1}}),CFG);
-    };
-    const def=D.predictions.findIndex(p=>p.dom==="France");
-    sel.value=def>=0?def:0; drawMatrix(sel.value);
-    sel.onchange=()=>drawMatrix(sel.value);
-  }
+  if(sel){sel.innerHTML=D.predictions.map((p,i)=>`<option value="${i}">${esc(p.groupe)} · ${esc(p.dom)} – ${esc(p.ext)}</option>`).join("");
+    const draw=i=>{const p=D.predictions[i],el=document.getElementById("chartMatrix");
+      if(el)el.innerHTML=`<div class="cv-cap">${esc(p.dom)} ${p.bd}-${p.be} ${esc(p.ext)} — λ ${p.xg_dom.toFixed(2)} / ${p.xg_ext.toFixed(2)}</div>`+svgMatrix(p,6);};
+    const def=D.predictions.findIndex(p=>p.dom==="France");sel.value=def>=0?def:0;draw(+sel.value);
+    sel.onchange=()=>draw(+sel.value);}
 }
 
 /* ---------- Rapport & Méthodo ---------- */
@@ -622,25 +647,9 @@ function openMatch(i){
     <div class="grid2" style="margin-top:14px">${teamPanel(p.dom)}${teamPanel(p.ext)}</div>`;
   m.hidden=false; document.body.style.overflow="hidden";
   m.querySelector(".modal-card").scrollTop=0;
-  requestAnimationFrame(()=>{
-    if(!window.Plotly) return;
-    const n=6,mat=scoreMatrix(p.xg_dom,p.xg_ext,n),t=THEME[curTheme()];
-    PNP("mMatrix",[{type:"heatmap",z:mat.z,text:mat.txt,texttemplate:"%{text}",textfont:{size:10},
-      x:[...Array(n+1).keys()],y:[...Array(n+1).keys()],colorscale:[[0,t.paper],[1,t.accent]],showscale:false,
-      hovertemplate:"score %{y}-%{x} : %{z:.1f}%<extra></extra>"}],
-      LAYOUT({height:360,xaxis:{title:"Buts "+esc(p.ext),dtick:1},yaxis:{title:"Buts "+esc(p.dom),dtick:1}}),CFG);
-    // Comparaison : points projetés, buts marqués/encaissés sur la phase de groupes
-    const agg={};
-    D.predictions.forEach(q=>{(agg[q.dom]=agg[q.dom]||{f:0,a:0});(agg[q.ext]=agg[q.ext]||{f:0,a:0});
-      agg[q.dom].f+=q.bd;agg[q.dom].a+=q.be;agg[q.ext].f+=q.be;agg[q.ext].a+=q.bd;});
-    const pts=tm=>{for(const g of Object.values(D.standings)){const r=g.find(x=>x.equipe===tm);if(r)return r.pts;}return 0;};
-    const cats=["Points (groupe)","Buts marqués","Buts encaissés"];
-    const vy=tm=>[pts(tm),(agg[tm]||{}).f||0,(agg[tm]||{}).a||0];
-    PNP("mCompare",[
-      {type:"bar",name:p.dom,x:cats,y:vy(p.dom),marker:{color:t.accent},text:vy(p.dom),textposition:"outside"},
-      {type:"bar",name:p.ext,x:cats,y:vy(p.ext),marker:{color:"#8a98a8"},text:vy(p.ext),textposition:"outside"}
-    ],LAYOUT({height:300,barmode:"group"}),CFG);
-  });
+  // rendu SVG immédiat (aucune mesure de conteneur nécessaire)
+  const mC=document.getElementById("mCompare"); if(mC) mC.innerHTML=svgCompare(p);
+  const mM=document.getElementById("mMatrix"); if(mM) mM.innerHTML=svgMatrix(p,6);
 }
 document.addEventListener("click",e=>{
   const tr=e.target.closest("[data-match]");
@@ -652,10 +661,8 @@ function show(sec){
   document.querySelectorAll(".sec").forEach(s=>s.classList.toggle("active",s.id===sec));
   document.querySelectorAll("#nav a").forEach(a=>a.classList.toggle("active",a.dataset.sec===sec));
   // Dessin différé : la section vient d'être affichée, on attend le layout (largeur réelle)
-  if(sec==="analyses"){ const a=document.getElementById("analyses"); void a.offsetWidth;   // force le layout -> largeurs réelles
-    requestAnimationFrame(()=>{drawAnalyses(); observeCharts("analyses"); resizeIn("analyses"); setTimeout(()=>resizeIn("analyses"),120);}); }
-  if(sec==="qualifies"){ const a=document.getElementById("qualifies"); void a.offsetWidth;
-    requestAnimationFrame(()=>{drawThirds(); observeCharts("qualifies"); resizeIn("qualifies"); setTimeout(()=>resizeIn("qualifies"),120);}); }
+  if(sec==="analyses") drawAnalyses();   // SVG : rendu direct, aucune mesure requise
+  if(sec==="qualifies") drawThirds();
   if(sec==="calendrier" && !_calJumped && NEXT_I>=0){_calJumped=true;
     const s=document.getElementById("calendrier");
     requestAnimationFrame(()=>{ if(s&&s._jumpNext) s._jumpNext(); });
@@ -676,15 +683,11 @@ function applyTheme(t){
   document.body.dataset.theme=t;
   try{localStorage.setItem("cdm-theme",t);}catch(e){}
   const lbl=document.getElementById("themeLbl"); if(lbl) lbl.textContent = t==="dark"?"Clair":"Sombre";
-  ["chartGroupStrength","chartAttDef","chartPoints","chartMpp","chartGoals","chartJ1","chartMatrix","chartThirds"].forEach(id=>{
-    const el=document.getElementById(id); if(el&&el.data&&window.Plotly) Plotly.purge(el);
-  });
+  // SVG : la plupart des couleurs suivent les variables CSS ; on redessine pour la heatmap (couleurs calculées)
   drawn.analyses=false; drawn.thirds=false;
   const active=document.querySelector(".sec.active");
-  requestAnimationFrame(()=>{
-    if(active&&active.id==="analyses"){drawAnalyses(); resizeIn("analyses");}
-    if(active&&active.id==="qualifies"){drawThirds(); resizeIn("qualifies");}
-  });
+  if(active&&active.id==="analyses") drawAnalyses();
+  if(active&&active.id==="qualifies") drawThirds();
 }
 (function initTheme(){
   let t="light"; try{t=localStorage.getItem("cdm-theme")||"light";}catch(e){}
@@ -698,4 +701,4 @@ renderAnalyses(); renderRapport(); renderMethodo();
 const SECS=["accueil","calendrier","groupes","qualifies","analyses","rapport","methodo"];
 const start=(location.hash||"#accueil").slice(1);
 show(SECS.includes(start)?start:"accueil");
-window.addEventListener("resize",()=>{if(drawn.analyses)resizeIn("analyses");if(drawn.thirds)resizeIn("qualifies");});
+/* graphiques SVG responsive (viewBox) : aucun recalcul JS au redimensionnement */

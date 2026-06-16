@@ -221,9 +221,17 @@ th.sortable.active{color:var(--accent)}
 .selrow{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:8px 0}
 .selrow select{background:var(--card);color:var(--txt);border:1px solid var(--line2);border-radius:9px;padding:8px 10px;font-family:var(--font)}
 
-/* ---------- Plotly : tient exactement dans son conteneur ---------- */
-.chart{width:100%;min-height:340px;padding:0;overflow:hidden}
-.chart .plot-container,.chart .svg-container{max-width:100%}
+/* ---------- Graphiques SVG maison (responsive via viewBox) ---------- */
+.chart{width:100%;padding:10px 12px}
+.cv{display:block;width:100%;height:auto;color:var(--txt);font-family:var(--font)}
+.cv-grid{stroke:var(--line)}
+.cv-mut{fill:var(--muted)}
+.cv-acc{fill:var(--accent)}
+.cv-matrix{max-width:440px;margin:0 auto}
+.cv-cap{font-family:var(--display);font-weight:700;font-size:.9rem;text-align:center;margin:2px 0 6px}
+.cv-legend{display:flex;flex-wrap:wrap;gap:14px;font-size:.78rem;color:var(--muted);margin:2px 0 8px}
+.cv-legend span{display:inline-flex;align-items:center}
+.cv-legend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:6px}
 
 /* ---------- Badge de score coloré par issue (V/N/D) ---------- */
 .scoreb{display:inline-block;font-family:var(--display);font-weight:800;font-size:.82rem;
@@ -300,6 +308,8 @@ html{overflow-y:scroll}
   border:none;border-radius:9px;padding:9px 14px;font-family:var(--font);font-weight:700;font-size:.85rem}
 body[data-theme="dark"] .btn-next{color:#04231a}
 .btn-next:hover{filter:brightness(1.07)}
+/* cellule match : aligne verticalement le badge "à suivre" avec les équipes */
+.matchcell{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 /* prochain match : surlignage doux (sans barre verticale), badge pilule centré */
 tr.isnext>td{background:color-mix(in srgb,var(--accent) 8%,transparent)!important}
 @keyframes pulse{0%{background:color-mix(in srgb,var(--accent) 24%,transparent)}100%{background:color-mix(in srgb,var(--accent) 8%,transparent)}}

@@ -2689,6 +2689,200 @@ window.DATA = {
   "K": "Portugal et Colombie, au coude-à-coude (nul 1-1 décisif), se qualifient tous deux, le Portugal 1er à la différence de buts. La RD Congo arrache une 3e place qualifiable de justesse. L'Ouzbékistan, pour sa 1ère CDM, termine dernier.",
   "L": "L'Angleterre est démonstrative (9 pts, +6). La Croatie, vieillissante mais expérimentée, prend la 2e place. Ghana et Panama, à égalité au fond du classement, sont tous deux éliminés."
  },
+ "teams": {
+  "Mexique": {
+   "coach": "Javier Aguirre",
+   "tm": "https://www.transfermarkt.com/mexiko/kader/verein/6303"
+  },
+  "Corée du Sud": {
+   "coach": "Hong Myung-bo",
+   "tm": "https://www.transfermarkt.com/sudkorea/kader/verein/3589"
+  },
+  "Afrique du Sud": {
+   "coach": "Hugo Broos",
+   "tm": "https://www.transfermarkt.com/south-africa/kader/verein/3806"
+  },
+  "Tchéquie": {
+   "coach": "Miroslav Koubek",
+   "tm": "https://www.transfermarkt.com/tschechien/kader/verein/3445"
+  },
+  "Canada": {
+   "coach": "Jesse Marsch",
+   "tm": "https://www.transfermarkt.com/kanada/kader/verein/3510"
+  },
+  "Suisse": {
+   "coach": "Murat Yakin",
+   "tm": "https://www.transfermarkt.com/schweiz/kader/verein/3384"
+  },
+  "Qatar": {
+   "coach": "Julen Lopetegui",
+   "tm": "https://www.transfermarkt.com/katar/kader/verein/14162"
+  },
+  "Bosnie-Herzégovine": {
+   "coach": "Sergej Barbarez",
+   "tm": "https://www.transfermarkt.com/bosnien-herzegowina/kader/verein/3446"
+  },
+  "Brésil": {
+   "coach": "Carlo Ancelotti",
+   "tm": "https://www.transfermarkt.com/brasilien/kader/verein/3439"
+  },
+  "Maroc": {
+   "coach": "Mohamed Ouahbi",
+   "tm": "https://www.transfermarkt.com/marokko/kader/verein/3575"
+  },
+  "Écosse": {
+   "coach": "Steve Clarke",
+   "tm": "https://www.transfermarkt.com/schottland/kader/verein/3380"
+  },
+  "Haïti": {
+   "coach": "Sébastien Migné",
+   "tm": "https://www.transfermarkt.com/haiti/kader/verein/14161"
+  },
+  "États-Unis": {
+   "coach": "Mauricio Pochettino",
+   "tm": "https://www.transfermarkt.com/vereinigte-staaten/kader/verein/3505"
+  },
+  "Australie": {
+   "coach": "Tony Popovic",
+   "tm": "https://www.transfermarkt.com/australien/kader/verein/3433"
+  },
+  "Paraguay": {
+   "coach": "Gustavo Alfaro",
+   "tm": "https://www.transfermarkt.com/paraguay/kader/verein/3581"
+  },
+  "Turquie": {
+   "coach": "Vincenzo Montella",
+   "tm": "https://www.transfermarkt.com/turkei/kader/verein/3381"
+  },
+  "Allemagne": {
+   "coach": "Julian Nagelsmann",
+   "tm": "https://www.transfermarkt.com/deutschland/kader/verein/3262"
+  },
+  "Équateur": {
+   "coach": "Sebastián Beccacece",
+   "tm": "https://www.transfermarkt.com/ecuador/kader/verein/5750"
+  },
+  "Côte d'Ivoire": {
+   "coach": "Emerse Faé",
+   "tm": "https://www.transfermarkt.com/cote-divoire/kader/verein/3591"
+  },
+  "Curaçao": {
+   "coach": "Dick Advocaat",
+   "tm": "https://www.transfermarkt.com/curacao/kader/verein/32364"
+  },
+  "Pays-Bas": {
+   "coach": "Ronald Koeman",
+   "tm": "https://www.transfermarkt.com/niederlande/kader/verein/3379"
+  },
+  "Japon": {
+   "coach": "Hajime Moriyasu",
+   "tm": "https://www.transfermarkt.com/japan/kader/verein/3435"
+  },
+  "Tunisie": {
+   "coach": "Sabri Lamouchi",
+   "tm": "https://www.transfermarkt.com/tunesien/kader/verein/3670"
+  },
+  "Suède": {
+   "coach": "Graham Potter",
+   "tm": "https://www.transfermarkt.com/sweden/kader/verein/3557"
+  },
+  "Belgique": {
+   "coach": "Rudi Garcia",
+   "tm": "https://www.transfermarkt.com/belgien/kader/verein/3382"
+  },
+  "Iran": {
+   "coach": "Amir Ghalenoei",
+   "tm": "https://www.transfermarkt.com/iran/kader/verein/3582"
+  },
+  "Égypte": {
+   "coach": "Hossam Hassan",
+   "tm": "https://www.transfermarkt.com/agypten/kader/verein/3672"
+  },
+  "Nouvelle-Zélande": {
+   "coach": "Darren Bazeley",
+   "tm": "https://www.transfermarkt.com/neuseeland/kader/verein/9171"
+  },
+  "Espagne": {
+   "coach": "Luis de la Fuente",
+   "tm": "https://www.transfermarkt.com/spanien/kader/verein/3375"
+  },
+  "Uruguay": {
+   "coach": "Marcelo Bielsa",
+   "tm": "https://www.transfermarkt.com/uruguay/kader/verein/3449"
+  },
+  "Arabie saoudite": {
+   "coach": "Georgios Donis",
+   "tm": "https://www.transfermarkt.com/saudi-arabien/kader/verein/3807"
+  },
+  "Cap-Vert": {
+   "coach": "Bubista",
+   "tm": "https://www.transfermarkt.com/kap-verde/kader/verein/4311"
+  },
+  "France": {
+   "coach": "Didier Deschamps",
+   "tm": "https://www.transfermarkt.com/frankreich/kader/verein/3377"
+  },
+  "Sénégal": {
+   "coach": "Pape Thiaw",
+   "tm": "https://www.transfermarkt.com/senegal/kader/verein/3499"
+  },
+  "Norvège": {
+   "coach": "Ståle Solbakken",
+   "tm": "https://www.transfermarkt.com/norwegen/kader/verein/3440"
+  },
+  "Irak": {
+   "coach": "Graham Arnold",
+   "tm": "https://www.transfermarkt.com/irak/kader/verein/3560"
+  },
+  "Argentine": {
+   "coach": "Lionel Scaloni",
+   "tm": "https://www.transfermarkt.com/argentinien/kader/verein/3437"
+  },
+  "Autriche": {
+   "coach": "Ralf Rangnick",
+   "tm": "https://www.transfermarkt.com/osterreich/kader/verein/3383"
+  },
+  "Algérie": {
+   "coach": "Vladimir Petković",
+   "tm": "https://www.transfermarkt.com/algerien/kader/verein/3614"
+  },
+  "Jordanie": {
+   "coach": "Jamal Sellami",
+   "tm": "https://www.transfermarkt.com/jordanien/kader/verein/15737"
+  },
+  "Portugal": {
+   "coach": "Roberto Martínez",
+   "tm": "https://www.transfermarkt.com/portugal/kader/verein/3300"
+  },
+  "Colombie": {
+   "coach": "Néstor Lorenzo",
+   "tm": "https://www.transfermarkt.com/kolumbien/kader/verein/3816"
+  },
+  "Ouzbékistan": {
+   "coach": "Fabio Cannavaro",
+   "tm": "https://www.transfermarkt.com/usbekistan/kader/verein/3563"
+  },
+  "RD Congo": {
+   "coach": "Sébastien Desabre",
+   "tm": "https://www.transfermarkt.com/dr-kongo/kader/verein/3854"
+  },
+  "Angleterre": {
+   "coach": "Thomas Tuchel",
+   "tm": "https://www.transfermarkt.com/england/kader/verein/3299"
+  },
+  "Croatie": {
+   "coach": "Zlatko Dalić",
+   "tm": "https://www.transfermarkt.com/kroatien/kader/verein/3556"
+  },
+  "Panama": {
+   "coach": "Thomas Christiansen",
+   "tm": "https://www.transfermarkt.com/panama/kader/verein/3577"
+  },
+  "Ghana": {
+   "coach": "Carlos Queiroz",
+   "tm": "https://www.transfermarkt.com/ghana/kader/verein/3441"
+  }
+ },
  "j1": [
   {
    "match": "Mexique – Afrique du Sud",

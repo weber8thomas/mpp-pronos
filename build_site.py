@@ -17,6 +17,10 @@ try:
     team_details = json.load(open("data/team_details.json", encoding="utf-8"))
 except FileNotFoundError:
     team_details = {}
+try:
+    teams = json.load(open("data/teams.json", encoding="utf-8"))  # équipe -> {coach, tm (lien effectif)}
+except FileNotFoundError:
+    teams = {}
 
 cls = S.tous_classements(pred)
 premiers, deuxiemes, meilleurs3, df3 = S.qualifies(cls)
@@ -99,6 +103,7 @@ meta = {
 
 DATA = {"meta": meta, "predictions": predictions, "standings": standings,
         "qualifiers": qualifiers, "ratings": ratings_l, "analyses": analyses,
+        "teams": teams,
         "j1": j1, "reportMarkdown": report_md, "teamDetails": team_details}
 
 with open("docs/data.js", "w", encoding="utf-8") as f:

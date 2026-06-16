@@ -32,6 +32,13 @@ const FLAG={
  "Angleterre":"gb-eng","Croatie":"hr","Panama":"pa","Ghana":"gh"};
 const flag = t => FLAG[t]?`<span class="flag"><img loading="lazy" src="https://flagcdn.com/w40/${FLAG[t]}.png" alt=""></span>`:`<span class="flag flag--none"></span>`;
 const team = t => `${flag(t)}<span class="tn">${esc(t)}</span>`;
+/* Infos équipe (entraîneur + lien effectif Transfermarkt direct), depuis window.DATA.teams */
+const TEAMS = D.teams || {};
+const tmUrl = t => (TEAMS[t]&&TEAMS[t].tm) || ("https://www.transfermarkt.fr/schnellsuche/ergebnis/schnellsuche?query="+encodeURIComponent(t));
+const teamCoach = t => (TEAMS[t]&&TEAMS[t].coach)||null;
+const coachLine = t => { const c=teamCoach(t); return c?`<small class="coach"><i class="mdi mdi-account-tie"></i>${esc(c)}</small>`:""; };
+/* nom d'équipe cliquable -> effectif Transfermarkt (à n'utiliser que hors lignes-match cliquables) */
+const teamLink = t => `${flag(t)}<a class="tn" href="${tmUrl(t)}" target="_blank" rel="noopener noreferrer" title="Effectif de ${esc(t)} sur Transfermarkt">${esc(t)}</a>`;
 
 function probBar(pv,pn,pd){
   const w=x=>Math.round(x*100);
@@ -62,7 +69,7 @@ function renderAccueil(){
   document.getElementById("accueil").innerHTML=`
    <div class="hero">
      <div class="hero-top">
-       <img src="favicon.svg" alt="" class="hero-logo"/>
+       <img src="emblem.svg" alt="Emblème Coupe du Monde 2026" class="hero-logo hero-emblem"/>
        <div>
          <div class="eyebrow">FIFA World Cup 2026 · USA · Canada · Mexique</div>
          <h1>Pronostics — Coupe du Monde 2026</h1>
@@ -190,7 +197,7 @@ function renderGroupes(){
     }).join("");
     const stand=D.standings[g].map(r=>`<tr>
         <td class="c num">${r.rang}</td>
-        <td><span class="vs">${team(r.equipe)}</span> ${stPill(r.statut)}</td>
+        <td><span class="vs">${teamLink(r.equipe)}</span> ${stPill(r.statut)}${coachLine(r.equipe)}</td>
         <td class="c num"><strong>${r.pts}</strong></td><td class="c num">${r.g}-${r.n}-${r.p}</td>
         <td class="c num">${r.bp}:${r.bc}</td><td class="c num">${r.diff>=0?'+':''}${r.diff}</td></tr>`).join("");
     html+=`<div class="group-block">
@@ -513,6 +520,8 @@ function teamPanel(name){
   const rt=D.ratings.find(t=>t.equipe===name)||{};
   let h=`<div class="card tp"><div class="tp-head">${flag(name)}<strong>${esc(name)}</strong>
     <span class="faint">Elo ${rt.elo||"–"} · FIFA ${rt.fifa_rank||"–"}</span></div>`;
+  const coach=teamCoach(name);
+  if(coach) h+=`<p class="muted tp-coach"><i class="mdi mdi-account-tie"></i> Sélectionneur : <strong>${esc(coach)}</strong></p>`;
   if(det){
     if(det.note) h+=`<p class="muted tp-note">${esc(det.note)}</p>`;
     h+=`<div class="tp-sub">Forme récente (12 mois)</div>`;
@@ -523,7 +532,7 @@ function teamPanel(name){
   } else h+=`<p class="faint">Données détaillées indisponibles pour cette équipe.</p>`;
   const q=encodeURIComponent(name);
   h+=`<div class="extlinks">
-    <a class="extlink" target="_blank" rel="noopener" href="https://www.transfermarkt.fr/schnellsuche/ergebnis/schnellsuche?query=${q}"><i class="mdi mdi-medical-bag"></i>Transfermarkt</a>
+    <a class="extlink" target="_blank" rel="noopener" href="${tmUrl(name)}"><i class="mdi mdi-account-group"></i>Effectif (Transfermarkt)</a>
     <a class="extlink" target="_blank" rel="noopener" href="https://fbref.com/fr/search/search.fcgi?search=${q}"><i class="mdi mdi-chart-line"></i>FBref</a>
     <a class="extlink" target="_blank" rel="noopener" href="https://www.eloratings.net/${q}"><i class="mdi mdi-trophy-variant"></i>Elo</a>
   </div>`;

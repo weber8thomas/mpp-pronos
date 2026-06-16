@@ -31,8 +31,9 @@ import plotly.graph_objects as go
 import plotly.io as pio
 from IPython.display import display
 
-# Embarque plotly.js (CDN) -> rendu interactif dans Jupyter / VS Code / nbviewer
-pio.renderers.default = "notebook_connected"
+# Rendu en SVG statique : figures visibles directement sur GitHub (qui n'exécute pas le JS).
+# Pour l'interactivité (survol/zoom), relancer la cellule avec pio.renderers.default="notebook".
+pio.renderers.default = "svg"
 TEMPLATE = "plotly_white"
 
 if os.path.basename(os.getcwd()) == "notebooks":
@@ -163,6 +164,32 @@ fig = go.Figure(go.Table(
 fig.update_layout(title="Calendrier chronologique des 72 pronostics",
                   margin=dict(t=50, l=0, r=0, b=0), height=820)
 fig.show()""")
+
+md("""## 4b. Notre modèle vs mpp.football
+
+Comparaison de la **probabilité de victoire à domicile** entre notre modèle et les probas mpp.football
+(export utilisateur), pour les 56 matchs à venir. Points sur la diagonale = accord parfait.""")
+
+co("""cmp = predictions[predictions.p_mpp_dom.astype(str) != ""].dropna(subset=["p_mpp_dom"]).copy()
+for c in ["p_mpp_dom", "p_mpp_nul", "p_mpp_ext"]:
+    cmp[c] = cmp[c].astype(float)
+cmp["Match"] = cmp.equipe_dom + " – " + cmp.equipe_ext
+fav_model = np.sign(cmp.p_victoire_dom - cmp.p_victoire_ext)
+fav_mpp = np.sign(cmp.p_mpp_dom - cmp.p_mpp_ext)
+cmp["Accord"] = np.where(fav_model == fav_mpp, "Même favori", "Favori différent")
+fig = px.scatter(cmp, x="p_victoire_dom", y="p_mpp_dom", color="Accord", hover_name="Match",
+                 hover_data={"groupe": True, "p_victoire_dom": ":.2f", "p_mpp_dom": ":.2f"},
+                 labels={"p_victoire_dom": "P(victoire dom) — notre modèle",
+                         "p_mpp_dom": "P(victoire dom) — mpp.football"},
+                 title="Notre modèle vs mpp.football — proba de victoire à domicile (56 matchs)",
+                 color_discrete_map={"Même favori": "#1a9850", "Favori différent": "#d73027"},
+                 template=TEMPLATE, height=540)
+fig.add_shape(type="line", x0=0, y0=0, x1=1, y1=1, line=dict(dash="dash", color="gray"))
+fig.update_traces(marker=dict(size=10, line=dict(width=0.5, color="white")))
+fig.update_xaxes(range=[0, 1]); fig.update_yaxes(range=[0, 1])
+fig.show()
+acc = (cmp["Accord"] == "Même favori").mean()
+print(f"Même favori (issue la plus probable) que mpp : {(cmp['Accord']=='Même favori').sum()}/{len(cmp)} = {acc:.0%}")""")
 
 md("## 5. Classements de groupe (départages FIFA)")
 

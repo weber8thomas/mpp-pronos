@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Pronostics CDM 2026 — Phase de groupes</title>
+<meta name="description" content="Pronostics des 72 matchs de phase de groupes de la Coupe du Monde 2026 : scores, classements, qualifiés et analyses." />
+<link rel="preconnect" href="https://cdn.plot.ly" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">🏆 <span>CDM 2026 · Pronostics</span></div>
+  <nav id="nav">
+    <a href="#accueil" class="active" data-sec="accueil">Accueil</a>
+    <a href="#calendrier" data-sec="calendrier">Calendrier</a>
+    <a href="#groupes" data-sec="groupes">Groupes</a>
+    <a href="#qualifies" data-sec="qualifies">Qualifiés</a>
+    <a href="#analyses" data-sec="analyses">Analyses</a>
+    <a href="#rapport" data-sec="rapport">Rapport</a>
+    <a href="#methodo" data-sec="methodo">Méthodo</a>
+  </nav>
+</header>
+
+<main>
+  <section id="accueil" class="sec active"></section>
+  <section id="calendrier" class="sec"></section>
+  <section id="groupes" class="sec"></section>
+  <section id="qualifies" class="sec"></section>
+  <section id="analyses" class="sec"></section>
+  <section id="rapport" class="sec"></section>
+  <section id="methodo" class="sec"></section>
+</main>
+
+<footer>
+  <p>Pronostics générés par un modèle de Poisson (Elo) + agents experts &amp; critiques · J1 = résultats réels, J2/J3 = pronostics ·
+  Probas <strong>mpp</strong> = export mpp.football. Données indicatives, non contractuelles.</p>
+</footer>
+
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js" charset="utf-8"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

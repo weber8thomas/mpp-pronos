@@ -1,29 +1,21 @@
 # -*- coding: utf-8 -*-
 """Génère rapport/pronostics_cdm2026.md à partir des données + analyses."""
+import json
 import pandas as pd
 import standings as S
 
 pred = pd.read_csv("data/predictions.csv")
+
+def mpp_str(r):
+    if pd.isna(r.get("p_mpp_dom")) or r.get("p_mpp_dom") == "":
+        return "—"
+    return f"{float(r.p_mpp_dom):.2f}/{float(r.p_mpp_nul):.2f}/{float(r.p_mpp_ext):.2f}"
+
 cls = S.tous_classements(pred)
 premiers, deuxiemes, meilleurs3, df3 = S.qualifies(cls)
 q1 = {e for _, e in premiers}; q2 = {e for _, e in deuxiemes}; q3 = set(meilleurs3.equipe)
 
-ANALYSES = {
-"A": "Corée du Sud et Mexique se détachent ; la victoire coréenne en J1 (2-1) propulse les hommes de Son en tête. La Tchéquie accroche la 3e place (qualifiable). L'Afrique du Sud, dépassée et indisciplinée, ferme la marche.",
-"B": "La Suisse confirme son statut de favori malgré son nul d'entrée concédé au Qatar. Le Canada profite de son avantage co-hôte. La Bosnie de Dzeko arrache une 3e place qualifiable ; le Qatar termine dernier malgré son point historique.",
-"C": "Choc au sommet : Brésil et Maroc (1-1 en J1) terminent tous deux qualifiés, le Brésil 1er à la différence de buts. L'Écosse prend la 3e place mais son calendrier (Maroc puis Brésil) la laisse hors des meilleurs 3es. Haïti termine sans point.",
-"D": "Les États-Unis impressionnent (4-1 d'entrée) et filent en tête. L'Australie et la Turquie se disputent la 2e place ; la Turquie, plus dangereuse, prend la 3e qualifiable. Le Paraguay est plombé par sa lourde défaite inaugurale.",
-"E": "L'Allemagne, lancée par son 7-1, domine. La Côte d'Ivoire s'appuie sur sa défense pour la 2e place. L'Équateur, miné par son manque de réalisme offensif, est éliminé malgré une défense solide. Curaçao termine logiquement dernier.",
-"F": "Surprise du groupe : la Suède, portée par le duo Isak-Gyökeres (5-1 en J1), prend la tête. Les Pays-Bas, accrochés deux fois, terminent 2es. Le Japon (privé de Mitoma) sauve une 3e place qualifiable. La Tunisie s'effondre.",
-"G": "Groupe le plus ouvert : la Belgique finit par s'imposer, l'Égypte de Salah prend la 2e place. L'Iran, trop nul (3 nuls puis défaite), manque la qualification de justesse. La Nouvelle-Zélande, valeureuse, termine dernière.",
-"H": "Après son 0-0 surprise contre le Cap-Vert, l'Espagne se reprend et domine. L'Uruguay de Bielsa, diminué par les blessures, assure la 2e place. Le Cap-Vert devance l'Arabie saoudite pour la 3e place mais ne se qualifie pas.",
-"I": "La France, intraitable (9 pts), survole un groupe relevé. Le Sénégal, champion d'Afrique en titre, prend la 2e place devant la Norvège de Haaland (3e qualifiable). L'Irak termine sans point.",
-"J": "L'Argentine déroule (9 pts). L'Autriche (2e) et l'Algérie (meilleur 3e) se qualifient toutes deux avec 4 points ; leur hiérarchie reste très serrée (point ouvert signalé par la critique). La Jordanie termine dernière.",
-"K": "Portugal et Colombie, au coude-à-coude (nul 1-1 décisif), se qualifient tous deux, le Portugal 1er à la différence de buts. La RD Congo arrache une 3e place qualifiable de justesse. L'Ouzbékistan, pour sa 1ère CDM, termine dernier.",
-"L": "L'Angleterre est démonstrative (9 pts, +6). La Croatie, vieillissante mais expérimentée, prend la 2e place. Ghana et Panama, à égalité au fond du classement, sont tous deux éliminés.",
-}
-
-NOMS = {"A":"A","B":"B","C":"C","D":"D","E":"E","F":"F","G":"G","H":"H","I":"I","J":"J","K":"K","L":"L"}
+ANALYSES = json.load(open("data/group_analyses.json"))
 
 def statut_eq(e):
     if e in q1: return "🟢 1er — qualifié"
@@ -48,9 +40,9 @@ JOURS = ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"]
 W("\n## 📅 Calendrier chronologique des 72 pronostics\n")
 W("Trié par coup d'envoi. Heure en **CEST** (Europe/Paris, UTC+2) — *indicative, à confirmer*. "
   "Type : ✅ résultat réel · 🔮 pronostic. `P(V/N/D)` = probabilités victoire / nul / défaite (modèle).\n")
-W("> ℹ️ **Probas mpp.football** : la colonne `mpp` est prête mais non remplie — le site est une "
-  "application authentifiée (403) dont les probabilités communautaires ne sont pas accessibles "
-  "publiquement. Fournir un export (JSON réseau ou HTML de la page) permet de la compléter automatiquement.\n")
+W("> ℹ️ La colonne **mpp** (`1/N/2`) provient de l'export mpp.football fourni — disponible pour les "
+  "56 matchs à venir (les 16 matchs de J1 déjà joués des groupes A–H n'y figurent pas). "
+  "Comparez `P(V/N/D)` (notre modèle) et `mpp` (cotes/communauté mpp).\n")
 W("\n| Date (CEST) | Heure | Gr. | Match | Prono | P(V/N/D) | mpp |")
 W("|:--|:--:|:--:|:--|:--:|:--:|:--:|")
 chrono = pred.sort_values("kickoff_utc")
@@ -61,7 +53,7 @@ for _, r in chrono.iterrows():
     typ = "✅" if r.statut == "joue" else "🔮"
     W(f"| {date_s} | {heure} | {r.groupe} | {r.equipe_dom} – {r.equipe_ext} | "
       f"**{r.buts_dom}-{r.buts_ext}** {typ} | "
-      f"{r.p_victoire_dom:.2f}/{r.p_nul:.2f}/{r.p_victoire_ext:.2f} | — |")
+      f"{r.p_victoire_dom:.2f}/{r.p_nul:.2f}/{r.p_victoire_ext:.2f} | {mpp_str(r)} |")
 
 W("\n---\n")
 
@@ -69,13 +61,13 @@ for g in sorted(cls):
     grp = pred[pred.groupe == g]
     W(f"\n## Groupe {g}\n")
     W(ANALYSES[g] + "\n")
-    W("\n| Journée | Match | Score | Type | P(V/N/D) |")
-    W("|:--:|:--|:--:|:--:|:--:|")
+    W("\n| Journée | Match | Score | Type | P(V/N/D) modèle | mpp (1/N/2) |")
+    W("|:--:|:--|:--:|:--:|:--:|:--:|")
     for _, r in grp.iterrows():
         typ = "réel ✅" if r.statut == "joue" else "prono 🔮"
         match = f"{r.equipe_dom} – {r.equipe_ext}"
         W(f"| J{r.journee} | {match} | **{r.buts_dom}-{r.buts_ext}** | {typ} | "
-          f"{r.p_victoire_dom:.2f}/{r.p_nul:.2f}/{r.p_victoire_ext:.2f} |")
+          f"{r.p_victoire_dom:.2f}/{r.p_nul:.2f}/{r.p_victoire_ext:.2f} | {mpp_str(r)} |")
     W("\n**Classement final pronostiqué**\n")
     W("| Rang | Équipe | Pts | J | G | N | P | BP | BC | Diff | Statut |")
     W("|:--:|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--|")

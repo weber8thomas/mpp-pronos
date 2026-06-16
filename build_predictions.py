@@ -7,7 +7,15 @@ Convention : J1 = résultats réels (tournoi commencé) pour les groupes A-H ;
 I-L : J1 non jouée au 16/06/2026 -> pronostic. Le champ 'statut' distingue les deux.
 """
 import csv
+import unicodedata
 import pandas as pd
+
+
+def _norm(s):
+    """Normalise un nom d'équipe (sans accents, minuscule) pour le matching mpp."""
+    s = "".join(c for c in unicodedata.normalize("NFD", str(s))
+                if unicodedata.category(c) != "Mn").lower().strip()
+    return {"bosnie": "bosnie-herzegovine"}.get(s, s)
 
 # (groupe, journee, dom, ext) -> (but_dom, but_ext, pV, pN, pD)
 # pV/pN/pD = proba victoire dom / nul / victoire ext (synthèse agents, normalisées).
@@ -102,6 +110,17 @@ def main():
     fx = pd.read_csv("data/fixtures.csv")
     base = pd.read_csv("data/predictions_baseline.csv")
     bidx = {(r.groupe, r.journee, r.equipe_dom, r.equipe_ext): r for _, r in base.iterrows()}
+
+    # Probas mpp.football (export utilisateur) : 1/N/2 en %, par (dom, ext) normalisés.
+    MPP = {}
+    try:
+        mpp = pd.read_csv("data/mpp_probs.csv")
+        for _, m in mpp.iterrows():
+            MPP[(_norm(m.Domicile), _norm(m.Exterieur))] = (
+                m.Proba_1_pct, m.Proba_N_pct, m.Proba_2_pct)
+    except FileNotFoundError:
+        pass
+
     rows = []
     for _, r in fx.iterrows():
         key = (r.groupe, r.journee, r.equipe_dom, r.equipe_ext)
@@ -111,6 +130,12 @@ def main():
         s = pv + pn + pd_
         pv, pn, pd_ = round(pv/s, 3), round(pn/s, 3), round(pd_/s, 3)
         b = bidx[key]
+        mk = MPP.get((_norm(r.equipe_dom), _norm(r.equipe_ext)))
+        if mk:
+            t = sum(mk)
+            mpp_dom, mpp_nul, mpp_ext = round(mk[0]/t, 3), round(mk[1]/t, 3), round(mk[2]/t, 3)
+        else:
+            mpp_dom = mpp_nul = mpp_ext = ""
         rows.append({
             "groupe": r.groupe, "journee": r.journee, "date": r.date,
             "kickoff_utc": r.kickoff_utc, "kickoff_cest": r.kickoff_cest,
@@ -119,6 +144,7 @@ def main():
             "score_pronostic": f"{bd}-{be}",
             "buts_dom": bd, "buts_ext": be,
             "p_victoire_dom": pv, "p_nul": pn, "p_victoire_ext": pd_,
+            "p_mpp_dom": mpp_dom, "p_mpp_nul": mpp_nul, "p_mpp_ext": mpp_ext,
             "xg_dom_modele": b.xg_dom, "xg_ext_modele": b.xg_ext,
             "score_modele": b.score_modele,
         })

@@ -25,6 +25,23 @@ les compétitions précédentes.
 | `build_predictions.py` | Assemble `predictions.csv` (source de vérité des scores finaux) |
 | `research/notes_agents.md` | Traçabilité : analyses des agents prédicteurs + synthèse des critiques |
 
+## 🌐 Site / dashboard partageable (GitHub Pages)
+
+Un mini-site statique (dans `docs/`) présente tout le contenu en sous-sections —
+**Accueil, Calendrier, Groupes, Qualifiés, Analyses (Plotly interactif), Rapport, Méthodo**.
+Aucune dépendance/build : HTML + CSS + JS, données embarquées dans `docs/data.js`.
+
+**Activer la publication (une fois) :** dans le dépôt → *Settings → Pages → Build and deployment →
+Source : **GitHub Actions***. À chaque push sur la branche, le workflow `.github/workflows/pages.yml`
+publie le site. URL : `https://weber8thomas.github.io/mpp-pronos/`.
+*(Alternative sans Actions : Source = « Deploy from a branch » → branche + dossier `/docs`.)*
+
+Régénérer les données du site après un changement de pronostics :
+```bash
+python3 build_site.py        # met à jour docs/data.js
+# ouvrir docs/index.html directement dans un navigateur fonctionne aussi (données embarquées)
+```
+
 ## 🔬 Méthodologie
 
 1. **Modèle quantitatif** (`model_pronos.py`) — pour chaque match, la différence Elo (avec
@@ -49,6 +66,7 @@ python3 add_kickoff_times.py        # ajoute horaires UTC/CEST à fixtures.csv
 python3 build_predictions.py        # (re)génère data/predictions.csv
 python3 standings.py                # affiche classements + qualifiés
 python3 _build_report.py            # régénère le rapport Markdown
+python3 build_site.py               # régénère les données du site (docs/data.js)
 python3 notebooks/_build_notebook.py && jupyter nbconvert --execute --inplace notebooks/analyse_pronos.ipynb
 jupyter notebook notebooks/analyse_pronos.ipynb   # exploration interactive (Plotly)
 ```

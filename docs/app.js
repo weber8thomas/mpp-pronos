@@ -121,12 +121,13 @@ function matchRow(p){
   const dt = p.kickoff_cest.replace(/-/g,"/").slice(5,16);
   const nx = p._i===NEXT_I;
   return `<tr class="clik${nx?' isnext':''}"${nx?' id="cal-next"':''} data-match="${p._i}" data-g="${p.groupe}" data-s="${p.statut}" data-t="${esc(p.dom+' '+p.ext)}">
-    <td>${dt}</td><td class="c"><span class="grouptag">${p.groupe}</span></td>
-    <td><div class="matchcell"><span class="vs">${team(p.dom)}<span class="muted">–</span>${team(p.ext)}</span>${nx?'<span class="nextbadge">à suivre</span>':''}</div></td>
-    <td class="c">${hasProno(p)?scoreBadge(p.ppd,p.ppe):'<span class="muted">—</span>'}</td>
-    <td class="c">${hasReel(p)?scoreBadge(p.bd,p.be):'<span class="muted">—</span>'}</td>
-    <td class="c">${accordBadge(p)}</td>
-    <td>${probBar(p.pv,p.pn,p.pd)}</td><td class="c">${mpp}</td></tr>`;
+    <td class="cal-date" data-label="Coup d'envoi">${dt}</td>
+    <td class="c cal-gr" data-label="Groupe"><span class="grouptag">${p.groupe}</span></td>
+    <td class="cal-match" data-label="Match"><div class="matchcell"><span class="vs">${team(p.dom)}<span class="muted">–</span>${team(p.ext)}</span>${nx?'<span class="nextbadge">à suivre</span>':''}</div></td>
+    <td class="c" data-label="Prono">${hasProno(p)?scoreBadge(p.ppd,p.ppe):'<span class="muted">—</span>'}</td>
+    <td class="c" data-label="Résultat">${hasReel(p)?scoreBadge(p.bd,p.be):'<span class="muted">—</span>'}</td>
+    <td class="c" data-label="Accord">${accordBadge(p)}</td>
+    <td data-label="P(V/N/D) modèle">${probBar(p.pv,p.pn,p.pd)}</td><td class="c" data-label="mpp 1/N/2">${mpp}</td></tr>`;
 }
 const CAL_COLS=[
   {k:"date",   l:"Date · h (CEST)", cls:""},
@@ -171,7 +172,7 @@ function renderCalendrier(){
       <button id="calNext" type="button" class="btn-next"><i class="mdi mdi-fast-forward-outline"></i> Prochain match</button>
       <span id="calCount" class="faint" style="align-self:center"></span>
     </div>
-    <div class="tablewrap"><table>
+    <div class="tablewrap caltablewrap"><table class="caltable">
       <thead><tr>${CAL_COLS.map(c=>`<th class="sortable ${c.cls}" data-k="${c.k}">${c.l}<span class="arr"></span></th>`).join("")}</tr></thead>
       <tbody id="calBody"></tbody>
     </table></div>`;

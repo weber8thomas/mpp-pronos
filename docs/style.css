@@ -371,6 +371,35 @@ body[data-theme="dark"] .mpp-logo{filter:brightness(0) invert(1) opacity(.85)}
   .report{padding:6px 14px 16px}
   .report table{font-size:.74rem}
 }
+/* ---------- Calendrier en cartes sur mobile (pas de scroll horizontal) ---------- */
+@media(max-width:640px){
+  .caltablewrap{overflow:visible;border:none;background:none;box-shadow:none;border-radius:0}
+  .caltable thead{display:none}
+  .caltable,.caltable tbody{display:block;width:100%}
+  .caltable tr{display:block;border:1px solid var(--line);border-radius:13px;background:var(--card);
+    box-shadow:var(--shadow);margin:0 0 12px;padding:12px 14px}
+  .caltable tr.isnext{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+  .caltable td{display:flex;align-items:center;justify-content:space-between;gap:12px;
+    border:none;padding:5px 0;text-align:right;min-height:0}
+  .caltable td::before{content:attr(data-label);color:var(--muted);font-weight:700;font-size:.66rem;
+    letter-spacing:.04em;text-transform:uppercase;text-align:left;flex:0 0 auto}
+  /* Match en tête de carte, centré et sans libellé */
+  .caltable td.cal-match{order:-3;justify-content:center;text-align:center;padding:0 0 9px;
+    border-bottom:1px solid var(--line);margin-bottom:5px}
+  .caltable td.cal-match::before{display:none}
+  .caltable td.cal-match .vs{font-size:1rem;font-weight:700;flex-wrap:wrap;justify-content:center}
+  .caltable td.cal-date{order:-2}
+  .caltable td.cal-gr{order:-1}
+  /* Séparateur léger avant le bloc des scores */
+  .caltable td[data-label="Prono"]{border-top:1px solid var(--line);padding-top:9px;margin-top:4px}
+  /* La barre de probas occupe la largeur restante */
+  .caltable td[data-label="P(V/N/D) modèle"] .probrow{flex:1;justify-content:flex-end}
+  .caltable td .matchcell{justify-content:center}
+  .caltable .nextbadge{margin-left:6px}
+  /* ligne "Aucun match" */
+  .caltable td[colspan]{justify-content:center;text-align:center}
+  .caltable td[colspan]::before{display:none}
+}
 /* confort tactile */
 @media(hover:none){
   tbody tr.clik:active{background:color-mix(in srgb,var(--accent) 12%,transparent)}

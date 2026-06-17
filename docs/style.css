@@ -241,6 +241,12 @@ th.sortable.active{color:var(--accent)}
 .scoreb.sc-loss{color:var(--red);background:color-mix(in srgb,var(--red) 12%,transparent);border-color:color-mix(in srgb,var(--red) 28%,transparent)}
 .legend{display:flex;flex-wrap:wrap;gap:12px;align-items:center;font-size:.8rem;color:var(--muted);margin:2px 0 6px}
 .legend .scoreb{font-size:.72rem}
+.acc{display:inline-block;font-weight:800;font-size:.82rem;padding:2px 8px;border-radius:7px;
+  border:1px solid transparent;white-space:nowrap;font-variant-numeric:tabular-nums}
+.acc-exact{color:var(--green);background:color-mix(in srgb,var(--green) 15%,transparent);border-color:color-mix(in srgb,var(--green) 34%,transparent)}
+.acc-ok{color:var(--green2);background:color-mix(in srgb,var(--green2) 13%,transparent);border-color:color-mix(in srgb,var(--green2) 30%,transparent)}
+.acc-no{color:var(--red);background:color-mix(in srgb,var(--red) 12%,transparent);border-color:color-mix(in srgb,var(--red) 28%,transparent)}
+.legend .acc{font-size:.72rem}
 
 /* ---------- Méthodo ---------- */
 .method{display:flex;flex-direction:column;gap:14px}

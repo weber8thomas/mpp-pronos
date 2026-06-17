@@ -10,7 +10,16 @@ import standings as S
 os.makedirs("docs", exist_ok=True)
 
 pred = pd.read_csv("data/predictions.csv")
+base = pd.read_csv("data/predictions_baseline.csv")
 ratings = pd.read_csv("data/team_ratings.csv")
+
+# Résultats réels (matchs joués) : score_reel du baseline -> (buts_dom, buts_ext)
+real_idx = {}
+for _, r in base.iterrows():
+    sr = r.get("score_reel")
+    if isinstance(sr, str) and "-" in sr:
+        a, b = sr.split("-")
+        real_idx[(r.groupe, int(r.journee), r.equipe_dom, r.equipe_ext)] = (int(a), int(b))
 analyses = json.load(open("data/group_analyses.json"))
 report_md = open("rapport/pronostics_cdm2026.md", encoding="utf-8").read()
 try:
@@ -47,11 +56,16 @@ def clean(v):
 # Pronostics (liste de dicts)
 predictions = []
 for _, r in pred.iterrows():
+    # Résultat réel : score_reel du baseline ; à défaut, pour un match joué, le score affiché.
+    rr = real_idx.get((r.groupe, int(r.journee), r.equipe_dom, r.equipe_ext))
+    if rr is None and r.statut == "joue":
+        rr = (int(r.buts_dom), int(r.buts_ext))
     predictions.append({
         "groupe": r.groupe, "journee": int(r.journee),
         "kickoff_cest": r.kickoff_cest, "kickoff_utc": r.kickoff_utc,
         "dom": r.equipe_dom, "ext": r.equipe_ext, "statut": r.statut,
         "bd": int(r.buts_dom), "be": int(r.buts_ext),
+        "rd": rr[0] if rr else None, "re": rr[1] if rr else None,
         "pv": float(r.p_victoire_dom), "pn": float(r.p_nul), "pd": float(r.p_victoire_ext),
         "mpp_v": clean(r.p_mpp_dom), "mpp_n": clean(r.p_mpp_nul), "mpp_d": clean(r.p_mpp_ext),
         "xg_dom": float(r.xg_dom_modele), "xg_ext": float(r.xg_ext_modele),
@@ -84,7 +98,6 @@ ratings_l = [{"groupe": r.groupe, "equipe": r.equipe, "elo": int(r.elo),
               "statut": statut(r.equipe)} for _, r in ratings.iterrows()]
 
 # Validation J1 (modèle baseline vs réel)
-base = pd.read_csv("data/predictions_baseline.csv")
 bcols = ["groupe", "journee", "equipe_dom", "equipe_ext", "score_modele", "buts_dom_modele", "buts_ext_modele"]
 val = pred[pred.statut == "joue"].merge(base[bcols], on=["groupe", "journee", "equipe_dom", "equipe_ext"])
 def issue(a, b): return "V" if a > b else ("D" if a < b else "N")

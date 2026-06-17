@@ -53,11 +53,26 @@ function probBar(pv,pn,pd){
 }
 const stPill = s => `<span class="pill ${s==='1er'?'r1':s==='2e'?'r2':s==='3e'?'r3':'out'}">${ST_LABEL[s]}</span>`;
 // Badge de score coloré selon l'issue : vert = victoire dom, gris = nul, rouge = victoire ext
+const outcome = (bd,be) => bd>be ? "V" : bd<be ? "D" : "N";
 const scoreBadge = (bd,be) => {
   const c = bd>be ? "sc-win" : bd<be ? "sc-loss" : "sc-draw";
   const t = bd>be ? "Victoire domicile" : bd<be ? "Victoire extérieur" : "Match nul";
   return `<span class="scoreb ${c}" title="${t}">${bd}-${be}</span>`;
 };
+// Accord prono ↔ résultat : ✓✓ score exact, ✓ bonne issue (1/N/2), ✗ issue manquée, — pas de résultat
+const hasReel = p => p.rd!=null && p.re!=null;
+function accordRank(p){
+  if(!hasReel(p)) return -1;
+  if(p.bd===p.rd && p.be===p.re) return 3;          // score exact
+  return outcome(p.bd,p.be)===outcome(p.rd,p.re) ? 2 : 1;
+}
+function accordBadge(p){
+  const r=accordRank(p);
+  if(r<0) return '<span class="muted">—</span>';
+  if(r===3) return '<span class="acc acc-exact" title="Score exact pronostiqué">✓✓</span>';
+  if(r===2) return '<span class="acc acc-ok" title="Bonne issue (1/N/2)">✓</span>';
+  return '<span class="acc acc-no" title="Issue manquée">✗</span>';
+}
 
 /* ---------- Accueil ---------- */
 function renderAccueil(){
@@ -107,23 +122,29 @@ function matchRow(p){
   return `<tr class="clik${nx?' isnext':''}"${nx?' id="cal-next"':''} data-match="${p._i}" data-g="${p.groupe}" data-s="${p.statut}" data-t="${esc(p.dom+' '+p.ext)}">
     <td>${dt}</td><td class="c"><span class="grouptag">${p.groupe}</span></td>
     <td><div class="matchcell"><span class="vs">${team(p.dom)}<span class="muted">–</span>${team(p.ext)}</span>${nx?'<span class="nextbadge">à suivre</span>':''}</div></td>
-    <td class="c">${scoreBadge(p.bd,p.be)}</td><td class="c">${typ}</td>
+    <td class="c">${scoreBadge(p.bd,p.be)}</td>
+    <td class="c">${hasReel(p)?scoreBadge(p.rd,p.re):'<span class="muted">—</span>'}</td>
+    <td class="c">${accordBadge(p)}</td><td class="c">${typ}</td>
     <td>${probBar(p.pv,p.pn,p.pd)}</td><td class="c">${mpp}</td></tr>`;
 }
 const CAL_COLS=[
-  {k:"date",  l:"Date · h (CEST)", cls:""},
-  {k:"groupe",l:"Gr.",            cls:"c"},
-  {k:"match", l:"Match",          cls:""},
-  {k:"prono", l:"Prono",          cls:"c"},
-  {k:"type",  l:"Type",           cls:"c"},
-  {k:"pv",    l:"P(V/N/D) modèle",cls:""},
-  {k:"mpp",   l:"mpp 1/N/2",      cls:"c"},
+  {k:"date",   l:"Date · h (CEST)", cls:""},
+  {k:"groupe", l:"Gr.",            cls:"c"},
+  {k:"match",  l:"Match",          cls:""},
+  {k:"prono",  l:"Prono",          cls:"c"},
+  {k:"reel",   l:"Résultat",       cls:"c"},
+  {k:"accord", l:"Accord",         cls:"c"},
+  {k:"type",   l:"Type",           cls:"c"},
+  {k:"pv",     l:"P(V/N/D) modèle",cls:""},
+  {k:"mpp",    l:"mpp 1/N/2",      cls:"c"},
 ];
 const CAL_KEY={
   date:p=>p.kickoff_utc,
   groupe:p=>p.groupe+"|"+p.kickoff_utc,
   match:p=>p.dom.toLowerCase(),
   prono:p=>p.bd+p.be,
+  reel:p=>hasReel(p)?p.rd+p.re:-1,
+  accord:p=>accordRank(p),
   type:p=>p.statut,
   pv:p=>p.pv,
   mpp:p=>p.mpp_v==null?-1:p.mpp_v,
@@ -138,7 +159,10 @@ function renderCalendrier(){
     filtrez par équipe, groupe ou statut. Heure <strong>CEST</strong> indicative.</p>
     <div class="legend">Score : <span class="scoreb sc-win">2-0</span> victoire domicile ·
       <span class="scoreb sc-draw">1-1</span> nul ·
-      <span class="scoreb sc-loss">0-2</span> victoire extérieur</div>
+      <span class="scoreb sc-loss">0-2</span> victoire extérieur ·
+      Accord : <span class="acc acc-exact">✓✓</span> score exact ·
+      <span class="acc acc-ok">✓</span> bonne issue ·
+      <span class="acc acc-no">✗</span> manquée</div>
     <div class="controls">
       <input id="calSearch" placeholder="Rechercher une équipe…"/>
       <select id="calGroup">${opts}</select>
@@ -159,7 +183,7 @@ function renderCalendrier(){
     const key=CAL_KEY[sortKey];
     arr.sort((a,b)=>{const x=key(a),y=key(b);return (x>y?1:x<y?-1:0)*sortDir;});
     tbody.innerHTML=arr.length?arr.map(matchRow).join(""):
-      `<tr><td colspan="7" class="c muted" style="padding:18px">Aucun match.</td></tr>`;
+      `<tr><td colspan="9" class="c muted" style="padding:18px">Aucun match.</td></tr>`;
     sec.querySelector("#calCount").textContent=`${arr.length} match${arr.length>1?"s":""}`;
     sec.querySelectorAll("th.sortable").forEach(th=>{
       th.querySelector(".arr").textContent = th.dataset.k===sortKey ? (sortDir>0?" ▲":" ▼") : "";
@@ -168,7 +192,7 @@ function renderCalendrier(){
   }
   sec.querySelectorAll("th.sortable").forEach(th=>th.addEventListener("click",()=>{
     const k=th.dataset.k;
-    if(k===sortKey) sortDir=-sortDir; else {sortKey=k; sortDir=(k==="pv"||k==="prono"||k==="mpp")?-1:1;}
+    if(k===sortKey) sortDir=-sortDir; else {sortKey=k; sortDir=(k==="pv"||k==="prono"||k==="reel"||k==="accord"||k==="mpp")?-1:1;}
     refresh();
   }));
   ["calSearch","calGroup","calType"].forEach(id=>sec.querySelector("#"+id).addEventListener("input",refresh));

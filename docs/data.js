@@ -1199,7 +1199,7 @@ window.DATA = {
    "dom": "Autriche",
    "ext": "Jordanie",
    "statut": "joue",
-   "bd": 2,
+   "bd": 3,
    "be": 1,
    "ppd": 2,
    "ppe": 0,
@@ -2058,9 +2058,9 @@ window.DATA = {
     "g": 1,
     "n": 1,
     "p": 1,
-    "bp": 4,
+    "bp": 5,
     "bc": 4,
-    "diff": 0,
+    "diff": 1,
     "statut": "2e"
    },
    {
@@ -2085,8 +2085,8 @@ window.DATA = {
     "n": 0,
     "p": 3,
     "bp": 2,
-    "bc": 6,
-    "diff": -4,
+    "bc": 7,
+    "diff": -5,
     "statut": "out"
    }
   ],
@@ -4226,7 +4226,7 @@ window.DATA = {
   },
   {
    "match": "Autriche – Jordanie",
-   "reel": "2-1",
+   "reel": "3-1",
    "modele": "2-0",
    "ok": true
   }

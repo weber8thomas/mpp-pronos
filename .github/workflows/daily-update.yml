@@ -1,0 +1,44 @@
+name: Mise à jour quotidienne du site
+
+# Tous les jours à 10h00 CEST (08:00 UTC). Régénère docs/data.js et pousse sur main
+# si quelque chose a changé (le déploiement Pages se déclenche alors via pages.yml).
+on:
+  schedule:
+    - cron: "0 8 * * *"   # 08:00 UTC = 10:00 CEST
+  workflow_dispatch:        # déclenchement manuel possible
+
+permissions:
+  contents: write
+
+concurrency:
+  group: "daily-update"
+  cancel-in-progress: false
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Installer les dépendances
+        run: pip install pandas
+
+      - name: Régénérer docs/data.js
+        run: python build_site.py
+
+      - name: Commit & push si changement
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [ -n "$(git status --porcelain docs/data.js)" ]; then
+            git add docs/data.js
+            git commit -m "MAJ quotidienne du site (rebuild automatique)"
+            git push origin HEAD:main
+            echo "docs/data.js mis à jour et poussé."
+          else
+            echo "Aucun changement — rien à pousser."
+          fi

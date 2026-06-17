@@ -3,7 +3,7 @@ window.DATA = {
  "meta": {
   "titre": "Pronostics CDM 2026 — Phase de groupes",
   "n_matchs": 72,
-  "n_joues": 16,
+  "n_joues": 20,
   "n_qualifies": 32,
   "vainqueurs": [
    "A : Corée du Sud",
@@ -19,7 +19,7 @@ window.DATA = {
    "K : Portugal",
    "L : Angleterre"
   ],
-  "j1_accuracy": 0.375,
+  "j1_accuracy": 0.5,
   "groupes": [
    "A",
    "B",
@@ -955,8 +955,8 @@ window.DATA = {
    "kickoff_utc": "2026-06-16T19:00",
    "dom": "France",
    "ext": "Sénégal",
-   "statut": "a_venir",
-   "bd": 2,
+   "statut": "joue",
+   "bd": 3,
    "be": 1,
    "pv": 0.58,
    "pn": 0.24,
@@ -974,9 +974,9 @@ window.DATA = {
    "kickoff_utc": "2026-06-16T22:00",
    "dom": "Irak",
    "ext": "Norvège",
-   "statut": "a_venir",
-   "bd": 0,
-   "be": 1,
+   "statut": "joue",
+   "bd": 1,
+   "be": 4,
    "pv": 0.12,
    "pn": 0.24,
    "pd": 0.64,
@@ -1069,8 +1069,8 @@ window.DATA = {
    "kickoff_utc": "2026-06-17T01:00",
    "dom": "Argentine",
    "ext": "Algérie",
-   "statut": "a_venir",
-   "bd": 2,
+   "statut": "joue",
+   "bd": 3,
    "be": 0,
    "pv": 0.72,
    "pn": 0.18,
@@ -1088,9 +1088,9 @@ window.DATA = {
    "kickoff_utc": "2026-06-17T04:00",
    "dom": "Autriche",
    "ext": "Jordanie",
-   "statut": "a_venir",
+   "statut": "joue",
    "bd": 2,
-   "be": 0,
+   "be": 1,
    "pv": 0.64,
    "pn": 0.24,
    "pd": 0.12,
@@ -1847,13 +1847,26 @@ window.DATA = {
     "g": 3,
     "n": 0,
     "p": 0,
-    "bp": 7,
+    "bp": 8,
     "bc": 2,
-    "diff": 5,
+    "diff": 6,
     "statut": "1er"
    },
    {
     "rang": 2,
+    "equipe": "Norvège",
+    "pts": 4,
+    "j": 3,
+    "g": 1,
+    "n": 1,
+    "p": 1,
+    "bp": 6,
+    "bc": 4,
+    "diff": 2,
+    "statut": "2e"
+   },
+   {
+    "rang": 3,
     "equipe": "Sénégal",
     "pts": 4,
     "j": 3,
@@ -1861,20 +1874,7 @@ window.DATA = {
     "n": 1,
     "p": 1,
     "bp": 4,
-    "bc": 3,
-    "diff": 1,
-    "statut": "2e"
-   },
-   {
-    "rang": 3,
-    "equipe": "Norvège",
-    "pts": 4,
-    "j": 3,
-    "g": 1,
-    "n": 1,
-    "p": 1,
-    "bp": 3,
-    "bc": 3,
+    "bc": 4,
     "diff": 0,
     "statut": "3e"
    },
@@ -1886,9 +1886,9 @@ window.DATA = {
     "g": 0,
     "n": 0,
     "p": 3,
-    "bp": 0,
-    "bc": 6,
-    "diff": -6,
+    "bp": 1,
+    "bc": 9,
+    "diff": -8,
     "statut": "out"
    }
   ],
@@ -1901,9 +1901,9 @@ window.DATA = {
     "g": 3,
     "n": 0,
     "p": 0,
-    "bp": 6,
+    "bp": 7,
     "bc": 2,
-    "diff": 4,
+    "diff": 5,
     "statut": "1er"
    },
    {
@@ -1915,8 +1915,8 @@ window.DATA = {
     "n": 1,
     "p": 1,
     "bp": 4,
-    "bc": 3,
-    "diff": 1,
+    "bc": 4,
+    "diff": 0,
     "statut": "2e"
    },
    {
@@ -1928,8 +1928,8 @@ window.DATA = {
     "n": 1,
     "p": 1,
     "bp": 3,
-    "bc": 3,
-    "diff": 0,
+    "bc": 4,
+    "diff": -1,
     "statut": "3e"
    },
    {
@@ -1940,9 +1940,9 @@ window.DATA = {
     "g": 0,
     "n": 0,
     "p": 3,
-    "bp": 1,
+    "bp": 2,
     "bc": 6,
-    "diff": -5,
+    "diff": -4,
     "statut": "out"
    }
   ],
@@ -2141,7 +2141,7 @@ window.DATA = {
    },
    {
     "groupe": "I",
-    "equipe": "Sénégal"
+    "equipe": "Norvège"
    },
    {
     "groupe": "J",
@@ -2166,16 +2166,16 @@ window.DATA = {
     "equipe": "Équateur"
    },
    {
-    "groupe": "J",
-    "equipe": "Algérie"
-   },
-   {
     "groupe": "I",
-    "equipe": "Norvège"
+    "equipe": "Sénégal"
    },
    {
     "groupe": "A",
     "equipe": "Tchéquie"
+   },
+   {
+    "groupe": "J",
+    "equipe": "Algérie"
    },
    {
     "groupe": "B",
@@ -2208,19 +2208,11 @@ window.DATA = {
     "qualifie": true
    },
    {
-    "groupe": "J",
-    "equipe": "Algérie",
-    "pts": 4,
-    "diff": 0,
-    "bp": 3,
-    "qualifie": true
-   },
-   {
     "groupe": "I",
-    "equipe": "Norvège",
+    "equipe": "Sénégal",
     "pts": 4,
     "diff": 0,
-    "bp": 3,
+    "bp": 4,
     "qualifie": true
    },
    {
@@ -2228,6 +2220,14 @@ window.DATA = {
     "equipe": "Tchéquie",
     "pts": 4,
     "diff": 0,
+    "bp": 3,
+    "qualifie": true
+   },
+   {
+    "groupe": "J",
+    "equipe": "Algérie",
+    "pts": 4,
+    "diff": -1,
     "bp": 3,
     "qualifie": true
    },
@@ -2560,7 +2560,7 @@ window.DATA = {
    "elo": 1869,
    "fifa_rank": 14,
    "forme": "Champion d'Afrique 2021; génération solide; qualif CAF maîtrisée",
-   "statut": "2e"
+   "statut": "3e"
   },
   {
    "groupe": "I",
@@ -2568,7 +2568,7 @@ window.DATA = {
    "elo": 1840,
    "fifa_rank": 30,
    "forme": "Haaland + Ødegaard; qualif en forte progression; 1ère CDM depuis 1998",
-   "statut": "3e"
+   "statut": "2e"
   },
   {
    "groupe": "I",
@@ -2785,6 +2785,30 @@ window.DATA = {
    "reel": "1-1",
    "modele": "0-2",
    "ok": false
+  },
+  {
+   "match": "France – Sénégal",
+   "reel": "3-1",
+   "modele": "2-0",
+   "ok": true
+  },
+  {
+   "match": "Irak – Norvège",
+   "reel": "1-4",
+   "modele": "0-2",
+   "ok": true
+  },
+  {
+   "match": "Argentine – Algérie",
+   "reel": "3-0",
+   "modele": "3-0",
+   "ok": true
+  },
+  {
+   "match": "Autriche – Jordanie",
+   "reel": "2-1",
+   "modele": "2-0",
+   "ok": true
   }
  ],
  "reportMarkdown": "# 🏆 Pronostics — Phase de groupes, Coupe du Monde 2026\n\n> Pronostics de scores des **72 matchs** de la phase de groupes (48 équipes, 12 groupes), produits par une méthodologie **hybride** : modèle de Poisson basé sur l'Elo, ajusté et critiqué par une dizaine d'agents experts (forme récente, effectifs, blessures, compétitions précédentes).\n\n**Convention** : le tournoi ayant débuté le 11/06/2026, **J1 = résultats réels** (groupes A–H) et **J2/J3 = pronostics**. Les groupes I–L n'avaient pas encore joué au moment de l'analyse (16/06/2026) et sont entièrement pronostiqués.\n\nDonnées : `data/predictions.csv` · Modèle : `model_pronos.py` · Classements : `standings.py` · Analyse explorable : `notebooks/analyse_pronos.ipynb` · Traçabilité agents : `research/notes_agents.md`\n\n\n## 📅 Calendrier chronologique des 72 pronostics\n\nTrié par coup d'envoi. Heure en **CEST** (Europe/Paris, UTC+2) — *indicative, à confirmer*. Type : ✅ résultat réel · 🔮 pronostic. `P(V/N/D)` = probabilités victoire / nul / défaite (modèle).\n\n> ℹ️ La colonne **mpp** (`1/N/2`) provient de l'export mpp.football fourni — disponible pour les 56 matchs à venir (les 16 matchs de J1 déjà joués des groupes A–H n'y figurent pas). Comparez `P(V/N/D)` (notre modèle) et `mpp` (cotes/communauté mpp).\n\n\n| Date (CEST) | Heure | Gr. | Match | Prono | P(V/N/D) | mpp |\n|:--|:--:|:--:|:--|:--:|:--:|:--:|\n| Jeu 11/06 | 21h00 | A | Mexique – Afrique du Sud | **2-0** ✅ | 0.86/0.10/0.04 | — |\n| Ven 12/06 | 04h00 | A | Corée du Sud – Tchéquie | **2-1** ✅ | 0.48/0.25/0.27 | — |\n| Ven 12/06 | 21h00 | B | Canada – Bosnie-Herzégovine | **1-1** ✅ | 0.30/0.40/0.30 | — |\n| Ven 12/06 | 21h00 | D | États-Unis – Paraguay | **4-1** ✅ | 0.61/0.22/0.17 | — |\n| Sam 13/06 | 21h00 | B | Qatar – Suisse | **1-1** ✅ | 0.18/0.40/0.42 | — |\n| Dim 14/06 | 00h00 | C | Brésil – Maroc | **1-1** ✅ | 0.40/0.32/0.28 | — |\n| Dim 14/06 | 03h00 | D | Australie – Turquie | **2-0** ✅ | 0.19/0.23/0.58 | — |\n| Dim 14/06 | 03h00 | C | Haïti – Écosse | **0-1** ✅ | 0.12/0.22/0.66 | — |\n| Dim 14/06 | 19h00 | E | Allemagne – Curaçao | **7-1** ✅ | 0.93/0.06/0.01 | — |\n| Dim 14/06 | 22h00 | F | Pays-Bas – Japon | **2-2** ✅ | 0.45/0.30/0.25 | — |\n| Lun 15/06 | 01h00 | E | Côte d'Ivoire – Équateur | **1-0** ✅ | 0.40/0.30/0.30 | — |\n| Lun 15/06 | 04h00 | F | Suède – Tunisie | **5-1** ✅ | 0.59/0.22/0.19 | — |\n| Lun 15/06 | 18h00 | H | Espagne – Cap-Vert | **0-0** ✅ | 0.85/0.12/0.03 | — |\n| Lun 15/06 | 21h00 | G | Belgique – Égypte | **1-1** ✅ | 0.45/0.30/0.25 | — |\n| Mar 16/06 | 00h00 | H | Arabie saoudite – Uruguay | **1-1** ✅ | 0.18/0.30/0.52 | — |\n| Mar 16/06 | 03h00 | G | Iran – Nouvelle-Zélande | **2-2** ✅ | 0.55/0.25/0.20 | — |\n| Mar 16/06 | 21h00 | I | France – Sénégal | **2-1** 🔮 | 0.58/0.24/0.18 | 0.88/0.09/0.03 |\n| Mer 17/06 | 00h00 | I | Irak – Norvège | **0-1** 🔮 | 0.12/0.24/0.64 | 0.02/0.06/0.92 |\n| Mer 17/06 | 03h00 | J | Argentine – Algérie | **2-0** 🔮 | 0.72/0.18/0.10 | 0.80/0.14/0.06 |\n| Mer 17/06 | 06h00 | J | Autriche – Jordanie | **2-0** 🔮 | 0.64/0.24/0.12 | 0.83/0.14/0.03 |\n| Mer 17/06 | 19h00 | K | Portugal – RD Congo | **2-0** 🔮 | 0.66/0.20/0.14 | 0.95/0.04/0.01 |\n| Mer 17/06 | 22h00 | L | Angleterre – Croatie | **2-0** 🔮 | 0.68/0.22/0.10 | 0.57/0.35/0.08 |\n| Jeu 18/06 | 01h00 | L | Ghana – Panama | **1-1** 🔮 | 0.38/0.32/0.30 | 0.60/0.33/0.07 |\n| Jeu 18/06 | 04h00 | K | Ouzbékistan – Colombie | **0-2** 🔮 | 0.12/0.22/0.66 | 0.03/0.07/0.90 |\n| Jeu 18/06 | 18h00 | A | Tchéquie – Afrique du Sud | **1-0** 🔮 | 0.58/0.27/0.15 | 0.58/0.27/0.15 |\n| Jeu 18/06 | 21h00 | B | Suisse – Bosnie-Herzégovine | **2-0** 🔮 | 0.74/0.16/0.10 | 0.73/0.21/0.06 |\n| Ven 19/06 | 00h00 | B | Canada – Qatar | **2-0** 🔮 | 0.78/0.15/0.07 | 0.76/0.17/0.07 |\n| Ven 19/06 | 03h00 | A | Mexique – Corée du Sud | **1-1** 🔮 | 0.40/0.30/0.30 | 0.57/0.30/0.13 |\n| Ven 19/06 | 21h00 | D | États-Unis – Australie | **2-0** 🔮 | 0.66/0.21/0.13 | 0.70/0.21/0.09 |\n| Sam 20/06 | 00h00 | C | Écosse – Maroc | **1-2** 🔮 | 0.18/0.22/0.60 | 0.06/0.19/0.75 |\n| Sam 20/06 | 03h00 | C | Brésil – Haïti | **3-0** 🔮 | 0.91/0.07/0.02 | 0.97/0.02/0.01 |\n| Sam 20/06 | 06h00 | D | Turquie – Paraguay | **2-1** 🔮 | 0.54/0.25/0.21 | 0.59/0.30/0.11 |\n| Sam 20/06 | 19h00 | F | Pays-Bas – Suède | **2-2** 🔮 | 0.35/0.30/0.35 | 0.63/0.28/0.09 |\n| Sam 20/06 | 22h00 | E | Allemagne – Côte d'Ivoire | **2-1** 🔮 | 0.60/0.24/0.16 | 0.81/0.13/0.06 |\n| Dim 21/06 | 02h00 | E | Équateur – Curaçao | **2-0** 🔮 | 0.78/0.16/0.06 | 0.83/0.13/0.04 |\n| Dim 21/06 | 06h00 | F | Tunisie – Japon | **0-2** 🔮 | 0.18/0.27/0.55 | 0.13/0.24/0.63 |\n| Dim 21/06 | 18h00 | H | Espagne – Arabie saoudite | **3-0** 🔮 | 0.80/0.14/0.06 | 0.97/0.02/0.01 |\n| Dim 21/06 | 21h00 | G | Belgique – Iran | **2-1** 🔮 | 0.55/0.25/0.20 | 0.93/0.05/0.02 |\n| Lun 22/06 | 00h00 | H | Uruguay – Cap-Vert | **1-0** 🔮 | 0.58/0.27/0.15 | 0.85/0.11/0.04 |\n| Lun 22/06 | 03h00 | G | Nouvelle-Zélande – Égypte | **1-2** 🔮 | 0.18/0.24/0.58 | 0.10/0.20/0.70 |\n| Lun 22/06 | 19h00 | J | Argentine – Autriche | **2-1** 🔮 | 0.66/0.21/0.13 | 0.87/0.10/0.03 |\n| Lun 22/06 | 23h00 | I | France – Irak | **3-0** 🔮 | 0.86/0.10/0.04 | 0.98/0.01/0.01 |\n| Mar 23/06 | 02h00 | I | Norvège – Sénégal | **1-1** 🔮 | 0.32/0.30/0.38 | 0.32/0.42/0.26 |\n| Mar 23/06 | 05h00 | J | Jordanie – Algérie | **0-2** 🔮 | 0.14/0.26/0.60 | 0.04/0.13/0.83 |\n| Mar 23/06 | 19h00 | K | Portugal – Ouzbékistan | **3-0** 🔮 | 0.78/0.15/0.07 | 0.97/0.02/0.01 |\n| Mar 23/06 | 22h00 | L | Angleterre – Ghana | **2-0** 🔮 | 0.78/0.16/0.06 | 0.89/0.08/0.03 |\n| Mer 24/06 | 01h00 | L | Panama – Croatie | **1-2** 🔮 | 0.16/0.24/0.60 | 0.03/0.08/0.89 |\n| Mer 24/06 | 04h00 | K | Colombie – RD Congo | **2-1** 🔮 | 0.56/0.24/0.20 | 0.71/0.23/0.06 |\n| Mer 24/06 | 21h00 | B | Suisse – Canada | **2-1** 🔮 | 0.50/0.27/0.23 | 0.52/0.39/0.09 |\n| Mer 24/06 | 21h00 | B | Bosnie-Herzégovine – Qatar | **2-1** 🔮 | 0.50/0.26/0.24 | 0.56/0.32/0.12 |\n| Jeu 25/06 | 00h00 | C | Maroc – Haïti | **2-0** 🔮 | 0.85/0.11/0.04 | 0.94/0.04/0.02 |\n| Jeu 25/06 | 00h00 | C | Écosse – Brésil | **0-2** 🔮 | 0.06/0.14/0.80 | 0.04/0.08/0.88 |\n| Jeu 25/06 | 03h00 | A | Afrique du Sud – Corée du Sud | **0-2** 🔮 | 0.12/0.22/0.66 | 0.14/0.30/0.56 |\n| Jeu 25/06 | 03h00 | A | Tchéquie – Mexique | **1-1** 🔮 | 0.24/0.31/0.45 | 0.08/0.38/0.54 |\n| Jeu 25/06 | 22h00 | E | Curaçao – Côte d'Ivoire | **0-2** 🔮 | 0.08/0.17/0.75 | 0.03/0.07/0.90 |\n| Jeu 25/06 | 22h00 | E | Équateur – Allemagne | **1-1** 🔮 | 0.26/0.38/0.36 | 0.04/0.11/0.85 |\n| Ven 26/06 | 01h00 | F | Tunisie – Pays-Bas | **0-2** 🔮 | 0.14/0.26/0.60 | 0.05/0.13/0.82 |\n| Ven 26/06 | 01h00 | F | Japon – Suède | **1-2** 🔮 | 0.30/0.26/0.44 | 0.34/0.47/0.20 |\n| Ven 26/06 | 04h00 | D | Paraguay – Australie | **1-1** 🔮 | 0.45/0.27/0.28 | 0.50/0.33/0.17 |\n| Ven 26/06 | 04h00 | D | Turquie – États-Unis | **1-1** 🔮 | 0.29/0.27/0.44 | 0.30/0.40/0.30 |\n| Ven 26/06 | 21h00 | I | Norvège – France | **1-2** 🔮 | 0.22/0.24/0.54 | 0.04/0.17/0.79 |\n| Ven 26/06 | 21h00 | I | Sénégal – Irak | **2-0** 🔮 | 0.78/0.15/0.07 | 0.91/0.07/0.02 |\n| Sam 27/06 | 02h00 | H | Uruguay – Espagne | **1-2** 🔮 | 0.22/0.26/0.52 | 0.03/0.14/0.83 |\n| Sam 27/06 | 02h00 | H | Cap-Vert – Arabie saoudite | **1-1** 🔮 | 0.33/0.34/0.33 | 0.14/0.55/0.31 |\n| Sam 27/06 | 05h00 | G | Nouvelle-Zélande – Belgique | **0-2** 🔮 | 0.12/0.20/0.68 | 0.03/0.06/0.91 |\n| Sam 27/06 | 05h00 | G | Égypte – Iran | **1-1** 🔮 | 0.38/0.35/0.27 | 0.66/0.28/0.06 |\n| Sam 27/06 | 23h00 | L | Panama – Angleterre | **0-2** 🔮 | 0.06/0.14/0.80 | 0.02/0.04/0.94 |\n| Sam 27/06 | 23h00 | L | Croatie – Ghana | **2-1** 🔮 | 0.60/0.24/0.16 | 0.74/0.20/0.06 |\n| Dim 28/06 | 01h30 | K | Colombie – Portugal | **1-1** 🔮 | 0.32/0.36/0.32 | 0.05/0.18/0.77 |\n| Dim 28/06 | 01h30 | K | RD Congo – Ouzbékistan | **2-1** 🔮 | 0.50/0.27/0.23 | 0.63/0.30/0.07 |\n| Dim 28/06 | 04h00 | J | Jordanie – Argentine | **1-2** 🔮 | 0.12/0.20/0.68 | 0.02/0.03/0.95 |\n| Dim 28/06 | 04h00 | J | Algérie – Autriche | **1-1** 🔮 | 0.33/0.30/0.37 | 0.37/0.44/0.19 |\n\n---\n\n\n## Groupe A\n\nCorée du Sud et Mexique se détachent ; la victoire coréenne en J1 (2-1) propulse les hommes de Son en tête. La Tchéquie accroche la 3e place (qualifiable). L'Afrique du Sud, dépassée et indisciplinée, ferme la marche.\n\n\n| Journée | Match | Score | Type | P(V/N/D) modèle | mpp (1/N/2) |\n|:--:|:--|:--:|:--:|:--:|:--:|\n| J1 | Mexique – Afrique du Sud | **2-0** | réel ✅ | 0.86/0.10/0.04 | — |\n| J1 | Corée du Sud – Tchéquie | **2-1** | réel ✅ | 0.48/0.25/0.27 | — |\n| J2 | Tchéquie – Afrique du Sud | **1-0** | prono 🔮 | 0.58/0.27/0.15 | 0.58/0.27/0.15 |\n| J2 | Mexique – Corée du Sud | **1-1** | prono 🔮 | 0.40/0.30/0.30 | 0.57/0.30/0.13 |\n| J3 | Tchéquie – Mexique | **1-1** | prono 🔮 | 0.24/0.31/0.45 | 0.08/0.38/0.54 |\n| J3 | Afrique du Sud – Corée du Sud | **0-2** | prono 🔮 | 0.12/0.22/0.66 | 0.14/0.30/0.56 |\n\n**Classement final pronostiqué**\n\n| Rang | Équipe | Pts | J | G | N | P | BP | BC | Diff | Statut |\n|:--:|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--|\n| 1 | Corée du Sud | **7** | 3 | 2 | 1 | 0 | 5 | 2 | +3 | 🟢 1er — qualifié |\n| 2 | Mexique | **5** | 3 | 1 | 2 | 0 | 4 | 2 | +2 | 🟢 2e — qualifié |\n| 3 | Tchéquie | **4** | 3 | 1 | 1 | 1 | 3 | 3 | +0 | 🟡 3e — qualifié |\n| 4 | Afrique du Sud | **0** | 3 | 0 | 0 | 3 | 0 | 5 | -5 | 🔴 éliminé |\n\n\n## Groupe B\n\nLa Suisse confirme son statut de favori malgré son nul d'entrée concédé au Qatar. Le Canada profite de son avantage co-hôte. La Bosnie de Dzeko arrache une 3e place qualifiable ; le Qatar termine dernier malgré son point historique.\n\n\n| Journée | Match | Score | Type | P(V/N/D) modèle | mpp (1/N/2) |\n|:--:|:--|:--:|:--:|:--:|:--:|\n| J1 | Canada – Bosnie-Herzégovine | **1-1** | réel ✅ | 0.30/0.40/0.30 | — |\n| J1 | Qatar – Suisse | **1-1** | réel ✅ | 0.18/0.40/0.42 | — |\n| J2 | Suisse – Bosnie-Herzégovine | **2-0** | prono 🔮 | 0.74/0.16/0.10 | 0.73/0.21/0.06 |\n| J2 | Canada – Qatar | **2-0** | prono 🔮 | 0.78/0.15/0.07 | 0.76/0.17/0.07 |\n| J3 | Suisse – Canada | **2-1** | prono 🔮 | 0.50/0.27/0.23 | 0.52/0.39/0.09 |\n| J3 | Bosnie-Herzégovine – Qatar | **2-1** | prono 🔮 | 0.50/0.26/0.24 | 0.56/0.32/0.12 |\n\n**Classement final pronostiqué**\n\n| Rang | Équipe | Pts | J | G | N | P | BP | BC | Diff | Statut |\n|:--:|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--|\n| 1 | Suisse | **7** | 3 | 2 | 1 | 0 | 5 | 2 | +3 | 🟢 1er — qualifié |\n| 2 | Canada | **4** | 3 | 1 | 1 | 1 | 4 | 3 | +1 | 🟢 2e — qualifié |\n| 3 | Bosnie-Herzégovine | **4** | 3 | 1 | 1 | 1 | 3 | 4 | -1 | 🟡 3e — qualifié |\n| 4 | Qatar | **1** | 3 | 0 | 1 | 2 | 2 | 5 | -3 | 🔴 éliminé |\n\n\n## Groupe C\n\nChoc au sommet : Brésil et Maroc (1-1 en J1) terminent tous deux qualifiés, le Brésil 1er à la différence de buts. L'Écosse prend la 3e place mais son calendrier (Maroc puis Brésil) la laisse hors des meilleurs 3es. Haïti termine sans point.\n\n\n| Journée | Match | Score | Type | P(V/N/D) modèle | mpp (1/N/2) |\n|:--:|:--|:--:|:--:|:--:|:--:|\n| J1 | Brésil – Maroc | **1-1** | réel ✅ | 0.40/0.32/0.28 | — |\n| J1 | Haïti – Écosse | **0-1** | réel ✅ | 0.12/0.22/0.66 | — |\n| J2 | Écosse – Maroc | **1-2** | prono 🔮 | 0.18/0.22/0.60 | 0.06/0.19/0.75 |\n| J2 | Brésil – Haïti | **3-0** | prono 🔮 | 0.91/0.07/0.02 | 0.97/0.02/0.01 |\n| J3 | Écosse – Brésil | **0-2** | prono 🔮 | 0.06/0.14/0.80 | 0.04/0.08/0.88 |\n| J3 | Maroc – Haïti | **2-0** | prono 🔮 | 0.85/0.11/0.04 | 0.94/0.04/0.02 |\n\n**Classement final pronostiqué**\n\n| Rang | Équipe | Pts | J | G | N | P | BP | BC | Diff | Statut |\n|:--:|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--|\n| 1 | Brésil | **7** | 3 | 2 | 1 | 0 | 6 | 1 | +5 | 🟢 1er — qualifié |\n| 2 | Maroc | **7** | 3 | 2 | 1 | 0 | 5 | 2 | +3 | 🟢 2e — qualifié |\n| 3 | Écosse | **3** | 3 | 1 | 0 | 2 | 2 | 4 | -2 | 🔴 éliminé |\n| 4 | Haïti | **0** | 3 | 0 | 0 | 3 | 0 | 6 | -6 | 🔴 éliminé |\n\n\n## Groupe D\n\nLes États-Unis impressionnent (4-1 d'entrée) et filent en tête. L'Australie et la Turquie se disputent la 2e place ; la Turquie, plus dangereuse, prend la 3e qualifiable. Le Paraguay est plombé par sa lourde défaite inaugurale.\n\n\n| Journée | Match | Score | Type | P(V/N/D) modèle | mpp (1/N/2) |\n|:--:|:--|:--:|:--:|:--:|:--:|\n| J1 | États-Unis – Paraguay | **4-1** | réel ✅ | 0.61/0.22/0.17 | — |\n| J1 | Australie – Turquie | **2-0** | réel ✅ | 0.19/0.23/0.58 | — |\n| J2 | États-Unis – Australie | **2-0** | prono 🔮 | 0.66/0.21/0.13 | 0.70/0.21/0.09 |\n| J2 | Turquie – Paraguay | **2-1** | prono 🔮 | 0.54/0.25/0.21 | 0.59/0.30/0.11 |\n| J3 | Turquie – États-Unis | **1-1** | prono 🔮 | 0.29/0.27/0.44 | 0.30/0.40/0.30 |\n| J3 | Paraguay – Australie | **1-1** | prono 🔮 | 0.45/0.27/0.28 | 0.50/0.33/0.17 |\n\n**Classement final pronostiqué**\n\n| Rang | Équipe | Pts | J | G | N | P | BP | BC | Diff | Statut |\n|:--:|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--|\n| 1 | États-Unis | **7** | 3 | 2 | 1 | 0 | 7 | 2 | +5 | 🟢 1er — qualifié |\n| 2 | Australie | **4** | 3 | 1 | 1 | 1 | 3 | 3 | +0 | 🟢 2e — qualifié |\n| 3 | Turquie | **4** | 3 | 1 | 1 | 1 | 3 | 4 | -1 | 🟡 3e — qualifié |\n| 4 | Paraguay | **1** | 3 | 0 | 1 | 2 | 3 | 7 | -4 | 🔴 éliminé |\n\n\n## Groupe E\n\nL'Allemagne, lancée par son 7-1, domine. La Côte d'Ivoire s'appuie sur sa défense pour la 2e place. L'Équateur, miné par son manque de réalisme offensif, est éliminé malgré une défense solide. Curaçao termine logiquement dernier.\n\n\n| Journée | Match | Score | Type | P(V/N/D) modèle | mpp (1/N/2) |\n|:--:|:--|:--:|:--:|:--:|:--:|\n| J1 | Allemagne – Curaçao | **7-1** | réel ✅ | 0.93/0.06/0.01 | — |\n| J1 | Côte d'Ivoire – Équateur | **1-0** | réel ✅ | 0.40/0.30/0.30 | — |\n| J2 | Allemagne – Côte d'Ivoire | **2-1** | prono 🔮 | 0.60/0.24/0.16 | 0.81/0.13/0.06 |\n| J2 | Équateur – Curaçao | **2-0** | prono 🔮 | 0.78/0.16/0.06 | 0.83/0.13/0.04 |\n| J3 | Curaçao – Côte d'Ivoire | **0-2** | prono 🔮 | 0.08/0.17/0.75 | 0.03/0.07/0.90 |\n| J3 | Équateur – Allemagne | **1-1** | prono 🔮 | 0.26/0.38/0.36 | 0.04/0.11/0.85 |\n\n**Classement final pronostiqué**\n\n| Rang | Équipe | Pts | J | G | N | P | BP | BC | Diff | Statut |\n|:--:|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--|\n| 1 | Allemagne | **7** | 3 | 2 | 1 | 0 | 10 | 3 | +7 | 🟢 1er — qualifié |\n| 2 | Côte d'Ivoire | **6** | 3 | 2 | 0 | 1 | 4 | 2 | +2 | 🟢 2e — qualifié |\n| 3 | Équateur | **4** | 3 | 1 | 1 | 1 | 3 | 2 | +1 | 🟡 3e — qualifié |\n| 4 | Curaçao | **0** | 3 | 0 | 0 | 3 | 1 | 11 | -10 | 🔴 éliminé |\n\n\n## Groupe F\n\nSurprise du groupe : la Suède, portée par le duo Isak-Gyökeres (5-1 en J1), prend la tête. Les Pays-Bas, accrochés deux fois, terminent 2es. Le Japon (privé de Mitoma) sauve une 3e place qualifiable. La Tunisie s'effondre.\n\n\n| Journée | Match | Score | Type | P(V/N/D) modèle | mpp (1/N/2) |\n|:--:|:--|:--:|:--:|:--:|:--:|\n| J1 | Pays-Bas – Japon | **2-2** | réel ✅ | 0.45/0.30/0.25 | — |\n| J1 | Suède – Tunisie | **5-1** | réel ✅ | 0.59/0.22/0.19 | — |\n| J2 | Pays-Bas – Suède | **2-2** | prono 🔮 | 0.35/0.30/0.35 | 0.63/0.28/0.09 |\n| J2 | Tunisie – Japon | **0-2** | prono 🔮 | 0.18/0.27/0.55 | 0.13/0.24/0.63 |\n| J3 | Japon – Suède | **1-2** | prono 🔮 | 0.30/0.26/0.44 | 0.34/0.47/0.20 |\n| J3 | Tunisie – Pays-Bas | **0-2** | prono 🔮 | 0.14/0.26/0.60 | 0.05/0.13/0.82 |\n\n**Classement final pronostiqué**\n\n| Rang | Équipe | Pts | J | G | N | P | BP | BC | Diff | Statut |\n|:--:|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--|\n| 1 | Suède | **7** | 3 | 2 | 1 | 0 | 9 | 4 | +5 | 🟢 1er — qualifié |\n| 2 | Pays-Bas | **5** | 3 | 1 | 2 | 0 | 6 | 4 | +2 | 🟢 2e — qualifié |\n| 3 | Japon | **4** | 3 | 1 | 1 | 1 | 5 | 4 | +1 | 🟡 3e — qualifié |\n| 4 | Tunisie | **0** | 3 | 0 | 0 | 3 | 1 | 9 | -8 | 🔴 éliminé |\n\n\n## Groupe G\n\nGroupe le plus ouvert : la Belgique finit par s'imposer, l'Égypte de Salah prend la 2e place. L'Iran, trop nul (3 nuls puis défaite), manque la qualification de justesse. La Nouvelle-Zélande, valeureuse, termine dernière.\n\n\n| Journée | Match | Score | Type | P(V/N/D) modèle | mpp (1/N/2) |\n|:--:|:--|:--:|:--:|:--:|:--:|\n| J1 | Belgique – Égypte | **1-1** | réel ✅ | 0.45/0.30/0.25 | — |\n| J1 | Iran – Nouvelle-Zélande | **2-2** | réel ✅ | 0.55/0.25/0.20 | — |\n| J2 | Belgique – Iran | **2-1** | prono 🔮 | 0.55/0.25/0.20 | 0.93/0.05/0.02 |\n| J2 | Nouvelle-Zélande – Égypte | **1-2** | prono 🔮 | 0.18/0.24/0.58 | 0.10/0.20/0.70 |\n| J3 | Égypte – Iran | **1-1** | prono 🔮 | 0.38/0.35/0.27 | 0.66/0.28/0.06 |\n| J3 | Nouvelle-Zélande – Belgique | **0-2** | prono 🔮 | 0.12/0.20/0.68 | 0.03/0.06/0.91 |\n\n**Classement final pronostiqué**\n\n| Rang | Équipe | Pts | J | G | N | P | BP | BC | Diff | Statut |\n|:--:|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--|\n| 1 | Belgique | **7** | 3 | 2 | 1 | 0 | 5 | 2 | +3 | 🟢 1er — qualifié |\n| 2 | Égypte | **5** | 3 | 1 | 2 | 0 | 4 | 3 | +1 | 🟢 2e — qualifié |\n| 3 | Iran | **2** | 3 | 0 | 2 | 1 | 4 | 5 | -1 | 🔴 éliminé |\n| 4 | Nouvelle-Zélande | **1** | 3 | 0 | 1 | 2 | 3 | 6 | -3 | 🔴 éliminé |\n\n\n## Groupe H\n\nAprès son 0-0 surprise contre le Cap-Vert, l'Espagne se reprend et domine. L'Uruguay de Bielsa, diminué par les blessures, assure la 2e place. Le Cap-Vert devance l'Arabie saoudite pour la 3e place mais ne se qualifie pas.\n\n\n| Journée | Match | Score | Type | P(V/N/D) modèle | mpp (1/N/2) |\n|:--:|:--|:--:|:--:|:--:|:--:|\n| J1 | Espagne – Cap-Vert | **0-0** | réel ✅ | 0.85/0.12/0.03 | — |\n| J1 | Arabie saoudite – Uruguay | **1-1** | réel ✅ | 0.18/0.30/0.52 | — |\n| J2 | Espagne – Arabie saoudite | **3-0** | prono 🔮 | 0.80/0.14/0.06 | 0.97/0.02/0.01 |\n| J2 | Uruguay – Cap-Vert | **1-0** | prono 🔮 | 0.58/0.27/0.15 | 0.85/0.11/0.04 |\n| J3 | Cap-Vert – Arabie saoudite | **1-1** | prono 🔮 | 0.33/0.34/0.33 | 0.14/0.55/0.31 |\n| J3 | Uruguay – Espagne | **1-2** | prono 🔮 | 0.22/0.26/0.52 | 0.03/0.14/0.83 |\n\n**Classement final pronostiqué**\n\n| Rang | Équipe | Pts | J | G | N | P | BP | BC | Diff | Statut |\n|:--:|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--|\n| 1 | Espagne | **7** | 3 | 2 | 1 | 0 | 5 | 1 | +4 | 🟢 1er — qualifié |\n| 2 | Uruguay | **4** | 3 | 1 | 1 | 1 | 3 | 3 | +0 | 🟢 2e — qualifié |\n| 3 | Cap-Vert | **2** | 3 | 0 | 2 | 1 | 1 | 2 | -1 | 🔴 éliminé |\n| 4 | Arabie saoudite | **2** | 3 | 0 | 2 | 1 | 2 | 5 | -3 | 🔴 éliminé |\n\n\n## Groupe I\n\nLa France, intraitable (9 pts), survole un groupe relevé. Le Sénégal, champion d'Afrique en titre, prend la 2e place devant la Norvège de Haaland (3e qualifiable). L'Irak termine sans point.\n\n\n| Journée | Match | Score | Type | P(V/N/D) modèle | mpp (1/N/2) |\n|:--:|:--|:--:|:--:|:--:|:--:|\n| J1 | France – Sénégal | **2-1** | prono 🔮 | 0.58/0.24/0.18 | 0.88/0.09/0.03 |\n| J1 | Irak – Norvège | **0-1** | prono 🔮 | 0.12/0.24/0.64 | 0.02/0.06/0.92 |\n| J2 | France – Irak | **3-0** | prono 🔮 | 0.86/0.10/0.04 | 0.98/0.01/0.01 |\n| J2 | Norvège – Sénégal | **1-1** | prono 🔮 | 0.32/0.30/0.38 | 0.32/0.42/0.26 |\n| J3 | Norvège – France | **1-2** | prono 🔮 | 0.22/0.24/0.54 | 0.04/0.17/0.79 |\n| J3 | Sénégal – Irak | **2-0** | prono 🔮 | 0.78/0.15/0.07 | 0.91/0.07/0.02 |\n\n**Classement final pronostiqué**\n\n| Rang | Équipe | Pts | J | G | N | P | BP | BC | Diff | Statut |\n|:--:|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--|\n| 1 | France | **9** | 3 | 3 | 0 | 0 | 7 | 2 | +5 | 🟢 1er — qualifié |\n| 2 | Sénégal | **4** | 3 | 1 | 1 | 1 | 4 | 3 | +1 | 🟢 2e — qualifié |\n| 3 | Norvège | **4** | 3 | 1 | 1 | 1 | 3 | 3 | +0 | 🟡 3e — qualifié |\n| 4 | Irak | **0** | 3 | 0 | 0 | 3 | 0 | 6 | -6 | 🔴 éliminé |\n\n\n## Groupe J\n\nL'Argentine déroule (9 pts). L'Autriche (2e) et l'Algérie (meilleur 3e) se qualifient toutes deux avec 4 points ; leur hiérarchie reste très serrée (point ouvert signalé par la critique). La Jordanie termine dernière.\n\n\n| Journée | Match | Score | Type | P(V/N/D) modèle | mpp (1/N/2) |\n|:--:|:--|:--:|:--:|:--:|:--:|\n| J1 | Argentine – Algérie | **2-0** | prono 🔮 | 0.72/0.18/0.10 | 0.80/0.14/0.06 |\n| J1 | Autriche – Jordanie | **2-0** | prono 🔮 | 0.64/0.24/0.12 | 0.83/0.14/0.03 |\n| J2 | Argentine – Autriche | **2-1** | prono 🔮 | 0.66/0.21/0.13 | 0.87/0.10/0.03 |\n| J2 | Jordanie – Algérie | **0-2** | prono 🔮 | 0.14/0.26/0.60 | 0.04/0.13/0.83 |\n| J3 | Jordanie – Argentine | **1-2** | prono 🔮 | 0.12/0.20/0.68 | 0.02/0.03/0.95 |\n| J3 | Algérie – Autriche | **1-1** | prono 🔮 | 0.33/0.30/0.37 | 0.37/0.44/0.19 |\n\n**Classement final pronostiqué**\n\n| Rang | Équipe | Pts | J | G | N | P | BP | BC | Diff | Statut |\n|:--:|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--|\n| 1 | Argentine | **9** | 3 | 3 | 0 | 0 | 6 | 2 | +4 | 🟢 1er — qualifié |\n| 2 | Autriche | **4** | 3 | 1 | 1 | 1 | 4 | 3 | +1 | 🟢 2e — qualifié |\n| 3 | Algérie | **4** | 3 | 1 | 1 | 1 | 3 | 3 | +0 | 🟡 3e — qualifié |\n| 4 | Jordanie | **0** | 3 | 0 | 0 | 3 | 1 | 6 | -5 | 🔴 éliminé |\n\n\n## Groupe K\n\nPortugal et Colombie, au coude-à-coude (nul 1-1 décisif), se qualifient tous deux, le Portugal 1er à la différence de buts. La RD Congo arrache une 3e place qualifiable de justesse. L'Ouzbékistan, pour sa 1ère CDM, termine dernier.\n\n\n| Journée | Match | Score | Type | P(V/N/D) modèle | mpp (1/N/2) |\n|:--:|:--|:--:|:--:|:--:|:--:|\n| J1 | Portugal – RD Congo | **2-0** | prono 🔮 | 0.66/0.20/0.14 | 0.95/0.04/0.01 |\n| J1 | Ouzbékistan – Colombie | **0-2** | prono 🔮 | 0.12/0.22/0.66 | 0.03/0.07/0.90 |\n| J2 | Portugal – Ouzbékistan | **3-0** | prono 🔮 | 0.78/0.15/0.07 | 0.97/0.02/0.01 |\n| J2 | Colombie – RD Congo | **2-1** | prono 🔮 | 0.56/0.24/0.20 | 0.71/0.23/0.06 |\n| J3 | Colombie – Portugal | **1-1** | prono 🔮 | 0.32/0.36/0.32 | 0.05/0.18/0.77 |\n| J3 | RD Congo – Ouzbékistan | **2-1** | prono 🔮 | 0.50/0.27/0.23 | 0.63/0.30/0.07 |\n\n**Classement final pronostiqué**\n\n| Rang | Équipe | Pts | J | G | N | P | BP | BC | Diff | Statut |\n|:--:|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--|\n| 1 | Portugal | **7** | 3 | 2 | 1 | 0 | 6 | 1 | +5 | 🟢 1er — qualifié |\n| 2 | Colombie | **7** | 3 | 2 | 1 | 0 | 5 | 2 | +3 | 🟢 2e — qualifié |\n| 3 | RD Congo | **3** | 3 | 1 | 0 | 2 | 3 | 5 | -2 | 🟡 3e — qualifié |\n| 4 | Ouzbékistan | **0** | 3 | 0 | 0 | 3 | 1 | 7 | -6 | 🔴 éliminé |\n\n\n## Groupe L\n\nL'Angleterre est démonstrative (9 pts, +6). La Croatie, vieillissante mais expérimentée, prend la 2e place. Ghana et Panama, à égalité au fond du classement, sont tous deux éliminés.\n\n\n| Journée | Match | Score | Type | P(V/N/D) modèle | mpp (1/N/2) |\n|:--:|:--|:--:|:--:|:--:|:--:|\n| J1 | Angleterre – Croatie | **2-0** | prono 🔮 | 0.68/0.22/0.10 | 0.57/0.35/0.08 |\n| J1 | Ghana – Panama | **1-1** | prono 🔮 | 0.38/0.32/0.30 | 0.60/0.33/0.07 |\n| J2 | Angleterre – Ghana | **2-0** | prono 🔮 | 0.78/0.16/0.06 | 0.89/0.08/0.03 |\n| J2 | Panama – Croatie | **1-2** | prono 🔮 | 0.16/0.24/0.60 | 0.03/0.08/0.89 |\n| J3 | Panama – Angleterre | **0-2** | prono 🔮 | 0.06/0.14/0.80 | 0.02/0.04/0.94 |\n| J3 | Croatie – Ghana | **2-1** | prono 🔮 | 0.60/0.24/0.16 | 0.74/0.20/0.06 |\n\n**Classement final pronostiqué**\n\n| Rang | Équipe | Pts | J | G | N | P | BP | BC | Diff | Statut |\n|:--:|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--|\n| 1 | Angleterre | **9** | 3 | 3 | 0 | 0 | 6 | 0 | +6 | 🟢 1er — qualifié |\n| 2 | Croatie | **6** | 3 | 2 | 0 | 1 | 4 | 4 | +0 | 🟢 2e — qualifié |\n| 3 | Ghana | **1** | 3 | 0 | 1 | 2 | 2 | 5 | -3 | 🔴 éliminé |\n| 4 | Panama | **1** | 3 | 0 | 1 | 2 | 2 | 5 | -3 | 🔴 éliminé |\n\n\n---\n\n\n## 🎟️ Les 32 qualifiés pour les 1/16 de finale\n\nFormat 2026 : 12 premiers + 12 deuxièmes + **8 meilleurs troisièmes**.\n\n\n| # | 1ers de groupe | 2es de groupe | Meilleurs 3es |\n|:--:|:--|:--|:--|\n| 1 | A · Corée du Sud | A · Mexique | F · Japon |\n| 2 | B · Suisse | B · Canada | E · Équateur |\n| 3 | C · Brésil | C · Maroc | J · Algérie |\n| 4 | D · États-Unis | D · Australie | I · Norvège |\n| 5 | E · Allemagne | E · Côte d'Ivoire | A · Tchéquie |\n| 6 | F · Suède | F · Pays-Bas | B · Bosnie-Herzégovine |\n| 7 | G · Belgique | G · Égypte | D · Turquie |\n| 8 | H · Espagne | H · Uruguay | K · RD Congo |\n| 9 | I · France | I · Sénégal |  |\n| 10 | J · Argentine | J · Autriche |  |\n| 11 | K · Portugal | K · Colombie |  |\n| 12 | L · Angleterre | L · Croatie |  |\n\n**Course aux meilleurs 3es (très serrée)** — les 8 premiers passent :\n\n\n| Rang 3es | Groupe | Équipe | Pts | Diff | BP | Qualifié |\n|:--:|:--:|:--|:--:|:--:|:--:|:--:|\n| 1 | F | Japon | 4 | +1 | 5 | ✅ |\n| 2 | E | Équateur | 4 | +1 | 3 | ✅ |\n| 3 | J | Algérie | 4 | +0 | 3 | ✅ |\n| 4 | I | Norvège | 4 | +0 | 3 | ✅ |\n| 5 | A | Tchéquie | 4 | +0 | 3 | ✅ |\n| 6 | B | Bosnie-Herzégovine | 4 | -1 | 3 | ✅ |\n| 7 | D | Turquie | 4 | -1 | 3 | ✅ |\n| 8 | K | RD Congo | 3 | -2 | 3 | ✅ |\n| 9 | C | Écosse | 3 | -2 | 2 | ❌ |\n| 10 | G | Iran | 2 | -1 | 4 | ❌ |\n| 11 | H | Cap-Vert | 2 | -1 | 1 | ❌ |\n| 12 | L | Ghana | 1 | -3 | 2 | ❌ |\n\n---\n\n\n## 🔬 Méthodologie & limites\n\n- **Modèle Poisson** : `λ` (buts attendus) dérivés de l'Elo via une *supremacy* bornée (`3.6·tanh(Δelo/350)`) et un volume de buts croissant avec le déséquilibre ; avantage hôte pour le Mexique, les USA et le Canada. Détails et sensibilité : `notebooks/analyse_pronos.ipynb`.\n\n- **Multi-agents** : 12 agents prédicteurs (1/groupe, recherche web sur forme, effectifs, blessures, compétitions 2024-2026) ont ajusté le baseline ; 4 agents critiques ont challengé réalisme, biais et cohérence (départages, excès de nuls).\n\n- **Validation** : confronté aux résultats réels de la J1, le modèle Elo pur n'a anticipé que **~38 % des issues** — une J1 exceptionnellement nulle et surprenante (8 nuls sur 16, dont Espagne 0-0 Cap-Vert), ce qui rappelle l'imprévisibilité du football et justifie la couche experts.\n\n- **Limites** : un pronostic n'est pas une prédiction certaine. La course aux meilleurs 3es se joue à un but près ; plusieurs départages (Autriche/Algérie, Norvège/Sénégal) sont des quasi-pile-ou-face. Hors périmètre : la phase à élimination directe.\n"

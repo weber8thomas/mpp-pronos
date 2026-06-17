@@ -12,14 +12,6 @@ os.makedirs("docs", exist_ok=True)
 pred = pd.read_csv("data/predictions.csv")
 base = pd.read_csv("data/predictions_baseline.csv")
 ratings = pd.read_csv("data/team_ratings.csv")
-
-# Résultats réels (matchs joués) : score_reel du baseline -> (buts_dom, buts_ext)
-real_idx = {}
-for _, r in base.iterrows():
-    sr = r.get("score_reel")
-    if isinstance(sr, str) and "-" in sr:
-        a, b = sr.split("-")
-        real_idx[(r.groupe, int(r.journee), r.equipe_dom, r.equipe_ext)] = (int(a), int(b))
 analyses = json.load(open("data/group_analyses.json"))
 report_md = open("rapport/pronostics_cdm2026.md", encoding="utf-8").read()
 try:
@@ -56,22 +48,18 @@ def clean(v):
 # Pronostics (liste de dicts)
 predictions = []
 for _, r in pred.iterrows():
-    # Résultat réel : score_reel du baseline ; à défaut, pour un match joué, le score affiché.
-    rr = real_idx.get((r.groupe, int(r.journee), r.equipe_dom, r.equipe_ext))
-    if rr is None and r.statut == "joue":
-        rr = (int(r.buts_dom), int(r.buts_ext))
-    # Pronostic du modèle (score_modele, ex. "2-0") : la vraie prédiction d'avant-match.
-    pm = None
-    if isinstance(r.score_modele, str) and "-" in r.score_modele:
-        a, b = r.score_modele.split("-")
-        pm = (int(a), int(b))
+    # Pronostic figé (colonne score_pronostic, ex. "2-1") : la vraie prédiction d'avant-match,
+    # conservée même après le match. buts_dom/buts_ext deviennent le résultat réel une fois joué.
+    pp = None
+    if isinstance(r.score_pronostic, str) and "-" in r.score_pronostic:
+        a, b = r.score_pronostic.split("-")
+        pp = (int(a), int(b))
     predictions.append({
         "groupe": r.groupe, "journee": int(r.journee),
         "kickoff_cest": r.kickoff_cest, "kickoff_utc": r.kickoff_utc,
         "dom": r.equipe_dom, "ext": r.equipe_ext, "statut": r.statut,
         "bd": int(r.buts_dom), "be": int(r.buts_ext),
-        "pmd": pm[0] if pm else None, "pme": pm[1] if pm else None,
-        "rd": rr[0] if rr else None, "re": rr[1] if rr else None,
+        "ppd": pp[0] if pp else None, "ppe": pp[1] if pp else None,
         "pv": float(r.p_victoire_dom), "pn": float(r.p_nul), "pd": float(r.p_victoire_ext),
         "mpp_v": clean(r.p_mpp_dom), "mpp_n": clean(r.p_mpp_nul), "mpp_d": clean(r.p_mpp_ext),
         "xg_dom": float(r.xg_dom_modele), "xg_ext": float(r.xg_ext_modele),

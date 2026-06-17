@@ -371,33 +371,49 @@ body[data-theme="dark"] .mpp-logo{filter:brightness(0) invert(1) opacity(.85)}
   .report{padding:6px 14px 16px}
   .report table{font-size:.74rem}
 }
-/* ---------- Calendrier en cartes sur mobile (pas de scroll horizontal) ---------- */
+/* ---------- Calendrier en cartes compactes sur mobile (pas de scroll horizontal) ---------- */
 @media(max-width:640px){
   .caltablewrap{overflow:visible;border:none;background:none;box-shadow:none;border-radius:0}
   .caltable thead{display:none}
   .caltable,.caltable tbody{display:block;width:100%}
-  .caltable tr{display:block;border:1px solid var(--line);border-radius:13px;background:var(--card);
-    box-shadow:var(--shadow);margin:0 0 12px;padding:12px 14px}
+  /* La ligne = une carte ; flex-wrap regroupe plusieurs cellules par rangée */
+  .caltable tr{display:flex;flex-wrap:wrap;align-items:center;
+    border:1px solid var(--line);border-radius:12px;background:var(--card);box-shadow:var(--shadow);
+    margin:0 0 10px;padding:9px 12px}
   .caltable tr.isnext{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
-  .caltable td{display:flex;align-items:center;justify-content:space-between;gap:12px;
-    border:none;padding:5px 0;text-align:right;min-height:0}
-  .caltable td::before{content:attr(data-label);color:var(--muted);font-weight:700;font-size:.66rem;
-    letter-spacing:.04em;text-transform:uppercase;text-align:left;flex:0 0 auto}
-  /* Match en tête de carte, centré et sans libellé */
-  .caltable td.cal-match{order:-3;justify-content:center;text-align:center;padding:0 0 9px;
-    border-bottom:1px solid var(--line);margin-bottom:5px}
+  .caltable td{display:flex;border:none;padding:0;min-height:0}
+  .caltable td::before{content:attr(data-label);color:var(--muted);font-weight:700;font-size:.6rem;
+    letter-spacing:.03em;text-transform:uppercase}
+
+  /* Affiche en tête, pleine largeur */
+  .caltable td.cal-match{order:-3;flex:0 0 100%;justify-content:center;text-align:center;
+    padding-bottom:7px;margin-bottom:6px;border-bottom:1px solid var(--line)}
   .caltable td.cal-match::before{display:none}
-  .caltable td.cal-match .vs{font-size:1rem;font-weight:700;flex-wrap:wrap;justify-content:center}
-  .caltable td.cal-date{order:-2}
-  .caltable td.cal-gr{order:-1}
-  /* Séparateur léger avant le bloc des scores */
-  .caltable td[data-label="Prono"]{border-top:1px solid var(--line);padding-top:9px;margin-top:4px}
-  /* La barre de probas occupe la largeur restante */
-  .caltable td[data-label="P(V/N/D) modèle"] .probrow{flex:1;justify-content:flex-end}
-  .caltable td .matchcell{justify-content:center}
+  .caltable td.cal-match .matchcell{justify-content:center}
+  .caltable td.cal-match .vs{font-size:.98rem;font-weight:700;flex-wrap:wrap;justify-content:center}
   .caltable .nextbadge{margin-left:6px}
+
+  /* Rangée 1 : coup d'envoi (gauche) + groupe (droite) */
+  .caltable td.cal-date{order:-2;flex:1 1 64%;align-items:baseline;gap:6px;
+    padding-bottom:7px;margin-bottom:6px;border-bottom:1px solid var(--line)}
+  .caltable td.cal-gr{order:-1;flex:1 1 30%;align-items:center;justify-content:flex-end;gap:6px;
+    padding-bottom:7px;margin-bottom:6px;border-bottom:1px solid var(--line)}
+
+  /* Rangée 2 : Prono / Résultat / Accord (libellé au-dessus, centré) */
+  .caltable td[data-label="Prono"],
+  .caltable td[data-label="Résultat"],
+  .caltable td[data-label="Accord"]{flex:1 1 32%;flex-direction:column;align-items:center;gap:4px;
+    justify-content:flex-start}
+
+  /* Rangée 3 : probas (large) + mpp */
+  .caltable td[data-label="P(V/N/D) modèle"]{flex:1 1 62%;flex-direction:column;align-items:flex-start;
+    gap:4px;margin-top:9px;padding-top:9px;border-top:1px solid var(--line)}
+  .caltable td[data-label="P(V/N/D) modèle"] .probrow{width:100%}
+  .caltable td[data-label="mpp 1/N/2"]{flex:1 1 34%;flex-direction:column;align-items:center;gap:4px;
+    justify-content:center;margin-top:9px;padding-top:9px;border-top:1px solid var(--line);text-align:center}
+
   /* ligne "Aucun match" */
-  .caltable td[colspan]{justify-content:center;text-align:center}
+  .caltable td[colspan]{flex:0 0 100%;justify-content:center;text-align:center}
   .caltable td[colspan]::before{display:none}
 }
 /* confort tactile */

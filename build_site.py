@@ -60,11 +60,17 @@ for _, r in pred.iterrows():
     rr = real_idx.get((r.groupe, int(r.journee), r.equipe_dom, r.equipe_ext))
     if rr is None and r.statut == "joue":
         rr = (int(r.buts_dom), int(r.buts_ext))
+    # Pronostic du modèle (score_modele, ex. "2-0") : la vraie prédiction d'avant-match.
+    pm = None
+    if isinstance(r.score_modele, str) and "-" in r.score_modele:
+        a, b = r.score_modele.split("-")
+        pm = (int(a), int(b))
     predictions.append({
         "groupe": r.groupe, "journee": int(r.journee),
         "kickoff_cest": r.kickoff_cest, "kickoff_utc": r.kickoff_utc,
         "dom": r.equipe_dom, "ext": r.equipe_ext, "statut": r.statut,
         "bd": int(r.buts_dom), "be": int(r.buts_ext),
+        "pmd": pm[0] if pm else None, "pme": pm[1] if pm else None,
         "rd": rr[0] if rr else None, "re": rr[1] if rr else None,
         "pv": float(r.p_victoire_dom), "pn": float(r.p_nul), "pd": float(r.p_victoire_ext),
         "mpp_v": clean(r.p_mpp_dom), "mpp_n": clean(r.p_mpp_nul), "mpp_d": clean(r.p_mpp_ext),

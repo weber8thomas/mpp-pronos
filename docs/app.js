@@ -59,12 +59,16 @@ const scoreBadge = (bd,be) => {
   const t = bd>be ? "Victoire domicile" : bd<be ? "Victoire extérieur" : "Match nul";
   return `<span class="scoreb ${c}" title="${t}">${bd}-${be}</span>`;
 };
+// Prono affiché : matchs joués -> prédiction du modèle (pmd/pme) ; à venir -> pronostic publié (bd/be).
+const hasReel  = p => p.rd!=null && p.re!=null;
+const hasProno = p => p.pmd!=null && p.pme!=null;
+const pronoD = p => p.statut==="joue" && hasProno(p) ? p.pmd : p.bd;
+const pronoE = p => p.statut==="joue" && hasProno(p) ? p.pme : p.be;
 // Accord prono ↔ résultat : ✓✓ score exact, ✓ bonne issue (1/N/2), ✗ issue manquée, — pas de résultat
-const hasReel = p => p.rd!=null && p.re!=null;
 function accordRank(p){
-  if(!hasReel(p)) return -1;
-  if(p.bd===p.rd && p.be===p.re) return 3;          // score exact
-  return outcome(p.bd,p.be)===outcome(p.rd,p.re) ? 2 : 1;
+  if(!hasReel(p) || !hasProno(p)) return -1;
+  if(p.pmd===p.rd && p.pme===p.re) return 3;          // score exact
+  return outcome(p.pmd,p.pme)===outcome(p.rd,p.re) ? 2 : 1;
 }
 function accordBadge(p){
   const r=accordRank(p);
@@ -122,7 +126,7 @@ function matchRow(p){
   return `<tr class="clik${nx?' isnext':''}"${nx?' id="cal-next"':''} data-match="${p._i}" data-g="${p.groupe}" data-s="${p.statut}" data-t="${esc(p.dom+' '+p.ext)}">
     <td>${dt}</td><td class="c"><span class="grouptag">${p.groupe}</span></td>
     <td><div class="matchcell"><span class="vs">${team(p.dom)}<span class="muted">–</span>${team(p.ext)}</span>${nx?'<span class="nextbadge">à suivre</span>':''}</div></td>
-    <td class="c">${scoreBadge(p.bd,p.be)}</td>
+    <td class="c">${scoreBadge(pronoD(p),pronoE(p))}</td>
     <td class="c">${hasReel(p)?scoreBadge(p.rd,p.re):'<span class="muted">—</span>'}</td>
     <td class="c">${accordBadge(p)}</td><td class="c">${typ}</td>
     <td>${probBar(p.pv,p.pn,p.pd)}</td><td class="c">${mpp}</td></tr>`;
@@ -142,7 +146,7 @@ const CAL_KEY={
   date:p=>p.kickoff_utc,
   groupe:p=>p.groupe+"|"+p.kickoff_utc,
   match:p=>p.dom.toLowerCase(),
-  prono:p=>p.bd+p.be,
+  prono:p=>pronoD(p)+pronoE(p),
   reel:p=>hasReel(p)?p.rd+p.re:-1,
   accord:p=>accordRank(p),
   type:p=>p.statut,
@@ -156,7 +160,9 @@ function renderCalendrier(){
   sec.innerHTML=`
     <h1>Calendrier &amp; pronostics</h1>
     <p class="lead">Les 72 matchs. <strong>Cliquez un en-tête</strong> pour trier (date, groupe, score, proba…) ;
-    filtrez par équipe, groupe ou statut. Heure <strong>CEST</strong> indicative.</p>
+    filtrez par équipe, groupe ou statut. Heure <strong>CEST</strong> indicative.
+    Pour un match joué, <strong>Prono</strong> = prédiction d'avant-match du modèle, <strong>Résultat</strong> = score réel,
+    et <strong>Accord</strong> compare les deux.</p>
     <div class="legend">Score : <span class="scoreb sc-win">2-0</span> victoire domicile ·
       <span class="scoreb sc-draw">1-1</span> nul ·
       <span class="scoreb sc-loss">0-2</span> victoire extérieur ·

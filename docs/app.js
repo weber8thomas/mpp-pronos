@@ -117,7 +117,6 @@ function renderAccueil(){
 
 /* ---------- Calendrier ---------- */
 function matchRow(p){
-  const typ = p.statut==="joue"?`<span class="pill real">réel</span>`:`<span class="pill prono">prono</span>`;
   const mpp = p.mpp_v==null?'<span class="muted">—</span>':`${Math.round(p.mpp_v*100)}/${Math.round(p.mpp_n*100)}/${Math.round(p.mpp_d*100)}`;
   const dt = p.kickoff_cest.replace(/-/g,"/").slice(5,16);
   const nx = p._i===NEXT_I;
@@ -126,7 +125,7 @@ function matchRow(p){
     <td><div class="matchcell"><span class="vs">${team(p.dom)}<span class="muted">–</span>${team(p.ext)}</span>${nx?'<span class="nextbadge">à suivre</span>':''}</div></td>
     <td class="c">${hasProno(p)?scoreBadge(p.ppd,p.ppe):'<span class="muted">—</span>'}</td>
     <td class="c">${hasReel(p)?scoreBadge(p.bd,p.be):'<span class="muted">—</span>'}</td>
-    <td class="c">${accordBadge(p)}</td><td class="c">${typ}</td>
+    <td class="c">${accordBadge(p)}</td>
     <td>${probBar(p.pv,p.pn,p.pd)}</td><td class="c">${mpp}</td></tr>`;
 }
 const CAL_COLS=[
@@ -136,7 +135,6 @@ const CAL_COLS=[
   {k:"prono",  l:"Prono",          cls:"c"},
   {k:"reel",   l:"Résultat",       cls:"c"},
   {k:"accord", l:"Accord",         cls:"c"},
-  {k:"type",   l:"Type",           cls:"c"},
   {k:"pv",     l:"P(V/N/D) modèle",cls:""},
   {k:"mpp",    l:"mpp 1/N/2",      cls:"c"},
 ];
@@ -147,7 +145,6 @@ const CAL_KEY={
   prono:p=>hasProno(p)?p.ppd+p.ppe:-1,
   reel:p=>hasReel(p)?p.bd+p.be:-1,
   accord:p=>accordRank(p),
-  type:p=>p.statut,
   pv:p=>p.pv,
   mpp:p=>p.mpp_v==null?-1:p.mpp_v,
 };
@@ -187,7 +184,7 @@ function renderCalendrier(){
     const key=CAL_KEY[sortKey];
     arr.sort((a,b)=>{const x=key(a),y=key(b);return (x>y?1:x<y?-1:0)*sortDir;});
     tbody.innerHTML=arr.length?arr.map(matchRow).join(""):
-      `<tr><td colspan="9" class="c muted" style="padding:18px">Aucun match.</td></tr>`;
+      `<tr><td colspan="8" class="c muted" style="padding:18px">Aucun match.</td></tr>`;
     sec.querySelector("#calCount").textContent=`${arr.length} match${arr.length>1?"s":""}`;
     sec.querySelectorAll("th.sortable").forEach(th=>{
       th.querySelector(".arr").textContent = th.dataset.k===sortKey ? (sortDir>0?" ▲":" ▼") : "";

@@ -3,10 +3,10 @@ window.DATA = {
  "meta": {
   "titre": "Pronostics CDM 2026 — Phase de groupes",
   "n_matchs": 72,
-  "n_joues": 24,
+  "n_joues": 28,
   "n_qualifies": 32,
   "vainqueurs": [
-   "A : Corée du Sud",
+   "A : Mexique",
    "B : Suisse",
    "C : Brésil",
    "D : États-Unis",
@@ -19,7 +19,7 @@ window.DATA = {
    "K : Colombie",
    "L : Angleterre"
   ],
-  "j1_accuracy": 0.5,
+  "j1_accuracy": 0.536,
   "groupes": [
    "A",
    "B",
@@ -85,9 +85,9 @@ window.DATA = {
    "kickoff_utc": "2026-06-18T16:00",
    "dom": "Tchéquie",
    "ext": "Afrique du Sud",
-   "statut": "a_venir",
+   "statut": "joue",
    "bd": 1,
-   "be": 0,
+   "be": 1,
    "ppd": 1,
    "ppe": 0,
    "pv": 0.58,
@@ -106,9 +106,9 @@ window.DATA = {
    "kickoff_utc": "2026-06-19T01:00",
    "dom": "Mexique",
    "ext": "Corée du Sud",
-   "statut": "a_venir",
+   "statut": "joue",
    "bd": 1,
-   "be": 1,
+   "be": 0,
    "ppd": 1,
    "ppe": 1,
    "pv": 0.4,
@@ -211,9 +211,9 @@ window.DATA = {
    "kickoff_utc": "2026-06-18T19:00",
    "dom": "Suisse",
    "ext": "Bosnie-Herzégovine",
-   "statut": "a_venir",
-   "bd": 2,
-   "be": 0,
+   "statut": "joue",
+   "bd": 4,
+   "be": 1,
    "ppd": 2,
    "ppe": 0,
    "pv": 0.74,
@@ -232,8 +232,8 @@ window.DATA = {
    "kickoff_utc": "2026-06-18T22:00",
    "dom": "Canada",
    "ext": "Qatar",
-   "statut": "a_venir",
-   "bd": 2,
+   "statut": "joue",
+   "bd": 6,
    "be": 0,
    "ppd": 2,
    "ppe": 0,
@@ -1553,25 +1553,25 @@ window.DATA = {
   "A": [
    {
     "rang": 1,
-    "equipe": "Corée du Sud",
+    "equipe": "Mexique",
     "pts": 7,
     "j": 3,
     "g": 2,
     "n": 1,
     "p": 0,
-    "bp": 5,
-    "bc": 2,
+    "bp": 4,
+    "bc": 1,
     "diff": 3,
     "statut": "1er"
    },
    {
     "rang": 2,
-    "equipe": "Mexique",
-    "pts": 5,
+    "equipe": "Corée du Sud",
+    "pts": 6,
     "j": 3,
-    "g": 1,
-    "n": 2,
-    "p": 0,
+    "g": 2,
+    "n": 0,
+    "p": 1,
     "bp": 4,
     "bc": 2,
     "diff": 2,
@@ -1580,27 +1580,27 @@ window.DATA = {
    {
     "rang": 3,
     "equipe": "Tchéquie",
-    "pts": 4,
+    "pts": 2,
     "j": 3,
-    "g": 1,
-    "n": 1,
+    "g": 0,
+    "n": 2,
     "p": 1,
     "bp": 3,
-    "bc": 3,
-    "diff": 0,
-    "statut": "3e"
+    "bc": 4,
+    "diff": -1,
+    "statut": "out"
    },
    {
     "rang": 4,
     "equipe": "Afrique du Sud",
-    "pts": 0,
+    "pts": 1,
     "j": 3,
     "g": 0,
-    "n": 0,
-    "p": 3,
-    "bp": 0,
+    "n": 1,
+    "p": 2,
+    "bp": 1,
     "bc": 5,
-    "diff": -5,
+    "diff": -4,
     "statut": "out"
    }
   ],
@@ -1613,9 +1613,9 @@ window.DATA = {
     "g": 2,
     "n": 1,
     "p": 0,
-    "bp": 5,
-    "bc": 2,
-    "diff": 3,
+    "bp": 7,
+    "bc": 3,
+    "diff": 4,
     "statut": "1er"
    },
    {
@@ -1626,9 +1626,9 @@ window.DATA = {
     "g": 1,
     "n": 1,
     "p": 1,
-    "bp": 4,
+    "bp": 8,
     "bc": 3,
-    "diff": 1,
+    "diff": 5,
     "statut": "2e"
    },
    {
@@ -1639,9 +1639,9 @@ window.DATA = {
     "g": 1,
     "n": 1,
     "p": 1,
-    "bp": 3,
-    "bc": 4,
-    "diff": -1,
+    "bp": 4,
+    "bc": 6,
+    "diff": -2,
     "statut": "3e"
    },
    {
@@ -1653,8 +1653,8 @@ window.DATA = {
     "n": 1,
     "p": 2,
     "bp": 2,
-    "bc": 5,
-    "diff": -3,
+    "bc": 9,
+    "diff": -7,
     "statut": "out"
    }
   ],
@@ -2182,7 +2182,7 @@ window.DATA = {
     "bp": 2,
     "bc": 4,
     "diff": -2,
-    "statut": "out"
+    "statut": "3e"
    },
    {
     "rang": 4,
@@ -2203,7 +2203,7 @@ window.DATA = {
   "premiers": [
    {
     "groupe": "A",
-    "equipe": "Corée du Sud"
+    "equipe": "Mexique"
    },
    {
     "groupe": "B",
@@ -2253,7 +2253,7 @@ window.DATA = {
   "deuxiemes": [
    {
     "groupe": "A",
-    "equipe": "Mexique"
+    "equipe": "Corée du Sud"
    },
    {
     "groupe": "B",
@@ -2318,20 +2318,20 @@ window.DATA = {
     "equipe": "Sénégal"
    },
    {
-    "groupe": "A",
-    "equipe": "Tchéquie"
-   },
-   {
     "groupe": "J",
     "equipe": "Algérie"
+   },
+   {
+    "groupe": "D",
+    "equipe": "Turquie"
    },
    {
     "groupe": "B",
     "equipe": "Bosnie-Herzégovine"
    },
    {
-    "groupe": "D",
-    "equipe": "Turquie"
+    "groupe": "L",
+    "equipe": "Ghana"
    }
   ],
   "troisiemes": [
@@ -2368,24 +2368,8 @@ window.DATA = {
     "qualifie": true
    },
    {
-    "groupe": "A",
-    "equipe": "Tchéquie",
-    "pts": 4,
-    "diff": 0,
-    "bp": 3,
-    "qualifie": true
-   },
-   {
     "groupe": "J",
     "equipe": "Algérie",
-    "pts": 4,
-    "diff": -1,
-    "bp": 3,
-    "qualifie": true
-   },
-   {
-    "groupe": "B",
-    "equipe": "Bosnie-Herzégovine",
     "pts": 4,
     "diff": -1,
     "bp": 3,
@@ -2400,12 +2384,20 @@ window.DATA = {
     "qualifie": true
    },
    {
+    "groupe": "B",
+    "equipe": "Bosnie-Herzégovine",
+    "pts": 4,
+    "diff": -2,
+    "bp": 4,
+    "qualifie": true
+   },
+   {
     "groupe": "L",
     "equipe": "Ghana",
     "pts": 3,
     "diff": -2,
     "bp": 2,
-    "qualifie": false
+    "qualifie": true
    },
    {
     "groupe": "C",
@@ -2421,6 +2413,14 @@ window.DATA = {
     "pts": 2,
     "diff": -1,
     "bp": 4,
+    "qualifie": false
+   },
+   {
+    "groupe": "A",
+    "equipe": "Tchéquie",
+    "pts": 2,
+    "diff": -1,
+    "bp": 3,
     "qualifie": false
    },
    {
@@ -2440,7 +2440,7 @@ window.DATA = {
    "elo": 1804,
    "fifa_rank": 14,
    "forme": "Vainqueur Gold Cup 2025 (2-1 vs USA); nation hôte; amicaux 2026 mitigés",
-   "statut": "2e"
+   "statut": "1er"
   },
   {
    "groupe": "A",
@@ -2448,7 +2448,7 @@ window.DATA = {
    "elo": 1746,
    "fifa_rank": 23,
    "forme": "Premier de son groupe qualif AFC invaincu; emmenée par Son Heung-min",
-   "statut": "1er"
+   "statut": "2e"
   },
   {
    "groupe": "A",
@@ -2464,7 +2464,7 @@ window.DATA = {
    "elo": 1709,
    "fifa_rank": 40,
    "forme": "Qualifiée via barrages UEFA; forme irrégulière 2025-26",
-   "statut": "3e"
+   "statut": "out"
   },
   {
    "groupe": "B",
@@ -2816,7 +2816,7 @@ window.DATA = {
    "elo": 1695,
    "fifa_rank": 70,
    "forme": "Qualif CAF solide; Black Stars en reconstruction; talent offensif",
-   "statut": "out"
+   "statut": "3e"
   }
  ],
  "analyses": {
@@ -4123,6 +4123,18 @@ window.DATA = {
    "ok": false
   },
   {
+   "match": "Tchéquie – Afrique du Sud",
+   "reel": "1-1",
+   "modele": "2-0",
+   "ok": false
+  },
+  {
+   "match": "Mexique – Corée du Sud",
+   "reel": "1-0",
+   "modele": "2-0",
+   "ok": true
+  },
+  {
    "match": "Canada – Bosnie-Herzégovine",
    "reel": "1-1",
    "modele": "2-0",
@@ -4133,6 +4145,18 @@ window.DATA = {
    "reel": "1-1",
    "modele": "0-2",
    "ok": false
+  },
+  {
+   "match": "Suisse – Bosnie-Herzégovine",
+   "reel": "4-1",
+   "modele": "2-0",
+   "ok": true
+  },
+  {
+   "match": "Canada – Qatar",
+   "reel": "6-0",
+   "modele": "2-0",
+   "ok": true
   },
   {
    "match": "Brésil – Maroc",

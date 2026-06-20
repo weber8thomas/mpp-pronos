@@ -3,7 +3,7 @@ window.DATA = {
  "meta": {
   "titre": "Pronostics CDM 2026 — Phase de groupes",
   "n_matchs": 72,
-  "n_joues": 28,
+  "n_joues": 32,
   "n_qualifies": 32,
   "vainqueurs": [
    "A : Mexique",
@@ -19,7 +19,7 @@ window.DATA = {
    "K : Colombie",
    "L : Angleterre"
   ],
-  "j1_accuracy": 0.536,
+  "j1_accuracy": 0.562,
   "groupes": [
    "A",
    "B",
@@ -337,9 +337,9 @@ window.DATA = {
    "kickoff_utc": "2026-06-19T22:00",
    "dom": "Écosse",
    "ext": "Maroc",
-   "statut": "a_venir",
-   "bd": 1,
-   "be": 2,
+   "statut": "joue",
+   "bd": 0,
+   "be": 1,
    "ppd": 1,
    "ppe": 2,
    "pv": 0.18,
@@ -358,7 +358,7 @@ window.DATA = {
    "kickoff_utc": "2026-06-20T01:00",
    "dom": "Brésil",
    "ext": "Haïti",
-   "statut": "a_venir",
+   "statut": "joue",
    "bd": 3,
    "be": 0,
    "ppd": 3,
@@ -463,7 +463,7 @@ window.DATA = {
    "kickoff_utc": "2026-06-19T19:00",
    "dom": "États-Unis",
    "ext": "Australie",
-   "statut": "a_venir",
+   "statut": "joue",
    "bd": 2,
    "be": 0,
    "ppd": 2,
@@ -484,9 +484,9 @@ window.DATA = {
    "kickoff_utc": "2026-06-20T04:00",
    "dom": "Turquie",
    "ext": "Paraguay",
-   "statut": "a_venir",
-   "bd": 2,
-   "be": 1,
+   "statut": "joue",
+   "bd": 1,
+   "be": 0,
    "ppd": 2,
    "ppe": 1,
    "pv": 0.54,
@@ -1680,8 +1680,8 @@ window.DATA = {
     "g": 2,
     "n": 1,
     "p": 0,
-    "bp": 5,
-    "bc": 2,
+    "bp": 4,
+    "bc": 1,
     "diff": 3,
     "statut": "2e"
    },
@@ -1693,8 +1693,8 @@ window.DATA = {
     "g": 1,
     "n": 0,
     "p": 2,
-    "bp": 2,
-    "bc": 4,
+    "bp": 1,
+    "bc": 3,
     "diff": -2,
     "statut": "out"
    },
@@ -1747,8 +1747,8 @@ window.DATA = {
     "g": 1,
     "n": 1,
     "p": 1,
-    "bp": 3,
-    "bc": 4,
+    "bp": 2,
+    "bc": 3,
     "diff": -1,
     "statut": "3e"
    },
@@ -1760,8 +1760,8 @@ window.DATA = {
     "g": 0,
     "n": 1,
     "p": 2,
-    "bp": 3,
-    "bc": 7,
+    "bp": 2,
+    "bc": 6,
     "diff": -4,
     "statut": "out"
    }
@@ -2380,7 +2380,7 @@ window.DATA = {
     "equipe": "Turquie",
     "pts": 4,
     "diff": -1,
-    "bp": 3,
+    "bp": 2,
     "qualifie": true
    },
    {
@@ -2404,7 +2404,7 @@ window.DATA = {
     "equipe": "Écosse",
     "pts": 3,
     "diff": -2,
-    "bp": 2,
+    "bp": 1,
     "qualifie": false
    },
    {
@@ -4171,6 +4171,18 @@ window.DATA = {
    "ok": true
   },
   {
+   "match": "Écosse – Maroc",
+   "reel": "0-1",
+   "modele": "0-2",
+   "ok": true
+  },
+  {
+   "match": "Brésil – Haïti",
+   "reel": "3-0",
+   "modele": "3-0",
+   "ok": true
+  },
+  {
    "match": "États-Unis – Paraguay",
    "reel": "4-1",
    "modele": "1-0",
@@ -4180,6 +4192,18 @@ window.DATA = {
    "match": "Australie – Turquie",
    "reel": "2-0",
    "modele": "0-1",
+   "ok": false
+  },
+  {
+   "match": "États-Unis – Australie",
+   "reel": "2-0",
+   "modele": "2-0",
+   "ok": true
+  },
+  {
+   "match": "Turquie – Paraguay",
+   "reel": "1-0",
+   "modele": "1-1",
    "ok": false
   },
   {

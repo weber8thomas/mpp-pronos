@@ -3,7 +3,7 @@ window.DATA = {
  "meta": {
   "titre": "Pronostics CDM 2026 — Phase de groupes",
   "n_matchs": 72,
-  "n_joues": 32,
+  "n_joues": 36,
   "n_qualifies": 32,
   "vainqueurs": [
    "A : Mexique",
@@ -11,7 +11,7 @@ window.DATA = {
    "C : Brésil",
    "D : États-Unis",
    "E : Allemagne",
-   "F : Suède",
+   "F : Pays-Bas",
    "G : Belgique",
    "H : Espagne",
    "I : France",
@@ -19,7 +19,7 @@ window.DATA = {
    "K : Colombie",
    "L : Angleterre"
   ],
-  "j1_accuracy": 0.562,
+  "j1_accuracy": 0.583,
   "groupes": [
    "A",
    "B",
@@ -485,8 +485,8 @@ window.DATA = {
    "dom": "Turquie",
    "ext": "Paraguay",
    "statut": "joue",
-   "bd": 1,
-   "be": 0,
+   "bd": 0,
+   "be": 1,
    "ppd": 2,
    "ppe": 1,
    "pv": 0.54,
@@ -589,7 +589,7 @@ window.DATA = {
    "kickoff_utc": "2026-06-20T20:00",
    "dom": "Allemagne",
    "ext": "Côte d'Ivoire",
-   "statut": "a_venir",
+   "statut": "joue",
    "bd": 2,
    "be": 1,
    "ppd": 2,
@@ -610,8 +610,8 @@ window.DATA = {
    "kickoff_utc": "2026-06-21T00:00",
    "dom": "Équateur",
    "ext": "Curaçao",
-   "statut": "a_venir",
-   "bd": 2,
+   "statut": "joue",
+   "bd": 0,
    "be": 0,
    "ppd": 2,
    "ppe": 0,
@@ -715,9 +715,9 @@ window.DATA = {
    "kickoff_utc": "2026-06-20T17:00",
    "dom": "Pays-Bas",
    "ext": "Suède",
-   "statut": "a_venir",
-   "bd": 2,
-   "be": 2,
+   "statut": "joue",
+   "bd": 5,
+   "be": 1,
    "ppd": 2,
    "ppe": 2,
    "pv": 0.35,
@@ -736,9 +736,9 @@ window.DATA = {
    "kickoff_utc": "2026-06-21T04:00",
    "dom": "Tunisie",
    "ext": "Japon",
-   "statut": "a_venir",
+   "statut": "joue",
    "bd": 0,
-   "be": 2,
+   "be": 4,
    "ppd": 0,
    "ppe": 2,
    "pv": 0.18,
@@ -1696,7 +1696,7 @@ window.DATA = {
     "bp": 1,
     "bc": 3,
     "diff": -2,
-    "statut": "out"
+    "statut": "3e"
    },
    {
     "rang": 4,
@@ -1741,28 +1741,28 @@ window.DATA = {
    },
    {
     "rang": 3,
-    "equipe": "Turquie",
+    "equipe": "Paraguay",
     "pts": 4,
     "j": 3,
     "g": 1,
     "n": 1,
     "p": 1,
-    "bp": 2,
-    "bc": 3,
-    "diff": -1,
+    "bp": 3,
+    "bc": 5,
+    "diff": -2,
     "statut": "3e"
    },
    {
     "rang": 4,
-    "equipe": "Paraguay",
+    "equipe": "Turquie",
     "pts": 1,
     "j": 3,
     "g": 0,
     "n": 1,
     "p": 2,
-    "bp": 2,
-    "bc": 6,
-    "diff": -4,
+    "bp": 1,
+    "bc": 4,
+    "diff": -3,
     "statut": "out"
    }
   ],
@@ -1796,55 +1796,55 @@ window.DATA = {
    {
     "rang": 3,
     "equipe": "Équateur",
-    "pts": 4,
+    "pts": 2,
     "j": 3,
-    "g": 1,
-    "n": 1,
+    "g": 0,
+    "n": 2,
     "p": 1,
-    "bp": 3,
+    "bp": 1,
     "bc": 2,
-    "diff": 1,
-    "statut": "3e"
+    "diff": -1,
+    "statut": "out"
    },
    {
     "rang": 4,
     "equipe": "Curaçao",
-    "pts": 0,
+    "pts": 1,
     "j": 3,
     "g": 0,
-    "n": 0,
-    "p": 3,
+    "n": 1,
+    "p": 2,
     "bp": 1,
-    "bc": 11,
-    "diff": -10,
+    "bc": 9,
+    "diff": -8,
     "statut": "out"
    }
   ],
   "F": [
    {
     "rang": 1,
-    "equipe": "Suède",
+    "equipe": "Pays-Bas",
     "pts": 7,
     "j": 3,
     "g": 2,
     "n": 1,
     "p": 0,
     "bp": 9,
-    "bc": 4,
-    "diff": 5,
+    "bc": 3,
+    "diff": 6,
     "statut": "1er"
    },
    {
     "rang": 2,
-    "equipe": "Pays-Bas",
-    "pts": 5,
+    "equipe": "Suède",
+    "pts": 6,
     "j": 3,
-    "g": 1,
-    "n": 2,
-    "p": 0,
-    "bp": 6,
-    "bc": 4,
-    "diff": 2,
+    "g": 2,
+    "n": 0,
+    "p": 1,
+    "bp": 8,
+    "bc": 7,
+    "diff": 1,
     "statut": "2e"
    },
    {
@@ -1855,9 +1855,9 @@ window.DATA = {
     "g": 1,
     "n": 1,
     "p": 1,
-    "bp": 5,
+    "bp": 7,
     "bc": 4,
-    "diff": 1,
+    "diff": 3,
     "statut": "3e"
    },
    {
@@ -1869,8 +1869,8 @@ window.DATA = {
     "n": 0,
     "p": 3,
     "bp": 1,
-    "bc": 9,
-    "diff": -8,
+    "bc": 11,
+    "diff": -10,
     "statut": "out"
    }
   ],
@@ -2223,7 +2223,7 @@ window.DATA = {
    },
    {
     "groupe": "F",
-    "equipe": "Suède"
+    "equipe": "Pays-Bas"
    },
    {
     "groupe": "G",
@@ -2273,7 +2273,7 @@ window.DATA = {
    },
    {
     "groupe": "F",
-    "equipe": "Pays-Bas"
+    "equipe": "Suède"
    },
    {
     "groupe": "G",
@@ -2306,10 +2306,6 @@ window.DATA = {
     "equipe": "Japon"
    },
    {
-    "groupe": "E",
-    "equipe": "Équateur"
-   },
-   {
     "groupe": "K",
     "equipe": "RD Congo"
    },
@@ -2322,16 +2318,20 @@ window.DATA = {
     "equipe": "Algérie"
    },
    {
-    "groupe": "D",
-    "equipe": "Turquie"
-   },
-   {
     "groupe": "B",
     "equipe": "Bosnie-Herzégovine"
    },
    {
+    "groupe": "D",
+    "equipe": "Paraguay"
+   },
+   {
     "groupe": "L",
     "equipe": "Ghana"
+   },
+   {
+    "groupe": "C",
+    "equipe": "Écosse"
    }
   ],
   "troisiemes": [
@@ -2339,16 +2339,8 @@ window.DATA = {
     "groupe": "F",
     "equipe": "Japon",
     "pts": 4,
-    "diff": 1,
-    "bp": 5,
-    "qualifie": true
-   },
-   {
-    "groupe": "E",
-    "equipe": "Équateur",
-    "pts": 4,
-    "diff": 1,
-    "bp": 3,
+    "diff": 3,
+    "bp": 7,
     "qualifie": true
    },
    {
@@ -2376,19 +2368,19 @@ window.DATA = {
     "qualifie": true
    },
    {
-    "groupe": "D",
-    "equipe": "Turquie",
-    "pts": 4,
-    "diff": -1,
-    "bp": 2,
-    "qualifie": true
-   },
-   {
     "groupe": "B",
     "equipe": "Bosnie-Herzégovine",
     "pts": 4,
     "diff": -2,
     "bp": 4,
+    "qualifie": true
+   },
+   {
+    "groupe": "D",
+    "equipe": "Paraguay",
+    "pts": 4,
+    "diff": -2,
+    "bp": 3,
     "qualifie": true
    },
    {
@@ -2405,7 +2397,7 @@ window.DATA = {
     "pts": 3,
     "diff": -2,
     "bp": 1,
-    "qualifie": false
+    "qualifie": true
    },
    {
     "groupe": "G",
@@ -2426,6 +2418,14 @@ window.DATA = {
    {
     "groupe": "H",
     "equipe": "Cap-Vert",
+    "pts": 2,
+    "diff": -1,
+    "bp": 1,
+    "qualifie": false
+   },
+   {
+    "groupe": "E",
+    "equipe": "Équateur",
     "pts": 2,
     "diff": -1,
     "bp": 1,
@@ -2520,7 +2520,7 @@ window.DATA = {
    "elo": 1737,
    "fifa_rank": 33,
    "forme": "Qualifiée via barrage UEFA; compétitive mais irrégulière",
-   "statut": "out"
+   "statut": "3e"
   },
   {
    "groupe": "C",
@@ -2552,7 +2552,7 @@ window.DATA = {
    "elo": 1762,
    "fifa_rank": 39,
    "forme": "Qualifié CONMEBOL sous Alfaro; défense solide; fin de disette",
-   "statut": "out"
+   "statut": "3e"
   },
   {
    "groupe": "D",
@@ -2560,7 +2560,7 @@ window.DATA = {
    "elo": 1801,
    "fifa_rank": 27,
    "forme": "Qualifiée via barrage UEFA; jeune noyau talentueux (Güler et Aktürkoglu)",
-   "statut": "3e"
+   "statut": "out"
   },
   {
    "groupe": "E",
@@ -2576,7 +2576,7 @@ window.DATA = {
    "elo": 1833,
    "fifa_rank": 23,
    "forme": "Qualif CONMEBOL solide (2e/3e); défense hermétique",
-   "statut": "3e"
+   "statut": "out"
   },
   {
    "groupe": "E",
@@ -2600,7 +2600,7 @@ window.DATA = {
    "elo": 1976,
    "fifa_rank": 7,
    "forme": "1er de son groupe qualif; attaque forte sous Koeman; demi-finaliste Euro 2024",
-   "statut": "2e"
+   "statut": "1er"
   },
   {
    "groupe": "F",
@@ -2624,7 +2624,7 @@ window.DATA = {
    "elo": 1761,
    "fifa_rank": 36,
    "forme": "Qualifiée via barrage UEFA; attaque Isak/Gyökeres",
-   "statut": "1er"
+   "statut": "2e"
   },
   {
    "groupe": "G",
@@ -4202,7 +4202,7 @@ window.DATA = {
   },
   {
    "match": "Turquie – Paraguay",
-   "reel": "1-0",
+   "reel": "0-1",
    "modele": "1-1",
    "ok": false
   },
@@ -4219,6 +4219,18 @@ window.DATA = {
    "ok": false
   },
   {
+   "match": "Allemagne – Côte d'Ivoire",
+   "reel": "2-1",
+   "modele": "2-0",
+   "ok": true
+  },
+  {
+   "match": "Équateur – Curaçao",
+   "reel": "0-0",
+   "modele": "3-0",
+   "ok": false
+  },
+  {
    "match": "Pays-Bas – Japon",
    "reel": "2-2",
    "modele": "1-1",
@@ -4228,6 +4240,18 @@ window.DATA = {
    "match": "Suède – Tunisie",
    "reel": "5-1",
    "modele": "1-0",
+   "ok": true
+  },
+  {
+   "match": "Pays-Bas – Suède",
+   "reel": "5-1",
+   "modele": "2-0",
+   "ok": true
+  },
+  {
+   "match": "Tunisie – Japon",
+   "reel": "0-4",
+   "modele": "0-2",
    "ok": true
   },
   {

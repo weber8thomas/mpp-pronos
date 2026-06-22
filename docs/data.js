@@ -3,7 +3,7 @@ window.DATA = {
  "meta": {
   "titre": "Pronostics CDM 2026 — Phase de groupes",
   "n_matchs": 72,
-  "n_joues": 36,
+  "n_joues": 40,
   "n_qualifies": 32,
   "vainqueurs": [
    "A : Mexique",
@@ -12,14 +12,14 @@ window.DATA = {
    "D : États-Unis",
    "E : Allemagne",
    "F : Pays-Bas",
-   "G : Belgique",
+   "G : Égypte",
    "H : Espagne",
    "I : France",
    "J : Argentine",
    "K : Colombie",
    "L : Angleterre"
   ],
-  "j1_accuracy": 0.583,
+  "j1_accuracy": 0.6,
   "groupes": [
    "A",
    "B",
@@ -841,9 +841,9 @@ window.DATA = {
    "kickoff_utc": "2026-06-21T19:00",
    "dom": "Belgique",
    "ext": "Iran",
-   "statut": "a_venir",
-   "bd": 2,
-   "be": 1,
+   "statut": "joue",
+   "bd": 0,
+   "be": 0,
    "ppd": 2,
    "ppe": 1,
    "pv": 0.55,
@@ -862,9 +862,9 @@ window.DATA = {
    "kickoff_utc": "2026-06-22T01:00",
    "dom": "Nouvelle-Zélande",
    "ext": "Égypte",
-   "statut": "a_venir",
+   "statut": "joue",
    "bd": 1,
-   "be": 2,
+   "be": 3,
    "ppd": 1,
    "ppe": 2,
    "pv": 0.18,
@@ -967,8 +967,8 @@ window.DATA = {
    "kickoff_utc": "2026-06-21T16:00",
    "dom": "Espagne",
    "ext": "Arabie saoudite",
-   "statut": "a_venir",
-   "bd": 3,
+   "statut": "joue",
+   "bd": 4,
    "be": 0,
    "ppd": 3,
    "ppe": 0,
@@ -988,9 +988,9 @@ window.DATA = {
    "kickoff_utc": "2026-06-21T22:00",
    "dom": "Uruguay",
    "ext": "Cap-Vert",
-   "statut": "a_venir",
-   "bd": 1,
-   "be": 0,
+   "statut": "joue",
+   "bd": 2,
+   "be": 2,
    "ppd": 1,
    "ppe": 0,
    "pv": 0.58,
@@ -1696,7 +1696,7 @@ window.DATA = {
     "bp": 1,
     "bc": 3,
     "diff": -2,
-    "statut": "3e"
+    "statut": "out"
    },
    {
     "rang": 4,
@@ -1877,42 +1877,42 @@ window.DATA = {
   "G": [
    {
     "rang": 1,
-    "equipe": "Belgique",
-    "pts": 7,
-    "j": 3,
-    "g": 2,
-    "n": 1,
-    "p": 0,
-    "bp": 5,
-    "bc": 2,
-    "diff": 3,
-    "statut": "1er"
-   },
-   {
-    "rang": 2,
     "equipe": "Égypte",
     "pts": 5,
     "j": 3,
     "g": 1,
     "n": 2,
     "p": 0,
-    "bp": 4,
+    "bp": 5,
     "bc": 3,
-    "diff": 1,
+    "diff": 2,
+    "statut": "1er"
+   },
+   {
+    "rang": 2,
+    "equipe": "Belgique",
+    "pts": 5,
+    "j": 3,
+    "g": 1,
+    "n": 2,
+    "p": 0,
+    "bp": 3,
+    "bc": 1,
+    "diff": 2,
     "statut": "2e"
    },
    {
     "rang": 3,
     "equipe": "Iran",
-    "pts": 2,
+    "pts": 3,
     "j": 3,
     "g": 0,
-    "n": 2,
-    "p": 1,
-    "bp": 4,
-    "bc": 5,
-    "diff": -1,
-    "statut": "out"
+    "n": 3,
+    "p": 0,
+    "bp": 3,
+    "bc": 3,
+    "diff": 0,
+    "statut": "3e"
    },
    {
     "rang": 4,
@@ -1923,8 +1923,8 @@ window.DATA = {
     "n": 1,
     "p": 2,
     "bp": 3,
-    "bc": 6,
-    "diff": -3,
+    "bc": 7,
+    "diff": -4,
     "statut": "out"
    }
   ],
@@ -1937,19 +1937,19 @@ window.DATA = {
     "g": 2,
     "n": 1,
     "p": 0,
-    "bp": 5,
+    "bp": 6,
     "bc": 1,
-    "diff": 4,
+    "diff": 5,
     "statut": "1er"
    },
    {
     "rang": 2,
-    "equipe": "Uruguay",
-    "pts": 4,
+    "equipe": "Cap-Vert",
+    "pts": 3,
     "j": 3,
-    "g": 1,
-    "n": 1,
-    "p": 1,
+    "g": 0,
+    "n": 3,
+    "p": 0,
     "bp": 3,
     "bc": 3,
     "diff": 0,
@@ -1957,14 +1957,14 @@ window.DATA = {
    },
    {
     "rang": 3,
-    "equipe": "Cap-Vert",
+    "equipe": "Uruguay",
     "pts": 2,
     "j": 3,
     "g": 0,
     "n": 2,
     "p": 1,
-    "bp": 1,
-    "bc": 2,
+    "bp": 4,
+    "bc": 5,
     "diff": -1,
     "statut": "out"
    },
@@ -1977,8 +1977,8 @@ window.DATA = {
     "n": 2,
     "p": 1,
     "bp": 2,
-    "bc": 5,
-    "diff": -3,
+    "bc": 6,
+    "diff": -4,
     "statut": "out"
    }
   ],
@@ -2227,7 +2227,7 @@ window.DATA = {
    },
    {
     "groupe": "G",
-    "equipe": "Belgique"
+    "equipe": "Égypte"
    },
    {
     "groupe": "H",
@@ -2277,11 +2277,11 @@ window.DATA = {
    },
    {
     "groupe": "G",
-    "equipe": "Égypte"
+    "equipe": "Belgique"
    },
    {
     "groupe": "H",
-    "equipe": "Uruguay"
+    "equipe": "Cap-Vert"
    },
    {
     "groupe": "I",
@@ -2326,12 +2326,12 @@ window.DATA = {
     "equipe": "Paraguay"
    },
    {
-    "groupe": "L",
-    "equipe": "Ghana"
+    "groupe": "G",
+    "equipe": "Iran"
    },
    {
-    "groupe": "C",
-    "equipe": "Écosse"
+    "groupe": "L",
+    "equipe": "Ghana"
    }
   ],
   "troisiemes": [
@@ -2384,6 +2384,14 @@ window.DATA = {
     "qualifie": true
    },
    {
+    "groupe": "G",
+    "equipe": "Iran",
+    "pts": 3,
+    "diff": 0,
+    "bp": 3,
+    "qualifie": true
+   },
+   {
     "groupe": "L",
     "equipe": "Ghana",
     "pts": 3,
@@ -2397,11 +2405,11 @@ window.DATA = {
     "pts": 3,
     "diff": -2,
     "bp": 1,
-    "qualifie": true
+    "qualifie": false
    },
    {
-    "groupe": "G",
-    "equipe": "Iran",
+    "groupe": "H",
+    "equipe": "Uruguay",
     "pts": 2,
     "diff": -1,
     "bp": 4,
@@ -2413,14 +2421,6 @@ window.DATA = {
     "pts": 2,
     "diff": -1,
     "bp": 3,
-    "qualifie": false
-   },
-   {
-    "groupe": "H",
-    "equipe": "Cap-Vert",
-    "pts": 2,
-    "diff": -1,
-    "bp": 1,
     "qualifie": false
    },
    {
@@ -2520,7 +2520,7 @@ window.DATA = {
    "elo": 1737,
    "fifa_rank": 33,
    "forme": "Qualifiée via barrage UEFA; compétitive mais irrégulière",
-   "statut": "3e"
+   "statut": "out"
   },
   {
    "groupe": "C",
@@ -2632,7 +2632,7 @@ window.DATA = {
    "elo": 1849,
    "fifa_rank": 9,
    "forme": "Génération en transition; qualif solide; talent offensif maintenu",
-   "statut": "1er"
+   "statut": "2e"
   },
   {
    "groupe": "G",
@@ -2640,7 +2640,7 @@ window.DATA = {
    "elo": 1790,
    "fifa_rank": 20,
    "forme": "Qualifié tôt AFC; bloc défensif solide; pedigree asiatique",
-   "statut": "out"
+   "statut": "3e"
   },
   {
    "groupe": "G",
@@ -2648,7 +2648,7 @@ window.DATA = {
    "elo": 1660,
    "fifa_rank": 33,
    "forme": "Mené par Salah; qualif CAF maîtrisée; ambitions de phase finale",
-   "statut": "2e"
+   "statut": "1er"
   },
   {
    "groupe": "G",
@@ -2672,7 +2672,7 @@ window.DATA = {
    "elo": 1895,
    "fifa_rank": 17,
    "forme": "Sous Bielsa; demi-finaliste Copa América 2024; génération talentueuse",
-   "statut": "2e"
+   "statut": "out"
   },
   {
    "groupe": "H",
@@ -2688,7 +2688,7 @@ window.DATA = {
    "elo": 1580,
    "fifa_rank": 70,
    "forme": "Débutant historique; vainqueur de groupe CAF surprise",
-   "statut": "out"
+   "statut": "2e"
   },
   {
    "groupe": "I",
@@ -4267,6 +4267,18 @@ window.DATA = {
    "ok": false
   },
   {
+   "match": "Belgique – Iran",
+   "reel": "0-0",
+   "modele": "1-1",
+   "ok": true
+  },
+  {
+   "match": "Nouvelle-Zélande – Égypte",
+   "reel": "1-3",
+   "modele": "0-2",
+   "ok": true
+  },
+  {
    "match": "Espagne – Cap-Vert",
    "reel": "0-0",
    "modele": "3-0",
@@ -4276,6 +4288,18 @@ window.DATA = {
    "match": "Arabie saoudite – Uruguay",
    "reel": "1-1",
    "modele": "0-2",
+   "ok": false
+  },
+  {
+   "match": "Espagne – Arabie saoudite",
+   "reel": "4-0",
+   "modele": "3-0",
+   "ok": true
+  },
+  {
+   "match": "Uruguay – Cap-Vert",
+   "reel": "2-2",
+   "modele": "2-0",
    "ok": false
   },
   {

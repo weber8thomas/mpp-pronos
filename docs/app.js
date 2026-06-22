@@ -75,6 +75,32 @@ function accordBadge(p){
   if(r===2) return '<span class="acc acc-ok" title="Bonne issue (1/N/2)">✓</span>';
   return '<span class="acc acc-no" title="Issue manquée">✗</span>';
 }
+// Points pris = proba (%) accordée à l'issue réelle. Affiche modèle · mpp.
+function ptsCell(p){
+  if(p.pts_mod==null) return '<span class="muted">—</span>';
+  const mpp = p.pts_mpp==null ? '<span class="muted">—</span>' : `<b class="pp">${p.pts_mpp}</b>`;
+  return `<span class="pts" title="Points pris (cote mpp de l'issue, si bien pronostiquée) — notre modèle · mpp"><b class="pm">${p.pts_mod}</b><span class="muted">·</span>${mpp}</span>`;
+}
+
+// Carte « score total » : notre modèle vs mpp (points pris cumulés sur les matchs joués).
+function scoreDuelCard(m){
+  if(!m.n_scored) return '';
+  const draw=m.pts_mod===m.pts_mpp, modWin=m.pts_mod>m.pts_mpp;
+  const side=(name,val,ico,win)=>`<div class="sd-side${win?' sd-win':''}">
+      <div class="sd-name">${ico}${name}</div>
+      <div class="sd-pts">${val}<span class="sd-u">pts</span></div>
+      ${win?'<div class="sd-tag">en tête</div>':''}</div>`;
+  return `<div class="card scoreduel-card">
+    <h3><i class="mdi mdi-scale-balance"></i> Score total des pronostics — notre modèle vs mpp</h3>
+    <p class="muted sd-explain">Chaque modèle parie sur l'issue la plus probable (1/N/2) ; il remporte la
+      <strong>cote mpp</strong> de cette issue si elle se réalise, 0 sinon. Cumul sur les <strong>${m.n_scored}</strong> matchs joués.</p>
+    <div class="scoreduel">
+      ${side('Notre modèle',m.pts_mod,'<i class="mdi mdi-robot-happy-outline sd-ico"></i>',!draw&&modWin)}
+      <div class="sd-vs">vs</div>
+      ${side('mpp.football',m.pts_mpp,'<img class="mpp-logo sd-ico" src="mpp-logo.png" alt="mpp">',!draw&&!modWin)}
+    </div>
+  </div>`;
+}
 
 /* ---------- Accueil ---------- */
 function renderAccueil(){
@@ -110,6 +136,7 @@ function renderAccueil(){
      <div class="kpi"><i class="mdi mdi-trophy-outline"></i><div class="v">32</div><div class="l">qualifiés (12+12+8)</div></div>
      <div class="kpi"><i class="mdi mdi-target"></i><div class="v">${m.j1_accuracy!=null?Math.round(m.j1_accuracy*100)+"%":"–"}</div><div class="l">précision sur matchs joués (${m.n_joues})</div></div>
    </div>
+   ${scoreDuelCard(m)}
    <h2>Explorer</h2>
    <div class="navtiles">${tiles}</div>
    <div class="card" style="margin-top:18px"><h3><i class="mdi mdi-trophy"></i> Vainqueurs de groupe pronostiqués</h3><div class="winners">${vain}</div></div>`;
@@ -127,6 +154,7 @@ function matchRow(p){
     <td class="c" data-label="Prono">${hasProno(p)?scoreBadge(p.ppd,p.ppe):'<span class="muted">—</span>'}</td>
     <td class="c" data-label="Résultat">${hasReel(p)?scoreBadge(p.bd,p.be):'<span class="muted">—</span>'}</td>
     <td class="c" data-label="Accord">${accordBadge(p)}</td>
+    <td class="c" data-label="Points">${ptsCell(p)}</td>
     <td data-label="P(V/N/D) modèle">${probBar(p.pv,p.pn,p.pd)}</td><td class="c" data-label="mpp 1/N/2">${mpp}</td></tr>`;
 }
 const CAL_COLS=[
@@ -136,6 +164,7 @@ const CAL_COLS=[
   {k:"prono",  l:"Prono",          cls:"c"},
   {k:"reel",   l:"Résultat",       cls:"c"},
   {k:"accord", l:"Accord",         cls:"c"},
+  {k:"points", l:"Pts mod·mpp",    cls:"c"},
   {k:"pv",     l:"P(V/N/D) modèle",cls:""},
   {k:"mpp",    l:"mpp 1/N/2",      cls:"c"},
 ];
@@ -146,6 +175,7 @@ const CAL_KEY={
   prono:p=>hasProno(p)?p.ppd+p.ppe:-1,
   reel:p=>hasReel(p)?p.bd+p.be:-1,
   accord:p=>accordRank(p),
+  points:p=>p.pts_mod==null?-1:p.pts_mod,
   pv:p=>p.pv,
   mpp:p=>p.mpp_v==null?-1:p.mpp_v,
 };
@@ -158,7 +188,7 @@ function renderCalendrier(){
     <p class="lead">Les 72 matchs. <strong>Cliquez un en-tête</strong> pour trier (date, groupe, score, proba…) ;
     filtrez par équipe, groupe ou statut. Heure <strong>CEST</strong> indicative.
     Pour un match joué, <strong>Prono</strong> = pronostic figé avant le match, <strong>Résultat</strong> = score réel,
-    et <strong>Accord</strong> compare les deux.</p>
+    <strong>Accord</strong> compare les deux, et <strong>Points</strong> (modèle · mpp) = cote mpp remportée si l'issue est bien pronostiquée.</p>
     <div class="legend">Score : <span class="scoreb sc-win">2-0</span> victoire domicile ·
       <span class="scoreb sc-draw">1-1</span> nul ·
       <span class="scoreb sc-loss">0-2</span> victoire extérieur ·
@@ -185,7 +215,7 @@ function renderCalendrier(){
     const key=CAL_KEY[sortKey];
     arr.sort((a,b)=>{const x=key(a),y=key(b);return (x>y?1:x<y?-1:0)*sortDir;});
     tbody.innerHTML=arr.length?arr.map(matchRow).join(""):
-      `<tr><td colspan="8" class="c muted" style="padding:18px">Aucun match.</td></tr>`;
+      `<tr><td colspan="9" class="c muted" style="padding:18px">Aucun match.</td></tr>`;
     sec.querySelector("#calCount").textContent=`${arr.length} match${arr.length>1?"s":""}`;
     sec.querySelectorAll("th.sortable").forEach(th=>{
       th.querySelector(".arr").textContent = th.dataset.k===sortKey ? (sortDir>0?" ▲":" ▼") : "";
@@ -194,7 +224,7 @@ function renderCalendrier(){
   }
   sec.querySelectorAll("th.sortable").forEach(th=>th.addEventListener("click",()=>{
     const k=th.dataset.k;
-    if(k===sortKey) sortDir=-sortDir; else {sortKey=k; sortDir=(k==="pv"||k==="prono"||k==="reel"||k==="accord"||k==="mpp")?-1:1;}
+    if(k===sortKey) sortDir=-sortDir; else {sortKey=k; sortDir=(k==="pv"||k==="prono"||k==="reel"||k==="accord"||k==="points"||k==="mpp")?-1:1;}
     refresh();
   }));
   ["calSearch","calGroup","calType"].forEach(id=>sec.querySelector("#"+id).addEventListener("input",refresh));
@@ -674,6 +704,7 @@ function openMatch(i){
         <div class="mm-kv"><span>Match nul</span><b>${Math.round(p.pn*100)}%</b></div>
         <div class="mm-kv"><span>Victoire ${esc(p.ext)}</span><b>${Math.round(p.pd*100)}%</b></div>
         <div class="mm-kv"><span>mpp.football (1/N/2)</span><b>${mpp}</b></div>
+        ${p.pts_mod!=null?`<div class="mm-kv"><span>Points pris — cote mpp (modèle · mpp)</span><b>${p.pts_mod} · ${p.pts_mpp==null?'—':p.pts_mpp}</b></div>`:''}
       </div>
       <div class="card">
         <h3><i class="mdi mdi-soccer"></i> Buts attendus (modèle)</h3>

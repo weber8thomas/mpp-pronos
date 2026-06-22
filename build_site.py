@@ -4,6 +4,7 @@
 import json
 import os
 import math
+import unicodedata
 import pandas as pd
 import standings as S
 
@@ -12,6 +13,18 @@ os.makedirs("docs", exist_ok=True)
 pred = pd.read_csv("data/predictions.csv")
 base = pd.read_csv("data/predictions_baseline.csv")
 ratings = pd.read_csv("data/team_ratings.csv")
+
+
+def _norm(s):
+    s = "".join(c for c in unicodedata.normalize("NFD", str(s))
+                if unicodedata.category(c) != "Mn").lower().strip().replace("’", "'")
+    return {"bosnie": "bosnie-herzegovine"}.get(s, s)
+
+
+# Cotes mpp.football (1/N/2) = points gagnés si l'issue est bien pronostiquée.
+mpp_csv = pd.read_csv("data/mpp_probs.csv")
+cote_idx = {(_norm(m.Domicile), _norm(m.Exterieur)): (int(m.Cote_1), int(m.Cote_N), int(m.Cote_2))
+            for _, m in mpp_csv.iterrows()}
 analyses = json.load(open("data/group_analyses.json"))
 report_md = open("rapport/pronostics_cdm2026.md", encoding="utf-8").read()
 try:
@@ -54,6 +67,19 @@ for _, r in pred.iterrows():
     if isinstance(r.score_pronostic, str) and "-" in r.score_pronostic:
         a, b = r.score_pronostic.split("-")
         pp = (int(a), int(b))
+    mpp_v, mpp_n, mpp_d = clean(r.p_mpp_dom), clean(r.p_mpp_nul), clean(r.p_mpp_ext)
+    # Points pris (matchs joués) : cote mpp de l'issue réelle, remportée si le pronostic
+    # (issue la plus probable) est correct ; 0 sinon.
+    pts_mod = pts_mpp = None
+    cote = cote_idx.get((_norm(r.equipe_dom), _norm(r.equipe_ext)))
+    if r.statut == "joue" and cote is not None:
+        bd, be = int(r.buts_dom), int(r.buts_ext)
+        i = 0 if bd > be else (2 if bd < be else 1)        # 0=V, 1=N, 2=D
+        pm = [float(r.p_victoire_dom), float(r.p_nul), float(r.p_victoire_ext)]
+        pts_mod = cote[i] if pm.index(max(pm)) == i else 0
+        if mpp_v is not None:
+            pk = [mpp_v, mpp_n, mpp_d]
+            pts_mpp = cote[i] if pk.index(max(pk)) == i else 0
     predictions.append({
         "groupe": r.groupe, "journee": int(r.journee),
         "kickoff_cest": r.kickoff_cest, "kickoff_utc": r.kickoff_utc,
@@ -61,9 +87,16 @@ for _, r in pred.iterrows():
         "bd": int(r.buts_dom), "be": int(r.buts_ext),
         "ppd": pp[0] if pp else None, "ppe": pp[1] if pp else None,
         "pv": float(r.p_victoire_dom), "pn": float(r.p_nul), "pd": float(r.p_victoire_ext),
-        "mpp_v": clean(r.p_mpp_dom), "mpp_n": clean(r.p_mpp_nul), "mpp_d": clean(r.p_mpp_ext),
+        "mpp_v": mpp_v, "mpp_n": mpp_n, "mpp_d": mpp_d,
+        "pts_mod": pts_mod, "pts_mpp": pts_mpp,
         "xg_dom": float(r.xg_dom_modele), "xg_ext": float(r.xg_ext_modele),
     })
+
+# Score total de pronostics (calibrage) : somme des points pris sur les matchs joués,
+# comparée à parité (mêmes matchs où les deux ont une proba).
+scored = [p for p in predictions if p["pts_mod"] is not None and p["pts_mpp"] is not None]
+total_pts_mod = sum(p["pts_mod"] for p in scored)
+total_pts_mpp = sum(p["pts_mpp"] for p in scored)
 
 # Classements par groupe
 standings = {}
@@ -109,6 +142,9 @@ meta = {
     "n_qualifies": 32,
     "vainqueurs": [f"{g} : {e}" for g, e in premiers],
     "j1_accuracy": j1_acc,
+    "pts_mod": total_pts_mod,
+    "pts_mpp": total_pts_mpp,
+    "n_scored": len(scored),
     "groupes": sorted(cls.keys()),
 }
 

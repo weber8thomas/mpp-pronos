@@ -15,6 +15,7 @@ def _norm(s):
     """Normalise un nom d'équipe (sans accents, minuscule) pour le matching mpp."""
     s = "".join(c for c in unicodedata.normalize("NFD", str(s))
                 if unicodedata.category(c) != "Mn").lower().strip()
+    s = s.replace("’", "'")  # apostrophe courbe -> droite (Côte d'Ivoire)
     return {"bosnie": "bosnie-herzegovine"}.get(s, s)
 
 # (groupe, journee, dom, ext) -> (but_dom, but_ext, pV, pN, pD)

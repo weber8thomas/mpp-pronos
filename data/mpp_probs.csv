@@ -1,57 +1,73 @@
-Date,Journee,Heure,Domicile,Exterieur,Proba_1_pct,Proba_N_pct,Proba_2_pct,Cote_1,Cote_N,Cote_2
-Mardi 16 juin,J.1,21h00,France,Senegal,88,9,3,46,128,153
-Mercredi 17 juin,J.1,0h00,Irak,Norvege,2,6,91,178,144,30
-Mercredi 17 juin,J.1,3h00,Argentine,Algerie,80,14,6,43,129,159
-Mercredi 17 juin,J.1,6h00,Autriche,Jordanie,83,14,3,38,136,163
-Mercredi 17 juin,J.1,19h00,Portugal,RD Congo,95,4,1,34,140,170
-Mercredi 17 juin,J.1,22h00,Angleterre,Croatie,57,35,8,59,119,133
-Jeudi 18 juin,J.1,1h00,Ghana,Panama,60,33,7,73,113,116
-Jeudi 18 juin,J.1,4h00,Ouzbekistan,Colombie,3,7,90,157,130,44
-Jeudi 18 juin,J.2,18h00,Tchequie,Afrique du Sud,58,27,15,62,112,142
-Jeudi 18 juin,J.2,21h00,Suisse,Bosnie,72,21,6,76,108,134
-Vendredi 19 juin,J.2,0h00,Canada,Qatar,76,17,7,71,104,148
-Vendredi 19 juin,J.2,3h00,Mexique,Coree du Sud,57,30,13,69,117,129
-Vendredi 19 juin,J.2,21h00,Etats-Unis,Australie,71,21,9,58,119,153
-Samedi 20 juin,J.2,0h00,Ecosse,Maroc,6,19,76,99,112,91
-Samedi 20 juin,J.2,2h30,Bresil,Haiti,97,2,1,21,167,198
-Samedi 20 juin,J.2,5h00,Turquie,Paraguay,59,30,11,84,113,126
-Samedi 20 juin,J.2,19h00,Pays-Bas,Suede,63,28,9,67,122,131
-Samedi 20 juin,J.2,22h00,Allemagne,Cote d'Ivoire,82,13,6,38,137,164
-Dimanche 21 juin,J.2,2h00,Equateur,Curacao,83,13,4,41,143,168
-Dimanche 21 juin,J.2,6h00,Tunisie,Japon,13,24,63,118,103,91
-Dimanche 21 juin,J.2,18h00,Espagne,Arabie saoudite,97,2,1,31,139,176
-Dimanche 21 juin,J.2,21h00,Belgique,Iran,93,5,2,39,138,171
-Lundi 22 juin,J.2,0h00,Uruguay,Cap-Vert,85,11,4,72,109,137
-Lundi 22 juin,J.2,3h00,Nouvelle-Zelande,Egypte,10,20,70,148,116,59
-Lundi 22 juin,J.2,19h00,Argentine,Autriche,87,10,3,63,105,132
-Lundi 22 juin,J.2,23h00,France,Irak,98,1,1,22,166,189
-Mardi 23 juin,J.2,2h00,Norvege,Senegal,32,42,26,64,105,137
-Mardi 23 juin,J.2,5h00,Jordanie,Algerie,4,13,83,152,139,67
-Mardi 23 juin,J.2,19h00,Portugal,Ouzbekistan,97,2,1,24,154,173
-Mardi 23 juin,J.2,22h00,Angleterre,Ghana,89,8,3,44,127,162
-Mercredi 24 juin,J.2,1h00,Panama,Croatie,3,8,89,165,123,36
-Mercredi 24 juin,J.2,4h00,Colombie,RD Congo,70,23,6,77,111,123
-Mercredi 24 juin,J.3,21h00,Suisse,Canada,52,39,9,68,106,129
-Mercredi 24 juin,J.3,21h00,Bosnie,Qatar,56,32,12,87,102,120
-Jeudi 25 juin,J.3,0h00,Ecosse,Bresil,4,8,89,145,124,48
-Jeudi 25 juin,J.3,0h00,Maroc,Haiti,95,4,2,29,159,187
-Jeudi 25 juin,J.3,3h00,Tchequie,Mexique,8,38,54,109,99,91
-Jeudi 25 juin,J.3,3h00,Afrique du Sud,Coree du Sud,14,30,57,117,103,87
-Jeudi 25 juin,J.3,22h00,Equateur,Allemagne,4,11,85,145,129,42
-Jeudi 25 juin,J.3,22h00,Curacao,Cote d'Ivoire,3,7,90,163,118,53
-Vendredi 26 juin,J.3,1h00,Tunisie,Pays-Bas,5,13,82,131,123,56
-Vendredi 26 juin,J.3,1h00,Japon,Suede,34,47,20,96,108,111
-Vendredi 26 juin,J.3,4h00,Turquie,Etats-Unis,30,40,30,109,102,93
-Vendredi 26 juin,J.3,4h00,Paraguay,Australie,50,33,17,74,104,131
-Vendredi 26 juin,J.3,21h00,Norvege,France,4,17,79,141,108,68
-Vendredi 26 juin,J.3,21h00,Senegal,Irak,91,7,2,54,115,149
-Samedi 27 juin,J.3,2h00,Uruguay,Espagne,3,14,83,143,112,57
-Samedi 27 juin,J.3,2h00,Cap-Vert,Arabie saoudite,14,55,31,99,123,94
-Samedi 27 juin,J.3,5h00,Nouvelle-Zelande,Belgique,3,6,91,172,129,32
-Samedi 27 juin,J.3,5h00,Egypte,Iran,66,28,6,85,114,123
-Samedi 27 juin,J.3,23h00,Panama,Angleterre,2,4,94,168,137,32
-Samedi 27 juin,J.3,23h00,Croatie,Ghana,73,20,6,57,120,138
-Dimanche 28 juin,J.3,1h30,Colombie,Portugal,5,18,77,154,102,55
-Dimanche 28 juin,J.3,1h30,RD Congo,Ouzbekistan,63,30,7,63,107,158
-Dimanche 28 juin,J.3,4h00,Jordanie,Argentine,2,3,95,165,145,32
-Dimanche 28 juin,J.3,4h00,Algerie,Autriche,37,44,19,96,103,107
+Journee,Groupe,Date,Heure,Date_UTC,Statut,Domicile,Exterieur,Score_Dom,Score_Ext,Proba_1_pct,Proba_N_pct,Proba_2_pct,Cote_1,Cote_N,Cote_2
+J.1,A,jeudi 11 juin,21:00,2026-06-11T19:00:00.000Z,fullTime,Mexique,Afrique du Sud,2,0,85,8,7,49,125,148
+J.1,A,vendredi 12 juin,04:00,2026-06-12T02:00:00.000Z,fullTime,Corée du Sud,Tchéquie,2,1,32,48,19,96,107,91
+J.1,B,vendredi 12 juin,21:00,2026-06-12T19:00:00.000Z,fullTime,Canada,Bosnie,1,1,66,20,14,65,117,125
+J.1,D,samedi 13 juin,03:00,2026-06-13T01:00:00.000Z,fullTime,États-Unis,Paraguay,4,1,68,18,14,74,113,115
+J.1,B,samedi 13 juin,21:00,2026-06-13T19:00:00.000Z,fullTime,Qatar,Suisse,1,1,5,6,90,172,141,33
+J.1,C,dimanche 14 juin,00:00,2026-06-13T22:00:00.000Z,fullTime,Brésil,Maroc,1,1,54,28,18,55,122,140
+J.1,C,dimanche 14 juin,03:00,2026-06-14T01:00:00.000Z,fullTime,Haïti,Écosse,0,1,4,8,89,154,131,44
+J.1,D,dimanche 14 juin,06:00,2026-06-14T04:00:00.000Z,fullTime,Australie,Turquie,2,0,8,21,71,126,115,66
+J.1,E,dimanche 14 juin,19:00,2026-06-14T17:00:00.000Z,fullTime,Allemagne,Curaçao,7,1,97,2,1,15,179,222
+J.1,F,dimanche 14 juin,22:00,2026-06-14T20:00:00.000Z,fullTime,Pays-Bas,Japon,2,2,58,27,16,74,115,113
+J.1,E,lundi 15 juin,01:00,2026-06-14T23:00:00.000Z,fullTime,Côte d’Ivoire,Équateur,1,0,45,41,14,108,101,85
+J.1,F,lundi 15 juin,04:00,2026-06-15T02:00:00.000Z,fullTime,Suède,Tunisie,5,1,66,24,10,72,110,122
+J.1,H,lundi 15 juin,18:00,2026-06-15T16:00:00.000Z,fullTime,Espagne,Cap-Vert,0,0,97,2,1,16,166,217
+J.1,G,lundi 15 juin,21:00,2026-06-15T19:00:00.000Z,fullTime,Belgique,Égypte,1,1,81,15,4,57,122,135
+J.1,H,mardi 16 juin,00:00,2026-06-15T22:00:00.000Z,fullTime,Arabie saoudite,Uruguay,1,1,6,15,79,146,125,50
+J.1,G,mardi 16 juin,03:00,2026-06-16T01:00:00.000Z,fullTime,Iran,Nouvelle-Zélande,2,2,36,43,21,63,116,130
+J.1,I,mardi 16 juin,21:00,2026-06-16T19:00:00.000Z,fullTime,France,Sénégal,3,1,85,12,3,46,128,153
+J.1,I,mercredi 17 juin,00:00,2026-06-16T22:00:00.000Z,fullTime,Irak,Norvège,1,4,2,10,88,178,144,30
+J.1,J,mercredi 17 juin,03:00,2026-06-17T01:00:00.000Z,fullTime,Argentine,Algérie,3,0,75,19,6,43,129,159
+J.1,J,mercredi 17 juin,06:00,2026-06-17T04:00:00.000Z,fullTime,Autriche,Jordanie,3,1,78,19,3,38,136,163
+J.1,K,mercredi 17 juin,19:00,2026-06-17T17:00:00.000Z,fullTime,Portugal,RD Congo,1,1,94,5,1,34,140,170
+J.1,L,mercredi 17 juin,22:00,2026-06-17T20:00:00.000Z,fullTime,Angleterre,Croatie,4,2,55,38,7,59,119,133
+J.1,L,jeudi 18 juin,01:00,2026-06-17T23:00:00.000Z,fullTime,Ghana,Panama,1,0,56,37,7,73,113,116
+J.1,K,jeudi 18 juin,04:00,2026-06-18T02:00:00.000Z,fullTime,Ouzbékistan,Colombie,1,3,3,9,88,157,130,44
+J.2,A,jeudi 18 juin,18:00,2026-06-18T16:00:00.000Z,fullTime,Tchéquie,Afrique du Sud,1,1,57,29,14,62,112,142
+J.2,B,jeudi 18 juin,21:00,2026-06-18T19:00:00.000Z,fullTime,Suisse,Bosnie,4,1,71,23,7,76,108,134
+J.2,B,vendredi 19 juin,00:00,2026-06-18T22:00:00.000Z,fullTime,Canada,Qatar,6,0,75,18,7,71,104,148
+J.2,A,vendredi 19 juin,03:00,2026-06-19T01:00:00.000Z,fullTime,Mexique,Corée du Sud,1,0,50,35,15,69,117,129
+J.2,D,vendredi 19 juin,21:00,2026-06-19T19:00:00.000Z,fullTime,États-Unis,Australie,2,0,75,18,7,58,119,153
+J.2,C,samedi 20 juin,00:00,2026-06-19T22:00:00.000Z,fullTime,Écosse,Maroc,0,1,4,15,81,99,112,91
+J.2,C,samedi 20 juin,02:30,2026-06-20T00:30:00.000Z,fullTime,Brésil,Haïti,3,0,95,4,1,21,167,198
+J.2,D,samedi 20 juin,05:00,2026-06-20T03:00:00.000Z,fullTime,Turquie,Paraguay,0,1,58,32,10,84,113,126
+J.2,F,samedi 20 juin,19:00,2026-06-20T17:00:00.000Z,fullTime,Pays-Bas,Suède,5,1,57,31,12,67,122,131
+J.2,E,samedi 20 juin,22:00,2026-06-20T20:00:00.000Z,fullTime,Allemagne,Côte d’Ivoire,2,1,82,14,4,38,137,164
+J.2,E,dimanche 21 juin,02:00,2026-06-21T00:00:00.000Z,fullTime,Équateur,Curaçao,0,0,83,14,4,41,143,168
+J.2,F,dimanche 21 juin,06:00,2026-06-21T04:00:00.000Z,fullTime,Tunisie,Japon,0,4,8,16,75,118,103,91
+J.2,H,dimanche 21 juin,18:00,2026-06-21T16:00:00.000Z,fullTime,Espagne,Arabie saoudite,4,0,95,4,1,31,139,176
+J.2,G,dimanche 21 juin,21:00,2026-06-21T19:00:00.000Z,fullTime,Belgique,Iran,0,0,90,8,2,39,138,171
+J.2,H,lundi 22 juin,00:00,2026-06-21T22:00:00.000Z,fullTime,Uruguay,Cap-Vert,2,2,75,19,6,72,109,137
+J.2,G,lundi 22 juin,03:00,2026-06-22T01:00:00.000Z,fullTime,Nouvelle-Zélande,Égypte,1,3,9,21,70,148,116,59
+J.2,J,lundi 22 juin,19:00,2026-06-22T17:00:00.000Z,,Argentine,Autriche,,,91,7,1,63,105,132
+J.2,I,lundi 22 juin,23:00,2026-06-22T21:00:00.000Z,,France,Irak,,,98,2,0,22,166,189
+J.2,I,mardi 23 juin,02:00,2026-06-23T00:00:00.000Z,,Norvège,Sénégal,,,33,42,25,64,105,137
+J.2,J,mardi 23 juin,05:00,2026-06-23T03:00:00.000Z,,Jordanie,Algérie,,,5,18,77,152,139,67
+J.2,K,mardi 23 juin,19:00,2026-06-23T17:00:00.000Z,,Portugal,Ouzbékistan,,,96,4,1,24,154,173
+J.2,L,mardi 23 juin,22:00,2026-06-23T20:00:00.000Z,,Angleterre,Ghana,,,92,7,1,44,127,162
+J.2,L,mercredi 24 juin,01:00,2026-06-23T23:00:00.000Z,,Panama,Croatie,,,2,8,89,165,123,36
+J.2,K,mercredi 24 juin,04:00,2026-06-24T02:00:00.000Z,,Colombie,RD Congo,,,59,32,9,77,111,123
+J.3,B,mercredi 24 juin,21:00,2026-06-24T19:00:00.000Z,,Bosnie,Qatar,,,58,31,11,87,102,120
+J.3,B,mercredi 24 juin,21:00,2026-06-24T19:00:00.000Z,,Suisse,Canada,,,41,45,14,68,106,129
+J.3,C,jeudi 25 juin,00:00,2026-06-24T22:00:00.000Z,,Maroc,Haïti,,,95,4,1,29,159,187
+J.3,C,jeudi 25 juin,00:00,2026-06-24T22:00:00.000Z,,Écosse,Brésil,,,3,9,88,145,124,48
+J.3,A,jeudi 25 juin,03:00,2026-06-25T01:00:00.000Z,,Tchéquie,Mexique,,,7,33,60,109,99,91
+J.3,A,jeudi 25 juin,03:00,2026-06-25T01:00:00.000Z,,Afrique du Sud,Corée du Sud,,,11,26,63,117,103,87
+J.3,E,jeudi 25 juin,22:00,2026-06-25T20:00:00.000Z,,Curaçao,Côte d’Ivoire,,,3,8,89,163,118,53
+J.3,E,jeudi 25 juin,22:00,2026-06-25T20:00:00.000Z,,Équateur,Allemagne,,,3,10,87,145,129,42
+J.3,F,vendredi 26 juin,01:00,2026-06-25T23:00:00.000Z,,Japon,Suède,,,37,45,18,96,108,111
+J.3,F,vendredi 26 juin,01:00,2026-06-25T23:00:00.000Z,,Tunisie,Pays-Bas,,,4,11,85,131,123,56
+J.3,D,vendredi 26 juin,04:00,2026-06-26T02:00:00.000Z,,Paraguay,Australie,,,41,37,22,74,104,131
+J.3,D,vendredi 26 juin,04:00,2026-06-26T02:00:00.000Z,,Turquie,États-Unis,,,20,33,47,109,102,93
+J.3,I,vendredi 26 juin,21:00,2026-06-26T19:00:00.000Z,,Norvège,France,,,4,17,80,141,108,68
+J.3,I,vendredi 26 juin,21:00,2026-06-26T19:00:00.000Z,,Sénégal,Irak,,,91,7,2,54,115,149
+J.3,H,samedi 27 juin,02:00,2026-06-27T00:00:00.000Z,,Cap-Vert,Arabie saoudite,,,19,55,26,99,123,94
+J.3,H,samedi 27 juin,02:00,2026-06-27T00:00:00.000Z,,Uruguay,Espagne,,,3,14,83,143,112,57
+J.3,G,samedi 27 juin,05:00,2026-06-27T03:00:00.000Z,,Égypte,Iran,,,67,28,6,85,114,123
+J.3,G,samedi 27 juin,05:00,2026-06-27T03:00:00.000Z,,Nouvelle-Zélande,Belgique,,,4,8,89,172,129,32
+J.3,L,samedi 27 juin,23:00,2026-06-27T21:00:00.000Z,,Croatie,Ghana,,,73,20,7,57,120,138
+J.3,L,samedi 27 juin,23:00,2026-06-27T21:00:00.000Z,,Panama,Angleterre,,,2,4,94,168,137,32
+J.3,K,dimanche 28 juin,01:30,2026-06-27T23:30:00.000Z,,Colombie,Portugal,,,6,20,74,154,102,55
+J.3,K,dimanche 28 juin,01:30,2026-06-27T23:30:00.000Z,,RD Congo,Ouzbékistan,,,66,28,6,63,107,158
+J.3,J,dimanche 28 juin,04:00,2026-06-28T02:00:00.000Z,,Algérie,Autriche,,,35,43,22,96,103,107
+J.3,J,dimanche 28 juin,04:00,2026-06-28T02:00:00.000Z,,Jordanie,Argentine,,,2,3,95,165,145,32

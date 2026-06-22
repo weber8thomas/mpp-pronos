@@ -248,6 +248,29 @@ th.sortable.active{color:var(--accent)}
 .acc-no{color:var(--red);background:color-mix(in srgb,var(--red) 12%,transparent);border-color:color-mix(in srgb,var(--red) 28%,transparent)}
 .legend .acc{font-size:.72rem}
 
+/* Points pris (calendrier) : modèle · mpp */
+.pts{font-variant-numeric:tabular-nums;white-space:nowrap;font-size:.84rem}
+.pts .pm{color:var(--accent)}
+.pts .pp{color:var(--blue)}
+.pts .muted{margin:0 3px}
+
+/* Carte « score total » : notre modèle vs mpp */
+.scoreduel-card{margin-top:18px}
+.scoreduel-card h3{display:flex;align-items:center;gap:8px}
+.sd-explain{font-size:.86rem;margin:.3em 0 0}
+.scoreduel{display:flex;align-items:stretch;gap:12px;margin-top:14px}
+.sd-side{flex:1 1 0;display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center;
+  padding:14px 12px;border:1px solid var(--line);border-radius:12px;background:var(--card2)}
+.sd-side.sd-win{border-color:color-mix(in srgb,var(--green) 45%,transparent);
+  background:color-mix(in srgb,var(--green) 9%,transparent)}
+.sd-name{display:flex;align-items:center;gap:6px;font-weight:700;font-size:.92rem}
+.sd-ico{font-size:18px;width:18px;height:18px;object-fit:contain;opacity:.9}
+.sd-pts{font-family:var(--display);font-weight:800;font-size:2rem;line-height:1;font-variant-numeric:tabular-nums}
+.sd-u{font-size:.8rem;font-weight:600;color:var(--muted);margin-left:4px}
+.sd-tag{font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--green);
+  background:color-mix(in srgb,var(--green) 14%,transparent);padding:2px 8px;border-radius:6px}
+.sd-vs{align-self:center;color:var(--faint);font-weight:700;font-size:.8rem}
+
 /* ---------- Méthodo ---------- */
 .method{display:flex;flex-direction:column;gap:14px}
 .method .card{padding:18px 20px}
@@ -399,11 +422,12 @@ body[data-theme="dark"] .mpp-logo{filter:brightness(0) invert(1) opacity(.85)}
   .caltable td.cal-gr{order:-1;flex:1 1 30%;align-items:center;justify-content:flex-end;gap:6px;
     padding-bottom:7px;margin-bottom:6px;border-bottom:1px solid var(--line)}
 
-  /* Rangée 2 : Prono / Résultat / Accord (libellé au-dessus, centré) */
+  /* Rangée 2 : Prono / Résultat / Accord / Points (libellé au-dessus, centré) */
   .caltable td[data-label="Prono"],
   .caltable td[data-label="Résultat"],
-  .caltable td[data-label="Accord"]{flex:1 1 32%;flex-direction:column;align-items:center;gap:4px;
-    justify-content:flex-start}
+  .caltable td[data-label="Accord"],
+  .caltable td[data-label="Points"]{flex:1 1 22%;flex-direction:column;align-items:center;gap:4px;
+    justify-content:flex-start;text-align:center}
 
   /* Rangée 3 : probas (large) + mpp */
   .caltable td[data-label="P(V/N/D) modèle"]{flex:1 1 62%;flex-direction:column;align-items:flex-start;

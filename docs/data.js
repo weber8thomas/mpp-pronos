@@ -3,7 +3,7 @@ window.DATA = {
  "meta": {
   "titre": "Pronostics CDM 2026 — Phase de groupes",
   "n_matchs": 72,
-  "n_joues": 40,
+  "n_joues": 44,
   "n_qualifies": 32,
   "vainqueurs": [
    "A : Mexique",
@@ -19,10 +19,10 @@ window.DATA = {
    "K : Colombie",
    "L : Angleterre"
   ],
-  "j1_accuracy": 0.6,
-  "pts_mod": 1580,
-  "pts_mpp": 1483,
-  "n_scored": 40,
+  "j1_accuracy": 0.614,
+  "pts_mod": 1732,
+  "pts_mpp": 1635,
+  "n_scored": 44,
   "groupes": [
    "A",
    "B",
@@ -1196,7 +1196,7 @@ window.DATA = {
    "kickoff_utc": "2026-06-22T21:00",
    "dom": "France",
    "ext": "Irak",
-   "statut": "a_venir",
+   "statut": "joue",
    "bd": 3,
    "be": 0,
    "ppd": 3,
@@ -1207,8 +1207,8 @@ window.DATA = {
    "mpp_v": 0.98,
    "mpp_n": 0.02,
    "mpp_d": 0.0,
-   "pts_mod": null,
-   "pts_mpp": null,
+   "pts_mod": 22,
+   "pts_mpp": 22,
    "xg_dom": 3.36,
    "xg_ext": 0.24
   },
@@ -1219,9 +1219,9 @@ window.DATA = {
    "kickoff_utc": "2026-06-23T00:00",
    "dom": "Norvège",
    "ext": "Sénégal",
-   "statut": "a_venir",
-   "bd": 1,
-   "be": 1,
+   "statut": "joue",
+   "bd": 3,
+   "be": 2,
    "ppd": 1,
    "ppe": 1,
    "pv": 0.32,
@@ -1230,8 +1230,8 @@ window.DATA = {
    "mpp_v": 0.33,
    "mpp_n": 0.42,
    "mpp_d": 0.25,
-   "pts_mod": null,
-   "pts_mpp": null,
+   "pts_mod": 0,
+   "pts_mpp": 0,
    "xg_dom": 1.15,
    "xg_ext": 1.45
   },
@@ -1334,9 +1334,9 @@ window.DATA = {
    "kickoff_utc": "2026-06-22T17:00",
    "dom": "Argentine",
    "ext": "Autriche",
-   "statut": "a_venir",
+   "statut": "joue",
    "bd": 2,
-   "be": 1,
+   "be": 0,
    "ppd": 2,
    "ppe": 1,
    "pv": 0.66,
@@ -1345,8 +1345,8 @@ window.DATA = {
    "mpp_v": 0.919,
    "mpp_n": 0.071,
    "mpp_d": 0.01,
-   "pts_mod": null,
-   "pts_mpp": null,
+   "pts_mod": 63,
+   "pts_mpp": 63,
    "xg_dom": 3.02,
    "xg_ext": 0.4
   },
@@ -1357,8 +1357,8 @@ window.DATA = {
    "kickoff_utc": "2026-06-23T03:00",
    "dom": "Jordanie",
    "ext": "Algérie",
-   "statut": "a_venir",
-   "bd": 0,
+   "statut": "joue",
+   "bd": 1,
    "be": 2,
    "ppd": 0,
    "ppe": 2,
@@ -1368,8 +1368,8 @@ window.DATA = {
    "mpp_v": 0.05,
    "mpp_n": 0.18,
    "mpp_d": 0.77,
-   "pts_mod": null,
-   "pts_mpp": null,
+   "pts_mod": 67,
+   "pts_mpp": 67,
    "xg_dom": 0.6,
    "xg_ext": 2.6
   },
@@ -2146,27 +2146,27 @@ window.DATA = {
    {
     "rang": 2,
     "equipe": "Norvège",
-    "pts": 4,
+    "pts": 6,
     "j": 3,
-    "g": 1,
-    "n": 1,
+    "g": 2,
+    "n": 0,
     "p": 1,
-    "bp": 6,
-    "bc": 4,
-    "diff": 2,
+    "bp": 8,
+    "bc": 5,
+    "diff": 3,
     "statut": "2e"
    },
    {
     "rang": 3,
     "equipe": "Sénégal",
-    "pts": 4,
+    "pts": 3,
     "j": 3,
     "g": 1,
-    "n": 1,
-    "p": 1,
-    "bp": 4,
-    "bc": 4,
-    "diff": 0,
+    "n": 0,
+    "p": 2,
+    "bp": 5,
+    "bc": 6,
+    "diff": -1,
     "statut": "3e"
    },
    {
@@ -2193,8 +2193,8 @@ window.DATA = {
     "n": 0,
     "p": 0,
     "bp": 7,
-    "bc": 2,
-    "diff": 5,
+    "bc": 1,
+    "diff": 6,
     "statut": "1er"
    },
    {
@@ -2205,9 +2205,9 @@ window.DATA = {
     "g": 1,
     "n": 1,
     "p": 1,
-    "bp": 5,
+    "bp": 4,
     "bc": 4,
-    "diff": 1,
+    "diff": 0,
     "statut": "2e"
    },
    {
@@ -2219,8 +2219,8 @@ window.DATA = {
     "n": 1,
     "p": 1,
     "bp": 3,
-    "bc": 4,
-    "diff": -1,
+    "bc": 5,
+    "diff": -2,
     "statut": "3e"
    },
    {
@@ -2231,9 +2231,9 @@ window.DATA = {
     "g": 0,
     "n": 0,
     "p": 3,
-    "bp": 2,
+    "bp": 3,
     "bc": 7,
-    "diff": -5,
+    "diff": -4,
     "statut": "out"
    }
   ],
@@ -2457,16 +2457,12 @@ window.DATA = {
     "equipe": "RD Congo"
    },
    {
-    "groupe": "I",
-    "equipe": "Sénégal"
+    "groupe": "B",
+    "equipe": "Bosnie-Herzégovine"
    },
    {
     "groupe": "J",
     "equipe": "Algérie"
-   },
-   {
-    "groupe": "B",
-    "equipe": "Bosnie-Herzégovine"
    },
    {
     "groupe": "D",
@@ -2475,6 +2471,10 @@ window.DATA = {
    {
     "groupe": "G",
     "equipe": "Iran"
+   },
+   {
+    "groupe": "I",
+    "equipe": "Sénégal"
    },
    {
     "groupe": "L",
@@ -2499,10 +2499,10 @@ window.DATA = {
     "qualifie": true
    },
    {
-    "groupe": "I",
-    "equipe": "Sénégal",
+    "groupe": "B",
+    "equipe": "Bosnie-Herzégovine",
     "pts": 4,
-    "diff": 0,
+    "diff": -2,
     "bp": 4,
     "qualifie": true
    },
@@ -2510,16 +2510,8 @@ window.DATA = {
     "groupe": "J",
     "equipe": "Algérie",
     "pts": 4,
-    "diff": -1,
-    "bp": 3,
-    "qualifie": true
-   },
-   {
-    "groupe": "B",
-    "equipe": "Bosnie-Herzégovine",
-    "pts": 4,
     "diff": -2,
-    "bp": 4,
+    "bp": 3,
     "qualifie": true
    },
    {
@@ -2536,6 +2528,14 @@ window.DATA = {
     "pts": 3,
     "diff": 0,
     "bp": 3,
+    "qualifie": true
+   },
+   {
+    "groupe": "I",
+    "equipe": "Sénégal",
+    "pts": 3,
+    "diff": -1,
+    "bp": 5,
     "qualifie": true
    },
    {
@@ -4462,6 +4462,18 @@ window.DATA = {
    "ok": true
   },
   {
+   "match": "France – Irak",
+   "reel": "3-0",
+   "modele": "3-0",
+   "ok": true
+  },
+  {
+   "match": "Norvège – Sénégal",
+   "reel": "3-2",
+   "modele": "1-1",
+   "ok": false
+  },
+  {
    "match": "Argentine – Algérie",
    "reel": "3-0",
    "modele": "3-0",
@@ -4471,6 +4483,18 @@ window.DATA = {
    "match": "Autriche – Jordanie",
    "reel": "3-1",
    "modele": "2-0",
+   "ok": true
+  },
+  {
+   "match": "Argentine – Autriche",
+   "reel": "2-0",
+   "modele": "3-0",
+   "ok": true
+  },
+  {
+   "match": "Jordanie – Algérie",
+   "reel": "1-2",
+   "modele": "0-2",
    "ok": true
   },
   {

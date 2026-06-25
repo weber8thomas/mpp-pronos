@@ -3,7 +3,7 @@ window.DATA = {
  "meta": {
   "titre": "Pronostics CDM 2026 — Phase de groupes",
   "n_matchs": 72,
-  "n_joues": 48,
+  "n_joues": 54,
   "n_qualifies": 32,
   "vainqueurs": [
    "A : Mexique",
@@ -19,10 +19,10 @@ window.DATA = {
    "K : Colombie",
    "L : Angleterre"
   ],
-  "j1_accuracy": 0.625,
-  "pts_mod": 1869,
-  "pts_mpp": 1772,
-  "n_scored": 48,
+  "j1_accuracy": 0.611,
+  "pts_mod": 2192,
+  "pts_mpp": 2027,
+  "n_scored": 54,
   "groupes": [
    "A",
    "B",
@@ -138,9 +138,9 @@ window.DATA = {
    "kickoff_utc": "2026-06-25T01:00",
    "dom": "Tchéquie",
    "ext": "Mexique",
-   "statut": "a_venir",
-   "bd": 1,
-   "be": 1,
+   "statut": "joue",
+   "bd": 0,
+   "be": 3,
    "ppd": 1,
    "ppe": 1,
    "pv": 0.24,
@@ -149,8 +149,8 @@ window.DATA = {
    "mpp_v": 0.07,
    "mpp_n": 0.33,
    "mpp_d": 0.6,
-   "pts_mod": null,
-   "pts_mpp": null,
+   "pts_mod": 91,
+   "pts_mpp": 91,
    "xg_dom": 0.75,
    "xg_ext": 2.29
   },
@@ -161,9 +161,9 @@ window.DATA = {
    "kickoff_utc": "2026-06-25T01:00",
    "dom": "Afrique du Sud",
    "ext": "Corée du Sud",
-   "statut": "a_venir",
-   "bd": 0,
-   "be": 2,
+   "statut": "joue",
+   "bd": 1,
+   "be": 0,
    "ppd": 0,
    "ppe": 2,
    "pv": 0.12,
@@ -172,8 +172,8 @@ window.DATA = {
    "mpp_v": 0.11,
    "mpp_n": 0.26,
    "mpp_d": 0.63,
-   "pts_mod": null,
-   "pts_mpp": null,
+   "pts_mod": 0,
+   "pts_mpp": 0,
    "xg_dom": 0.67,
    "xg_ext": 2.45
   },
@@ -276,8 +276,8 @@ window.DATA = {
    "kickoff_utc": "2026-06-24T19:00",
    "dom": "Suisse",
    "ext": "Canada",
-   "statut": "a_venir",
-   "bd": 2,
+   "statut": "joue",
+   "bd": 3,
    "be": 1,
    "ppd": 2,
    "ppe": 1,
@@ -287,8 +287,8 @@ window.DATA = {
    "mpp_v": 0.41,
    "mpp_n": 0.45,
    "mpp_d": 0.14,
-   "pts_mod": null,
-   "pts_mpp": null,
+   "pts_mod": 68,
+   "pts_mpp": 0,
    "xg_dom": 1.46,
    "xg_ext": 1.15
   },
@@ -299,8 +299,8 @@ window.DATA = {
    "kickoff_utc": "2026-06-24T19:00",
    "dom": "Bosnie-Herzégovine",
    "ext": "Qatar",
-   "statut": "a_venir",
-   "bd": 2,
+   "statut": "joue",
+   "bd": 3,
    "be": 1,
    "ppd": 2,
    "ppe": 1,
@@ -310,8 +310,8 @@ window.DATA = {
    "mpp_v": 0.58,
    "mpp_n": 0.31,
    "mpp_d": 0.11,
-   "pts_mod": null,
-   "pts_mpp": null,
+   "pts_mod": 87,
+   "pts_mpp": 87,
    "xg_dom": 1.68,
    "xg_ext": 1.04
   },
@@ -414,9 +414,9 @@ window.DATA = {
    "kickoff_utc": "2026-06-24T22:00",
    "dom": "Écosse",
    "ext": "Brésil",
-   "statut": "a_venir",
+   "statut": "joue",
    "bd": 0,
-   "be": 2,
+   "be": 3,
    "ppd": 0,
    "ppe": 2,
    "pv": 0.06,
@@ -425,8 +425,8 @@ window.DATA = {
    "mpp_v": 0.03,
    "mpp_n": 0.09,
    "mpp_d": 0.88,
-   "pts_mod": null,
-   "pts_mpp": null,
+   "pts_mod": 48,
+   "pts_mpp": 48,
    "xg_dom": 0.52,
    "xg_ext": 2.76
   },
@@ -437,9 +437,9 @@ window.DATA = {
    "kickoff_utc": "2026-06-24T22:00",
    "dom": "Maroc",
    "ext": "Haïti",
-   "statut": "a_venir",
-   "bd": 2,
-   "be": 0,
+   "statut": "joue",
+   "bd": 4,
+   "be": 2,
    "ppd": 2,
    "ppe": 0,
    "pv": 0.85,
@@ -448,8 +448,8 @@ window.DATA = {
    "mpp_v": 0.95,
    "mpp_n": 0.04,
    "mpp_d": 0.01,
-   "pts_mod": null,
-   "pts_mpp": null,
+   "pts_mod": 29,
+   "pts_mpp": 29,
    "xg_dom": 2.99,
    "xg_ext": 0.41
   },
@@ -1701,52 +1701,52 @@ window.DATA = {
    {
     "rang": 1,
     "equipe": "Mexique",
-    "pts": 7,
+    "pts": 9,
     "j": 3,
-    "g": 2,
-    "n": 1,
+    "g": 3,
+    "n": 0,
     "p": 0,
-    "bp": 4,
-    "bc": 1,
-    "diff": 3,
+    "bp": 6,
+    "bc": 0,
+    "diff": 6,
     "statut": "1er"
    },
    {
     "rang": 2,
-    "equipe": "Corée du Sud",
-    "pts": 6,
+    "equipe": "Afrique du Sud",
+    "pts": 4,
     "j": 3,
-    "g": 2,
-    "n": 0,
+    "g": 1,
+    "n": 1,
     "p": 1,
-    "bp": 4,
-    "bc": 2,
-    "diff": 2,
+    "bp": 2,
+    "bc": 3,
+    "diff": -1,
     "statut": "2e"
    },
    {
     "rang": 3,
-    "equipe": "Tchéquie",
-    "pts": 2,
+    "equipe": "Corée du Sud",
+    "pts": 3,
     "j": 3,
-    "g": 0,
-    "n": 2,
-    "p": 1,
-    "bp": 3,
-    "bc": 4,
+    "g": 1,
+    "n": 0,
+    "p": 2,
+    "bp": 2,
+    "bc": 3,
     "diff": -1,
     "statut": "out"
    },
    {
     "rang": 4,
-    "equipe": "Afrique du Sud",
+    "equipe": "Tchéquie",
     "pts": 1,
     "j": 3,
     "g": 0,
     "n": 1,
     "p": 2,
-    "bp": 1,
-    "bc": 5,
+    "bp": 2,
+    "bc": 6,
     "diff": -4,
     "statut": "out"
    }
@@ -1760,9 +1760,9 @@ window.DATA = {
     "g": 2,
     "n": 1,
     "p": 0,
-    "bp": 7,
+    "bp": 8,
     "bc": 3,
-    "diff": 4,
+    "diff": 5,
     "statut": "1er"
    },
    {
@@ -1774,8 +1774,8 @@ window.DATA = {
     "n": 1,
     "p": 1,
     "bp": 8,
-    "bc": 3,
-    "diff": 5,
+    "bc": 4,
+    "diff": 4,
     "statut": "2e"
    },
    {
@@ -1786,9 +1786,9 @@ window.DATA = {
     "g": 1,
     "n": 1,
     "p": 1,
-    "bp": 4,
+    "bp": 5,
     "bc": 6,
-    "diff": -2,
+    "diff": -1,
     "statut": "3e"
    },
    {
@@ -1800,8 +1800,8 @@ window.DATA = {
     "n": 1,
     "p": 2,
     "bp": 2,
-    "bc": 9,
-    "diff": -7,
+    "bc": 10,
+    "diff": -8,
     "statut": "out"
    }
   ],
@@ -1814,9 +1814,9 @@ window.DATA = {
     "g": 2,
     "n": 1,
     "p": 0,
-    "bp": 6,
+    "bp": 7,
     "bc": 1,
-    "diff": 5,
+    "diff": 6,
     "statut": "1er"
    },
    {
@@ -1827,8 +1827,8 @@ window.DATA = {
     "g": 2,
     "n": 1,
     "p": 0,
-    "bp": 4,
-    "bc": 1,
+    "bp": 6,
+    "bc": 3,
     "diff": 3,
     "statut": "2e"
    },
@@ -1841,8 +1841,8 @@ window.DATA = {
     "n": 0,
     "p": 2,
     "bp": 1,
-    "bc": 3,
-    "diff": -2,
+    "bc": 4,
+    "diff": -3,
     "statut": "out"
    },
    {
@@ -1853,8 +1853,8 @@ window.DATA = {
     "g": 0,
     "n": 0,
     "p": 3,
-    "bp": 0,
-    "bc": 6,
+    "bp": 2,
+    "bc": 8,
     "diff": -6,
     "statut": "out"
    }
@@ -2400,7 +2400,7 @@ window.DATA = {
   "deuxiemes": [
    {
     "groupe": "A",
-    "equipe": "Corée du Sud"
+    "equipe": "Afrique du Sud"
    },
    {
     "groupe": "B",
@@ -2510,8 +2510,8 @@ window.DATA = {
     "groupe": "B",
     "equipe": "Bosnie-Herzégovine",
     "pts": 4,
-    "diff": -2,
-    "bp": 4,
+    "diff": -1,
+    "bp": 5,
     "qualifie": true
    },
    {
@@ -2547,10 +2547,18 @@ window.DATA = {
     "qualifie": true
    },
    {
+    "groupe": "A",
+    "equipe": "Corée du Sud",
+    "pts": 3,
+    "diff": -1,
+    "bp": 2,
+    "qualifie": false
+   },
+   {
     "groupe": "C",
     "equipe": "Écosse",
     "pts": 3,
-    "diff": -2,
+    "diff": -3,
     "bp": 1,
     "qualifie": false
    },
@@ -2560,14 +2568,6 @@ window.DATA = {
     "pts": 2,
     "diff": -1,
     "bp": 4,
-    "qualifie": false
-   },
-   {
-    "groupe": "A",
-    "equipe": "Tchéquie",
-    "pts": 2,
-    "diff": -1,
-    "bp": 3,
     "qualifie": false
    },
    {
@@ -2595,7 +2595,7 @@ window.DATA = {
    "elo": 1746,
    "fifa_rank": 23,
    "forme": "Premier de son groupe qualif AFC invaincu; emmenée par Son Heung-min",
-   "statut": "2e"
+   "statut": "out"
   },
   {
    "groupe": "A",
@@ -2603,7 +2603,7 @@ window.DATA = {
    "elo": 1556,
    "fifa_rank": 56,
    "forme": "Retour après 16 ans; quart de finaliste CAN 2025; 1er groupe CAF C",
-   "statut": "out"
+   "statut": "2e"
   },
   {
    "groupe": "A",
@@ -4282,6 +4282,18 @@ window.DATA = {
    "ok": true
   },
   {
+   "match": "Tchéquie – Mexique",
+   "reel": "0-3",
+   "modele": "0-2",
+   "ok": true
+  },
+  {
+   "match": "Afrique du Sud – Corée du Sud",
+   "reel": "1-0",
+   "modele": "0-2",
+   "ok": false
+  },
+  {
    "match": "Canada – Bosnie-Herzégovine",
    "reel": "1-1",
    "modele": "2-0",
@@ -4306,6 +4318,18 @@ window.DATA = {
    "ok": true
   },
   {
+   "match": "Suisse – Canada",
+   "reel": "3-1",
+   "modele": "1-1",
+   "ok": false
+  },
+  {
+   "match": "Bosnie-Herzégovine – Qatar",
+   "reel": "3-1",
+   "modele": "1-1",
+   "ok": false
+  },
+  {
    "match": "Brésil – Maroc",
    "reel": "1-1",
    "modele": "1-0",
@@ -4327,6 +4351,18 @@ window.DATA = {
    "match": "Brésil – Haïti",
    "reel": "3-0",
    "modele": "3-0",
+   "ok": true
+  },
+  {
+   "match": "Écosse – Brésil",
+   "reel": "0-3",
+   "modele": "0-2",
+   "ok": true
+  },
+  {
+   "match": "Maroc – Haïti",
+   "reel": "4-2",
+   "modele": "2-0",
    "ok": true
   },
   {

@@ -3,7 +3,7 @@ window.DATA = {
  "meta": {
   "titre": "Pronostics CDM 2026 — Phase de groupes",
   "n_matchs": 72,
-  "n_joues": 54,
+  "n_joues": 60,
   "n_qualifies": 32,
   "vainqueurs": [
    "A : Mexique",
@@ -19,10 +19,10 @@ window.DATA = {
    "K : Colombie",
    "L : Angleterre"
   ],
-  "j1_accuracy": 0.611,
-  "pts_mod": 2192,
-  "pts_mpp": 2027,
-  "n_scored": 54,
+  "j1_accuracy": 0.6,
+  "pts_mod": 2301,
+  "pts_mpp": 2244,
+  "n_scored": 60,
   "groupes": [
    "A",
    "B",
@@ -552,9 +552,9 @@ window.DATA = {
    "kickoff_utc": "2026-06-26T02:00",
    "dom": "Turquie",
    "ext": "États-Unis",
-   "statut": "a_venir",
-   "bd": 1,
-   "be": 1,
+   "statut": "joue",
+   "bd": 3,
+   "be": 2,
    "ppd": 1,
    "ppe": 1,
    "pv": 0.29,
@@ -563,8 +563,8 @@ window.DATA = {
    "mpp_v": 0.2,
    "mpp_n": 0.33,
    "mpp_d": 0.47,
-   "pts_mod": null,
-   "pts_mpp": null,
+   "pts_mod": 0,
+   "pts_mpp": 0,
    "xg_dom": 1.05,
    "xg_ext": 1.67
   },
@@ -575,9 +575,9 @@ window.DATA = {
    "kickoff_utc": "2026-06-26T02:00",
    "dom": "Paraguay",
    "ext": "Australie",
-   "statut": "a_venir",
-   "bd": 1,
-   "be": 1,
+   "statut": "joue",
+   "bd": 0,
+   "be": 0,
    "ppd": 1,
    "ppe": 1,
    "pv": 0.45,
@@ -586,8 +586,8 @@ window.DATA = {
    "mpp_v": 0.41,
    "mpp_n": 0.37,
    "mpp_d": 0.22,
-   "pts_mod": null,
-   "pts_mpp": null,
+   "pts_mod": 0,
+   "pts_mpp": 0,
    "xg_dom": 1.58,
    "xg_ext": 1.09
   },
@@ -690,7 +690,7 @@ window.DATA = {
    "kickoff_utc": "2026-06-25T20:00",
    "dom": "Curaçao",
    "ext": "Côte d'Ivoire",
-   "statut": "a_venir",
+   "statut": "joue",
    "bd": 0,
    "be": 2,
    "ppd": 0,
@@ -701,8 +701,8 @@ window.DATA = {
    "mpp_v": 0.03,
    "mpp_n": 0.08,
    "mpp_d": 0.89,
-   "pts_mod": null,
-   "pts_mpp": null,
+   "pts_mod": 53,
+   "pts_mpp": 53,
    "xg_dom": 0.48,
    "xg_ext": 2.84
   },
@@ -713,8 +713,8 @@ window.DATA = {
    "kickoff_utc": "2026-06-25T20:00",
    "dom": "Équateur",
    "ext": "Allemagne",
-   "statut": "a_venir",
-   "bd": 1,
+   "statut": "joue",
+   "bd": 2,
    "be": 1,
    "ppd": 1,
    "ppe": 1,
@@ -724,8 +724,8 @@ window.DATA = {
    "mpp_v": 0.03,
    "mpp_n": 0.1,
    "mpp_d": 0.87,
-   "pts_mod": null,
-   "pts_mpp": null,
+   "pts_mod": 0,
+   "pts_mpp": 0,
    "xg_dom": 0.92,
    "xg_ext": 1.93
   },
@@ -828,9 +828,9 @@ window.DATA = {
    "kickoff_utc": "2026-06-25T23:00",
    "dom": "Japon",
    "ext": "Suède",
-   "statut": "a_venir",
+   "statut": "joue",
    "bd": 1,
-   "be": 2,
+   "be": 1,
    "ppd": 1,
    "ppe": 2,
    "pv": 0.3,
@@ -839,8 +839,8 @@ window.DATA = {
    "mpp_v": 0.37,
    "mpp_n": 0.45,
    "mpp_d": 0.18,
-   "pts_mod": null,
-   "pts_mpp": null,
+   "pts_mod": 0,
+   "pts_mpp": 108,
    "xg_dom": 2.31,
    "xg_ext": 0.74
   },
@@ -851,9 +851,9 @@ window.DATA = {
    "kickoff_utc": "2026-06-25T23:00",
    "dom": "Tunisie",
    "ext": "Pays-Bas",
-   "statut": "a_venir",
-   "bd": 0,
-   "be": 2,
+   "statut": "joue",
+   "bd": 1,
+   "be": 3,
    "ppd": 0,
    "ppe": 2,
    "pv": 0.14,
@@ -862,8 +862,8 @@ window.DATA = {
    "mpp_v": 0.04,
    "mpp_n": 0.11,
    "mpp_d": 0.85,
-   "pts_mod": null,
-   "pts_mpp": null,
+   "pts_mod": 56,
+   "pts_mpp": 56,
    "xg_dom": 0.43,
    "xg_ext": 2.96
   },
@@ -1863,14 +1863,14 @@ window.DATA = {
    {
     "rang": 1,
     "equipe": "États-Unis",
-    "pts": 7,
+    "pts": 6,
     "j": 3,
     "g": 2,
-    "n": 1,
-    "p": 0,
-    "bp": 7,
-    "bc": 2,
-    "diff": 5,
+    "n": 0,
+    "p": 1,
+    "bp": 8,
+    "bc": 4,
+    "diff": 4,
     "statut": "1er"
    },
    {
@@ -1881,8 +1881,8 @@ window.DATA = {
     "g": 1,
     "n": 1,
     "p": 1,
-    "bp": 3,
-    "bc": 3,
+    "bp": 2,
+    "bc": 2,
     "diff": 0,
     "statut": "2e"
    },
@@ -1894,22 +1894,22 @@ window.DATA = {
     "g": 1,
     "n": 1,
     "p": 1,
-    "bp": 3,
-    "bc": 5,
+    "bp": 2,
+    "bc": 4,
     "diff": -2,
     "statut": "3e"
    },
    {
     "rang": 4,
     "equipe": "Turquie",
-    "pts": 1,
+    "pts": 3,
     "j": 3,
-    "g": 0,
-    "n": 1,
+    "g": 1,
+    "n": 0,
     "p": 2,
-    "bp": 1,
-    "bc": 4,
-    "diff": -3,
+    "bp": 3,
+    "bc": 5,
+    "diff": -2,
     "statut": "out"
    }
   ],
@@ -1917,14 +1917,14 @@ window.DATA = {
    {
     "rang": 1,
     "equipe": "Allemagne",
-    "pts": 7,
+    "pts": 6,
     "j": 3,
     "g": 2,
-    "n": 1,
-    "p": 0,
+    "n": 0,
+    "p": 1,
     "bp": 10,
-    "bc": 3,
-    "diff": 7,
+    "bc": 4,
+    "diff": 6,
     "statut": "1er"
    },
    {
@@ -1943,15 +1943,15 @@ window.DATA = {
    {
     "rang": 3,
     "equipe": "Équateur",
-    "pts": 2,
+    "pts": 4,
     "j": 3,
-    "g": 0,
-    "n": 2,
+    "g": 1,
+    "n": 1,
     "p": 1,
-    "bp": 1,
+    "bp": 2,
     "bc": 2,
-    "diff": -1,
-    "statut": "out"
+    "diff": 0,
+    "statut": "3e"
    },
    {
     "rang": 4,
@@ -1976,35 +1976,35 @@ window.DATA = {
     "g": 2,
     "n": 1,
     "p": 0,
-    "bp": 9,
-    "bc": 3,
+    "bp": 10,
+    "bc": 4,
     "diff": 6,
     "statut": "1er"
    },
    {
     "rang": 2,
-    "equipe": "Suède",
-    "pts": 6,
+    "equipe": "Japon",
+    "pts": 5,
     "j": 3,
-    "g": 2,
-    "n": 0,
-    "p": 1,
-    "bp": 8,
-    "bc": 7,
-    "diff": 1,
+    "g": 1,
+    "n": 2,
+    "p": 0,
+    "bp": 7,
+    "bc": 3,
+    "diff": 4,
     "statut": "2e"
    },
    {
     "rang": 3,
-    "equipe": "Japon",
+    "equipe": "Suède",
     "pts": 4,
     "j": 3,
     "g": 1,
     "n": 1,
     "p": 1,
     "bp": 7,
-    "bc": 4,
-    "diff": 3,
+    "bc": 7,
+    "diff": 0,
     "statut": "3e"
    },
    {
@@ -2015,8 +2015,8 @@ window.DATA = {
     "g": 0,
     "n": 0,
     "p": 3,
-    "bp": 1,
-    "bc": 11,
+    "bp": 2,
+    "bc": 12,
     "diff": -10,
     "statut": "out"
    }
@@ -2167,7 +2167,7 @@ window.DATA = {
     "bp": 5,
     "bc": 6,
     "diff": -1,
-    "statut": "3e"
+    "statut": "out"
    },
    {
     "rang": 4,
@@ -2420,7 +2420,7 @@ window.DATA = {
    },
    {
     "groupe": "F",
-    "equipe": "Suède"
+    "equipe": "Japon"
    },
    {
     "groupe": "G",
@@ -2450,7 +2450,7 @@ window.DATA = {
   "meilleurs3": [
    {
     "groupe": "F",
-    "equipe": "Japon"
+    "equipe": "Suède"
    },
    {
     "groupe": "K",
@@ -2459,6 +2459,10 @@ window.DATA = {
    {
     "groupe": "L",
     "equipe": "Ghana"
+   },
+   {
+    "groupe": "E",
+    "equipe": "Équateur"
    },
    {
     "groupe": "B",
@@ -2475,18 +2479,14 @@ window.DATA = {
    {
     "groupe": "G",
     "equipe": "Iran"
-   },
-   {
-    "groupe": "I",
-    "equipe": "Sénégal"
    }
   ],
   "troisiemes": [
    {
     "groupe": "F",
-    "equipe": "Japon",
+    "equipe": "Suède",
     "pts": 4,
-    "diff": 3,
+    "diff": 0,
     "bp": 7,
     "qualifie": true
    },
@@ -2501,6 +2501,14 @@ window.DATA = {
    {
     "groupe": "L",
     "equipe": "Ghana",
+    "pts": 4,
+    "diff": 0,
+    "bp": 2,
+    "qualifie": true
+   },
+   {
+    "groupe": "E",
+    "equipe": "Équateur",
     "pts": 4,
     "diff": 0,
     "bp": 2,
@@ -2527,7 +2535,7 @@ window.DATA = {
     "equipe": "Paraguay",
     "pts": 4,
     "diff": -2,
-    "bp": 3,
+    "bp": 2,
     "qualifie": true
    },
    {
@@ -2544,7 +2552,7 @@ window.DATA = {
     "pts": 3,
     "diff": -1,
     "bp": 5,
-    "qualifie": true
+    "qualifie": false
    },
    {
     "groupe": "A",
@@ -2568,14 +2576,6 @@ window.DATA = {
     "pts": 2,
     "diff": -1,
     "bp": 4,
-    "qualifie": false
-   },
-   {
-    "groupe": "E",
-    "equipe": "Équateur",
-    "pts": 2,
-    "diff": -1,
-    "bp": 1,
     "qualifie": false
    }
   ]
@@ -2723,7 +2723,7 @@ window.DATA = {
    "elo": 1833,
    "fifa_rank": 23,
    "forme": "Qualif CONMEBOL solide (2e/3e); défense hermétique",
-   "statut": "out"
+   "statut": "3e"
   },
   {
    "groupe": "E",
@@ -2755,7 +2755,7 @@ window.DATA = {
    "elo": 1924,
    "fifa_rank": 18,
    "forme": "1er qualifié pour la CDM 2026; campagne AFC dominante; a battu le Brésil en 2025",
-   "statut": "3e"
+   "statut": "2e"
   },
   {
    "groupe": "F",
@@ -2771,7 +2771,7 @@ window.DATA = {
    "elo": 1761,
    "fifa_rank": 36,
    "forme": "Qualifiée via barrage UEFA; attaque Isak/Gyökeres",
-   "statut": "2e"
+   "statut": "3e"
   },
   {
    "groupe": "G",
@@ -2851,7 +2851,7 @@ window.DATA = {
    "elo": 1869,
    "fifa_rank": 14,
    "forme": "Champion d'Afrique 2021; génération solide; qualif CAF maîtrisée",
-   "statut": "3e"
+   "statut": "out"
   },
   {
    "groupe": "I",
@@ -4390,6 +4390,18 @@ window.DATA = {
    "ok": false
   },
   {
+   "match": "Turquie – États-Unis",
+   "reel": "3-2",
+   "modele": "1-1",
+   "ok": false
+  },
+  {
+   "match": "Paraguay – Australie",
+   "reel": "0-0",
+   "modele": "1-1",
+   "ok": true
+  },
+  {
    "match": "Allemagne – Curaçao",
    "reel": "7-1",
    "modele": "3-0",
@@ -4414,6 +4426,18 @@ window.DATA = {
    "ok": false
   },
   {
+   "match": "Curaçao – Côte d'Ivoire",
+   "reel": "0-2",
+   "modele": "0-2",
+   "ok": true
+  },
+  {
+   "match": "Équateur – Allemagne",
+   "reel": "2-1",
+   "modele": "0-1",
+   "ok": false
+  },
+  {
    "match": "Pays-Bas – Japon",
    "reel": "2-2",
    "modele": "1-1",
@@ -4434,6 +4458,18 @@ window.DATA = {
   {
    "match": "Tunisie – Japon",
    "reel": "0-4",
+   "modele": "0-2",
+   "ok": true
+  },
+  {
+   "match": "Japon – Suède",
+   "reel": "1-1",
+   "modele": "2-0",
+   "ok": false
+  },
+  {
+   "match": "Tunisie – Pays-Bas",
+   "reel": "1-3",
    "modele": "0-2",
    "ok": true
   },

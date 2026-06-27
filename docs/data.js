@@ -3,7 +3,7 @@ window.DATA = {
  "meta": {
   "titre": "Pronostics CDM 2026 — Phase de groupes",
   "n_matchs": 72,
-  "n_joues": 60,
+  "n_joues": 66,
   "n_qualifies": 32,
   "vainqueurs": [
    "A : Mexique",
@@ -12,17 +12,17 @@ window.DATA = {
    "D : États-Unis",
    "E : Allemagne",
    "F : Pays-Bas",
-   "G : Égypte",
+   "G : Belgique",
    "H : Espagne",
-   "I : France",
+   "I : Norvège",
    "J : Argentine",
    "K : Colombie",
    "L : Angleterre"
   ],
-  "j1_accuracy": 0.6,
-  "pts_mod": 2301,
-  "pts_mpp": 2244,
-  "n_scored": 60,
+  "j1_accuracy": 0.606,
+  "pts_mod": 2567,
+  "pts_mpp": 2510,
+  "n_scored": 66,
   "groupes": [
    "A",
    "B",
@@ -966,7 +966,7 @@ window.DATA = {
    "kickoff_utc": "2026-06-27T03:00",
    "dom": "Égypte",
    "ext": "Iran",
-   "statut": "a_venir",
+   "statut": "joue",
    "bd": 1,
    "be": 1,
    "ppd": 1,
@@ -977,8 +977,8 @@ window.DATA = {
    "mpp_v": 0.663,
    "mpp_n": 0.277,
    "mpp_d": 0.059,
-   "pts_mod": null,
-   "pts_mpp": null,
+   "pts_mod": 0,
+   "pts_mpp": 0,
    "xg_dom": 0.83,
    "xg_ext": 2.11
   },
@@ -989,9 +989,9 @@ window.DATA = {
    "kickoff_utc": "2026-06-27T03:00",
    "dom": "Nouvelle-Zélande",
    "ext": "Belgique",
-   "statut": "a_venir",
-   "bd": 0,
-   "be": 2,
+   "statut": "joue",
+   "bd": 1,
+   "be": 5,
    "ppd": 0,
    "ppe": 2,
    "pv": 0.12,
@@ -1000,8 +1000,8 @@ window.DATA = {
    "mpp_v": 0.04,
    "mpp_n": 0.079,
    "mpp_d": 0.881,
-   "pts_mod": null,
-   "pts_mpp": null,
+   "pts_mod": 32,
+   "pts_mpp": 32,
    "xg_dom": 0.36,
    "xg_ext": 3.1
   },
@@ -1104,9 +1104,9 @@ window.DATA = {
    "kickoff_utc": "2026-06-27T00:00",
    "dom": "Cap-Vert",
    "ext": "Arabie saoudite",
-   "statut": "a_venir",
-   "bd": 1,
-   "be": 1,
+   "statut": "joue",
+   "bd": 0,
+   "be": 0,
    "ppd": 1,
    "ppe": 1,
    "pv": 0.33,
@@ -1115,8 +1115,8 @@ window.DATA = {
    "mpp_v": 0.19,
    "mpp_n": 0.55,
    "mpp_d": 0.26,
-   "pts_mod": null,
-   "pts_mpp": null,
+   "pts_mod": 123,
+   "pts_mpp": 123,
    "xg_dom": 1.08,
    "xg_ext": 1.59
   },
@@ -1127,9 +1127,9 @@ window.DATA = {
    "kickoff_utc": "2026-06-27T00:00",
    "dom": "Uruguay",
    "ext": "Espagne",
-   "statut": "a_venir",
-   "bd": 1,
-   "be": 2,
+   "statut": "joue",
+   "bd": 0,
+   "be": 1,
    "ppd": 1,
    "ppe": 2,
    "pv": 0.22,
@@ -1138,8 +1138,8 @@ window.DATA = {
    "mpp_v": 0.03,
    "mpp_n": 0.14,
    "mpp_d": 0.83,
-   "pts_mod": null,
-   "pts_mpp": null,
+   "pts_mod": 57,
+   "pts_mpp": 57,
    "xg_dom": 0.48,
    "xg_ext": 2.85
   },
@@ -1242,9 +1242,9 @@ window.DATA = {
    "kickoff_utc": "2026-06-26T19:00",
    "dom": "Norvège",
    "ext": "France",
-   "statut": "a_venir",
-   "bd": 1,
-   "be": 2,
+   "statut": "joue",
+   "bd": 4,
+   "be": 1,
    "ppd": 1,
    "ppe": 2,
    "pv": 0.22,
@@ -1253,8 +1253,8 @@ window.DATA = {
    "mpp_v": 0.04,
    "mpp_n": 0.168,
    "mpp_d": 0.792,
-   "pts_mod": null,
-   "pts_mpp": null,
+   "pts_mod": 0,
+   "pts_mpp": 0,
    "xg_dom": 0.59,
    "xg_ext": 2.62
   },
@@ -1265,8 +1265,8 @@ window.DATA = {
    "kickoff_utc": "2026-06-26T19:00",
    "dom": "Sénégal",
    "ext": "Irak",
-   "statut": "a_venir",
-   "bd": 2,
+   "statut": "joue",
+   "bd": 5,
    "be": 0,
    "ppd": 2,
    "ppe": 0,
@@ -1276,8 +1276,8 @@ window.DATA = {
    "mpp_v": 0.91,
    "mpp_n": 0.07,
    "mpp_d": 0.02,
-   "pts_mod": null,
-   "pts_mpp": null,
+   "pts_mod": 54,
+   "pts_mpp": 54,
    "xg_dom": 2.82,
    "xg_ext": 0.49
   },
@@ -2024,6 +2024,19 @@ window.DATA = {
   "G": [
    {
     "rang": 1,
+    "equipe": "Belgique",
+    "pts": 5,
+    "j": 3,
+    "g": 1,
+    "n": 2,
+    "p": 0,
+    "bp": 6,
+    "bc": 2,
+    "diff": 4,
+    "statut": "1er"
+   },
+   {
+    "rang": 2,
     "equipe": "Égypte",
     "pts": 5,
     "j": 3,
@@ -2032,19 +2045,6 @@ window.DATA = {
     "p": 0,
     "bp": 5,
     "bc": 3,
-    "diff": 2,
-    "statut": "1er"
-   },
-   {
-    "rang": 2,
-    "equipe": "Belgique",
-    "pts": 5,
-    "j": 3,
-    "g": 1,
-    "n": 2,
-    "p": 0,
-    "bp": 3,
-    "bc": 1,
     "diff": 2,
     "statut": "2e"
    },
@@ -2059,7 +2059,7 @@ window.DATA = {
     "bp": 3,
     "bc": 3,
     "diff": 0,
-    "statut": "3e"
+    "statut": "out"
    },
    {
     "rang": 4,
@@ -2069,9 +2069,9 @@ window.DATA = {
     "g": 0,
     "n": 1,
     "p": 2,
-    "bp": 3,
-    "bc": 7,
-    "diff": -4,
+    "bp": 4,
+    "bc": 10,
+    "diff": -6,
     "statut": "out"
    }
   ],
@@ -2084,8 +2084,8 @@ window.DATA = {
     "g": 2,
     "n": 1,
     "p": 0,
-    "bp": 6,
-    "bc": 1,
+    "bp": 5,
+    "bc": 0,
     "diff": 5,
     "statut": "1er"
    },
@@ -2097,8 +2097,8 @@ window.DATA = {
     "g": 0,
     "n": 3,
     "p": 0,
-    "bp": 3,
-    "bc": 3,
+    "bp": 2,
+    "bc": 2,
     "diff": 0,
     "statut": "2e"
    },
@@ -2110,8 +2110,8 @@ window.DATA = {
     "g": 0,
     "n": 2,
     "p": 1,
-    "bp": 4,
-    "bc": 5,
+    "bp": 3,
+    "bc": 4,
     "diff": -1,
     "statut": "out"
    },
@@ -2123,8 +2123,8 @@ window.DATA = {
     "g": 0,
     "n": 2,
     "p": 1,
-    "bp": 2,
-    "bc": 6,
+    "bp": 1,
+    "bc": 5,
     "diff": -4,
     "statut": "out"
    }
@@ -2132,28 +2132,28 @@ window.DATA = {
   "I": [
    {
     "rang": 1,
-    "equipe": "France",
+    "equipe": "Norvège",
     "pts": 9,
     "j": 3,
     "g": 3,
     "n": 0,
     "p": 0,
-    "bp": 8,
-    "bc": 2,
-    "diff": 6,
+    "bp": 11,
+    "bc": 4,
+    "diff": 7,
     "statut": "1er"
    },
    {
     "rang": 2,
-    "equipe": "Norvège",
+    "equipe": "France",
     "pts": 6,
     "j": 3,
     "g": 2,
     "n": 0,
     "p": 1,
-    "bp": 8,
+    "bp": 7,
     "bc": 5,
-    "diff": 3,
+    "diff": 2,
     "statut": "2e"
    },
    {
@@ -2164,10 +2164,10 @@ window.DATA = {
     "g": 1,
     "n": 0,
     "p": 2,
-    "bp": 5,
+    "bp": 8,
     "bc": 6,
-    "diff": -1,
-    "statut": "out"
+    "diff": 2,
+    "statut": "3e"
    },
    {
     "rang": 4,
@@ -2178,8 +2178,8 @@ window.DATA = {
     "n": 0,
     "p": 3,
     "bp": 1,
-    "bc": 9,
-    "diff": -8,
+    "bc": 12,
+    "diff": -11,
     "statut": "out"
    }
   ],
@@ -2374,7 +2374,7 @@ window.DATA = {
    },
    {
     "groupe": "G",
-    "equipe": "Égypte"
+    "equipe": "Belgique"
    },
    {
     "groupe": "H",
@@ -2382,7 +2382,7 @@ window.DATA = {
    },
    {
     "groupe": "I",
-    "equipe": "France"
+    "equipe": "Norvège"
    },
    {
     "groupe": "J",
@@ -2424,7 +2424,7 @@ window.DATA = {
    },
    {
     "groupe": "G",
-    "equipe": "Belgique"
+    "equipe": "Égypte"
    },
    {
     "groupe": "H",
@@ -2432,7 +2432,7 @@ window.DATA = {
    },
    {
     "groupe": "I",
-    "equipe": "Norvège"
+    "equipe": "France"
    },
    {
     "groupe": "J",
@@ -2477,8 +2477,8 @@ window.DATA = {
     "equipe": "Paraguay"
    },
    {
-    "groupe": "G",
-    "equipe": "Iran"
+    "groupe": "I",
+    "equipe": "Sénégal"
    }
   ],
   "troisiemes": [
@@ -2539,19 +2539,19 @@ window.DATA = {
     "qualifie": true
    },
    {
+    "groupe": "I",
+    "equipe": "Sénégal",
+    "pts": 3,
+    "diff": 2,
+    "bp": 8,
+    "qualifie": true
+   },
+   {
     "groupe": "G",
     "equipe": "Iran",
     "pts": 3,
     "diff": 0,
     "bp": 3,
-    "qualifie": true
-   },
-   {
-    "groupe": "I",
-    "equipe": "Sénégal",
-    "pts": 3,
-    "diff": -1,
-    "bp": 5,
     "qualifie": false
    },
    {
@@ -2575,7 +2575,7 @@ window.DATA = {
     "equipe": "Uruguay",
     "pts": 2,
     "diff": -1,
-    "bp": 4,
+    "bp": 3,
     "qualifie": false
    }
   ]
@@ -2779,7 +2779,7 @@ window.DATA = {
    "elo": 1849,
    "fifa_rank": 9,
    "forme": "Génération en transition; qualif solide; talent offensif maintenu",
-   "statut": "2e"
+   "statut": "1er"
   },
   {
    "groupe": "G",
@@ -2787,7 +2787,7 @@ window.DATA = {
    "elo": 1790,
    "fifa_rank": 20,
    "forme": "Qualifié tôt AFC; bloc défensif solide; pedigree asiatique",
-   "statut": "3e"
+   "statut": "out"
   },
   {
    "groupe": "G",
@@ -2795,7 +2795,7 @@ window.DATA = {
    "elo": 1660,
    "fifa_rank": 33,
    "forme": "Mené par Salah; qualif CAF maîtrisée; ambitions de phase finale",
-   "statut": "1er"
+   "statut": "2e"
   },
   {
    "groupe": "G",
@@ -2843,7 +2843,7 @@ window.DATA = {
    "elo": 2063,
    "fifa_rank": 3,
    "forme": "Finaliste Ligue des Nations; effectif ultra-profond (Mbappé); favori",
-   "statut": "1er"
+   "statut": "2e"
   },
   {
    "groupe": "I",
@@ -2851,7 +2851,7 @@ window.DATA = {
    "elo": 1869,
    "fifa_rank": 14,
    "forme": "Champion d'Afrique 2021; génération solide; qualif CAF maîtrisée",
-   "statut": "out"
+   "statut": "3e"
   },
   {
    "groupe": "I",
@@ -2859,7 +2859,7 @@ window.DATA = {
    "elo": 1840,
    "fifa_rank": 30,
    "forme": "Haaland + Ødegaard; qualif en forte progression; 1ère CDM depuis 1998",
-   "statut": "2e"
+   "statut": "1er"
   },
   {
    "groupe": "I",
@@ -4498,6 +4498,18 @@ window.DATA = {
    "ok": true
   },
   {
+   "match": "Égypte – Iran",
+   "reel": "1-1",
+   "modele": "0-2",
+   "ok": false
+  },
+  {
+   "match": "Nouvelle-Zélande – Belgique",
+   "reel": "1-5",
+   "modele": "0-3",
+   "ok": true
+  },
+  {
    "match": "Espagne – Cap-Vert",
    "reel": "0-0",
    "modele": "3-0",
@@ -4522,6 +4534,18 @@ window.DATA = {
    "ok": false
   },
   {
+   "match": "Cap-Vert – Arabie saoudite",
+   "reel": "0-0",
+   "modele": "1-1",
+   "ok": true
+  },
+  {
+   "match": "Uruguay – Espagne",
+   "reel": "0-1",
+   "modele": "0-2",
+   "ok": true
+  },
+  {
    "match": "France – Sénégal",
    "reel": "3-1",
    "modele": "2-0",
@@ -4544,6 +4568,18 @@ window.DATA = {
    "reel": "3-2",
    "modele": "1-1",
    "ok": false
+  },
+  {
+   "match": "Norvège – France",
+   "reel": "4-1",
+   "modele": "0-2",
+   "ok": false
+  },
+  {
+   "match": "Sénégal – Irak",
+   "reel": "5-0",
+   "modele": "2-0",
+   "ok": true
   },
   {
    "match": "Argentine – Algérie",

@@ -3,7 +3,7 @@ window.DATA = {
  "meta": {
   "titre": "Pronostics CDM 2026 — Phase de groupes",
   "n_matchs": 72,
-  "n_joues": 66,
+  "n_joues": 72,
   "n_qualifies": 32,
   "vainqueurs": [
    "A : Mexique",
@@ -19,7 +19,7 @@ window.DATA = {
    "K : Colombie",
    "L : Angleterre"
   ],
-  "j1_accuracy": 0.606,
+  "j1_accuracy": 0.625,
   "pts_mod": 2567,
   "pts_mpp": 2510,
   "n_scored": 66,
@@ -1380,18 +1380,18 @@ window.DATA = {
    "kickoff_utc": "2026-06-28T02:00",
    "dom": "Jordanie",
    "ext": "Argentine",
-   "statut": "a_venir",
+   "statut": "joue",
    "bd": 1,
-   "be": 2,
+   "be": 3,
    "ppd": 1,
    "ppe": 2,
    "pv": 0.12,
    "pn": 0.2,
    "pd": 0.68,
-   "mpp_v": 0.02,
-   "mpp_n": 0.03,
-   "mpp_d": 0.95,
-   "pts_mod": null,
+   "mpp_v": null,
+   "mpp_n": null,
+   "mpp_d": null,
+   "pts_mod": 32,
    "pts_mpp": null,
    "xg_dom": 0.18,
    "xg_ext": 3.48
@@ -1403,18 +1403,18 @@ window.DATA = {
    "kickoff_utc": "2026-06-28T02:00",
    "dom": "Algérie",
    "ext": "Autriche",
-   "statut": "a_venir",
-   "bd": 1,
-   "be": 1,
+   "statut": "joue",
+   "bd": 3,
+   "be": 3,
    "ppd": 1,
    "ppe": 1,
    "pv": 0.33,
    "pn": 0.3,
    "pd": 0.37,
-   "mpp_v": 0.35,
-   "mpp_n": 0.43,
-   "mpp_d": 0.22,
-   "pts_mod": null,
+   "mpp_v": null,
+   "mpp_n": null,
+   "mpp_d": null,
+   "pts_mod": 0,
    "pts_mpp": null,
    "xg_dom": 1.23,
    "xg_ext": 1.28
@@ -1518,18 +1518,18 @@ window.DATA = {
    "kickoff_utc": "2026-06-27T23:30",
    "dom": "Colombie",
    "ext": "Portugal",
-   "statut": "a_venir",
-   "bd": 1,
-   "be": 1,
+   "statut": "joue",
+   "bd": 0,
+   "be": 0,
    "ppd": 1,
    "ppe": 1,
    "pv": 0.32,
    "pn": 0.36,
    "pd": 0.32,
-   "mpp_v": 0.06,
-   "mpp_n": 0.2,
-   "mpp_d": 0.74,
-   "pts_mod": null,
+   "mpp_v": null,
+   "mpp_n": null,
+   "mpp_d": null,
+   "pts_mod": 102,
    "pts_mpp": null,
    "xg_dom": 1.4,
    "xg_ext": 1.18
@@ -1541,18 +1541,18 @@ window.DATA = {
    "kickoff_utc": "2026-06-27T23:30",
    "dom": "RD Congo",
    "ext": "Ouzbékistan",
-   "statut": "a_venir",
-   "bd": 2,
+   "statut": "joue",
+   "bd": 3,
    "be": 1,
    "ppd": 2,
    "ppe": 1,
    "pv": 0.5,
    "pn": 0.27,
    "pd": 0.23,
-   "mpp_v": 0.66,
-   "mpp_n": 0.28,
-   "mpp_d": 0.06,
-   "pts_mod": null,
+   "mpp_v": null,
+   "mpp_n": null,
+   "mpp_d": null,
+   "pts_mod": 63,
    "pts_mpp": null,
    "xg_dom": 1.63,
    "xg_ext": 1.07
@@ -1656,7 +1656,7 @@ window.DATA = {
    "kickoff_utc": "2026-06-27T21:00",
    "dom": "Panama",
    "ext": "Angleterre",
-   "statut": "a_venir",
+   "statut": "joue",
    "bd": 0,
    "be": 2,
    "ppd": 0,
@@ -1664,10 +1664,10 @@ window.DATA = {
    "pv": 0.06,
    "pn": 0.14,
    "pd": 0.8,
-   "mpp_v": 0.02,
-   "mpp_n": 0.04,
-   "mpp_d": 0.94,
-   "pts_mod": null,
+   "mpp_v": null,
+   "mpp_n": null,
+   "mpp_d": null,
+   "pts_mod": 32,
    "pts_mpp": null,
    "xg_dom": 0.29,
    "xg_ext": 3.24
@@ -1679,7 +1679,7 @@ window.DATA = {
    "kickoff_utc": "2026-06-27T21:00",
    "dom": "Croatie",
    "ext": "Ghana",
-   "statut": "a_venir",
+   "statut": "joue",
    "bd": 2,
    "be": 1,
    "ppd": 2,
@@ -1687,10 +1687,10 @@ window.DATA = {
    "pv": 0.6,
    "pn": 0.24,
    "pd": 0.16,
-   "mpp_v": 0.73,
-   "mpp_n": 0.2,
-   "mpp_d": 0.07,
-   "pts_mod": null,
+   "mpp_v": null,
+   "mpp_n": null,
+   "mpp_d": null,
+   "pts_mod": 57,
    "pts_mpp": null,
    "xg_dom": 2.69,
    "xg_ext": 0.56
@@ -2192,9 +2192,9 @@ window.DATA = {
     "g": 3,
     "n": 0,
     "p": 0,
-    "bp": 7,
+    "bp": 8,
     "bc": 1,
-    "diff": 6,
+    "diff": 7,
     "statut": "1er"
    },
    {
@@ -2205,8 +2205,8 @@ window.DATA = {
     "g": 1,
     "n": 1,
     "p": 1,
-    "bp": 4,
-    "bc": 4,
+    "bp": 6,
+    "bc": 6,
     "diff": 0,
     "statut": "2e"
    },
@@ -2218,8 +2218,8 @@ window.DATA = {
     "g": 1,
     "n": 1,
     "p": 1,
-    "bp": 3,
-    "bc": 5,
+    "bp": 5,
+    "bc": 7,
     "diff": -2,
     "statut": "3e"
    },
@@ -2232,8 +2232,8 @@ window.DATA = {
     "n": 0,
     "p": 3,
     "bp": 3,
-    "bc": 7,
-    "diff": -4,
+    "bc": 8,
+    "diff": -5,
     "statut": "out"
    }
   ],
@@ -2246,8 +2246,8 @@ window.DATA = {
     "g": 2,
     "n": 1,
     "p": 0,
-    "bp": 5,
-    "bc": 2,
+    "bp": 4,
+    "bc": 1,
     "diff": 3,
     "statut": "1er"
    },
@@ -2259,8 +2259,8 @@ window.DATA = {
     "g": 1,
     "n": 2,
     "p": 0,
-    "bp": 7,
-    "bc": 2,
+    "bp": 6,
+    "bc": 1,
     "diff": 5,
     "statut": "2e"
    },
@@ -2272,9 +2272,9 @@ window.DATA = {
     "g": 1,
     "n": 1,
     "p": 1,
-    "bp": 3,
+    "bp": 4,
     "bc": 3,
-    "diff": 0,
+    "diff": 1,
     "statut": "3e"
    },
    {
@@ -2286,8 +2286,8 @@ window.DATA = {
     "n": 0,
     "p": 3,
     "bp": 2,
-    "bc": 10,
-    "diff": -8,
+    "bc": 11,
+    "diff": -9,
     "statut": "out"
    }
   ],
@@ -2449,12 +2449,12 @@ window.DATA = {
   ],
   "meilleurs3": [
    {
-    "groupe": "F",
-    "equipe": "Suède"
-   },
-   {
     "groupe": "K",
     "equipe": "RD Congo"
+   },
+   {
+    "groupe": "F",
+    "equipe": "Suède"
    },
    {
     "groupe": "L",
@@ -2483,19 +2483,19 @@ window.DATA = {
   ],
   "troisiemes": [
    {
+    "groupe": "K",
+    "equipe": "RD Congo",
+    "pts": 4,
+    "diff": 1,
+    "bp": 4,
+    "qualifie": true
+   },
+   {
     "groupe": "F",
     "equipe": "Suède",
     "pts": 4,
     "diff": 0,
     "bp": 7,
-    "qualifie": true
-   },
-   {
-    "groupe": "K",
-    "equipe": "RD Congo",
-    "pts": 4,
-    "diff": 0,
-    "bp": 3,
     "qualifie": true
    },
    {
@@ -2527,7 +2527,7 @@ window.DATA = {
     "equipe": "Algérie",
     "pts": 4,
     "diff": -2,
-    "bp": 3,
+    "bp": 5,
     "qualifie": true
    },
    {
@@ -4606,6 +4606,18 @@ window.DATA = {
    "ok": true
   },
   {
+   "match": "Jordanie – Argentine",
+   "reel": "1-3",
+   "modele": "0-3",
+   "ok": true
+  },
+  {
+   "match": "Algérie – Autriche",
+   "reel": "3-3",
+   "modele": "1-1",
+   "ok": true
+  },
+  {
    "match": "Portugal – RD Congo",
    "reel": "1-1",
    "modele": "2-0",
@@ -4630,6 +4642,18 @@ window.DATA = {
    "ok": true
   },
   {
+   "match": "Colombie – Portugal",
+   "reel": "0-0",
+   "modele": "1-1",
+   "ok": true
+  },
+  {
+   "match": "RD Congo – Ouzbékistan",
+   "reel": "3-1",
+   "modele": "1-1",
+   "ok": false
+  },
+  {
    "match": "Angleterre – Croatie",
    "reel": "4-2",
    "modele": "1-0",
@@ -4651,6 +4675,18 @@ window.DATA = {
    "match": "Panama – Croatie",
    "reel": "0-1",
    "modele": "0-2",
+   "ok": true
+  },
+  {
+   "match": "Panama – Angleterre",
+   "reel": "0-2",
+   "modele": "0-3",
+   "ok": true
+  },
+  {
+   "match": "Croatie – Ghana",
+   "reel": "2-1",
+   "modele": "2-0",
    "ok": true
   }
  ],

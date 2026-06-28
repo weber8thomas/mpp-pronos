@@ -6,10 +6,19 @@ quantitatif (Poisson sur base Elo) ajusté et challengé par une dizaine d'**age
 (prédicteurs + critiques) s'appuyant sur la forme récente, les effectifs, les blessures et
 les compétitions précédentes.
 
-> 📅 Le tournoi a débuté le 11/06/2026. **J1 = résultats réels** (groupes A–H),
-> **J2/J3 = pronostics**. Groupes I–L : entièrement pronostiqués (non joués au 16/06/2026).
+> 📅 Le tournoi a débuté le 11/06/2026. **Phase de groupes terminée** (72 matchs joués,
+> résultats réels via l'API mpp.football). Place aux **16es de finale** (voir ci-dessous).
 
-## 📂 Contenu
+## 🆕 16es de finale (round of 32)
+
+| Fichier | Rôle |
+|---|---|
+| `rapport/pronostics_16es.md` | **Pronostics des 16es** : bracket réel, prédiction + proba + justification par match, intégrant la **dynamique et le parcours de poule** |
+| `data/predictions_r32.csv` | Sortie chiffrée des 16es (Elo post-poule, probas 90 min, proba de qualification, cotes MPP) |
+| `data/elo_post_poule.csv` | Elo de chaque équipe avant/après la phase de groupes (mouvement = dynamique) |
+| `scripts_r32/model_r32.py` | Modèle des 16es : mise à jour Elo séquentielle sur les 72 matchs → Poisson + résolution du nul (prolongation/t.a.b.) |
+
+## 📂 Contenu (phase de groupes)
 
 | Fichier | Rôle |
 |---|---|

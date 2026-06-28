@@ -23,10 +23,23 @@ def _norm(s):
 
 # Cotes mpp.football (1/N/2) = points gagnés si l'issue est bien pronostiquée.
 mpp_csv = pd.read_csv("data/mpp_probs.csv")
-cote_idx = {(_norm(m.Domicile), _norm(m.Exterieur)): (int(m.Cote_1), int(m.Cote_N), int(m.Cote_2))
-            for _, m in mpp_csv.iterrows()}
+# Cote indexée par VAINQUEUR (indépendant du sens domicile/extérieur de la ligne) :
+# frozenset{normA, normB} -> {normVainqueur: cote, 'N': cote_nul}.
+cote_win = {}
+for _, m in mpp_csv.iterrows():
+    nh, na = _norm(m.Domicile), _norm(m.Exterieur)
+    cote_win[frozenset((nh, na))] = {nh: int(m.Cote_1), na: int(m.Cote_2), "N": int(m.Cote_N)}
 analyses = json.load(open("data/group_analyses.json"))
 report_md = open("rapport/pronostics_cdm2026.md", encoding="utf-8").read()
+# 16es de finale (round of 32)
+try:
+    report16_md = open("rapport/pronostics_16es.md", encoding="utf-8").read()
+except FileNotFoundError:
+    report16_md = ""
+try:
+    r32_df = pd.read_csv("data/predictions_r32.csv")
+except FileNotFoundError:
+    r32_df = None
 try:
     team_details = json.load(open("data/team_details.json", encoding="utf-8"))
 except FileNotFoundError:
@@ -68,18 +81,25 @@ for _, r in pred.iterrows():
         a, b = r.score_pronostic.split("-")
         pp = (int(a), int(b))
     mpp_v, mpp_n, mpp_d = clean(r.p_mpp_dom), clean(r.p_mpp_nul), clean(r.p_mpp_ext)
-    # Points pris (matchs joués) : cote mpp de l'issue réelle, remportée si le pronostic
-    # (issue la plus probable) est correct ; 0 sinon.
+    # Points pris (matchs joués) : on remporte la cote mpp de l'issue RÉELLE si l'issue
+    # PRONOSTIQUÉE est la bonne, 0 sinon.
+    #  - modèle  : issue du pronostic figé (score_pronostic) = ce qui est affiché en colonne « Prono ».
+    #  - mpp     : issue la plus probable selon les probas mpp.
     pts_mod = pts_mpp = None
-    cote = cote_idx.get((_norm(r.equipe_dom), _norm(r.equipe_ext)))
-    if r.statut == "joue" and cote is not None:
+    nd, ne = _norm(r.equipe_dom), _norm(r.equipe_ext)
+    cw = cote_win.get(frozenset((nd, ne)))
+    if r.statut == "joue" and cw is not None:
         bd, be = int(r.buts_dom), int(r.buts_ext)
-        i = 0 if bd > be else (2 if bd < be else 1)        # 0=V, 1=N, 2=D
-        pm = [float(r.p_victoire_dom), float(r.p_nul), float(r.p_victoire_ext)]
-        pts_mod = cote[i] if pm.index(max(pm)) == i else 0
+        real_win = nd if bd > be else (ne if be > bd else "N")
+        real_cote = cw[real_win]
+        if pp is not None:
+            mod_win = nd if pp[0] > pp[1] else (ne if pp[1] > pp[0] else "N")
+            pts_mod = real_cote if mod_win == real_win else 0
         if mpp_v is not None:
             pk = [mpp_v, mpp_n, mpp_d]
-            pts_mpp = cote[i] if pk.index(max(pk)) == i else 0
+            ai = pk.index(max(pk))
+            mpp_win = nd if ai == 0 else (ne if ai == 2 else "N")
+            pts_mpp = real_cote if mpp_win == real_win else 0
     predictions.append({
         "groupe": r.groupe, "journee": int(r.journee),
         "kickoff_cest": r.kickoff_cest, "kickoff_utc": r.kickoff_utc,
@@ -148,10 +168,28 @@ meta = {
     "groupes": sorted(cls.keys()),
 }
 
+# 16es de finale : liste de matchs structurée pour le site
+r32 = []
+if r32_df is not None:
+    for _, r in r32_df.iterrows():
+        r32.append({
+            "date": r.date, "dom": r.dom, "ext": r.ext,
+            "rkDom": int(r.rk_dom), "rkExt": int(r.rk_ext),
+            "eloPostDom": int(r.elo_post_dom), "eloPostExt": int(r.elo_post_ext),
+            "dEloDom": int(r.d_elo_dom), "dEloExt": int(r.d_elo_ext),
+            "parcDom": r.parc_dom, "parcExt": r.parc_ext,
+            "score": r.score_modele,
+            "pDom": float(r.p_dom), "pNul": float(r.p_nul), "pExt": float(r.p_ext),
+            "qDom": float(r.q_dom), "qExt": float(r.q_ext),
+            "favori": r.favori, "pFavori": float(r.p_favori),
+            "mppDom": float(r.mpp_dom), "mppNul": float(r.mpp_nul), "mppExt": float(r.mpp_ext),
+        })
+
 DATA = {"meta": meta, "predictions": predictions, "standings": standings,
         "qualifiers": qualifiers, "ratings": ratings_l, "analyses": analyses,
         "teams": teams, "h2h": h2h,
-        "j1": j1, "reportMarkdown": report_md, "teamDetails": team_details}
+        "j1": j1, "reportMarkdown": report_md, "teamDetails": team_details,
+        "r32": r32, "report16Markdown": report16_md}
 
 with open("docs/data.js", "w", encoding="utf-8") as f:
     f.write("// Généré par build_site.py — ne pas éditer à la main.\n")

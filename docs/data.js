@@ -7565,6 +7565,7 @@ window.DATA = {
     "calc": 73,
     "exact": 11,
     "good": 35,
+    "avatar": "avatars/user_3572019.jpg",
     "isModel": false,
     "isMe": false,
     "rank": 1
@@ -7575,6 +7576,7 @@ window.DATA = {
     "calc": 69,
     "exact": 11,
     "good": 43,
+    "avatar": "avatars/user_3761834.jpg",
     "isModel": false,
     "isMe": true,
     "rank": 2
@@ -7585,16 +7587,18 @@ window.DATA = {
     "calc": 73,
     "exact": 7,
     "good": 40,
+    "avatar": "avatars/default.png",
     "isModel": false,
     "isMe": false,
     "rank": 3
    },
    {
-    "username": "Il Modello 🤖",
+    "username": "Polpo Paolo 🐙",
     "points": 2800,
     "calc": 73,
     "exact": 10,
     "good": 47,
+    "avatar": "avatars/model.svg",
     "isModel": true,
     "isMe": false,
     "rank": 4
@@ -7605,6 +7609,7 @@ window.DATA = {
     "calc": 73,
     "exact": 4,
     "good": 40,
+    "avatar": "avatars/default.png",
     "isModel": false,
     "isMe": false,
     "rank": 5

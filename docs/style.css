@@ -250,6 +250,7 @@ th.sortable.active{color:var(--accent)}
 
 /* Points pris (calendrier) : modèle · mpp */
 .pts{font-variant-numeric:tabular-nums;white-space:nowrap;font-size:.84rem}
+.pts .pu{color:var(--txt)}
 .pts .pm{color:var(--accent)}
 .pts .pp{color:var(--blue)}
 .pts .muted{margin:0 3px}
@@ -270,6 +271,9 @@ th.sortable.active{color:var(--accent)}
 .sd-tag{font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--green);
   background:color-mix(in srgb,var(--green) 14%,transparent);padding:2px 8px;border-radius:6px}
 .sd-vs{align-self:center;color:var(--faint);font-weight:700;font-size:.8rem}
+.scoreduel--3{gap:10px}
+.sd-sub{font-size:.7rem;color:var(--muted)}
+@media(max-width:560px){.scoreduel--3{flex-direction:column}}
 
 /* ---------- Méthodo ---------- */
 .method{display:flex;flex-direction:column;gap:14px}

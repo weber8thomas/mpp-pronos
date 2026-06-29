@@ -96,12 +96,12 @@ for m in mpp["r32"]:
     s = sum(inv.values())
     mpp_imp = {k: inv[k] / s for k in inv}
     rows.append(dict(
-        date=m["date"], dom=h, ext=a, rk_dom=m["h"]["rk"], rk_ext=m["a"]["rk"],
+        match_id=m["id"], date=m["date"], dom=h, ext=a, rk_dom=m["h"]["rk"], rk_ext=m["a"]["rk"],
         elo_pre_dom=round(elo_pre[h]), elo_pre_ext=round(elo_pre[a]),
         elo_post_dom=round(elo_post[h]), elo_post_ext=round(elo_post[a]),
         d_elo_dom=round(elo_post[h]-elo_pre[h]), d_elo_ext=round(elo_post[a]-elo_pre[a]),
         parc_dom=f"{ph}pts {bph}:{bch} [{sqh}]", parc_ext=f"{pa}pts {bpa}:{bca} [{sqa}]",
-        score_modele=pr["score"],
+        score_modele=pr["score"], xg_dom=round(pr["xg_dom"],2), xg_ext=round(pr["xg_ext"],2),
         p_dom=round(pr["p_dom"],3), p_nul=round(pr["p_nul"],3), p_ext=round(pr["p_ext"],3),
         q_dom=round(pr["q_dom"],3), q_ext=round(pr["q_ext"],3),
         favori=fav, p_favori=round(max(pr["q_dom"],pr["q_ext"]),3),

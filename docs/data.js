@@ -2,7 +2,7 @@
 window.DATA = {
  "meta": {
   "titre": "Pronostics CDM 2026 — Phase de groupes",
-  "n_matchs": 72,
+  "n_matchs": 88,
   "n_joues": 72,
   "n_qualifies": 32,
   "vainqueurs": [
@@ -20,9 +20,11 @@ window.DATA = {
    "L : Angleterre"
   ],
   "j1_accuracy": 0.639,
-  "pts_mod": 2736,
-  "pts_mpp": 2865,
-  "n_scored": 72,
+  "pts_mod": 2800,
+  "pts_mpp": 2929,
+  "n_scored": 73,
+  "pts_user": 2888,
+  "n_user": 69,
   "groupes": [
    "A",
    "B",
@@ -60,7 +62,10 @@ window.DATA = {
    "pts_mod": 49,
    "pts_mpp": 49,
    "xg_dom": 2.98,
-   "xg_ext": 0.42
+   "xg_ext": 0.42,
+   "u_ppd": 2,
+   "u_ppe": 0,
+   "u_pts": 69
   },
   {
    "groupe": "A",
@@ -83,7 +88,10 @@ window.DATA = {
    "pts_mod": 0,
    "pts_mpp": 0,
    "xg_dom": 1.51,
-   "xg_ext": 1.13
+   "xg_ext": 1.13,
+   "u_ppd": 2,
+   "u_ppe": 1,
+   "u_pts": 116
   },
   {
    "groupe": "A",
@@ -106,7 +114,10 @@ window.DATA = {
    "pts_mod": 0,
    "pts_mpp": 0,
    "xg_dom": 2.25,
-   "xg_ext": 0.77
+   "xg_ext": 0.77,
+   "u_ppd": 1,
+   "u_ppe": 0,
+   "u_pts": 0
   },
   {
    "groupe": "A",
@@ -129,7 +140,10 @@ window.DATA = {
    "pts_mod": 0,
    "pts_mpp": 69,
    "xg_dom": 2.07,
-   "xg_ext": 0.85
+   "xg_ext": 0.85,
+   "u_ppd": 1,
+   "u_ppe": 1,
+   "u_pts": 0
   },
   {
    "groupe": "A",
@@ -152,7 +166,10 @@ window.DATA = {
    "pts_mod": 0,
    "pts_mpp": 91,
    "xg_dom": 0.75,
-   "xg_ext": 2.29
+   "xg_ext": 2.29,
+   "u_ppd": 1,
+   "u_ppe": 2,
+   "u_pts": 91
   },
   {
    "groupe": "A",
@@ -175,7 +192,10 @@ window.DATA = {
    "pts_mod": 0,
    "pts_mpp": 0,
    "xg_dom": 0.67,
-   "xg_ext": 2.45
+   "xg_ext": 2.45,
+   "u_ppd": 0,
+   "u_ppe": 2,
+   "u_pts": 0
   },
   {
    "groupe": "B",
@@ -198,7 +218,10 @@ window.DATA = {
    "pts_mod": 0,
    "pts_mpp": 0,
    "xg_dom": 2.35,
-   "xg_ext": 0.72
+   "xg_ext": 0.72,
+   "u_ppd": 3,
+   "u_ppe": 0,
+   "u_pts": 0
   },
   {
    "groupe": "B",
@@ -221,7 +244,10 @@ window.DATA = {
    "pts_mod": 0,
    "pts_mpp": 0,
    "xg_dom": 0.5,
-   "xg_ext": 2.8
+   "xg_ext": 2.8,
+   "u_ppd": 0,
+   "u_ppe": 2,
+   "u_pts": 0
   },
   {
    "groupe": "B",
@@ -244,7 +270,10 @@ window.DATA = {
    "pts_mod": 76,
    "pts_mpp": 76,
    "xg_dom": 2.52,
-   "xg_ext": 0.64
+   "xg_ext": 0.64,
+   "u_ppd": 2,
+   "u_ppe": 0,
+   "u_pts": 76
   },
   {
    "groupe": "B",
@@ -267,7 +296,10 @@ window.DATA = {
    "pts_mod": 71,
    "pts_mpp": 71,
    "xg_dom": 2.66,
-   "xg_ext": 0.57
+   "xg_ext": 0.57,
+   "u_ppd": 2,
+   "u_ppe": 0,
+   "u_pts": 71
   },
   {
    "groupe": "B",
@@ -290,7 +322,10 @@ window.DATA = {
    "pts_mod": 68,
    "pts_mpp": 0,
    "xg_dom": 1.46,
-   "xg_ext": 1.15
+   "xg_ext": 1.15,
+   "u_ppd": 1,
+   "u_ppe": 1,
+   "u_pts": 0
   },
   {
    "groupe": "B",
@@ -313,7 +348,10 @@ window.DATA = {
    "pts_mod": 87,
    "pts_mpp": 87,
    "xg_dom": 1.68,
-   "xg_ext": 1.04
+   "xg_ext": 1.04,
+   "u_ppd": 2,
+   "u_ppe": 1,
+   "u_pts": 87
   },
   {
    "groupe": "C",
@@ -336,7 +374,10 @@ window.DATA = {
    "pts_mod": 0,
    "pts_mpp": 0,
    "xg_dom": 1.95,
-   "xg_ext": 0.91
+   "xg_ext": 0.91,
+   "u_ppd": 1,
+   "u_ppe": 1,
+   "u_pts": 142
   },
   {
    "groupe": "C",
@@ -359,7 +400,10 @@ window.DATA = {
    "pts_mod": 44,
    "pts_mpp": 44,
    "xg_dom": 0.73,
-   "xg_ext": 2.32
+   "xg_ext": 2.32,
+   "u_ppd": 0,
+   "u_ppe": 4,
+   "u_pts": 44
   },
   {
    "groupe": "C",
@@ -382,7 +426,10 @@ window.DATA = {
    "pts_mod": 91,
    "pts_mpp": 91,
    "xg_dom": 0.78,
-   "xg_ext": 2.23
+   "xg_ext": 2.23,
+   "u_ppd": 1,
+   "u_ppe": 2,
+   "u_pts": 91
   },
   {
    "groupe": "C",
@@ -405,7 +452,10 @@ window.DATA = {
    "pts_mod": 21,
    "pts_mpp": 21,
    "xg_dom": 3.28,
-   "xg_ext": 0.27
+   "xg_ext": 0.27,
+   "u_ppd": 3,
+   "u_ppe": 0,
+   "u_pts": 41
   },
   {
    "groupe": "C",
@@ -428,7 +478,10 @@ window.DATA = {
    "pts_mod": 48,
    "pts_mpp": 48,
    "xg_dom": 0.52,
-   "xg_ext": 2.76
+   "xg_ext": 2.76,
+   "u_ppd": 0,
+   "u_ppe": 2,
+   "u_pts": 48
   },
   {
    "groupe": "C",
@@ -451,7 +504,10 @@ window.DATA = {
    "pts_mod": 29,
    "pts_mpp": 29,
    "xg_dom": 2.99,
-   "xg_ext": 0.41
+   "xg_ext": 0.41,
+   "u_ppd": 2,
+   "u_ppe": 0,
+   "u_pts": 29
   },
   {
    "groupe": "D",
@@ -474,7 +530,10 @@ window.DATA = {
    "pts_mod": 74,
    "pts_mpp": 74,
    "xg_dom": 1.93,
-   "xg_ext": 0.92
+   "xg_ext": 0.92,
+   "u_ppd": 1,
+   "u_ppe": 0,
+   "u_pts": 74
   },
   {
    "groupe": "D",
@@ -497,7 +556,10 @@ window.DATA = {
    "pts_mod": 0,
    "pts_mpp": 0,
    "xg_dom": 0.97,
-   "xg_ext": 1.84
+   "xg_ext": 1.84,
+   "u_ppd": 0,
+   "u_ppe": 2,
+   "u_pts": 0
   },
   {
    "groupe": "D",
@@ -520,7 +582,10 @@ window.DATA = {
    "pts_mod": 58,
    "pts_mpp": 58,
    "xg_dom": 2.22,
-   "xg_ext": 0.78
+   "xg_ext": 0.78,
+   "u_ppd": 2,
+   "u_ppe": 0,
+   "u_pts": 88
   },
   {
    "groupe": "D",
@@ -543,7 +608,10 @@ window.DATA = {
    "pts_mod": 0,
    "pts_mpp": 0,
    "xg_dom": 1.52,
-   "xg_ext": 1.12
+   "xg_ext": 1.12,
+   "u_ppd": 1,
+   "u_ppe": 2,
+   "u_pts": 126
   },
   {
    "groupe": "D",
@@ -566,7 +634,10 @@ window.DATA = {
    "pts_mod": 0,
    "pts_mpp": 0,
    "xg_dom": 1.05,
-   "xg_ext": 1.67
+   "xg_ext": 1.67,
+   "u_ppd": null,
+   "u_ppe": null,
+   "u_pts": null
   },
   {
    "groupe": "D",
@@ -589,7 +660,10 @@ window.DATA = {
    "pts_mod": 104,
    "pts_mpp": 0,
    "xg_dom": 1.58,
-   "xg_ext": 1.09
+   "xg_ext": 1.09,
+   "u_ppd": null,
+   "u_ppe": null,
+   "u_pts": null
   },
   {
    "groupe": "E",
@@ -612,7 +686,10 @@ window.DATA = {
    "pts_mod": 15,
    "pts_mpp": 15,
    "xg_dom": 3.31,
-   "xg_ext": 0.26
+   "xg_ext": 0.26,
+   "u_ppd": 1,
+   "u_ppe": 1,
+   "u_pts": 0
   },
   {
    "groupe": "E",
@@ -635,7 +712,10 @@ window.DATA = {
    "pts_mod": 0,
    "pts_mpp": 108,
    "xg_dom": 1.04,
-   "xg_ext": 1.68
+   "xg_ext": 1.68,
+   "u_ppd": 2,
+   "u_ppe": 2,
+   "u_pts": 0
   },
   {
    "groupe": "E",
@@ -658,7 +738,10 @@ window.DATA = {
    "pts_mod": 38,
    "pts_mpp": 38,
    "xg_dom": 2.31,
-   "xg_ext": 0.74
+   "xg_ext": 0.74,
+   "u_ppd": 2,
+   "u_ppe": 1,
+   "u_pts": 68
   },
   {
    "groupe": "E",
@@ -681,7 +764,10 @@ window.DATA = {
    "pts_mod": 0,
    "pts_mpp": 0,
    "xg_dom": 3.06,
-   "xg_ext": 0.38
+   "xg_ext": 0.38,
+   "u_ppd": 2,
+   "u_ppe": 0,
+   "u_pts": 0
   },
   {
    "groupe": "E",
@@ -704,7 +790,10 @@ window.DATA = {
    "pts_mod": 53,
    "pts_mpp": 53,
    "xg_dom": 0.48,
-   "xg_ext": 2.84
+   "xg_ext": 2.84,
+   "u_ppd": 0,
+   "u_ppe": 1,
+   "u_pts": 53
   },
   {
    "groupe": "E",
@@ -727,7 +816,10 @@ window.DATA = {
    "pts_mod": 0,
    "pts_mpp": 0,
    "xg_dom": 0.92,
-   "xg_ext": 1.93
+   "xg_ext": 1.93,
+   "u_ppd": 1,
+   "u_ppe": 1,
+   "u_pts": 0
   },
   {
    "groupe": "F",
@@ -750,7 +842,10 @@ window.DATA = {
    "pts_mod": 115,
    "pts_mpp": 0,
    "xg_dom": 1.61,
-   "xg_ext": 1.08
+   "xg_ext": 1.08,
+   "u_ppd": 3,
+   "u_ppe": 1,
+   "u_pts": 0
   },
   {
    "groupe": "F",
@@ -773,7 +868,10 @@ window.DATA = {
    "pts_mod": 72,
    "pts_mpp": 72,
    "xg_dom": 1.86,
-   "xg_ext": 0.96
+   "xg_ext": 0.96,
+   "u_ppd": 2,
+   "u_ppe": 0,
+   "u_pts": 72
   },
   {
    "groupe": "F",
@@ -796,7 +894,10 @@ window.DATA = {
    "pts_mod": 0,
    "pts_mpp": 67,
    "xg_dom": 2.58,
-   "xg_ext": 0.61
+   "xg_ext": 0.61,
+   "u_ppd": 2,
+   "u_ppe": 2,
+   "u_pts": 0
   },
   {
    "groupe": "F",
@@ -819,7 +920,10 @@ window.DATA = {
    "pts_mod": 91,
    "pts_mpp": 91,
    "xg_dom": 0.53,
-   "xg_ext": 2.75
+   "xg_ext": 2.75,
+   "u_ppd": 1,
+   "u_ppe": 1,
+   "u_pts": 0
   },
   {
    "groupe": "F",
@@ -842,7 +946,10 @@ window.DATA = {
    "pts_mod": 0,
    "pts_mpp": 108,
    "xg_dom": 2.31,
-   "xg_ext": 0.74
+   "xg_ext": 0.74,
+   "u_ppd": null,
+   "u_ppe": null,
+   "u_pts": null
   },
   {
    "groupe": "F",
@@ -865,7 +972,10 @@ window.DATA = {
    "pts_mod": 56,
    "pts_mpp": 56,
    "xg_dom": 0.43,
-   "xg_ext": 2.96
+   "xg_ext": 2.96,
+   "u_ppd": null,
+   "u_ppe": null,
+   "u_pts": null
   },
   {
    "groupe": "G",
@@ -888,7 +998,10 @@ window.DATA = {
    "pts_mod": 0,
    "pts_mpp": 0,
    "xg_dom": 2.45,
-   "xg_ext": 0.67
+   "xg_ext": 0.67,
+   "u_ppd": 1,
+   "u_ppe": 2,
+   "u_pts": 0
   },
   {
    "groupe": "G",
@@ -911,7 +1024,10 @@ window.DATA = {
    "pts_mod": 0,
    "pts_mpp": 116,
    "xg_dom": 2.9,
-   "xg_ext": 0.45
+   "xg_ext": 0.45,
+   "u_ppd": 0,
+   "u_ppe": 0,
+   "u_pts": 116
   },
   {
    "groupe": "G",
@@ -934,7 +1050,10 @@ window.DATA = {
    "pts_mod": 0,
    "pts_mpp": 0,
    "xg_dom": 1.66,
-   "xg_ext": 1.05
+   "xg_ext": 1.05,
+   "u_ppd": 3,
+   "u_ppe": 1,
+   "u_pts": 0
   },
   {
    "groupe": "G",
@@ -957,7 +1076,10 @@ window.DATA = {
    "pts_mod": 59,
    "pts_mpp": 59,
    "xg_dom": 0.75,
-   "xg_ext": 2.29
+   "xg_ext": 2.29,
+   "u_ppd": 1,
+   "u_ppe": 3,
+   "u_pts": 109
   },
   {
    "groupe": "G",
@@ -980,7 +1102,10 @@ window.DATA = {
    "pts_mod": 114,
    "pts_mpp": 0,
    "xg_dom": 0.83,
-   "xg_ext": 2.11
+   "xg_ext": 2.11,
+   "u_ppd": 2,
+   "u_ppe": 0,
+   "u_pts": 0
   },
   {
    "groupe": "G",
@@ -1003,7 +1128,10 @@ window.DATA = {
    "pts_mod": 32,
    "pts_mpp": 32,
    "xg_dom": 0.36,
-   "xg_ext": 3.1
+   "xg_ext": 3.1,
+   "u_ppd": 0,
+   "u_ppe": 1,
+   "u_pts": 32
   },
   {
    "groupe": "H",
@@ -1026,7 +1154,10 @@ window.DATA = {
    "pts_mod": 0,
    "pts_mpp": 0,
    "xg_dom": 3.52,
-   "xg_ext": 0.18
+   "xg_ext": 0.18,
+   "u_ppd": 7,
+   "u_ppe": 0,
+   "u_pts": 0
   },
   {
    "groupe": "H",
@@ -1049,7 +1180,10 @@ window.DATA = {
    "pts_mod": 0,
    "pts_mpp": 0,
    "xg_dom": 0.5,
-   "xg_ext": 2.8
+   "xg_ext": 2.8,
+   "u_ppd": 0,
+   "u_ppe": 2,
+   "u_pts": 0
   },
   {
    "groupe": "H",
@@ -1072,7 +1206,10 @@ window.DATA = {
    "pts_mod": 31,
    "pts_mpp": 31,
    "xg_dom": 3.47,
-   "xg_ext": 0.18
+   "xg_ext": 0.18,
+   "u_ppd": 3,
+   "u_ppe": 0,
+   "u_pts": 31
   },
   {
    "groupe": "H",
@@ -1095,7 +1232,10 @@ window.DATA = {
    "pts_mod": 0,
    "pts_mpp": 0,
    "xg_dom": 2.99,
-   "xg_ext": 0.41
+   "xg_ext": 0.41,
+   "u_ppd": 1,
+   "u_ppe": 0,
+   "u_pts": 0
   },
   {
    "groupe": "H",
@@ -1118,7 +1258,10 @@ window.DATA = {
    "pts_mod": 123,
    "pts_mpp": 123,
    "xg_dom": 1.08,
-   "xg_ext": 1.59
+   "xg_ext": 1.59,
+   "u_ppd": 1,
+   "u_ppe": 0,
+   "u_pts": 0
   },
   {
    "groupe": "H",
@@ -1141,7 +1284,10 @@ window.DATA = {
    "pts_mod": 57,
    "pts_mpp": 57,
    "xg_dom": 0.48,
-   "xg_ext": 2.85
+   "xg_ext": 2.85,
+   "u_ppd": 0,
+   "u_ppe": 3,
+   "u_pts": 57
   },
   {
    "groupe": "I",
@@ -1164,7 +1310,10 @@ window.DATA = {
    "pts_mod": 46,
    "pts_mpp": 46,
    "xg_dom": 2.47,
-   "xg_ext": 0.66
+   "xg_ext": 0.66,
+   "u_ppd": 2,
+   "u_ppe": 1,
+   "u_pts": 46
   },
   {
    "groupe": "I",
@@ -1187,7 +1336,10 @@ window.DATA = {
    "pts_mod": 30,
    "pts_mpp": 30,
    "xg_dom": 0.55,
-   "xg_ext": 2.7
+   "xg_ext": 2.7,
+   "u_ppd": 0,
+   "u_ppe": 3,
+   "u_pts": 30
   },
   {
    "groupe": "I",
@@ -1210,7 +1362,10 @@ window.DATA = {
    "pts_mod": 22,
    "pts_mpp": 22,
    "xg_dom": 3.36,
-   "xg_ext": 0.24
+   "xg_ext": 0.24,
+   "u_ppd": 3,
+   "u_ppe": 0,
+   "u_pts": 42
   },
   {
    "groupe": "I",
@@ -1233,7 +1388,10 @@ window.DATA = {
    "pts_mod": 0,
    "pts_mpp": 0,
    "xg_dom": 1.15,
-   "xg_ext": 1.45
+   "xg_ext": 1.45,
+   "u_ppd": 2,
+   "u_ppe": 1,
+   "u_pts": 64
   },
   {
    "groupe": "I",
@@ -1256,7 +1414,10 @@ window.DATA = {
    "pts_mod": 68,
    "pts_mpp": 68,
    "xg_dom": 0.59,
-   "xg_ext": 2.62
+   "xg_ext": 2.62,
+   "u_ppd": 1,
+   "u_ppe": 2,
+   "u_pts": 68
   },
   {
    "groupe": "I",
@@ -1279,7 +1440,10 @@ window.DATA = {
    "pts_mod": 54,
    "pts_mpp": 54,
    "xg_dom": 2.82,
-   "xg_ext": 0.49
+   "xg_ext": 0.49,
+   "u_ppd": 2,
+   "u_ppe": 0,
+   "u_pts": 54
   },
   {
    "groupe": "J",
@@ -1302,7 +1466,10 @@ window.DATA = {
    "pts_mod": 43,
    "pts_mpp": 43,
    "xg_dom": 3.03,
-   "xg_ext": 0.39
+   "xg_ext": 0.39,
+   "u_ppd": 2,
+   "u_ppe": 0,
+   "u_pts": 43
   },
   {
    "groupe": "J",
@@ -1325,7 +1492,10 @@ window.DATA = {
    "pts_mod": 38,
    "pts_mpp": 38,
    "xg_dom": 2.63,
-   "xg_ext": 0.59
+   "xg_ext": 0.59,
+   "u_ppd": 2,
+   "u_ppe": 0,
+   "u_pts": 38
   },
   {
    "groupe": "J",
@@ -1348,7 +1518,10 @@ window.DATA = {
    "pts_mod": 63,
    "pts_mpp": 63,
    "xg_dom": 3.02,
-   "xg_ext": 0.4
+   "xg_ext": 0.4,
+   "u_ppd": 2,
+   "u_ppe": 1,
+   "u_pts": 63
   },
   {
    "groupe": "J",
@@ -1371,7 +1544,10 @@ window.DATA = {
    "pts_mod": 67,
    "pts_mpp": 67,
    "xg_dom": 0.6,
-   "xg_ext": 2.6
+   "xg_ext": 2.6,
+   "u_ppd": 1,
+   "u_ppe": 2,
+   "u_pts": 97
   },
   {
    "groupe": "J",
@@ -1394,7 +1570,10 @@ window.DATA = {
    "pts_mod": 32,
    "pts_mpp": 32,
    "xg_dom": 0.18,
-   "xg_ext": 3.48
+   "xg_ext": 3.48,
+   "u_ppd": 0,
+   "u_ppe": 2,
+   "u_pts": 32
   },
   {
    "groupe": "J",
@@ -1417,7 +1596,10 @@ window.DATA = {
    "pts_mod": 103,
    "pts_mpp": 103,
    "xg_dom": 1.23,
-   "xg_ext": 1.28
+   "xg_ext": 1.28,
+   "u_ppd": 1,
+   "u_ppe": 1,
+   "u_pts": 103
   },
   {
    "groupe": "K",
@@ -1440,7 +1622,10 @@ window.DATA = {
    "pts_mod": 0,
    "pts_mpp": 0,
    "xg_dom": 2.89,
-   "xg_ext": 0.46
+   "xg_ext": 0.46,
+   "u_ppd": 3,
+   "u_ppe": 0,
+   "u_pts": 0
   },
   {
    "groupe": "K",
@@ -1463,7 +1648,10 @@ window.DATA = {
    "pts_mod": 44,
    "pts_mpp": 44,
    "xg_dom": 0.34,
-   "xg_ext": 3.14
+   "xg_ext": 3.14,
+   "u_ppd": 0,
+   "u_ppe": 2,
+   "u_pts": 44
   },
   {
    "groupe": "K",
@@ -1486,7 +1674,10 @@ window.DATA = {
    "pts_mod": 24,
    "pts_mpp": 24,
    "xg_dom": 3.07,
-   "xg_ext": 0.37
+   "xg_ext": 0.37,
+   "u_ppd": 2,
+   "u_ppe": 0,
+   "u_pts": 24
   },
   {
    "groupe": "K",
@@ -1509,7 +1700,10 @@ window.DATA = {
    "pts_mod": 77,
    "pts_mpp": 77,
    "xg_dom": 2.97,
-   "xg_ext": 0.42
+   "xg_ext": 0.42,
+   "u_ppd": 2,
+   "u_ppe": 1,
+   "u_pts": 77
   },
   {
    "groupe": "K",
@@ -1532,7 +1726,10 @@ window.DATA = {
    "pts_mod": 102,
    "pts_mpp": 0,
    "xg_dom": 1.4,
-   "xg_ext": 1.18
+   "xg_ext": 1.18,
+   "u_ppd": 1,
+   "u_ppe": 2,
+   "u_pts": 0
   },
   {
    "groupe": "K",
@@ -1555,7 +1752,10 @@ window.DATA = {
    "pts_mod": 63,
    "pts_mpp": 63,
    "xg_dom": 1.63,
-   "xg_ext": 1.07
+   "xg_ext": 1.07,
+   "u_ppd": 2,
+   "u_ppe": 0,
+   "u_pts": 63
   },
   {
    "groupe": "L",
@@ -1578,7 +1778,10 @@ window.DATA = {
    "pts_mod": 59,
    "pts_mpp": 59,
    "xg_dom": 1.98,
-   "xg_ext": 0.9
+   "xg_ext": 0.9,
+   "u_ppd": 2,
+   "u_ppe": 2,
+   "u_pts": 0
   },
   {
    "groupe": "L",
@@ -1601,7 +1804,10 @@ window.DATA = {
    "pts_mod": 0,
    "pts_mpp": 73,
    "xg_dom": 1.63,
-   "xg_ext": 1.07
+   "xg_ext": 1.07,
+   "u_ppd": 1,
+   "u_ppe": 1,
+   "u_pts": 0
   },
   {
    "groupe": "L",
@@ -1624,7 +1830,10 @@ window.DATA = {
    "pts_mod": 0,
    "pts_mpp": 0,
    "xg_dom": 3.09,
-   "xg_ext": 0.36
+   "xg_ext": 0.36,
+   "u_ppd": 3,
+   "u_ppe": 1,
+   "u_pts": 0
   },
   {
    "groupe": "L",
@@ -1647,7 +1856,10 @@ window.DATA = {
    "pts_mod": 36,
    "pts_mpp": 36,
    "xg_dom": 0.45,
-   "xg_ext": 2.91
+   "xg_ext": 2.91,
+   "u_ppd": 1,
+   "u_ppe": 2,
+   "u_pts": 36
   },
   {
    "groupe": "L",
@@ -1670,7 +1882,10 @@ window.DATA = {
    "pts_mod": 32,
    "pts_mpp": 32,
    "xg_dom": 0.29,
-   "xg_ext": 3.24
+   "xg_ext": 3.24,
+   "u_ppd": 0,
+   "u_ppe": 2,
+   "u_pts": 62
   },
   {
    "groupe": "L",
@@ -1693,7 +1908,442 @@ window.DATA = {
    "pts_mod": 57,
    "pts_mpp": 57,
    "xg_dom": 2.69,
-   "xg_ext": 0.56
+   "xg_ext": 0.56,
+   "u_ppd": 1,
+   "u_ppe": 0,
+   "u_pts": 57
+  },
+  {
+   "groupe": "16e",
+   "journee": 4,
+   "kickoff_cest": "2026-06-28 21:00",
+   "kickoff_utc": "2026-06-28T19:00",
+   "dom": "Afrique du Sud",
+   "ext": "Canada",
+   "statut": "joue",
+   "bd": 0,
+   "be": 1,
+   "ppd": 0,
+   "ppe": 2,
+   "pv": 0.046,
+   "pn": 0.113,
+   "pd": 0.841,
+   "mpp_v": 0.229,
+   "mpp_n": 0.267,
+   "mpp_d": 0.504,
+   "pts_mod": 64,
+   "pts_mpp": 64,
+   "xg_dom": 0.52,
+   "xg_ext": 2.77,
+   "phase": "16e",
+   "u_ppd": 0,
+   "u_ppe": 1,
+   "u_pts": 114
+  },
+  {
+   "groupe": "16e",
+   "journee": 4,
+   "kickoff_cest": "2026-06-29 19:00",
+   "kickoff_utc": "2026-06-29T17:00",
+   "dom": "Brésil",
+   "ext": "Japon",
+   "statut": "a_venir",
+   "bd": 0,
+   "be": 0,
+   "ppd": 1,
+   "ppe": 0,
+   "pv": 0.56,
+   "pn": 0.232,
+   "pd": 0.208,
+   "mpp_v": 0.5,
+   "mpp_n": 0.269,
+   "mpp_d": 0.231,
+   "pts_mod": null,
+   "pts_mpp": null,
+   "xg_dom": 1.79,
+   "xg_ext": 0.99,
+   "phase": "16e",
+   "u_ppd": null,
+   "u_ppe": null,
+   "u_pts": null
+  },
+  {
+   "groupe": "16e",
+   "journee": 4,
+   "kickoff_cest": "2026-06-29 22:30",
+   "kickoff_utc": "2026-06-29T20:30",
+   "dom": "Allemagne",
+   "ext": "Paraguay",
+   "statut": "a_venir",
+   "bd": 0,
+   "be": 0,
+   "ppd": 2,
+   "ppe": 0,
+   "pv": 0.726,
+   "pn": 0.171,
+   "pd": 0.103,
+   "mpp_v": 0.63,
+   "mpp_n": 0.202,
+   "mpp_d": 0.168,
+   "pts_mod": null,
+   "pts_mpp": null,
+   "xg_dom": 2.31,
+   "xg_ext": 0.74,
+   "phase": "16e",
+   "u_ppd": null,
+   "u_ppe": null,
+   "u_pts": null
+  },
+  {
+   "groupe": "16e",
+   "journee": 4,
+   "kickoff_cest": "2026-06-30 03:00",
+   "kickoff_utc": "2026-06-30T01:00",
+   "dom": "Pays-Bas",
+   "ext": "Maroc",
+   "statut": "a_venir",
+   "bd": 0,
+   "be": 0,
+   "ppd": 1,
+   "ppe": 0,
+   "pv": 0.58,
+   "pn": 0.226,
+   "pd": 0.194,
+   "mpp_v": 0.424,
+   "mpp_n": 0.298,
+   "mpp_d": 0.278,
+   "pts_mod": null,
+   "pts_mpp": null,
+   "xg_dom": 1.84,
+   "xg_ext": 0.96,
+   "phase": "16e",
+   "u_ppd": null,
+   "u_ppe": null,
+   "u_pts": null
+  },
+  {
+   "groupe": "16e",
+   "journee": 4,
+   "kickoff_cest": "2026-06-30 19:00",
+   "kickoff_utc": "2026-06-30T17:00",
+   "dom": "Côte d'Ivoire",
+   "ext": "Norvège",
+   "statut": "a_venir",
+   "bd": 0,
+   "be": 0,
+   "ppd": 1,
+   "ppe": 1,
+   "pv": 0.236,
+   "pn": 0.242,
+   "pd": 0.521,
+   "mpp_v": 0.272,
+   "mpp_n": 0.281,
+   "mpp_d": 0.446,
+   "pts_mod": null,
+   "pts_mpp": null,
+   "xg_dom": 1.04,
+   "xg_ext": 1.68,
+   "phase": "16e",
+   "u_ppd": null,
+   "u_ppe": null,
+   "u_pts": null
+  },
+  {
+   "groupe": "16e",
+   "journee": 4,
+   "kickoff_cest": "2026-06-30 23:00",
+   "kickoff_utc": "2026-06-30T21:00",
+   "dom": "France",
+   "ext": "Suède",
+   "statut": "a_venir",
+   "bd": 0,
+   "be": 0,
+   "ppd": 3,
+   "ppe": 0,
+   "pv": 0.89,
+   "pn": 0.084,
+   "pd": 0.026,
+   "mpp_v": 0.682,
+   "mpp_n": 0.175,
+   "mpp_d": 0.142,
+   "pts_mod": null,
+   "pts_mpp": null,
+   "xg_dom": 3.04,
+   "xg_ext": 0.39,
+   "phase": "16e",
+   "u_ppd": null,
+   "u_ppe": null,
+   "u_pts": null
+  },
+  {
+   "groupe": "16e",
+   "journee": 4,
+   "kickoff_cest": "2026-07-01 03:00",
+   "kickoff_utc": "2026-07-01T01:00",
+   "dom": "Mexique",
+   "ext": "Équateur",
+   "statut": "a_venir",
+   "bd": 0,
+   "be": 0,
+   "ppd": 2,
+   "ppe": 0,
+   "pv": 0.735,
+   "pn": 0.167,
+   "pd": 0.098,
+   "mpp_v": 0.405,
+   "mpp_n": 0.315,
+   "mpp_d": 0.279,
+   "pts_mod": null,
+   "pts_mpp": null,
+   "xg_dom": 2.34,
+   "xg_ext": 0.73,
+   "phase": "16e",
+   "u_ppd": null,
+   "u_ppe": null,
+   "u_pts": null
+  },
+  {
+   "groupe": "16e",
+   "journee": 4,
+   "kickoff_cest": "2026-07-01 18:00",
+   "kickoff_utc": "2026-07-01T16:00",
+   "dom": "Angleterre",
+   "ext": "RD Congo",
+   "statut": "a_venir",
+   "bd": 0,
+   "be": 0,
+   "ppd": 3,
+   "ppe": 0,
+   "pv": 0.886,
+   "pn": 0.086,
+   "pd": 0.027,
+   "mpp_v": 0.673,
+   "mpp_n": 0.182,
+   "mpp_d": 0.145,
+   "pts_mod": null,
+   "pts_mpp": null,
+   "xg_dom": 3.01,
+   "xg_ext": 0.4,
+   "phase": "16e",
+   "u_ppd": null,
+   "u_ppe": null,
+   "u_pts": null
+  },
+  {
+   "groupe": "16e",
+   "journee": 4,
+   "kickoff_cest": "2026-07-01 22:00",
+   "kickoff_utc": "2026-07-01T20:00",
+   "dom": "Belgique",
+   "ext": "Sénégal",
+   "statut": "a_venir",
+   "bd": 0,
+   "be": 0,
+   "ppd": 1,
+   "ppe": 1,
+   "pv": 0.368,
+   "pn": 0.27,
+   "pd": 0.362,
+   "mpp_v": 0.423,
+   "mpp_n": 0.302,
+   "mpp_d": 0.275,
+   "pts_mod": null,
+   "pts_mpp": null,
+   "xg_dom": 1.26,
+   "xg_ext": 1.25,
+   "phase": "16e",
+   "u_ppd": null,
+   "u_ppe": null,
+   "u_pts": null
+  },
+  {
+   "groupe": "16e",
+   "journee": 4,
+   "kickoff_cest": "2026-07-02 02:00",
+   "kickoff_utc": "2026-07-02T00:00",
+   "dom": "États-Unis",
+   "ext": "Bosnie-Herzégovine",
+   "statut": "a_venir",
+   "bd": 0,
+   "be": 0,
+   "ppd": 2,
+   "ppe": 0,
+   "pv": 0.867,
+   "pn": 0.098,
+   "pd": 0.035,
+   "mpp_v": 0.58,
+   "mpp_n": 0.228,
+   "mpp_d": 0.192,
+   "pts_mod": null,
+   "pts_mpp": null,
+   "xg_dom": 2.91,
+   "xg_ext": 0.45,
+   "phase": "16e",
+   "u_ppd": null,
+   "u_ppe": null,
+   "u_pts": null
+  },
+  {
+   "groupe": "16e",
+   "journee": 4,
+   "kickoff_cest": "2026-07-02 21:00",
+   "kickoff_utc": "2026-07-02T19:00",
+   "dom": "Espagne",
+   "ext": "Autriche",
+   "statut": "a_venir",
+   "bd": 0,
+   "be": 0,
+   "ppd": 3,
+   "ppe": 0,
+   "pv": 0.906,
+   "pn": 0.074,
+   "pd": 0.02,
+   "mpp_v": 0.659,
+   "mpp_n": 0.193,
+   "mpp_d": 0.148,
+   "pts_mod": null,
+   "pts_mpp": null,
+   "xg_dom": 3.14,
+   "xg_ext": 0.34,
+   "phase": "16e",
+   "u_ppd": null,
+   "u_ppe": null,
+   "u_pts": null
+  },
+  {
+   "groupe": "16e",
+   "journee": 4,
+   "kickoff_cest": "2026-07-03 01:00",
+   "kickoff_utc": "2026-07-02T23:00",
+   "dom": "Portugal",
+   "ext": "Croatie",
+   "statut": "a_venir",
+   "bd": 0,
+   "be": 0,
+   "ppd": 1,
+   "ppe": 1,
+   "pv": 0.485,
+   "pn": 0.251,
+   "pd": 0.263,
+   "mpp_v": 0.457,
+   "mpp_n": 0.293,
+   "mpp_d": 0.251,
+   "pts_mod": null,
+   "pts_mpp": null,
+   "xg_dom": 1.58,
+   "xg_ext": 1.09,
+   "phase": "16e",
+   "u_ppd": null,
+   "u_ppe": null,
+   "u_pts": null
+  },
+  {
+   "groupe": "16e",
+   "journee": 4,
+   "kickoff_cest": "2026-07-03 05:00",
+   "kickoff_utc": "2026-07-03T03:00",
+   "dom": "Suisse",
+   "ext": "Algérie",
+   "statut": "a_venir",
+   "bd": 0,
+   "be": 0,
+   "ppd": 1,
+   "ppe": 0,
+   "pv": 0.58,
+   "pn": 0.226,
+   "pd": 0.194,
+   "mpp_v": 0.523,
+   "mpp_n": 0.261,
+   "mpp_d": 0.216,
+   "pts_mod": null,
+   "pts_mpp": null,
+   "xg_dom": 1.84,
+   "xg_ext": 0.96,
+   "phase": "16e",
+   "u_ppd": null,
+   "u_ppe": null,
+   "u_pts": null
+  },
+  {
+   "groupe": "16e",
+   "journee": 4,
+   "kickoff_cest": "2026-07-03 20:00",
+   "kickoff_utc": "2026-07-03T18:00",
+   "dom": "Australie",
+   "ext": "Égypte",
+   "statut": "a_venir",
+   "bd": 0,
+   "be": 0,
+   "ppd": 1,
+   "ppe": 1,
+   "pv": 0.455,
+   "pn": 0.257,
+   "pd": 0.288,
+   "mpp_v": 0.304,
+   "mpp_n": 0.324,
+   "mpp_d": 0.373,
+   "pts_mod": null,
+   "pts_mpp": null,
+   "xg_dom": 1.49,
+   "xg_ext": 1.13,
+   "phase": "16e",
+   "u_ppd": null,
+   "u_ppe": null,
+   "u_pts": null
+  },
+  {
+   "groupe": "16e",
+   "journee": 4,
+   "kickoff_cest": "2026-07-04 00:00",
+   "kickoff_utc": "2026-07-03T22:00",
+   "dom": "Argentine",
+   "ext": "Cap-Vert",
+   "statut": "a_venir",
+   "bd": 0,
+   "be": 0,
+   "ppd": 3,
+   "ppe": 0,
+   "pv": 0.943,
+   "pn": 0.048,
+   "pd": 0.008,
+   "mpp_v": 0.788,
+   "mpp_n": 0.119,
+   "mpp_d": 0.092,
+   "pts_mod": null,
+   "pts_mpp": null,
+   "xg_dom": 3.43,
+   "xg_ext": 0.2,
+   "phase": "16e",
+   "u_ppd": null,
+   "u_ppe": null,
+   "u_pts": null
+  },
+  {
+   "groupe": "16e",
+   "journee": 4,
+   "kickoff_cest": "2026-07-04 03:30",
+   "kickoff_utc": "2026-07-04T01:30",
+   "dom": "Colombie",
+   "ext": "Ghana",
+   "statut": "a_venir",
+   "bd": 0,
+   "be": 0,
+   "ppd": 2,
+   "ppe": 0,
+   "pv": 0.864,
+   "pn": 0.1,
+   "pd": 0.036,
+   "mpp_v": 0.487,
+   "mpp_n": 0.282,
+   "mpp_d": 0.231,
+   "pts_mod": null,
+   "pts_mpp": null,
+   "xg_dom": 2.89,
+   "xg_ext": 0.46,
+   "phase": "16e",
+   "u_ppd": null,
+   "u_ppe": null,
+   "u_pts": null
   }
  ],
  "standings": {

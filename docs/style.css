@@ -281,6 +281,10 @@ th.sortable.active{color:var(--accent)}
 .lg-tag{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;
   padding:1px 6px;border-radius:5px;background:color-mix(in srgb,var(--blue) 16%,transparent);color:var(--blue);margin-left:4px}
 .lg-tag--m{background:color-mix(in srgb,var(--accent) 18%,transparent);color:var(--accent)}
+.lg-player{display:inline-flex;align-items:center;gap:8px;min-width:0}
+.lg-av{width:26px;height:26px;border-radius:50%;object-fit:cover;flex:0 0 auto;
+  border:1px solid var(--line2);background:var(--card2)}
+.lg-av--none{display:inline-block}
 
 /* ---------- Méthodo ---------- */
 .method{display:flex;flex-direction:column;gap:14px}

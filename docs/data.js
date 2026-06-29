@@ -4,6 +4,10 @@ window.DATA = {
   "titre": "Pronostics CDM 2026 — Phase de groupes",
   "n_matchs": 88,
   "n_joues": 72,
+  "n_poule": 72,
+  "n_seize": 16,
+  "n_predites": 88,
+  "n_joues_total": 73,
   "n_qualifies": 32,
   "vainqueurs": [
    "A : Mexique",

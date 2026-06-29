@@ -287,8 +287,11 @@ th.sortable.active{color:var(--accent)}
   border:1px solid var(--line2);background:var(--card2)}
 .lg-av--none{display:inline-block}
 .lg-name .lg-tag{flex:0 0 auto;margin-left:2px}
+/* Carte ligue : container compact, centré sur la page */
+.lg-card{max-width:560px;margin:18px auto 0}
+.lg-card .tablewrap{display:flex;justify-content:center}
 /* Table de ligue compacte et resserrée */
-.lg-table{font-size:.84rem;width:auto;max-width:480px}
+.lg-table{font-size:.84rem;width:auto;max-width:480px;margin:0 auto}
 .lg-table th,.lg-table td{padding:5px 10px}
 .lg-table th{font-size:.62rem}
 .lg-table td:first-child,.lg-table th:first-child{padding-left:4px}

@@ -126,20 +126,20 @@ function renderAccueil(){
        <div>
          <div class="eyebrow">FIFA World Cup 2026 · USA · Canada · Mexique</div>
          <h1>Pronostics — Coupe du Monde 2026</h1>
-         <div class="cover">Phase de groupes <b>72 matchs</b> couverts · sur <b>104</b> au total (élimination directe à venir)</div>
+         <div class="cover"><b>${m.n_poule} matchs de poule</b> + <b>${m.n_seize} 16es de finale</b> · sur <b>104</b> au total (phase finale en cours)</div>
        </div>
      </div>
      <p class="lead">Pronostics via une méthode hybride : un modèle de <strong>Poisson</strong> (basé sur l'Elo)
      ajusté et critiqué par une dizaine d'<strong>agents experts</strong>.
-     J1 = résultats réels · J2/J3 = pronostics. Probas <strong>mpp</strong> issues de
+     Phase de groupes <strong>terminée</strong> (résultats réels) ; place aux <strong>16es de finale</strong>. Probas <strong>mpp</strong> issues de
      <a class="mpp-link" href="https://mpp.football" target="_blank" rel="noopener"><img class="mpp-logo" src="mpp-logo.png" alt="mpp.football"></a>.
      <em>Astuce : cliquez un match pour ouvrir sa fiche détaillée.</em></p>
    </div>
    <div class="kpis">
-     <div class="kpi"><i class="mdi mdi-soccer-field"></i><div class="v">72</div><div class="l">matchs pronostiqués</div></div>
-     <div class="kpi"><i class="mdi mdi-check-decagram-outline"></i><div class="v">${m.n_joues}</div><div class="l">déjà joués (réels)</div></div>
+     <div class="kpi"><i class="mdi mdi-soccer-field"></i><div class="v">${m.n_predites}</div><div class="l">matchs pronostiqués (${m.n_poule} poule + ${m.n_seize} 16es)</div></div>
+     <div class="kpi"><i class="mdi mdi-check-decagram-outline"></i><div class="v">${m.n_joues_total}</div><div class="l">déjà joués (réels)</div></div>
      <div class="kpi"><i class="mdi mdi-trophy-outline"></i><div class="v">32</div><div class="l">qualifiés (12+12+8)</div></div>
-     <div class="kpi"><i class="mdi mdi-target"></i><div class="v">${m.j1_accuracy!=null?Math.round(m.j1_accuracy*100)+"%":"–"}</div><div class="l">précision sur matchs joués (${m.n_joues})</div></div>
+     <div class="kpi"><i class="mdi mdi-target"></i><div class="v">${m.j1_accuracy!=null?Math.round(m.j1_accuracy*100)+"%":"–"}</div><div class="l">précision sur les ${m.n_poule} matchs de poule</div></div>
    </div>
    ${scoreDuelCard(m)}
    ${leagueCard()}
@@ -159,7 +159,7 @@ function leagueCard(){
     <td class="c"><b>${r.points}</b></td>
     <td class="c">${r.good}</td>
     <td class="c">${r.exact}</td></tr>`).join("");
-  return `<div class="card" style="margin-top:18px">
+  return `<div class="card lg-card">
     <h3><i class="mdi mdi-trophy-variant-outline"></i> Ligue ${esc(L.name)}</h3>
     <p class="muted sd-explain">Classement de la ligue avec <strong>notre modèle inséré</strong> pour situer ses performances.</p>
     <div class="tablewrap"><table class="lg-table">

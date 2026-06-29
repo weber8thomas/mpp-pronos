@@ -260,6 +260,10 @@ meta = {
     "titre": "Pronostics CDM 2026 — Phase de groupes",
     "n_matchs": len(predictions),
     "n_joues": int((pred.statut == "joue").sum()),
+    "n_poule": int((pred.statut == "joue").sum()),                 # 72 matchs de poule
+    "n_seize": sum(1 for p in predictions if p["groupe"] == "16e"),
+    "n_predites": len(predictions),                                # 72 + 16es
+    "n_joues_total": sum(1 for p in predictions if p["statut"] == "joue"),
     "n_qualifies": 32,
     "vainqueurs": [f"{g} : {e}" for g, e in premiers],
     "j1_accuracy": j1_acc,

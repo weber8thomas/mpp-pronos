@@ -152,10 +152,10 @@ function renderAccueil(){
 function leagueCard(){
   const L = D.league;
   if(!L || !L.rows) return '';
-  const av = r => r.avatar ? `<img class="lg-av" loading="lazy" src="${esc(r.avatar)}" alt="">` : '<span class="lg-av lg-av--none"></span>';
+  const av = r => r.avatar ? `<img class="lg-av" src="${esc(r.avatar)}" alt="" width="26" height="26">` : '<span class="lg-av lg-av--none"></span>';
   const rows = L.rows.map(r=>`<tr class="${r.isModel?'lg-model':''}${r.isMe?' lg-me':''}">
     <td class="c">${r.rank}</td>
-    <td class="lg-name"><span class="lg-player">${av(r)}<span>${esc(r.username)}</span></span>${r.isMe?'<span class="lg-tag">moi</span>':''}${r.isModel?'<span class="lg-tag lg-tag--m">modèle</span>':''}</td>
+    <td><div class="lg-name">${av(r)}<span class="lg-uname">${esc(r.username)}</span>${r.isMe?'<span class="lg-tag">moi</span>':''}${r.isModel?'<span class="lg-tag lg-tag--m">modèle</span>':''}</div></td>
     <td class="c"><b>${r.points}</b></td>
     <td class="c">${r.good}</td>
     <td class="c">${r.exact}</td></tr>`).join("");

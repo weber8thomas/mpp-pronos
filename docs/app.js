@@ -162,8 +162,8 @@ function leagueCard(){
   return `<div class="card" style="margin-top:18px">
     <h3><i class="mdi mdi-trophy-variant-outline"></i> Ligue ${esc(L.name)}</h3>
     <p class="muted sd-explain">Classement de la ligue avec <strong>notre modèle inséré</strong> pour situer ses performances.</p>
-    <div class="tablewrap"><table>
-      <thead><tr><th class="c">#</th><th>Joueur</th><th class="c">Points</th><th class="c" title="Bonnes issues 1/N/2">Bons</th><th class="c" title="Scores exacts">Exacts</th></tr></thead>
+    <div class="tablewrap"><table class="lg-table">
+      <thead><tr><th class="c">#</th><th>Joueur</th><th class="c">Pts</th><th class="c" title="Bonnes issues 1/N/2">Bons</th><th class="c" title="Scores exacts">Exacts</th></tr></thead>
       <tbody>${rows}</tbody></table></div>
     <div class="note" style="margin-top:10px">${esc(L.modelNote||"")}${L.snapshot?` · Classement au ${esc(L.snapshot)}.`:""}</div>
   </div>`;

@@ -287,6 +287,13 @@ th.sortable.active{color:var(--accent)}
   border:1px solid var(--line2);background:var(--card2)}
 .lg-av--none{display:inline-block}
 .lg-name .lg-tag{flex:0 0 auto;margin-left:2px}
+/* Table de ligue compacte */
+.lg-table{font-size:.84rem}
+.lg-table th,.lg-table td{padding:5px 9px}
+.lg-table th{font-size:.62rem}
+.lg-table .lg-av{width:22px;height:22px}
+.lg-table .lg-name{gap:7px}
+.lg-table .lg-tag{font-size:.58rem;padding:1px 5px}
 
 /* ---------- Méthodo ---------- */
 .method{display:flex;flex-direction:column;gap:14px}

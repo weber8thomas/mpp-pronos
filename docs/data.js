@@ -20,7 +20,7 @@ window.DATA = {
    "L : Angleterre"
   ],
   "j1_accuracy": 0.639,
-  "pts_mod": 2800,
+  "pts_mod": 3030,
   "pts_mpp": 2929,
   "n_scored": 73,
   "pts_user": 2888,
@@ -59,7 +59,7 @@ window.DATA = {
    "mpp_v": 0.85,
    "mpp_n": 0.08,
    "mpp_d": 0.07,
-   "pts_mod": 49,
+   "pts_mod": 69,
    "pts_mpp": 49,
    "xg_dom": 2.98,
    "xg_ext": 0.42,
@@ -319,7 +319,7 @@ window.DATA = {
    "mpp_v": 0.41,
    "mpp_n": 0.45,
    "mpp_d": 0.14,
-   "pts_mod": 68,
+   "pts_mod": 88,
    "pts_mpp": 0,
    "xg_dom": 1.46,
    "xg_ext": 1.15,
@@ -449,7 +449,7 @@ window.DATA = {
    "mpp_v": 0.95,
    "mpp_n": 0.04,
    "mpp_d": 0.01,
-   "pts_mod": 21,
+   "pts_mod": 41,
    "pts_mpp": 21,
    "xg_dom": 3.28,
    "xg_ext": 0.27,
@@ -579,7 +579,7 @@ window.DATA = {
    "mpp_v": 0.75,
    "mpp_n": 0.18,
    "mpp_d": 0.07,
-   "pts_mod": 58,
+   "pts_mod": 88,
    "pts_mpp": 58,
    "xg_dom": 2.22,
    "xg_ext": 0.78,
@@ -735,7 +735,7 @@ window.DATA = {
    "mpp_v": 0.82,
    "mpp_n": 0.14,
    "mpp_d": 0.04,
-   "pts_mod": 38,
+   "pts_mod": 68,
    "pts_mpp": 38,
    "xg_dom": 2.31,
    "xg_ext": 0.74,
@@ -787,7 +787,7 @@ window.DATA = {
    "mpp_v": 0.03,
    "mpp_n": 0.08,
    "mpp_d": 0.89,
-   "pts_mod": 53,
+   "pts_mod": 73,
    "pts_mpp": 53,
    "xg_dom": 0.48,
    "xg_ext": 2.84,
@@ -1099,7 +1099,7 @@ window.DATA = {
    "mpp_v": 0.663,
    "mpp_n": 0.277,
    "mpp_d": 0.059,
-   "pts_mod": 114,
+   "pts_mod": 134,
    "pts_mpp": 0,
    "xg_dom": 0.83,
    "xg_ext": 2.11,
@@ -1359,7 +1359,7 @@ window.DATA = {
    "mpp_v": 0.98,
    "mpp_n": 0.02,
    "mpp_d": 0.0,
-   "pts_mod": 22,
+   "pts_mod": 42,
    "pts_mpp": 22,
    "xg_dom": 3.36,
    "xg_ext": 0.24,
@@ -1879,7 +1879,7 @@ window.DATA = {
    "mpp_v": 0.02,
    "mpp_n": 0.04,
    "mpp_d": 0.94,
-   "pts_mod": 32,
+   "pts_mod": 62,
    "pts_mpp": 32,
    "xg_dom": 0.29,
    "xg_ext": 3.24,
@@ -1905,7 +1905,7 @@ window.DATA = {
    "mpp_v": 0.73,
    "mpp_n": 0.2,
    "mpp_d": 0.07,
-   "pts_mod": 57,
+   "pts_mod": 77,
    "pts_mpp": 57,
    "xg_dom": 2.69,
    "xg_ext": 0.56,
@@ -7560,6 +7560,17 @@ window.DATA = {
   "snapshot": "2026-06-29",
   "rows": [
    {
+    "username": "Polpo Paolo 🐙",
+    "points": 3030,
+    "calc": 73,
+    "exact": 10,
+    "good": 47,
+    "avatar": "avatars/model.svg",
+    "isModel": true,
+    "isMe": false,
+    "rank": 1
+   },
+   {
     "username": "Alex-Dijonnais",
     "points": 2930,
     "calc": 73,
@@ -7568,7 +7579,7 @@ window.DATA = {
     "avatar": "avatars/user_3572019.jpg",
     "isModel": false,
     "isMe": false,
-    "rank": 1
+    "rank": 2
    },
    {
     "username": "weber8thomas",
@@ -7579,7 +7590,7 @@ window.DATA = {
     "avatar": "avatars/user_3761834.jpg",
     "isModel": false,
     "isMe": true,
-    "rank": 2
+    "rank": 3
    },
    {
     "username": "Benjamin-P-GRD",
@@ -7589,17 +7600,6 @@ window.DATA = {
     "good": 40,
     "avatar": "avatars/default.png",
     "isModel": false,
-    "isMe": false,
-    "rank": 3
-   },
-   {
-    "username": "Polpo Paolo 🐙",
-    "points": 2800,
-    "calc": 73,
-    "exact": 10,
-    "good": 47,
-    "avatar": "avatars/model.svg",
-    "isModel": true,
     "isMe": false,
     "rank": 4
    },
@@ -7615,6 +7615,6 @@ window.DATA = {
     "rank": 5
    }
   ],
-  "modelNote": "Le modèle est noté à la cote de l'issue (1/N/2), sans le bonus « score exact » des joueurs."
+  "modelNote": "Le modèle est noté avec le même barème que les joueurs : cote de l'issue (1/N/2) + bonus « score exact » (rareté)."
  }
 };

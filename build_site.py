@@ -105,6 +105,24 @@ def user_fields(dom, ext):
     return int(hs), int(as_), int(info["pts"])
 
 
+# --- Bonus « score exact » (points.extra MPP) par match, pour noter le modèle
+#     comme les joueurs. Barème rarityLevel 1/2/3 -> +20/+30/+50. ---
+try:
+    _eb = json.load(open("data/exact_bonus.json"))["matches"]
+except FileNotFoundError:
+    _eb = {}
+exact_bonus_map = {}
+for _m in _eb.values():
+    d, e = _c2n.get(_m["h"]), _c2n.get(_m["a"])
+    if d and e:
+        exact_bonus_map[frozenset((_norm(d), _norm(e)))] = int(_m["bonus"])
+EXACT_BONUS_DEFAULT = 20  # plancher conservateur si la rareté du score est inconnue
+
+
+def exact_bonus(dom, ext):
+    return exact_bonus_map.get(frozenset((_norm(dom), _norm(ext))), EXACT_BONUS_DEFAULT)
+
+
 # Pronostics (liste de dicts)
 predictions = []
 for _, r in pred.iterrows():
@@ -129,6 +147,8 @@ for _, r in pred.iterrows():
         if pp is not None:
             mod_win = nd if pp[0] > pp[1] else (ne if pp[1] > pp[0] else "N")
             pts_mod = real_cote if mod_win == real_win else 0
+            if pp[0] == bd and pp[1] == be:               # score exact -> + bonus rareté
+                pts_mod += exact_bonus(r.equipe_dom, r.equipe_ext)
         if mpp_v is not None:
             pk = [mpp_v, mpp_n, mpp_d]
             ai = pk.index(max(pk))
@@ -174,6 +194,8 @@ if r32p is not None:
             rc = cotes[ridx]
             midx = 0 if ppd > ppe else (2 if ppd < ppe else 1)
             pts_mod = rc if midx == ridx else 0
+            if ppd == bd and ppe == be:                   # score exact -> + bonus rareté
+                pts_mod += exact_bonus(r.dom, r.ext)
             pk = [mv, mn, md]; aidx = pk.index(max(pk))
             pts_mpp = rc if aidx == ridx else 0
         _u = user_fields(r.dom, r.ext)
@@ -287,7 +309,7 @@ if lg is not None:
     for i, x in enumerate(rows, 1):
         x["rank"] = i
     league = {"name": lg["name"], "snapshot": lg.get("snapshot"), "rows": rows,
-              "modelNote": "Le modèle est noté à la cote de l'issue (1/N/2), sans le bonus « score exact » des joueurs."}
+              "modelNote": "Le modèle est noté avec le même barème que les joueurs : cote de l'issue (1/N/2) + bonus « score exact » (rareté)."}
 
 DATA = {"meta": meta, "predictions": predictions, "standings": standings,
         "qualifiers": qualifiers, "ratings": ratings_l, "analyses": analyses,

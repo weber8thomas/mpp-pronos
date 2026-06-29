@@ -274,6 +274,13 @@ th.sortable.active{color:var(--accent)}
 .scoreduel--3{gap:10px}
 .sd-sub{font-size:.7rem;color:var(--muted)}
 @media(max-width:560px){.scoreduel--3{flex-direction:column}}
+/* Ligue (Viva Italia) */
+.lg-me{background:color-mix(in srgb,var(--blue) 9%,transparent)}
+.lg-model{background:color-mix(in srgb,var(--accent) 12%,transparent);font-weight:600}
+.lg-model td{border-color:color-mix(in srgb,var(--accent) 30%,transparent)}
+.lg-tag{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;
+  padding:1px 6px;border-radius:5px;background:color-mix(in srgb,var(--blue) 16%,transparent);color:var(--blue);margin-left:4px}
+.lg-tag--m{background:color-mix(in srgb,var(--accent) 18%,transparent);color:var(--accent)}
 
 /* ---------- Méthodo ---------- */
 .method{display:flex;flex-direction:column;gap:14px}

@@ -266,11 +266,32 @@ if r32_df is not None:
             "mppDom": float(r.mpp_dom), "mppNul": float(r.mpp_nul), "mppExt": float(r.mpp_ext),
         })
 
+# --- Classement de la ligue « Viva Italia » + insertion de notre modèle ---
+MODEL_NAME = "Il Modello 🤖"
+league = None
+try:
+    lg = json.load(open("data/league_viva_italia.json"))
+except FileNotFoundError:
+    lg = None
+if lg is not None:
+    model_good = sum(1 for p in scored if p["pts_mod"] > 0)
+    model_exact = sum(1 for p in scored if p["ppd"] == p["bd"] and p["ppe"] == p["be"])
+    rows = [{"username": s["username"], "points": int(s["points"]), "calc": int(s["calc"]),
+             "exact": int(s["exact"]), "good": int(s["good"]),
+             "isModel": False, "isMe": s["id"] == lg.get("me")} for s in lg["standings"]]
+    rows.append({"username": MODEL_NAME, "points": int(total_pts_mod), "calc": len(scored),
+                 "exact": model_exact, "good": model_good, "isModel": True, "isMe": False})
+    rows.sort(key=lambda x: -x["points"])
+    for i, x in enumerate(rows, 1):
+        x["rank"] = i
+    league = {"name": lg["name"], "snapshot": lg.get("snapshot"), "rows": rows,
+              "modelNote": "Le modèle est noté à la cote de l'issue (1/N/2), sans le bonus « score exact » des joueurs."}
+
 DATA = {"meta": meta, "predictions": predictions, "standings": standings,
         "qualifiers": qualifiers, "ratings": ratings_l, "analyses": analyses,
         "teams": teams, "h2h": h2h,
         "j1": j1, "reportMarkdown": report_md, "teamDetails": team_details,
-        "r32": r32, "report16Markdown": report16_md}
+        "r32": r32, "report16Markdown": report16_md, "league": league}
 
 with open("docs/data.js", "w", encoding="utf-8") as f:
     f.write("// Généré par build_site.py — ne pas éditer à la main.\n")

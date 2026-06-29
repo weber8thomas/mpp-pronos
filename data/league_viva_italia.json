@@ -1,0 +1,12 @@
+{
+  "name": "Viva Italia 🇮🇹🍊",
+  "challengeId": "mpp_challenge_UE11P8GT",
+  "snapshot": "2026-06-29",
+  "me": "user_3761834",
+  "standings": [
+    {"rank": 1, "username": "Alex-Dijonnais",  "id": "user_3572019", "points": 2930, "calc": 73, "exact": 11, "good": 35},
+    {"rank": 2, "username": "weber8thomas",     "id": "user_3761834", "points": 2888, "calc": 69, "exact": 11, "good": 43},
+    {"rank": 3, "username": "Benjamin-P-GRD",   "id": "user_2252458", "points": 2870, "calc": 73, "exact": 7,  "good": 40},
+    {"rank": 4, "username": "MartinMyo",        "id": "user_9725830", "points": 2532, "calc": 73, "exact": 4,  "good": 40}
+  ]
+}

@@ -14,10 +14,10 @@ sert d'entrée au modèle, donc **la forme du moment prime sur la réputation**.
 
 | 📈 Plus fortes hausses | Δ Elo | | 📉 Plus fortes baisses | Δ Elo |
 |---|---|---|---|---|
-| **Norvège** (9 pts, France étrillée 4-1) | **+142** | | **Tunisie** (0 pt, 3 défaites) | −68 |
-| Mexique (9 pts, 0 encaissé) | +56 | | Tchéquie (1 pt) | −60 |
-| Cap-Vert (invaincu, surprise) | +49 | | **France** (1-4 vs Norvège) | **−59** |
-| Égypte (2e de G) | +47 | | Ouzbékistan (0 pt) | −59 |
+| **Mexique** (9 pts, 0 encaissé, hôte) | **+56** | | **Tunisie** (0 pt, 3 défaites) | −68 |
+| **France** (9 pts, Norvège battue 4-1) | **+53** | | Tchéquie (1 pt) | −60 |
+| Cap-Vert (invaincu, surprise) | +49 | | Ouzbékistan (0 pt) | −59 |
+| Égypte (2e de G) | +47 | | Irak (0 pt, 12 encaissés) | −50 |
 | RD Congo (3e qualifié) | +45 | | Qatar (1 pt) | −49 |
 | Afrique du Sud (2e de A) | +44 | | Uruguay (éliminé) | −48 |
 
@@ -40,9 +40,8 @@ Légende : `(n)` = place dans le groupe · *Elo pré→post (Δ)* · parcours `P
 Canada co-hôte a la puissance de feu du groupe (6-0 au Qatar, 8 buts) et le soutien
 de son public nord-américain, que le modèle traduit par un avantage terrain. L'Afrique
 du Sud a surperformé (défense à 2 buts encaissés, +44 d'Elo) mais marque trop peu
-(2 buts) pour inquiéter durablement une équipe qui l'emporte balle au pied. Le marché
-MPP est plus prudent (Canada 50 %) car les Bafana Bafana sont accrocheurs ; le modèle,
-lui, sanctionne l'écart de niveau. **Canada passe.**
+(2 buts) pour inquiéter durablement une équipe qui l'emporte balle au pied. *(Match déjà
+joué : **Canada 1-0**, conforme au pronostic.)* **Canada passe.**
 
 ### 2 — 🇧🇷 Brésil (1) vs Japon (2) 🇯🇵 · 29 juin
 *Elo 1991→2010 (+19) · 1924→1932 (+8)* — Brésil `7 7:1 [NVV]` / Japon `5 7:3 [NVN]`
@@ -74,26 +73,27 @@ finissent sur deux victoires et affichent 7 points. Les Pays-Bas frappent fort
 et a tenu le Brésil. Le modèle penche Oranje pour la puissance offensive, mais l'écart
 réel est mince — c'est l'affiche la plus ouverte parmi les « favoris ». **Pays-Bas d'un souffle.**
 
-### 5 — 🇨🇮 Côte d'Ivoire (2) vs France (2) 🇫🇷 · 30 juin
-*Elo 1771→1803 (+32) · 2063→2004 (−59)* — Côte d'Ivoire `6 4:2 [VDV]` / France `8 7:7 [VVD]`
-**Modèle** : CIV 7 % / nul 14 % / France **78 %** — score probable **0-2** · **Qualif : France 87 %** · *MPP 27/28/44*
+### 5 — 🇨🇮 Côte d'Ivoire (2) vs Norvège (2) 🇳🇴 · 30 juin
+*Elo 1771→1803 (+32) · 1840→1865 (+25)* — Côte d'Ivoire `6 4:2 [VDV]` / Norvège `6 8:7 [VVD]`
+**Modèle** : CIV 23 % / nul 24 % / Norvège **52 %** — score probable **1-1** · **Qualif : Norvège 65 %** · *MPP 27/28/44*
 
-Le grand écart entre réputation et forme. La France reste la 2e force du modèle malgré
-**−59 d'Elo** : une défense passoire (7 buts encaissés, **humiliée 1-4 par la Norvège**)
-qui a coûté la 1re place. La Côte d'Ivoire, tenante de la CAN, monte (+32) et a la
-profondeur pour exister. Le marché MPP le sent (France à 44 % seulement). Le modèle
-maintient les Bleus favoris sur le talent brut, **mais c'est la qualifiée la plus
-fragile du haut de tableau.** **France — à condition de resserrer derrière.**
+Duel de deuxièmes très ouvert. La Norvège de Haaland–Ødegaard a la puissance offensive
+(8 buts, 4-1 à l'Irak) mais une défense friable (7 encaissés) et un revers cinglant 1-4
+contre la France qui l'a privée de la 1re place. La Côte d'Ivoire, tenante de la CAN,
+monte (+32), s'appuie sur une défense compacte (2 encaissés) et une vraie profondeur.
+Le modèle donne la Norvège favorite sans l'assurer (52 % sur 90 min) — match à
+prolongations probable. **Norvège, mais ça passe près.**
 
-### 6 — 🇳🇴 Norvège (1) vs Suède (3) 🇸🇪 · 30 juin
-*Elo 1840→1982 (+142) · 1761→1786 (+25)* — Norvège `9 10:2 [VVV]` / Suède `4 7:7 [VDN]`
-**Modèle** : Norvège 77 % / nul 14 % / Suède 7 % — score probable **2-0** · **Qualif : Norvège 86 %** · *MPP 68/17/14*
+### 6 — 🇫🇷 France (1) vs Suède (3) 🇸🇪 · 30 juin
+*Elo 2063→2116 (+53) · 1761→1786 (+25)* — France `9 10:2 [VVV]` / Suède `4 7:7 [VDN]`
+**Modèle** : France 89 % / nul 8 % / Suède 2 % — score probable **3-0** · **Qualif : France 94 %** · *MPP 68/17/14*
 
-Le derby scandinave tourne à l'avantage de **l'équipe la plus en forme du tournoi**.
-La Norvège de Haaland–Ødegaard a tout gagné, marqué 10 buts et **renversé la France 4-1** :
-+142 d'Elo, du jamais-vu sur ce tour. La Suède d'Isak et Gyökeres a la qualité offensive
-(5-1 à la Tunisie) mais a sombré 1-5 face aux Pays-Bas et n'a fini que 3e. Élan,
-hiérarchie et confiance : tout est norvégien. **Norvège nettement.**
+La France a **survolé le groupe I** : 9 points, 10 buts marqués, 2 encaissés, et un
+4-1 retentissant infligé à la Norvège qui lui a offert la 1re place et **+53 d'Elo** —
+elle redevient l'un des tout meilleurs bilans du tournoi. La Suède d'Isak et Gyökeres
+a la qualité offensive (5-1 à la Tunisie) mais a sombré 1-5 face aux Pays-Bas et n'a
+fini que 3e. Profondeur d'effectif, dynamique et hiérarchie : tout est bleu.
+**France nettement.**
 
 ### 7 — 🇲🇽 Mexique (1) vs Équateur (3) 🇪🇨 · 1er juillet
 *Elo 1804→1860 (+56) · 1833→1821 (−12)* — Mexique `9 6:0 [VVV]` / Équateur `4 2:2 [DNV]`
@@ -114,14 +114,14 @@ La RD Congo a fait le plus dur en se qualifiant comme 3e (+45 d'Elo, joli 3-1 fi
 mais le fossé de talent est immense. Le modèle ne voit qu'une issue. **Angleterre sans trembler.**
 
 ### 9 — 🇧🇪 Belgique (1) vs Sénégal (3) 🇸🇳 · 1er juillet
-*Elo 1849→1843 (−6) · 1869→1834 (−35)* — Belgique `5 6:2 [NNV]` / Sénégal `3 8:6 [DDV]`
-**Modèle** : Belgique 38 % / nul 26 % / Sénégal 34 % — score probable **1-1** · **Qualif : Belgique 52 %** · *MPP 42/30/27*
+*Elo 1849→1843 (−6) · 1869→1842 (−27)* — Belgique `5 6:2 [NNV]` / Sénégal `3 8:6 [DDV]`
+**Modèle** : Belgique 36 % / nul 27 % / Sénégal 36 % — score probable **1-1** · **Qualif : Belgique 50 %** · *MPP 42/30/27*
 
 **Le 50/50 du tour.** La Belgique a gagné son groupe mais sans convaincre (deux nuls
 fermés avant un 5-1 sur la Nouvelle-Zélande) ; son Elo stagne. Le Sénégal, 3e, a la
 meilleure attaque des repêchés (8 buts, 5-0 à l'Irak) et n'a perdu que de justesse
-contre la Norvège et la France — deux des révélations du tournoi. Le modèle ne départage
-quasiment pas (Belgique 52 %). **Pile ou face — léger avantage Belgique, scénario prolongations.**
+contre la France et la Norvège — les deux premiers d'un groupe I relevé. Le modèle ne
+départage pas (Belgique 50 %). **Pile ou face — scénario prolongations.**
 
 ### 10 — 🇺🇸 États-Unis (1) vs Bosnie-Herzégovine (3) 🇧🇦 · 2 juillet
 *Elo 1797→1817 (+20) · 1633→1655 (+22)* — États-Unis `6 8:4 [VVD]` / Bosnie `4 5:6 [NDV]`
@@ -142,7 +142,7 @@ L'Espagne, n°1 mondial, a fait ce qu'il fallait : **0 but encaissé**, maîtris
 chance à la Roja de chuter. **Espagne souveraine.**
 
 ### 12 — 🇵🇹 Portugal (2) vs Croatie (2) 🇭🇷 · 2 juillet
-*Elo 1976→1975 (−1) · 1933→1928 (−5)* — Portugal `5 6:1 [NVN]` / Croatie `5 5:5 [DVV]`
+*Elo 1976→1975 (−1) · 1933→1928 (−5)* — Portugal `5 6:1 [NVN]` / Croatie `6 5:5 [DVV]`
 **Modèle** : Portugal 48 % / nul 25 % / Croatie 26 % — score probable **1-1** · **Qualif : Portugal 62 %** · *MPP 45/29/25*
 
 Duel de nations expérimentées au coude-à-coude (Elo quasi figés). Le Portugal a la
@@ -196,11 +196,11 @@ briller offensivement (2 buts). Le modèle donne les Cafeteros largement devant.
 | 2 | Brésil – Japon | **Brésil** | 68 % | 1-0 |
 | 3 | Allemagne – Paraguay | **Allemagne** | 82 % | 2-0 |
 | 4 | Pays-Bas – Maroc | **Pays-Bas** | 70 % | 1-0 |
-| 5 | Côte d'Ivoire – France | **France** | 87 % | 0-2 |
-| 6 | Norvège – Suède | **Norvège** | 86 % | 2-0 |
+| 5 | Côte d'Ivoire – Norvège | **Norvège** | 65 % | 1-1 (a.p.) |
+| 6 | France – Suède | **France** | 94 % | 3-0 |
 | 7 | Mexique – Équateur | **Mexique** | 83 % | 2-0 |
 | 8 | Angleterre – RD Congo | **Angleterre** | 94 % | 3-0 |
-| 9 | Belgique – Sénégal | **Belgique** | 52 % | 1-1 (t.a.b.) |
+| 9 | Belgique – Sénégal | **Belgique** | 50 % | 1-1 (t.a.b.) |
 | 10 | États-Unis – Bosnie | **États-Unis** | 92 % | 2-0 |
 | 11 | Espagne – Autriche | **Espagne** | 95 % | 3-0 |
 | 12 | Portugal – Croatie | **Portugal** | 62 % | 1-1 (a.p.) |
@@ -209,11 +209,11 @@ briller offensivement (2 buts). Le modèle donne les Cafeteros largement devant.
 | 15 | Argentine – Cap-Vert | **Argentine** | 97 % | 3-0 |
 | 16 | Colombie – Ghana | **Colombie** | 92 % | 2-0 |
 
-**3 matchs à pile ou face** (Belgique–Sénégal, Australie–Égypte, Portugal–Croatie) et
-**1 affiche piège** (Pays-Bas–Maroc) ; le reste suit la hiérarchie post-poule. Désaccord
-notable avec le marché : le modèle est plus tranché sur **France** et **Australie** que
-les cotes MPP.
+**3 matchs à pile ou face** (Belgique–Sénégal, Australie–Égypte, Côte d'Ivoire–Norvège),
+**2 affiches ouvertes** (Pays-Bas–Maroc, Portugal–Croatie) ; le reste suit la hiérarchie
+post-poule. Désaccord notable avec le marché : le modèle est plus tranché sur **France**
+et **Australie** que les cotes MPP.
 
-> Données : API officielle mpp.football (résultats, cotes). Modèle : Elo post-poule →
+> Données : API officielle mpp.football (résultats, cotes, bracket). Modèle : Elo post-poule →
 > Poisson (`scripts_r32/model_r32.py`). Détail chiffré dans `data/predictions_r32.csv`
 > et `data/elo_post_poule.csv`.

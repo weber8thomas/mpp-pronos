@@ -85,26 +85,24 @@ function ptsCell(p){
   return `<span class="pts" title="Points pris — moi · notre modèle · mpp">${moi}<span class="muted">·</span>${mod}<span class="muted">·</span>${mpp}</span>`;
 }
 
-// Carte « score total » : MOI (score réel MPP) vs notre modèle vs mpp (benchmark marché).
+// Carte « score total » : MOI (score réel MPP) vs notre modèle.
 function scoreDuelCard(m){
-  if(!m.n_scored) return '';
-  const hasUser = m.pts_user!=null;
-  const best = Math.max(m.pts_mod, m.pts_mpp, hasUser?m.pts_user:-1);
+  if(!m.n_scored || m.pts_user==null) return '';
+  const best = Math.max(m.pts_mod, m.pts_user);
   const side=(name,val,ico,sub)=>`<div class="sd-side${val===best?' sd-win':''}">
       <div class="sd-name">${ico}${name}</div>
       <div class="sd-pts">${val}<span class="sd-u">pts</span></div>
       <div class="sd-sub">${sub}</div>
       ${val===best?'<div class="sd-tag">en tête</div>':''}</div>`;
-  const moi = hasUser ? side('Moi',m.pts_user,'<i class="mdi mdi-account-circle-outline sd-ico"></i>',`${m.n_user} pronos`) : '';
   return `<div class="card scoreduel-card">
-    <h3><i class="mdi mdi-scale-balance"></i> Score total des pronostics — moi vs notre modèle vs mpp</h3>
-    <p class="muted sd-explain">On remporte la <strong>cote mpp</strong> de l'issue réelle si elle a été bien pronostiquée (1/N/2), 0 sinon.
-      <strong>Moi</strong> = mon score réel sur mon compte MPP ; <strong>modèle</strong> et <strong>mpp</strong> parient sur les
-      <strong>${m.n_scored}</strong> matchs joués (issue du pronostic / issue la plus probable).</p>
-    <div class="scoreduel scoreduel--3">
-      ${moi}
+    <h3><i class="mdi mdi-scale-balance"></i> Mon score vs notre modèle</h3>
+    <p class="muted sd-explain"><strong>Moi</strong> = mon score réel sur mon compte MPP (${m.n_user} pronos) ;
+      <strong>modèle</strong> = pronostic figé du modèle sur les <strong>${m.n_scored}</strong> matchs joués
+      (cote de l'issue si bien pronostiquée).</p>
+    <div class="scoreduel">
+      ${side('Moi',m.pts_user,'<i class="mdi mdi-account-circle-outline sd-ico"></i>',`${m.n_user} pronos`)}
+      <div class="sd-vs">vs</div>
       ${side('Notre modèle',m.pts_mod,'<i class="mdi mdi-robot-happy-outline sd-ico"></i>','modèle Poisson')}
-      ${side('mpp.football',m.pts_mpp,'<img class="mpp-logo sd-ico" src="mpp-logo.png" alt="mpp">','consensus marché')}
     </div>
   </div>`;
 }
@@ -144,9 +142,30 @@ function renderAccueil(){
      <div class="kpi"><i class="mdi mdi-target"></i><div class="v">${m.j1_accuracy!=null?Math.round(m.j1_accuracy*100)+"%":"–"}</div><div class="l">précision sur matchs joués (${m.n_joues})</div></div>
    </div>
    ${scoreDuelCard(m)}
+   ${leagueCard()}
    <h2>Explorer</h2>
    <div class="navtiles">${tiles}</div>
    <div class="card" style="margin-top:18px"><h3><i class="mdi mdi-trophy"></i> Vainqueurs de groupe pronostiqués</h3><div class="winners">${vain}</div></div>`;
+}
+
+// Classement de la ligue (Viva Italia) avec notre modèle inséré.
+function leagueCard(){
+  const L = D.league;
+  if(!L || !L.rows) return '';
+  const rows = L.rows.map(r=>`<tr class="${r.isModel?'lg-model':''}${r.isMe?' lg-me':''}">
+    <td class="c">${r.rank}</td>
+    <td class="lg-name">${r.isModel?'<i class="mdi mdi-robot-happy-outline"></i> ':''}${esc(r.username)}${r.isMe?' <span class="lg-tag">moi</span>':''}${r.isModel?' <span class="lg-tag lg-tag--m">modèle</span>':''}</td>
+    <td class="c"><b>${r.points}</b></td>
+    <td class="c">${r.good}</td>
+    <td class="c">${r.exact}</td></tr>`).join("");
+  return `<div class="card" style="margin-top:18px">
+    <h3><i class="mdi mdi-trophy-variant-outline"></i> Ligue ${esc(L.name)}</h3>
+    <p class="muted sd-explain">Classement de la ligue avec <strong>notre modèle inséré</strong> pour situer ses performances.</p>
+    <div class="tablewrap"><table>
+      <thead><tr><th class="c">#</th><th>Joueur</th><th class="c">Points</th><th class="c" title="Bonnes issues 1/N/2">Bons</th><th class="c" title="Scores exacts">Exacts</th></tr></thead>
+      <tbody>${rows}</tbody></table></div>
+    <div class="note" style="margin-top:10px">${esc(L.modelNote||"")}${L.snapshot?` · Classement au ${esc(L.snapshot)}.`:""}</div>
+  </div>`;
 }
 
 /* ---------- Calendrier ---------- */

@@ -71,6 +71,40 @@ def clean(v):
     return v
 
 
+# --- Pronos & points RÉELS du joueur (compte MPP) ---
+# data/user_forecasts.json : par match, userForecast {hs,as,pts} + clubIds.
+try:
+    _uf = json.load(open("data/user_forecasts.json"))
+    _c2n = json.load(open("data/club2name.json"))
+except FileNotFoundError:
+    _uf, _c2n = [], {}
+user_map = {}          # frozenset{normDom,normExt} -> {"o":{(d,e):(hs,as)}, "pts":int}
+pts_user_total = 0
+for m in _uf:
+    uf = m.get("uf")
+    if not uf:
+        continue
+    d, e = _c2n.get(m["h"]), _c2n.get(m["a"])
+    if not d or not e:
+        continue
+    nd, ne = _norm(d), _norm(e)
+    user_map[frozenset((nd, ne))] = {
+        "o": {(nd, ne): (uf["hs"], uf["as"]), (ne, nd): (uf["as"], uf["hs"])},
+        "pts": uf.get("pts", 0),
+    }
+    pts_user_total += uf.get("pts", 0)
+
+
+def user_fields(dom, ext):
+    """(u_ppd, u_ppe, u_pts) du joueur, orientés sur (dom,ext) ; None si non pronostiqué."""
+    nd, ne = _norm(dom), _norm(ext)
+    info = user_map.get(frozenset((nd, ne)))
+    if not info:
+        return None, None, None
+    hs, as_ = info["o"][(nd, ne)]
+    return int(hs), int(as_), int(info["pts"])
+
+
 # Pronostics (liste de dicts)
 predictions = []
 for _, r in pred.iterrows():
@@ -100,6 +134,7 @@ for _, r in pred.iterrows():
             ai = pk.index(max(pk))
             mpp_win = nd if ai == 0 else (ne if ai == 2 else "N")
             pts_mpp = real_cote if mpp_win == real_win else 0
+    u_ppd, u_ppe, u_pts = user_fields(r.equipe_dom, r.equipe_ext)
     predictions.append({
         "groupe": r.groupe, "journee": int(r.journee),
         "kickoff_cest": r.kickoff_cest, "kickoff_utc": r.kickoff_utc,
@@ -110,7 +145,51 @@ for _, r in pred.iterrows():
         "mpp_v": mpp_v, "mpp_n": mpp_n, "mpp_d": mpp_d,
         "pts_mod": pts_mod, "pts_mpp": pts_mpp,
         "xg_dom": float(r.xg_dom_modele), "xg_ext": float(r.xg_ext_modele),
+        "u_ppd": u_ppd, "u_ppe": u_ppe, "u_pts": u_pts,
     })
+
+# --- 16es de finale : intégrés au MÊME tableau (mêmes colonnes que la phase de groupes) ---
+from datetime import datetime, timedelta
+try:
+    r32p = pd.read_csv("data/predictions_r32.csv")
+    r32res = json.load(open("data/r32_results.json"))
+except FileNotFoundError:
+    r32p, r32res = None, {}
+if r32p is not None:
+    for _, r in r32p.iterrows():
+        dt = datetime.strptime(r.date[:16], "%Y-%m-%dT%H:%M")
+        k_utc = dt.strftime("%Y-%m-%dT%H:%M")
+        k_cest = (dt + timedelta(hours=2)).strftime("%Y-%m-%d %H:%M")
+        a, b = str(r.score_modele).split("-")
+        ppd, ppe = int(a), int(b)                       # pronostic figé du modèle
+        res = r32res.get(str(r.match_id))
+        joue = bool(res and res.get("period") == "fullTime")
+        bd = int(res["hs"]) if joue else None
+        be = int(res["as"]) if joue else None
+        mv, mn, md = float(r.mpp_dom), float(r.mpp_nul), float(r.mpp_ext)  # probas mpp (cotes)
+        pts_mod = pts_mpp = None
+        if joue:
+            cotes = [int(r.cote_dom), int(r.cote_nul), int(r.cote_ext)]
+            ridx = 0 if bd > be else (2 if bd < be else 1)
+            rc = cotes[ridx]
+            midx = 0 if ppd > ppe else (2 if ppd < ppe else 1)
+            pts_mod = rc if midx == ridx else 0
+            pk = [mv, mn, md]; aidx = pk.index(max(pk))
+            pts_mpp = rc if aidx == ridx else 0
+        _u = user_fields(r.dom, r.ext)
+        predictions.append({
+            "groupe": "16e", "journee": 4,
+            "kickoff_cest": k_cest, "kickoff_utc": k_utc,
+            "dom": r.dom, "ext": r.ext, "statut": "joue" if joue else "a_venir",
+            "bd": bd if bd is not None else 0, "be": be if be is not None else 0,
+            "ppd": ppd, "ppe": ppe,
+            "pv": float(r.p_dom), "pn": float(r.p_nul), "pd": float(r.p_ext),
+            "mpp_v": mv, "mpp_n": mn, "mpp_d": md,
+            "pts_mod": pts_mod, "pts_mpp": pts_mpp,
+            "xg_dom": float(r.xg_dom), "xg_ext": float(r.xg_ext),
+            "phase": "16e",
+            "u_ppd": _u[0], "u_ppe": _u[1], "u_pts": _u[2],
+        })
 
 # Score total de pronostics (calibrage) : somme des points pris sur les matchs joués,
 # comparée à parité (mêmes matchs où les deux ont une proba).
@@ -165,6 +244,8 @@ meta = {
     "pts_mod": total_pts_mod,
     "pts_mpp": total_pts_mpp,
     "n_scored": len(scored),
+    "pts_user": pts_user_total,
+    "n_user": sum(1 for m in _uf if m.get("uf")),
     "groupes": sorted(cls.keys()),
 }
 

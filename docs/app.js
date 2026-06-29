@@ -75,30 +75,36 @@ function accordBadge(p){
   if(r===2) return '<span class="acc acc-ok" title="Bonne issue (1/N/2)">✓</span>';
   return '<span class="acc acc-no" title="Issue manquée">✗</span>';
 }
-// Points pris = proba (%) accordée à l'issue réelle. Affiche modèle · mpp.
+// Points pris (cote mpp de l'issue, si bien pronostiquée). Affiche moi · modèle · mpp.
 function ptsCell(p){
-  if(p.pts_mod==null) return '<span class="muted">—</span>';
-  const mpp = p.pts_mpp==null ? '<span class="muted">—</span>' : `<b class="pp">${p.pts_mpp}</b>`;
-  return `<span class="pts" title="Points pris (cote mpp de l'issue, si bien pronostiquée) — notre modèle · mpp"><b class="pm">${p.pts_mod}</b><span class="muted">·</span>${mpp}</span>`;
+  if(p.pts_mod==null && p.u_pts==null) return '<span class="muted">—</span>';
+  const dash='<span class="muted">—</span>';
+  const moi = p.u_pts==null ? dash : `<b class="pu">${p.u_pts}</b>`;
+  const mod = p.pts_mod==null ? dash : `<b class="pm">${p.pts_mod}</b>`;
+  const mpp = p.pts_mpp==null ? dash : `<b class="pp">${p.pts_mpp}</b>`;
+  return `<span class="pts" title="Points pris — moi · notre modèle · mpp">${moi}<span class="muted">·</span>${mod}<span class="muted">·</span>${mpp}</span>`;
 }
 
-// Carte « score total » : notre modèle vs mpp (points pris cumulés sur les matchs joués).
+// Carte « score total » : MOI (score réel MPP) vs notre modèle vs mpp (benchmark marché).
 function scoreDuelCard(m){
   if(!m.n_scored) return '';
-  const draw=m.pts_mod===m.pts_mpp, modWin=m.pts_mod>m.pts_mpp;
-  const side=(name,val,ico,win)=>`<div class="sd-side${win?' sd-win':''}">
+  const hasUser = m.pts_user!=null;
+  const best = Math.max(m.pts_mod, m.pts_mpp, hasUser?m.pts_user:-1);
+  const side=(name,val,ico,sub)=>`<div class="sd-side${val===best?' sd-win':''}">
       <div class="sd-name">${ico}${name}</div>
       <div class="sd-pts">${val}<span class="sd-u">pts</span></div>
-      ${win?'<div class="sd-tag">en tête</div>':''}</div>`;
+      <div class="sd-sub">${sub}</div>
+      ${val===best?'<div class="sd-tag">en tête</div>':''}</div>`;
+  const moi = hasUser ? side('Moi',m.pts_user,'<i class="mdi mdi-account-circle-outline sd-ico"></i>',`${m.n_user} pronos`) : '';
   return `<div class="card scoreduel-card">
-    <h3><i class="mdi mdi-scale-balance"></i> Score total des pronostics — notre modèle vs mpp</h3>
-    <p class="muted sd-explain">Le modèle parie sur l'issue de son <strong>pronostic</strong> (1/N/2), mpp sur son issue
-      la plus probable ; on remporte la <strong>cote mpp</strong> de l'issue réelle si elle a été bien pronostiquée, 0 sinon.
-      Cumul sur les <strong>${m.n_scored}</strong> matchs joués.</p>
-    <div class="scoreduel">
-      ${side('Notre modèle',m.pts_mod,'<i class="mdi mdi-robot-happy-outline sd-ico"></i>',!draw&&modWin)}
-      <div class="sd-vs">vs</div>
-      ${side('mpp.football',m.pts_mpp,'<img class="mpp-logo sd-ico" src="mpp-logo.png" alt="mpp">',!draw&&!modWin)}
+    <h3><i class="mdi mdi-scale-balance"></i> Score total des pronostics — moi vs notre modèle vs mpp</h3>
+    <p class="muted sd-explain">On remporte la <strong>cote mpp</strong> de l'issue réelle si elle a été bien pronostiquée (1/N/2), 0 sinon.
+      <strong>Moi</strong> = mon score réel sur mon compte MPP ; <strong>modèle</strong> et <strong>mpp</strong> parient sur les
+      <strong>${m.n_scored}</strong> matchs joués (issue du pronostic / issue la plus probable).</p>
+    <div class="scoreduel scoreduel--3">
+      ${moi}
+      ${side('Notre modèle',m.pts_mod,'<i class="mdi mdi-robot-happy-outline sd-ico"></i>','modèle Poisson')}
+      ${side('mpp.football',m.pts_mpp,'<img class="mpp-logo sd-ico" src="mpp-logo.png" alt="mpp">','consensus marché')}
     </div>
   </div>`;
 }
@@ -165,7 +171,7 @@ const CAL_COLS=[
   {k:"prono",  l:"Prono",          cls:"c"},
   {k:"reel",   l:"Résultat",       cls:"c"},
   {k:"accord", l:"Accord",         cls:"c"},
-  {k:"points", l:"Pts mod·mpp",    cls:"c"},
+  {k:"points", l:"Pts moi·mod·mpp", cls:"c"},
   {k:"pv",     l:"P(V/N/D) modèle",cls:""},
   {k:"mpp",    l:"mpp 1/N/2",      cls:"c"},
 ];
@@ -181,34 +187,16 @@ const CAL_KEY={
   mpp:p=>p.mpp_v==null?-1:p.mpp_v,
 };
 function renderCalendrier(){
-  const opts=["<option value=''>Tous les groupes</option>"].concat(D.meta.groupes.map(g=>`<option value="${g}">Groupe ${g}</option>`)).join("");
+  const hasR32 = D.predictions.some(p=>p.groupe==="16e");
+  const opts=["<option value=''>Tous les matchs</option>"]
+    .concat(D.meta.groupes.map(g=>`<option value="${g}">Groupe ${g}</option>`))
+    .concat(hasR32?['<option value="16e">16es de finale</option>']:[]).join("");
   const sec=document.getElementById("calendrier");
   let sortKey="date", sortDir=1;
-  // Phase finale (16es) : tableau dédié, données = D.r32
-  const cestFull=iso=>{const d=new Date(iso);return d.toLocaleString("fr-FR",{timeZone:"Europe/Paris",weekday:"short",day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"});};
-  const r32rows=(D.r32||[]).map(m=>{
-    const [a,b]=m.score.split("-").map(Number);
-    const scls=a>b?"sc-win":(a<b?"sc-loss":"sc-draw");
-    const domFav=m.qDom>=m.qExt, fav=domFav?m.dom:m.ext, pf=domFav?m.qDom:m.qExt;
-    return `<tr>
-      <td class="nowrap">${cestFull(m.date)}</td>
-      <td><span class="vs">${team(m.dom)}</span></td>
-      <td class="c"><span class="scoreb ${scls}">${esc(m.score)}</span></td>
-      <td><span class="vs">${team(m.ext)}</span></td>
-      <td>${flag(fav)}<b>${esc(fav)}</b></td>
-      <td class="c">${pct(pf)}</td></tr>`;
-  }).join("");
-  const r32block=(D.r32&&D.r32.length)?`
-    <h2 style="margin-top:30px"><i class="mdi mdi-tournament"></i> Phase finale — 16es de finale</h2>
-    <p class="lead">16 affiches (28 juin → 4 juillet, heure CEST). Prono = qualifié selon le modèle post-poule.
-    Détail &amp; justifications dans l'onglet <a href="#seiziemes" data-sec="seiziemes">Phase finale</a>.</p>
-    <div class="tablewrap"><table>
-      <thead><tr><th>Date (CEST)</th><th>Domicile</th><th class="c">Score mod.</th><th>Extérieur</th><th>Qualifié prévu</th><th class="c">Proba</th></tr></thead>
-      <tbody>${r32rows}</tbody></table></div>`:"";
   sec.innerHTML=`
     <h1>Calendrier &amp; pronostics</h1>
-    <p class="lead">Les 72 matchs. <strong>Cliquez un en-tête</strong> pour trier (date, groupe, score, proba…) ;
-    filtrez par équipe, groupe ou statut. Heure <strong>CEST</strong> indicative.
+    <p class="lead">Les 72 matchs de poule${hasR32?` + les <strong>16es de finale</strong>`:""}. <strong>Cliquez un en-tête</strong> pour trier
+    (date, groupe, score, proba…) ; filtrez par équipe, groupe/phase ou statut. Heure <strong>CEST</strong> indicative.
     Pour un match joué, <strong>Prono</strong> = pronostic figé avant le match, <strong>Résultat</strong> = score réel,
     <strong>Accord</strong> compare les deux, et <strong>Points</strong> (modèle · mpp) = cote mpp remportée si l'issue est bien pronostiquée.</p>
     <div class="legend">Score : <span class="scoreb sc-win">2-0</span> victoire domicile ·
@@ -227,8 +215,7 @@ function renderCalendrier(){
     <div class="tablewrap caltablewrap"><table class="caltable">
       <thead><tr>${CAL_COLS.map(c=>`<th class="sortable ${c.cls}" data-k="${c.k}">${c.l}<span class="arr"></span></th>`).join("")}</tr></thead>
       <tbody id="calBody"></tbody>
-    </table></div>
-    ${r32block}`;
+    </table></div>`;
   const tbody=sec.querySelector("#calBody");
   function refresh(){
     const q=sec.querySelector("#calSearch").value.toLowerCase().trim();

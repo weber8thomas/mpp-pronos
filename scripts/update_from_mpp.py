@@ -1,12 +1,19 @@
 #!/usr/bin/env python3
-"""update_from_mpp.py — transforme l'export du navigateur (browser_export.js) en
-fichiers de données locaux, puis reconstruit le site.
+"""update_from_mpp.py — transforme l'export mpp.football (data/mpp_export.json,
+produit par scripts/auto_login.py en headless OU par scripts/browser_export.js)
+en fichiers de données locaux, puis reconstruit le site.
 
-Usage :
-  python scripts/update_from_mpp.py [chemin_export.json]
+Structure attendue de l'export :
+  {
+    "championship_id": 8,
+    "history_matches": [ {matchId, date, period, quotations, home:{clubId,score,
+        shootOutScore?}, away:{...}, userForecast:{homeScore,awayScore,
+        points:{base,exact,extra,total,rarityLevel}} | null }, ... ],
+    "standings": {"standings": [{user:{id,username,...}, ranking:{points,
+        calculatedForecasts, goodForecasts, exactForecasts, rank}}, ...]},
+  }
 
-  Si aucun chemin n'est fourni, lit data/mpp_export.json.
-  Après transformation, lance automatiquement build_site.py.
+Usage : python scripts/update_from_mpp.py [chemin_export.json]
 """
 import json
 import os
@@ -18,16 +25,13 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, "data")
 DOCS = os.path.join(ROOT, "docs")
 
-CHALLENGE_ID  = "mpp_challenge_UE11P8GT"
-LEAGUE_NAME   = "Viva Italia 🇮🇹🍊"
-MY_USER_ID    = "user_3761834"
+CHALLENGE_ID = "mpp_challenge_UE11P8GT"
+LEAGUE_NAME  = "Viva Italia 🇮🇹🍊"
+MY_USER_ID   = "user_3761834"
 
-RARITY_BONUS = {1: 20, 2: 30, 3: 50}
-BONUS_RARITY = {20: 1, 30: 2, 50: 3}
+MATCH_PREFIX = "mpp_championship_match_"
+CLUB_PREFIX  = "mpp_championship_club_"
 
-# ---------------------------------------------------------------------------
-# Helpers
-# ---------------------------------------------------------------------------
 
 def load(name):
     with open(os.path.join(DATA, name), encoding="utf-8") as f:
@@ -35,277 +39,164 @@ def load(name):
 
 
 def save(name, obj, *, indent=None):
-    path = os.path.join(DATA, name)
-    with open(path, "w", encoding="utf-8") as f:
+    with open(os.path.join(DATA, name), "w", encoding="utf-8") as f:
         json.dump(obj, f, ensure_ascii=False, indent=indent)
     print(f"  → {name} écrit")
 
 
+def strip(prefix, s):
+    s = str(s)
+    return s[len(prefix):] if s.startswith(prefix) else s
+
+
 def avatar_path(user_id):
-    """Retourne le chemin local de l'avatar si le fichier existe."""
-    local = os.path.join(DOCS, "avatars", f"{user_id}.jpg")
-    if os.path.isfile(local):
+    if os.path.isfile(os.path.join(DOCS, "avatars", f"{user_id}.jpg")):
         return f"avatars/{user_id}.jpg"
     return "avatars/default.png"
 
 
 # ---------------------------------------------------------------------------
-# Parsing de l'historique des pronostics
+# user_forecasts.json
 # ---------------------------------------------------------------------------
 
-def normalize_forecast_entry(raw):
-    """Normalise un objet brut de l'API en entrée user_forecasts.json."""
-    # L'API peut utiliser camelCase ou des noms courts (h, a, hs, as, q, uf, mpts)
-    def pick(*keys, d=raw, default=None):
-        for k in keys:
-            if k in d:
-                return d[k]
-        return default
-
-    mid   = str(pick("id", "matchId", "match_id"))
-    date_ = pick("date", "matchDate", "kickoff", default="")
-    period = pick("period", default="fullTime")
-
-    # Identifiants de club (home/away)
-    h = str(pick("h", "homeClubId", "home_club_id", default=""))
-    a = str(pick("a", "awayClubId", "away_club_id", default=""))
-
-    # Scores réels
-    hs = pick("hs", "homeScore", "home_score", default=0)
-    as_ = pick("as", "awayScore", "away_score", default=0)
-
-    # Si l'API renvoie des objets imbriqués (h.id / a.id / h.score / a.score)
-    if not h and isinstance(raw.get("h"), dict):
-        h  = str(raw["h"].get("id", raw["h"].get("c", raw["h"].get("clubId", ""))))
-        hs = raw["h"].get("score", raw["h"].get("sc", hs))
-    if not a and isinstance(raw.get("a"), dict):
-        a  = str(raw["a"].get("id", raw["a"].get("c", raw["a"].get("clubId", ""))))
-        as_ = raw["a"].get("score", raw["a"].get("sc", as_))
-
-    # Cotes (1/N/2)
-    q = pick("q", "quotes", "odds", default={})
-
-    # Pronostic du joueur
-    uf = pick("uf", "userForecast", "user_forecast", default=None)
-    if uf and isinstance(uf, dict):
-        # Normalise les clés internes
-        uf = {
-            "hs":    uf.get("hs", uf.get("homeScore", uf.get("home", 0))),
-            "as":    uf.get("as", uf.get("awayScore", uf.get("away", 0))),
-            "pts":   uf.get("pts", uf.get("points", 0)),
-            "exact": uf.get("exact", uf.get("exactPoints", uf.get("pts_exact", 0))),
-            "base":  uf.get("base", uf.get("basePoints", uf.get("pts_base", 0))),
-        }
-
-    mpts = pick("mpts", "modelPoints", "model_pts", default=0) or 0
-
-    return {
-        "id":     mid,
-        "date":   date_,
-        "period": period,
-        "h":      h,
-        "hs":     int(hs) if hs is not None else 0,
-        "a":      a,
-        "as":     int(as_) if as_ is not None else 0,
-        "q":      q,
-        "uf":     uf,
-        "mpts":   int(mpts),
-    }
-
-
-# ---------------------------------------------------------------------------
-# Mise à jour de user_forecasts.json
-# ---------------------------------------------------------------------------
-
-def update_user_forecasts(history_raw):
+def build_user_forecasts(matches):
     print("\n[user_forecasts.json]")
-    if not isinstance(history_raw, list):
-        print("  ⚠️  L'historique n'est pas une liste — format API inattendu.")
-        print("  Type reçu :", type(history_raw))
-        print("  Aperçu :", str(history_raw)[:500])
-        return None
-
-    entries = [normalize_forecast_entry(m) for m in history_raw]
-    entries.sort(key=lambda e: e["date"])
-
-    print(f"  {len(entries)} matchs dans l'historique API.")
-
-    # Charge l'existant pour comparer
-    existing = load("user_forecasts.json")
-    existing_ids = {e["id"] for e in existing}
-    new_ids = {e["id"] for e in entries}
-    added   = new_ids - existing_ids
-    missing = existing_ids - new_ids
-    if added:
-        print(f"  Nouveaux matchs : {sorted(added)}")
-    if missing:
-        print(f"  Matchs absents de l'API (conservés) : {sorted(missing)}")
-
-    # Fusionne : API est source de vérité pour les matchs qu'elle retourne
-    merged_map = {e["id"]: e for e in existing}
-    for e in entries:
-        merged_map[e["id"]] = e
-    merged = sorted(merged_map.values(), key=lambda e: e["date"])
-
-    save("user_forecasts.json", merged)
-    return entries
-
-
-# ---------------------------------------------------------------------------
-# Mise à jour de league_viva_italia.json
-# ---------------------------------------------------------------------------
-
-def update_league(standings_raw):
-    print("\n[league_viva_italia.json]")
-    if not standings_raw:
-        print("  ⚠️  Aucune donnée de classement reçue.")
-        return
-
-    # L'API peut retourner {"standings": [...]} ou directement [...]
-    rows_raw = []
-    if isinstance(standings_raw, list):
-        rows_raw = standings_raw
-    elif isinstance(standings_raw, dict):
-        rows_raw = (
-            standings_raw.get("standings") or
-            standings_raw.get("users") or
-            standings_raw.get("data") or
-            []
-        )
-
-    if not rows_raw:
-        print("  ⚠️  Format inattendu :")
-        print("  ", str(standings_raw)[:500])
-        return
-
-    standings = []
-    for i, s in enumerate(rows_raw, 1):
-        uid = str(s.get("id", s.get("userId", s.get("user_id", ""))))
-        standings.append({
-            "rank":     i,
-            "username": s.get("username", s.get("name", uid)),
-            "id":       uid,
-            "points":   int(s.get("points", s.get("pts", 0))),
-            "calc":     int(s.get("calc", s.get("nbCalc", s.get("nb_calc", 0)))),
-            "exact":    int(s.get("exact", s.get("nbExact", s.get("nb_exact", 0)))),
-            "good":     int(s.get("good", s.get("nbGood", s.get("nb_good", 0)))),
-            "avatar":   avatar_path(uid),
+    out = []
+    for m in matches:
+        uf_raw = m.get("userForecast")
+        pts = (uf_raw or {}).get("points", {}) if uf_raw else {}
+        uf = None
+        if uf_raw:
+            uf = {
+                "hs":    uf_raw["homeScore"],
+                "as":    uf_raw["awayScore"],
+                "pts":   int(pts.get("total", 0)),
+                "exact": int(pts.get("exact", 0)),
+                "base":  int(pts.get("base", 0)),
+            }
+        out.append({
+            "id":     strip(MATCH_PREFIX, m["matchId"]),
+            "date":   m["date"],
+            "period": m.get("period", "fullTime"),
+            "h":      strip(CLUB_PREFIX, m["home"]["clubId"]),
+            "hs":     m["home"].get("score", 0),
+            "a":      strip(CLUB_PREFIX, m["away"]["clubId"]),
+            "as":     m["away"].get("score", 0),
+            "q":      m.get("quotations", {}),
+            "uf":     uf,
+            "mpts":   int(((m.get("points") or {}).get("total", 0))),
         })
-
-    league = {
-        "name":        LEAGUE_NAME,
-        "challengeId": CHALLENGE_ID,
-        "snapshot":    date.today().isoformat(),
-        "me":          MY_USER_ID,
-        "standings":   standings,
-    }
-
-    print(f"  {len(standings)} joueurs dans la ligue.")
-    for s in standings:
-        me_flag = " ← toi" if s["id"] == MY_USER_ID else ""
-        print(f"    #{s['rank']} {s['username']:20s}  {s['points']:5d} pts  "
-              f"({s['exact']} exact, {s['good']} bons){me_flag}")
-
-    save("league_viva_italia.json", league, indent=2)
+    out.sort(key=lambda e: e["date"])
+    n_uf = sum(1 for e in out if e["uf"])
+    print(f"  {len(out)} matchs ({n_uf} pronostiqués).")
+    save("user_forecasts.json", out)
+    return out
 
 
 # ---------------------------------------------------------------------------
-# Mise à jour de exact_bonus.json
+# league_viva_italia.json
 # ---------------------------------------------------------------------------
 
-def update_exact_bonus(entries):
-    """Dérive les bonus de score exact depuis l'historique du joueur."""
-    print("\n[exact_bonus.json]")
-    if not entries:
-        print("  Aucune entrée — exact_bonus.json inchangé.")
+def build_league(standings_raw):
+    print("\n[league_viva_italia.json]")
+    rows = standings_raw.get("standings") if isinstance(standings_raw, dict) else standings_raw
+    if not rows:
+        print("  ⚠️  Pas de classement dans l'export — fichier inchangé.")
         return
+    standings = []
+    for s in rows:
+        u, r = s["user"], s["ranking"]
+        standings.append({
+            "rank":     int(r["rank"]),
+            "username": u["username"],
+            "id":       u["id"],
+            "points":   int(r["points"]),
+            "calc":     int(r["calculatedForecasts"]),
+            "exact":    int(r["exactForecasts"]),
+            "good":     int(r["goodForecasts"]),
+            "avatar":   avatar_path(u["id"]),
+        })
+    standings.sort(key=lambda x: x["rank"])
+    for s in standings:
+        flag = " ← toi" if s["id"] == MY_USER_ID else ""
+        print(f"    #{s['rank']} {s['username']:18s} {s['points']:5d} pts "
+              f"({s['exact']} exact, {s['good']} bons){flag}")
+    # Écriture compacte : une ligne par joueur (format historique du fichier).
+    rows = ",\n".join("    " + json.dumps(s, ensure_ascii=False) for s in standings)
+    body = (
+        "{\n"
+        f'  "name": {json.dumps(LEAGUE_NAME, ensure_ascii=False)},\n'
+        f'  "challengeId": "{CHALLENGE_ID}",\n'
+        f'  "snapshot": "{date.today().isoformat()}",\n'
+        f'  "me": "{MY_USER_ID}",\n'
+        '  "standings": [\n'
+        f"{rows}\n"
+        "  ]\n"
+        "}\n"
+    )
+    with open(os.path.join(DATA, "league_viva_italia.json"), "w", encoding="utf-8") as f:
+        f.write(body)
+    print("  → league_viva_italia.json écrit")
 
+
+# ---------------------------------------------------------------------------
+# exact_bonus.json  (FUSION : on n'écrase jamais les bonus déjà connus,
+# dérivés des pronos des autres joueurs de la ligue)
+# ---------------------------------------------------------------------------
+
+def merge_exact_bonus(matches):
+    print("\n[exact_bonus.json]")
     eb = load("exact_bonus.json")
-    matches = eb.get("matches", {})
-    added = 0
-
-    for e in entries:
-        uf = e.get("uf")
+    matches_map = eb.setdefault("matches", {})
+    added = updated = 0
+    for m in matches:
+        uf = m.get("userForecast")
         if not uf:
             continue
-        exact = int(uf.get("exact", 0))
-        base  = int(uf.get("base",  0))
-        if exact <= 0 or base <= 0 or exact <= base:
-            continue   # pas de score exact bonus
-        bonus = exact - base
-        if bonus not in BONUS_RARITY:
-            print(f"  ⚠️  Bonus inattendu {bonus} pour match {e['id']} — ignoré.")
-            continue
-        mid = e["id"]
-        if mid not in matches:
-            matches[mid] = {
-                "h":      e["h"],
-                "a":      e["a"],
-                "hs":     e["hs"],
-                "as":     e["as"],
-                "bonus":  bonus,
-                "rarity": BONUS_RARITY[bonus],
-            }
-            added += 1
-            print(f"  + match {mid} : {e['hs']}-{e['as']}  bonus={bonus}  rarity={BONUS_RARITY[bonus]}")
-        else:
-            # Met à jour si le bonus a changé
-            if matches[mid]["bonus"] != bonus:
-                print(f"  ~ match {mid} : bonus {matches[mid]['bonus']} → {bonus}")
-                matches[mid]["bonus"]  = bonus
-                matches[mid]["rarity"] = BONUS_RARITY[bonus]
-
-    if added == 0:
-        print("  Aucun nouveau score exact bonus détecté.")
-
-    eb["matches"] = matches
+        pts = uf.get("points", {})
+        extra  = int(pts.get("extra", 0))
+        rarity = pts.get("rarityLevel")
+        if extra <= 0 or not rarity:
+            continue  # le joueur n'a pas eu le score exact ici
+        mid = strip(MATCH_PREFIX, m["matchId"])
+        entry = {
+            "h":  strip(CLUB_PREFIX, m["home"]["clubId"]),
+            "a":  strip(CLUB_PREFIX, m["away"]["clubId"]),
+            "hs": m["home"].get("score", 0),
+            "as": m["away"].get("score", 0),
+            "bonus": extra, "rarity": int(rarity),
+        }
+        if mid not in matches_map:
+            matches_map[mid] = entry; added += 1
+        elif matches_map[mid].get("bonus") != extra:
+            matches_map[mid] = entry; updated += 1
+    print(f"  {len(matches_map)} matchs au total (+{added} nouveaux, {updated} mis à jour).")
     save("exact_bonus.json", eb)
 
 
 # ---------------------------------------------------------------------------
-# Main
-# ---------------------------------------------------------------------------
 
 def main():
-    export_path = sys.argv[1] if len(sys.argv) > 1 else os.path.join(DATA, "mpp_export.json")
-
-    if not os.path.isfile(export_path):
-        print(f"❌ Fichier introuvable : {export_path}")
-        print("   Lance d'abord browser_export.js dans la console de mpp.football,")
-        print("   puis sauvegarde le JSON dans data/mpp_export.json.")
+    path = sys.argv[1] if len(sys.argv) > 1 else os.path.join(DATA, "mpp_export.json")
+    if not os.path.isfile(path):
+        print(f"❌ Export introuvable : {path}")
         sys.exit(1)
+    print(f"📂 Lecture de {path}")
+    export = json.load(open(path, encoding="utf-8"))
+    matches = export.get("history_matches") or []
+    print(f"  championnat {export.get('championship_id')} — {len(matches)} matchs")
 
-    print(f"📂 Lecture de {export_path}...")
-    with open(export_path, encoding="utf-8") as f:
-        export = json.load(f)
+    build_user_forecasts(matches)
+    build_league(export.get("standings"))
+    merge_exact_bonus(matches)
 
-    history_raw  = export.get("history")
-    standings_raw = export.get("standings")
-    cid = export.get("championship_id", "?")
-    print(f"  Championnat : {cid}")
-    print(f"  Exporté le  : {export.get('exported_at', '?')}")
-
-    entries = update_user_forecasts(history_raw)
-    update_league(standings_raw)
-    if entries:
-        update_exact_bonus(entries)
-
-    # Reconstruction du site
     print("\n[build_site.py]")
-    result = subprocess.run(
-        ["python", "build_site.py"],
-        cwd=ROOT,
-        capture_output=True,
-        text=True,
-    )
-    print(result.stdout.strip())
-    if result.returncode != 0:
-        print("⚠️  ERREUR build_site.py :")
-        print(result.stderr)
+    r = subprocess.run(["python", "build_site.py"], cwd=ROOT, capture_output=True, text=True)
+    print(r.stdout.strip())
+    if r.returncode != 0:
+        print("⚠️  ERREUR build_site.py :\n", r.stderr)
         sys.exit(1)
-
     print("\n✅ Mise à jour terminée.")
-    print("   Lance ensuite : git add -A && git commit -m 'data: MAJ pronostics mpp.football' && git push")
 
 
 if __name__ == "__main__":

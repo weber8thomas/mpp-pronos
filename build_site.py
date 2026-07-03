@@ -256,6 +256,13 @@ for _, r in val.iterrows():
                "ok": issue(r.buts_dom, r.buts_ext) == issue(r.buts_dom_modele, r.buts_ext_modele)})
 j1_acc = round(sum(x["ok"] for x in j1) / len(j1), 3) if j1 else None
 
+# Précision globale du modèle (pronostic figé vs résultat réel) sur TOUS les matchs déjà
+# joués à ce jour — groupes + phase à élimination directe — recalculée à chaque run pour
+# suivre le tournoi au lieu de rester bloquée aux 72 matchs de poule.
+scored_acc = [p for p in predictions if p["statut"] == "joue" and p["ppd"] is not None and p["ppe"] is not None]
+accuracy_ok = sum(1 for p in scored_acc if issue(p["bd"], p["be"]) == issue(p["ppd"], p["ppe"]))
+accuracy = round(accuracy_ok / len(scored_acc), 3) if scored_acc else None
+
 meta = {
     "titre": "Pronostics CDM 2026 — Phase de groupes",
     "n_matchs": len(predictions),
@@ -267,6 +274,8 @@ meta = {
     "n_qualifies": 32,
     "vainqueurs": [f"{g} : {e}" for g, e in premiers],
     "j1_accuracy": j1_acc,
+    "accuracy": accuracy,
+    "n_accuracy": len(scored_acc),
     "pts_mod": total_pts_mod,
     "pts_mpp": total_pts_mpp,
     "n_scored": len(scored),

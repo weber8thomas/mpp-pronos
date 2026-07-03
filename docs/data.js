@@ -24,6 +24,8 @@ window.DATA = {
    "L : Angleterre"
   ],
   "j1_accuracy": 0.639,
+  "accuracy": 0.635,
+  "n_accuracy": 85,
   "pts_mod": 3530,
   "pts_mpp": 3537,
   "n_scored": 85,

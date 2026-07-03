@@ -139,7 +139,7 @@ function renderAccueil(){
      <div class="kpi"><i class="mdi mdi-soccer-field"></i><div class="v">${m.n_predites}</div><div class="l">matchs pronostiqués (${m.n_poule} poule + ${m.n_seize} 16es)</div></div>
      <div class="kpi"><i class="mdi mdi-check-decagram-outline"></i><div class="v">${m.n_joues_total}</div><div class="l">déjà joués (réels)</div></div>
      <div class="kpi"><i class="mdi mdi-trophy-outline"></i><div class="v">32</div><div class="l">qualifiés (12+12+8)</div></div>
-     <div class="kpi"><i class="mdi mdi-target"></i><div class="v">${m.j1_accuracy!=null?Math.round(m.j1_accuracy*100)+"%":"–"}</div><div class="l">précision sur les ${m.n_poule} matchs de poule</div></div>
+     <div class="kpi"><i class="mdi mdi-target"></i><div class="v">${m.accuracy!=null?Math.round(m.accuracy*100)+"%":"–"}</div><div class="l">précision sur les ${m.n_accuracy} matchs joués</div></div>
    </div>
    ${scoreDuelCard(m)}
    ${leagueCard()}

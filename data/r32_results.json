@@ -8,5 +8,8 @@
   "2608319": {"period": "fullTime", "hs": 2, "as": 0},
   "2608320": {"period": "fullTime", "hs": 2, "as": 1},
   "2608322": {"period": "fullTime", "hs": 3, "as": 2},
-  "2608321": {"period": "fullTime", "hs": 2, "as": 0}
+  "2608321": {"period": "fullTime", "hs": 2, "as": 0},
+  "2608324": {"period": "fullTime", "hs": 3, "as": 0},
+  "2608323": {"period": "fullTime", "hs": 2, "as": 1},
+  "2608325": {"period": "fullTime", "hs": 2, "as": 0}
 }

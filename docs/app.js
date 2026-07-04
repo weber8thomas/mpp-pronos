@@ -6,11 +6,11 @@ const DETAILS = D.teamDetails || {};               // résultats récents + bles
 const NEXT_I = (()=>{const now=Date.now();let best=-1,bt=Infinity;
   D.predictions.forEach(p=>{const t=Date.parse(p.kickoff_utc+":00Z"); if(t>now&&t<bt){bt=t;best=p._i;}});
   return best;})();
-const ST_COLOR = {"1er":"#12b886","2e":"#63c9a3","3e":"#e0a338","out":"#e5484d"};
+const ST_COLOR = {"1er":"#22c55e","2e":"#4ade80","3e":"#e0a338","out":"#f04452"};
 const ST_LABEL = {"1er":"1er","2e":"2e","3e":"3e","out":"Élim."};
 const THEME = {
-  light:{paper:"#ffffff",grid:"#e5e9ef",font:"#0f1720",accent:"#0f9d76"},
-  dark:{paper:"#11171f",grid:"#1b2430",font:"#eaf0f6",accent:"#1ce0a5"}
+  light:{paper:"#ffffff",grid:"#e5e9ef",font:"#0f1720",accent:"#a5811a"},
+  dark:{paper:"#18181a",grid:"#2a2a2d",font:"#f2f2f0",accent:"#e6b93f"}
 };
 const curTheme = () => document.body.dataset.theme || "dark";
 const pct = x => (x==null?"–":Math.round(x*100)+"%");
@@ -129,8 +129,7 @@ function renderAccueil(){
          <div class="eyebrow">Coupe du Monde 2026</div>
          <h1>Pronostics</h1>
        </div>
-       <a class="hero-mpp" href="https://mpp.football" target="_blank" rel="noopener" title="Une extension de mpp.football">
-         <img src="mpp-logo.png" alt="mpp.football"><span>by&nbsp;MPP</span></a>
+       <span class="hero-badge">Modèle Poisson<br>+ agents</span>
      </div>
    </div>
    <div class="kpis">

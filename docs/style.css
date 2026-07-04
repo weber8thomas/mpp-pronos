@@ -1,12 +1,13 @@
 /* CDM 2026 — dashboard. Sobre, inspiré EA SPORTS FC. Layout sidebar + thème clair/sombre. */
 :root{
-  --green:#12b886; --green2:#63c9a3; --amber:#e0a338; --red:#e5484d; --blue:#3b82f6;
+  --green:#22c55e; --green2:#4ade80; --amber:#e0a338; --red:#f04452; --blue:#3b82f6;
   --radius:14px;
   /* Charte MPP (mpp.football) : or + charbon + vert points */
   --mpp-gold:#c3a440; --mpp-gold-hi:#e6b93f; --mpp-gold-deep:#8a6f17; --mpp-lime:#50df04;
+  --on-gold:#191500;
   --font:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --display:"Sora","Inter",system-ui,sans-serif;
-  --mpp-display:"Anton","Sora",system-ui,sans-serif;
+  --display:"Space Grotesk","Inter",system-ui,sans-serif;
+  --mpp-display:"Anton","Space Grotesk",system-ui,sans-serif;
 }
 /* Thème clair */
 body[data-theme="light"]{
@@ -88,11 +89,10 @@ h3{font-family:var(--display);font-size:.95rem;font-weight:700;margin:0 0 .5em}
 .hero .eyebrow{color:var(--mpp-gold-hi);letter-spacing:.22em;margin-bottom:2px;font-size:.62rem}
 .hero h1{font-family:var(--mpp-display);font-weight:400;font-size:2.1rem;line-height:.95;
   text-transform:uppercase;letter-spacing:.01em;color:#fff;margin:0}
-.hero-mpp{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:3px;
-  padding:7px 10px;border-radius:10px;background:rgba(0,0,0,.35);
-  border:1px solid color-mix(in srgb,var(--mpp-gold) 40%,transparent)}
-.hero-mpp img{height:16px;width:auto;filter:brightness(0) invert(1)}
-.hero-mpp span{font-size:.54rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mpp-gold-hi)}
+.hero-badge{flex:0 0 auto;text-align:right;padding:6px 12px;border-radius:999px;
+  font-family:var(--display);font-size:.6rem;font-weight:700;line-height:1.25;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--mpp-gold-hi);background:rgba(0,0,0,.35);
+  border:1px solid color-mix(in srgb,var(--mpp-gold) 38%,transparent)}
 
 /* ---------- KPIs (tiles MPP : chiffres condensés dorés) ---------- */
 .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:12px 0}
@@ -281,14 +281,14 @@ th.sortable.active{color:var(--accent)}
 .scoreduel{display:flex;align-items:stretch;gap:12px;margin-top:14px}
 .sd-side{flex:1 1 0;display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center;
   padding:14px 12px;border:1px solid var(--line);border-radius:12px;background:var(--card2)}
-.sd-side.sd-win{border-color:color-mix(in srgb,var(--green) 45%,transparent);
-  background:color-mix(in srgb,var(--green) 9%,transparent)}
+.sd-side.sd-win{border-color:color-mix(in srgb,var(--mpp-gold) 55%,transparent);
+  background:color-mix(in srgb,var(--mpp-gold) 12%,transparent)}
 .sd-name{display:flex;align-items:center;gap:6px;font-weight:700;font-size:.92rem}
 .sd-ico{font-size:18px;width:18px;height:18px;object-fit:contain;opacity:.9}
-.sd-pts{font-family:var(--display);font-weight:800;font-size:2rem;line-height:1;font-variant-numeric:tabular-nums}
+.sd-pts{font-family:var(--mpp-display);font-weight:400;font-size:2.3rem;line-height:1;letter-spacing:.01em;color:var(--mpp-gold-hi);font-variant-numeric:tabular-nums}
 .sd-u{font-size:.8rem;font-weight:600;color:var(--muted);margin-left:4px}
-.sd-tag{font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--green);
-  background:color-mix(in srgb,var(--green) 14%,transparent);padding:2px 8px;border-radius:6px}
+.sd-tag{font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--on-gold);
+  background:var(--mpp-gold-hi);padding:2px 8px;border-radius:999px}
 .sd-vs{align-self:center;color:var(--faint);font-weight:700;font-size:.8rem}
 .scoreduel--3{gap:10px}
 .sd-sub{font-size:.7rem;color:var(--muted)}
@@ -379,9 +379,9 @@ html{overflow-y:scroll}
 .cover b{color:var(--txt);font-weight:700}
 
 /* ---------- Calendrier : prochain match ---------- */
-.btn-next{display:inline-flex;align-items:center;gap:6px;cursor:pointer;background:var(--accent);color:#04231a;
+.btn-next{display:inline-flex;align-items:center;gap:6px;cursor:pointer;background:var(--accent);color:var(--on-gold);
   border:none;border-radius:9px;padding:9px 14px;font-family:var(--font);font-weight:700;font-size:.85rem}
-body[data-theme="dark"] .btn-next{color:#04231a}
+body[data-theme="dark"] .btn-next{color:var(--on-gold)}
 .btn-next:hover{filter:brightness(1.07)}
 /* cellule match : aligne verticalement le badge "à suivre" avec les équipes */
 .matchcell{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
@@ -391,8 +391,8 @@ tr.isnext>td{background:color-mix(in srgb,var(--accent) 8%,transparent)!importan
 tr.isnext.flash>td{animation:pulse 1.1s ease}
 .nextbadge{display:inline-flex;align-items:center;vertical-align:middle;margin-left:8px;
   font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;line-height:1;
-  color:#fff;background:var(--accent);border-radius:999px;padding:3px 8px}
-body[data-theme="dark"] .nextbadge{color:#04231a}
+  color:var(--on-gold);background:var(--accent);border-radius:999px;padding:3px 8px}
+body[data-theme="dark"] .nextbadge{color:var(--on-gold)}
 
 /* ---------- Logo mpp.football (attribution) ---------- */
 .mpp-link{display:inline-block;vertical-align:middle}

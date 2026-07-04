@@ -140,8 +140,8 @@ function renderAccueil(){
      <div class="kpi"><div class="v">${m.n_encore_en_lice}</div><div class="l">équipes en lice</div></div>
      <div class="kpi"><div class="v">${acc}</div><div class="l">précision</div></div>
    </div>
-   ${scoreDuelCard(m)}
    ${leagueCard()}
+   ${scoreDuelCard(m)}
    <h2>Explorer</h2>
    <div class="navtiles">${tiles}</div>
    <div class="card" style="margin-top:18px"><h3><i class="mdi mdi-trophy"></i> Vainqueurs de groupe pronostiqués</h3><div class="winners">${vain}</div></div>`;
@@ -154,7 +154,7 @@ function leagueCard(){
   const av = r => r.avatar ? `<img class="lg-av" src="${esc(r.avatar)}" alt="" width="26" height="26">` : '<span class="lg-av lg-av--none"></span>';
   const rows = L.rows.map(r=>`<tr class="${r.isModel?'lg-model':''}${r.isMe?' lg-me':''}">
     <td class="c">${r.rank}</td>
-    <td><div class="lg-name">${av(r)}<span class="lg-uname">${esc(r.username)}</span>${r.isMe?'<span class="lg-tag">moi</span>':''}${r.isModel?'<span class="lg-tag lg-tag--m">modèle</span>':''}</div></td>
+    <td><div class="lg-name">${av(r)}<span class="lg-uname">${esc(r.username)}</span>${r.isModel?'<span class="lg-tag lg-tag--m">modèle</span>':''}</div></td>
     <td class="c"><b>${r.points}</b></td>
     <td class="c">${r.good}</td>
     <td class="c">${r.exact}</td></tr>`).join("");

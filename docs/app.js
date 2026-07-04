@@ -140,8 +140,9 @@ function renderAccueil(){
    </div>
    <div class="kpis">
      <div class="kpi"><i class="mdi mdi-soccer-field"></i><div class="v">${m.n_predites}</div><div class="l">matchs pronostiqués (${m.n_poule} poule${koCount?` + ${koCount} phase finale`:""})</div></div>
-     <div class="kpi"><i class="mdi mdi-check-decagram-outline"></i><div class="v">${m.n_joues_total}</div><div class="l">déjà joués (réels)</div></div>
-     <div class="kpi"><i class="mdi mdi-trophy-outline"></i><div class="v">32</div><div class="l">qualifiés (12+12+8)</div></div>
+     <div class="kpi kpi-progress"><i class="mdi mdi-check-decagram-outline"></i><div class="v">${m.n_joues_total}<span class="kpi-total">/${m.n_total_matchs_cdm}</span></div><div class="l">matchs joués (CDM)</div>
+       <div class="kpi-bar"><i style="width:${Math.round(m.n_joues_total/m.n_total_matchs_cdm*100)}%"></i></div></div>
+     <div class="kpi"><i class="mdi mdi-trophy-outline"></i><div class="v">${m.n_encore_en_lice}</div><div class="l">équipes encore en lice</div></div>
      <div class="kpi"><i class="mdi mdi-target"></i><div class="v">${m.accuracy!=null?Math.round(m.accuracy*100)+"%":"–"}</div><div class="l">précision sur les ${m.n_accuracy} matchs joués</div></div>
    </div>
    ${scoreDuelCard(m)}

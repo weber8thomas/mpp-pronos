@@ -86,6 +86,9 @@ h3{font-family:var(--display);font-size:.95rem;font-weight:700;margin:0 0 .5em}
 .kpi::after{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent)}
 .kpi .v{font-family:var(--display);font-size:2rem;font-weight:800;line-height:1;letter-spacing:-.02em}
 .kpi .l{color:var(--muted);font-size:.72rem;margin-top:8px;text-transform:uppercase;letter-spacing:.08em}
+.kpi-total{font-size:1.05rem;font-weight:600;color:var(--muted)}
+.kpi-bar{height:6px;border-radius:4px;background:var(--card2);overflow:hidden;margin-top:10px}
+.kpi-bar i{display:block;height:100%;background:var(--accent);border-radius:4px}
 
 /* ---------- Cards ---------- */
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}

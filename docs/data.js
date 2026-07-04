@@ -9,7 +9,9 @@ window.DATA = {
   "n_huit": 8,
   "n_predites": 96,
   "n_joues_total": 88,
+  "n_total_matchs_cdm": 104,
   "n_qualifies": 32,
+  "n_encore_en_lice": 16,
   "vainqueurs": [
    "A : Mexique",
    "B : Suisse",

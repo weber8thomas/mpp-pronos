@@ -292,6 +292,11 @@ scored_acc = [p for p in predictions if p["statut"] == "joue" and p["ppd"] is no
 accuracy_ok = sum(1 for p in scored_acc if issue(p["bd"], p["be"]) == issue(p["ppd"], p["ppe"]))
 accuracy = round(accuracy_ok / len(scored_acc), 3) if scored_acc else None
 
+# Équipes encore en lice : 32 qualifiés, chaque match KO joué élimine une équipe (perdant).
+TOTAL_MATCHS_CDM = 104  # 72 poule + 16 (16es) + 8 (8es) + 4 (quarts) + 2 (demies) + 1 (3e place) + 1 (finale)
+ko_matches_played = sum(1 for p in predictions if p.get("phase") and p["statut"] == "joue")
+n_encore_en_lice = 32 - ko_matches_played
+
 meta = {
     "titre": "Pronostics CDM 2026 — Phase de groupes",
     "n_matchs": len(predictions),
@@ -301,7 +306,9 @@ meta = {
     "n_huit": n_ko_by_round.get("8e", 0),
     "n_predites": len(predictions),                                # 72 + tours KO
     "n_joues_total": sum(1 for p in predictions if p["statut"] == "joue"),
+    "n_total_matchs_cdm": TOTAL_MATCHS_CDM,
     "n_qualifies": 32,
+    "n_encore_en_lice": n_encore_en_lice,
     "vainqueurs": [f"{g} : {e}" for g, e in premiers],
     "j1_accuracy": j1_acc,
     "accuracy": accuracy,

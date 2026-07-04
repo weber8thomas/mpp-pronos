@@ -88,21 +88,22 @@ function ptsCell(p){
 // Carte « score total » : MOI (score réel MPP) vs notre modèle.
 function scoreDuelCard(m){
   if(!m.n_scored || m.pts_user==null) return '';
+  const meRow = (D.league&&D.league.rows||[]).find(r=>r.isMe);
+  const pseudo = meRow ? meRow.username : "Mon score";
   const best = Math.max(m.pts_mod, m.pts_user);
-  const side=(name,val,ico,sub)=>`<div class="sd-side${val===best?' sd-win':''}">
-      <div class="sd-name">${ico}${name}</div>
+  const side=(name,val,ico)=>`<div class="sd-side${val===best?' sd-win':''}">
+      <div class="sd-id">${ico}<span>${esc(name)}</span></div>
       <div class="sd-pts">${val}<span class="sd-u">pts</span></div>
-      <div class="sd-sub">${sub}</div>
-      ${val===best?'<div class="sd-tag">en tête</div>':''}</div>`;
+      ${val===best?'<span class="sd-tag">en tête</span>':''}</div>`;
   return `<div class="card scoreduel-card">
     <h3><i class="mdi mdi-scale-balance"></i> Mon score vs notre modèle</h3>
-    <p class="muted sd-explain"><strong>Moi</strong> = mon score réel sur mon compte MPP (${m.n_user} pronos) ;
+    <p class="muted sd-explain"><strong>${esc(pseudo)}</strong> = mon score réel sur mon compte MPP (${m.n_user} pronos) ;
       <strong>modèle</strong> = pronostic figé du modèle sur les <strong>${m.n_scored}</strong> matchs joués
       (cote de l'issue si bien pronostiquée).</p>
     <div class="scoreduel">
-      ${side('Moi',m.pts_user,'<i class="mdi mdi-account-circle-outline sd-ico"></i>',`${m.n_user} pronos`)}
+      ${side(pseudo,m.pts_user,'<i class="mdi mdi-account-circle-outline sd-ico"></i>')}
       <div class="sd-vs">vs</div>
-      ${side('Notre modèle',m.pts_mod,'<i class="mdi mdi-robot-happy-outline sd-ico"></i>','modèle Poisson')}
+      ${side('Notre modèle',m.pts_mod,'<i class="mdi mdi-robot-happy-outline sd-ico"></i>')}
     </div>
   </div>`;
 }

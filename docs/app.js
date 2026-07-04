@@ -110,6 +110,9 @@ function scoreDuelCard(m){
 /* ---------- Accueil ---------- */
 function renderAccueil(){
   const m=D.meta;
+  const koRounds = D.koRounds||[];
+  const koCount = koRounds.reduce((s,r)=>s+(r.matches?r.matches.length:0),0);
+  const koLabel = koRounds.map(r=>`${r.matches.length} ${r.title}`).join(" + ");
   const vain=D.qualifiers.premiers.map(x=>`<div class="winrow"><span class="grouptag">${x.groupe}</span>${flag(x.equipe)}<span>${esc(x.equipe)}</span></div>`).join("");
   const tiles=[
     ["calendrier","mdi-calendar-month-outline","Calendrier","72 matchs, triables"],
@@ -126,17 +129,17 @@ function renderAccueil(){
        <div>
          <div class="eyebrow">FIFA World Cup 2026 · USA · Canada · Mexique</div>
          <h1>Pronostics — Coupe du Monde 2026</h1>
-         <div class="cover"><b>${m.n_poule} matchs de poule</b> + <b>${m.n_seize} 16es de finale</b> · sur <b>104</b> au total (phase finale en cours)</div>
+         <div class="cover"><b>${m.n_poule} matchs de poule</b>${koCount?` + <b>${koLabel}</b>`:""} · sur <b>104</b> au total (phase finale en cours)</div>
        </div>
      </div>
      <p class="lead">Pronostics via une méthode hybride : un modèle de <strong>Poisson</strong> (basé sur l'Elo)
      ajusté et critiqué par une dizaine d'<strong>agents experts</strong>.
-     Phase de groupes <strong>terminée</strong> (résultats réels) ; place aux <strong>16es de finale</strong>. Probas <strong>mpp</strong> issues de
+     Phase de groupes <strong>terminée</strong> (résultats réels) ; place à la <strong>phase finale</strong>. Probas <strong>mpp</strong> issues de
      <a class="mpp-link" href="https://mpp.football" target="_blank" rel="noopener"><img class="mpp-logo" src="mpp-logo.png" alt="mpp.football"></a>.
      <em>Astuce : cliquez un match pour ouvrir sa fiche détaillée.</em></p>
    </div>
    <div class="kpis">
-     <div class="kpi"><i class="mdi mdi-soccer-field"></i><div class="v">${m.n_predites}</div><div class="l">matchs pronostiqués (${m.n_poule} poule + ${m.n_seize} 16es)</div></div>
+     <div class="kpi"><i class="mdi mdi-soccer-field"></i><div class="v">${m.n_predites}</div><div class="l">matchs pronostiqués (${m.n_poule} poule${koCount?` + ${koCount} phase finale`:""})</div></div>
      <div class="kpi"><i class="mdi mdi-check-decagram-outline"></i><div class="v">${m.n_joues_total}</div><div class="l">déjà joués (réels)</div></div>
      <div class="kpi"><i class="mdi mdi-trophy-outline"></i><div class="v">32</div><div class="l">qualifiés (12+12+8)</div></div>
      <div class="kpi"><i class="mdi mdi-target"></i><div class="v">${m.accuracy!=null?Math.round(m.accuracy*100)+"%":"–"}</div><div class="l">précision sur les ${m.n_accuracy} matchs joués</div></div>
@@ -207,15 +210,16 @@ const CAL_KEY={
   mpp:p=>p.mpp_v==null?-1:p.mpp_v,
 };
 function renderCalendrier(){
-  const hasR32 = D.predictions.some(p=>p.groupe==="16e");
+  const koRounds = D.koRounds||[];
   const opts=["<option value=''>Tous les matchs</option>"]
     .concat(D.meta.groupes.map(g=>`<option value="${g}">Groupe ${g}</option>`))
-    .concat(hasR32?['<option value="16e">16es de finale</option>']:[]).join("");
+    .concat(koRounds.map(r=>`<option value="${r.label}">${r.title}</option>`)).join("");
   const sec=document.getElementById("calendrier");
   let sortKey="date", sortDir=1;
+  const koText = koRounds.length ? ` + ${koRounds.map(r=>`les <strong>${r.title}</strong>`).join(", ")}` : "";
   sec.innerHTML=`
     <h1>Calendrier &amp; pronostics</h1>
-    <p class="lead">Les 72 matchs de poule${hasR32?` + les <strong>16es de finale</strong>`:""}. <strong>Cliquez un en-tête</strong> pour trier
+    <p class="lead">Les 72 matchs de poule${koText}. <strong>Cliquez un en-tête</strong> pour trier
     (date, groupe, score, proba…) ; filtrez par équipe, groupe/phase ou statut. Heure <strong>CEST</strong> indicative.
     Pour un match joué, <strong>Prono</strong> = pronostic figé avant le match, <strong>Résultat</strong> = score réel,
     <strong>Accord</strong> compare les deux, et <strong>Points</strong> (modèle · mpp) = cote mpp remportée si l'issue est bien pronostiquée.</p>
@@ -333,44 +337,47 @@ function renderQualifies(){
     <div class="chart" id="chartThirds"></div>`;
 }
 
-/* ---------- 16es de finale (round of 32) ---------- */
+/* ---------- Phase finale (tours à élimination directe, un bloc par tour) ---------- */
 function renderSeiziemes(){
   const el=document.getElementById("seiziemes");
   if(!el) return;
-  const R=D.r32||[];
-  if(!R.length){ el.innerHTML=`<h1>16es de finale</h1><p class="lead">Données indisponibles.</p>`; return; }
+  const rounds=D.koRounds||[];
+  if(!rounds.length){ el.innerHTML=`<h1>Phase finale</h1><p class="lead">Données indisponibles.</p>`; return; }
   const dfmt=iso=>{const d=new Date(iso);return d.toLocaleDateString("fr-FR",{day:"numeric",month:"long"});};
   const delo=v=>`<span class="delo ${v>=0?'up':'down'}">${v>=0?'▲':'▼'} ${v>=0?'+':''}${v} Elo</span>`;
   const bar=(a,n,b)=>`<div class="pbar"><span style="width:${(a*100).toFixed(1)}%" class="pb pb-w"></span>`+
       `<span style="width:${(n*100).toFixed(1)}%" class="pb pb-n"></span><span style="width:${(b*100).toFixed(1)}%" class="pb pb-l"></span></div>`;
-  const cards=R.map(m=>{
-    const domFav=m.qDom>=m.qExt;
-    const fav=domFav?m.dom:m.ext, pf=domFav?m.qDom:m.qExt;
-    return `<div class="r32card">
-      <div class="r32head"><span class="r32date"><i class="mdi mdi-calendar-blank-outline"></i> ${dfmt(m.date)}</span>
-        <span class="r32qual">Qualif : <b>${esc(fav)}</b> ${pct(pf)}</span></div>
-      <div class="r32teams">
-        <div class="r32t ${domFav?'fav':''}">${team(m.dom)}<small>${m.rkDom}<sup>e</sup> · ${delo(m.dEloDom)}</small></div>
-        <span class="r32score">${esc(m.score)}</span>
-        <div class="r32t r32t--r ${!domFav?'fav':''}">${team(m.ext)}<small>${m.rkExt}<sup>e</sup> · ${delo(m.dEloExt)}</small></div>
-      </div>
-      <div class="r32row"><span class="r32lab">Modèle 90′</span>${bar(m.pDom,m.pNul,m.pExt)}
-        <span class="r32num">${pct(m.pDom)}/${pct(m.pNul)}/${pct(m.pExt)}</span></div>
-      <div class="r32row"><span class="r32lab">Marché MPP</span>${bar(m.mppDom,m.mppNul,m.mppExt)}
-        <span class="r32num">${pct(m.mppDom)}/${pct(m.mppNul)}/${pct(m.mppExt)}</span></div>
-      <div class="r32parc"><span><span class="grouptag">${esc(m.dom)}</span> ${esc(m.parcDom)}</span>
-        <span><span class="grouptag">${esc(m.ext)}</span> ${esc(m.parcExt)}</span></div>
-    </div>`;
-  }).join("");
-  const report = D.report16Markdown ?
-    `<div class="report" style="margin-top:26px">${window.marked?marked.parse(D.report16Markdown):esc(D.report16Markdown)}</div>` : "";
+  const blocks=rounds.map(rnd=>{
+    const cards=(rnd.matches||[]).map(m=>{
+      const domFav=m.qDom>=m.qExt;
+      const fav=domFav?m.dom:m.ext, pf=domFav?m.qDom:m.qExt;
+      return `<div class="r32card">
+        <div class="r32head"><span class="r32date"><i class="mdi mdi-calendar-blank-outline"></i> ${dfmt(m.date)}</span>
+          <span class="r32qual">Qualif : <b>${esc(fav)}</b> ${pct(pf)}</span></div>
+        <div class="r32teams">
+          <div class="r32t ${domFav?'fav':''}">${team(m.dom)}<small>${m.rkDom}<sup>e</sup> · ${delo(m.dEloDom)}</small></div>
+          <span class="r32score">${esc(m.score)}</span>
+          <div class="r32t r32t--r ${!domFav?'fav':''}">${team(m.ext)}<small>${m.rkExt}<sup>e</sup> · ${delo(m.dEloExt)}</small></div>
+        </div>
+        <div class="r32row"><span class="r32lab">Modèle 90′</span>${bar(m.pDom,m.pNul,m.pExt)}
+          <span class="r32num">${pct(m.pDom)}/${pct(m.pNul)}/${pct(m.pExt)}</span></div>
+        <div class="r32row"><span class="r32lab">Marché MPP</span>${bar(m.mppDom,m.mppNul,m.mppExt)}
+          <span class="r32num">${pct(m.mppDom)}/${pct(m.mppNul)}/${pct(m.mppExt)}</span></div>
+        <div class="r32parc"><span><span class="grouptag">${esc(m.dom)}</span> ${esc(m.parcDom)}</span>
+          <span><span class="grouptag">${esc(m.ext)}</span> ${esc(m.parcExt)}</span></div>
+      </div>`;
+    }).join("");
+    const report = rnd.reportMarkdown ?
+      `<div class="report" style="margin-top:26px">${window.marked?marked.parse(rnd.reportMarkdown):esc(rnd.reportMarkdown)}</div>` : "";
+    return `<h1>${esc(rnd.title)}</h1>
+      <div class="r32grid">${cards}</div>
+      ${report}`;
+  }).join(`<hr style="margin:34px 0"/>`);
   el.innerHTML=`
-    <h1>16es de finale</h1>
-    <p class="lead">Phase de groupes terminée. Modèle <strong>ré-évalué après les poules</strong> :
-    l'Elo de chaque équipe est mis à jour sur ses 3 matchs (dynamique + parcours), puis injecté dans le
-    moteur Poisson, avec résolution du nul (prolongation / t.a.b.). Barres = Victoire / Nul / Défaite sur 90′.</p>
-    <div class="r32grid">${cards}</div>
-    ${report}`;
+    <p class="lead">Modèle <strong>ré-évalué après chaque tour</strong> : l'Elo de chaque équipe est mis à jour
+    match par match (dynamique + parcours réel), puis injecté dans le moteur Poisson, avec résolution du
+    nul (prolongation / t.a.b.). Barres = Victoire / Nul / Défaite sur 90′.</p>
+    ${blocks}`;
 }
 
 /* ---------- Analyses : structure HTML (les graphes SVG sont injectés par drawAnalyses) ---------- */

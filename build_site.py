@@ -31,15 +31,16 @@ for _, m in mpp_csv.iterrows():
     cote_win[frozenset((nh, na))] = {nh: int(m.Cote_1), na: int(m.Cote_2), "N": int(m.Cote_N)}
 analyses = json.load(open("data/group_analyses.json"))
 report_md = open("rapport/pronostics_cdm2026.md", encoding="utf-8").read()
-# 16es de finale (round of 32)
-try:
-    report16_md = open("rapport/pronostics_16es.md", encoding="utf-8").read()
-except FileNotFoundError:
-    report16_md = ""
-try:
-    r32_df = pd.read_csv("data/predictions_r32.csv")
-except FileNotFoundError:
-    r32_df = None
+
+# Tours à élimination directe déjà générés (dans l'ordre chronologique du tournoi).
+# Chaque tour ajoute ses matchs data/predictions_r<key>.csv au calendrier unique
+# (colonne "groupe"/"phase" = label) et son propre bloc dans docs (koRounds).
+KO_ROUNDS = [
+    {"key": "r32", "label": "16e", "title": "16es de finale", "journee": 4,
+     "report_path": "rapport/pronostics_16es.md", "results_path": "data/r32_results.json"},
+    {"key": "r16", "label": "8e", "title": "8es de finale", "journee": 5,
+     "report_path": "rapport/pronostics_8es.md", "results_path": "data/r16_results.json"},
+]
 try:
     team_details = json.load(open("data/team_details.json", encoding="utf-8"))
 except FileNotFoundError:
@@ -168,21 +169,34 @@ for _, r in pred.iterrows():
         "u_ppd": u_ppd, "u_ppe": u_ppe, "u_pts": u_pts,
     })
 
-# --- 16es de finale : intégrés au MÊME tableau (mêmes colonnes que la phase de groupes) ---
+# --- Tours KO : intégrés au MÊME tableau (mêmes colonnes que la phase de groupes) ---
 from datetime import datetime, timedelta
-try:
-    r32p = pd.read_csv("data/predictions_r32.csv")
-    r32res = json.load(open("data/r32_results.json"))
-except FileNotFoundError:
-    r32p, r32res = None, {}
-if r32p is not None:
-    for _, r in r32p.iterrows():
+
+ko_rounds_data = []   # pour docs (cartes + rapport par tour)
+n_ko_by_round = {}    # label -> nb de matchs (pour l'accueil)
+for rnd in KO_ROUNDS:
+    try:
+        rp = pd.read_csv(f"data/predictions_{rnd['key']}.csv")
+    except FileNotFoundError:
+        continue
+    try:
+        rres = json.load(open(rnd["results_path"]))
+    except FileNotFoundError:
+        rres = {}
+    try:
+        r_report_md = open(rnd["report_path"], encoding="utf-8").read()
+    except FileNotFoundError:
+        r_report_md = ""
+
+    n_ko_by_round[rnd["label"]] = len(rp)
+    matches = []
+    for _, r in rp.iterrows():
         dt = datetime.strptime(r.date[:16], "%Y-%m-%dT%H:%M")
         k_utc = dt.strftime("%Y-%m-%dT%H:%M")
         k_cest = (dt + timedelta(hours=2)).strftime("%Y-%m-%d %H:%M")
         a, b = str(r.score_modele).split("-")
         ppd, ppe = int(a), int(b)                       # pronostic figé du modèle
-        res = r32res.get(str(r.match_id))
+        res = rres.get(str(r.match_id))
         joue = bool(res and res.get("period") == "fullTime")
         bd = int(res["hs"]) if joue else None
         be = int(res["as"]) if joue else None
@@ -200,7 +214,7 @@ if r32p is not None:
             pts_mpp = rc if aidx == ridx else 0
         _u = user_fields(r.dom, r.ext)
         predictions.append({
-            "groupe": "16e", "journee": 4,
+            "groupe": rnd["label"], "journee": rnd["journee"],
             "kickoff_cest": k_cest, "kickoff_utc": k_utc,
             "dom": r.dom, "ext": r.ext, "statut": "joue" if joue else "a_venir",
             "bd": bd if bd is not None else 0, "be": be if be is not None else 0,
@@ -209,9 +223,24 @@ if r32p is not None:
             "mpp_v": mv, "mpp_n": mn, "mpp_d": md,
             "pts_mod": pts_mod, "pts_mpp": pts_mpp,
             "xg_dom": float(r.xg_dom), "xg_ext": float(r.xg_ext),
-            "phase": "16e",
+            "phase": rnd["label"],
             "u_ppd": _u[0], "u_ppe": _u[1], "u_pts": _u[2],
         })
+        domFav = r.q_dom >= r.q_ext
+        matches.append({
+            "date": r.date, "dom": r.dom, "ext": r.ext,
+            "rkDom": int(r.rk_dom), "rkExt": int(r.rk_ext),
+            "eloPostDom": int(r.elo_post_dom), "eloPostExt": int(r.elo_post_ext),
+            "dEloDom": int(r.d_elo_dom), "dEloExt": int(r.d_elo_ext),
+            "parcDom": r.parc_dom, "parcExt": r.parc_ext,
+            "score": r.score_modele,
+            "pDom": float(r.p_dom), "pNul": float(r.p_nul), "pExt": float(r.p_ext),
+            "qDom": float(r.q_dom), "qExt": float(r.q_ext),
+            "favori": r.favori, "pFavori": float(r.p_favori),
+            "mppDom": float(r.mpp_dom), "mppNul": float(r.mpp_nul), "mppExt": float(r.mpp_ext),
+        })
+    ko_rounds_data.append({"key": rnd["key"], "label": rnd["label"], "title": rnd["title"],
+                           "matches": matches, "reportMarkdown": r_report_md})
 
 # Score total de pronostics (calibrage) : somme des points pris sur les matchs joués,
 # comparée à parité (mêmes matchs où les deux ont une proba).
@@ -268,8 +297,9 @@ meta = {
     "n_matchs": len(predictions),
     "n_joues": int((pred.statut == "joue").sum()),
     "n_poule": int((pred.statut == "joue").sum()),                 # 72 matchs de poule
-    "n_seize": sum(1 for p in predictions if p["groupe"] == "16e"),
-    "n_predites": len(predictions),                                # 72 + 16es
+    "n_seize": n_ko_by_round.get("16e", 0),
+    "n_huit": n_ko_by_round.get("8e", 0),
+    "n_predites": len(predictions),                                # 72 + tours KO
     "n_joues_total": sum(1 for p in predictions if p["statut"] == "joue"),
     "n_qualifies": 32,
     "vainqueurs": [f"{g} : {e}" for g, e in premiers],
@@ -283,23 +313,6 @@ meta = {
     "n_user": sum(1 for m in _uf if m.get("uf")),
     "groupes": sorted(cls.keys()),
 }
-
-# 16es de finale : liste de matchs structurée pour le site
-r32 = []
-if r32_df is not None:
-    for _, r in r32_df.iterrows():
-        r32.append({
-            "date": r.date, "dom": r.dom, "ext": r.ext,
-            "rkDom": int(r.rk_dom), "rkExt": int(r.rk_ext),
-            "eloPostDom": int(r.elo_post_dom), "eloPostExt": int(r.elo_post_ext),
-            "dEloDom": int(r.d_elo_dom), "dEloExt": int(r.d_elo_ext),
-            "parcDom": r.parc_dom, "parcExt": r.parc_ext,
-            "score": r.score_modele,
-            "pDom": float(r.p_dom), "pNul": float(r.p_nul), "pExt": float(r.p_ext),
-            "qDom": float(r.q_dom), "qExt": float(r.q_ext),
-            "favori": r.favori, "pFavori": float(r.p_favori),
-            "mppDom": float(r.mpp_dom), "mppNul": float(r.mpp_nul), "mppExt": float(r.mpp_ext),
-        })
 
 # --- Classement de la ligue « Viva Italia » + insertion de notre modèle ---
 MODEL_NAME = "Polpo Paolo 🐙"
@@ -328,7 +341,7 @@ DATA = {"meta": meta, "predictions": predictions, "standings": standings,
         "qualifiers": qualifiers, "ratings": ratings_l, "analyses": analyses,
         "teams": teams, "h2h": h2h,
         "j1": j1, "reportMarkdown": report_md, "teamDetails": team_details,
-        "r32": r32, "report16Markdown": report16_md, "league": league}
+        "koRounds": ko_rounds_data, "league": league}
 
 with open("docs/data.js", "w", encoding="utf-8") as f:
     f.write("// Généré par build_site.py — ne pas éditer à la main.\n")

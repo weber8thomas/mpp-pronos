@@ -292,6 +292,8 @@ th.sortable.active{color:var(--accent)}
 .sd-vs{align-self:center;color:var(--faint);font-weight:700;font-size:.75rem}
 .sd-sub{display:none}
 .scoreduel--3{gap:8px}
+/* PC : carte compacte et centrée (pas full width) */
+@media(min-width:700px){.scoreduel-card{max-width:560px;margin-left:auto;margin-right:auto}}
 @media(max-width:560px){.sd-side{flex-direction:column;gap:3px;padding:10px}.scoreduel--3{flex-direction:column}}
 /* Ligue (Viva Italia) */
 .lg-me{background:color-mix(in srgb,var(--blue) 9%,transparent)}

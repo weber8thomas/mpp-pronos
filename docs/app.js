@@ -12,7 +12,7 @@ const THEME = {
   light:{paper:"#ffffff",grid:"#e5e9ef",font:"#0f1720",accent:"#0f9d76"},
   dark:{paper:"#11171f",grid:"#1b2430",font:"#eaf0f6",accent:"#1ce0a5"}
 };
-const curTheme = () => document.body.dataset.theme || "light";
+const curTheme = () => document.body.dataset.theme || "dark";
 const pct = x => (x==null?"–":Math.round(x*100)+"%");
 const esc = s => String(s).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 
@@ -110,9 +110,6 @@ function scoreDuelCard(m){
 /* ---------- Accueil ---------- */
 function renderAccueil(){
   const m=D.meta;
-  const koRounds = D.koRounds||[];
-  const koCount = koRounds.reduce((s,r)=>s+(r.matches?r.matches.length:0),0);
-  const koLabel = koRounds.map(r=>`${r.matches.length} ${r.title}`).join(" + ");
   const vain=D.qualifiers.premiers.map(x=>`<div class="winrow"><span class="grouptag">${x.groupe}</span>${flag(x.equipe)}<span>${esc(x.equipe)}</span></div>`).join("");
   const tiles=[
     ["calendrier","mdi-calendar-month-outline","Calendrier","72 matchs, triables"],
@@ -122,28 +119,27 @@ function renderAccueil(){
     ["rapport","mdi-file-document-outline","Rapport","Le détail complet"],
     ["methodo","mdi-flask-outline","Méthodo","Comment ça marche"],
   ].map(([s,i,t,d])=>`<a class="navtile" data-jump="${s}"><i class="mdi ${i}"></i><span class="nt-t">${t}</span><span class="nt-d">${d}</span></a>`).join("");
+  const pct=Math.round(m.n_joues_total/m.n_total_matchs_cdm*100);
+  const acc=m.accuracy!=null?Math.round(m.accuracy*100)+"%":"–";
   document.getElementById("accueil").innerHTML=`
    <div class="hero">
-     <div class="hero-top">
-       <img src="emblem.svg" alt="Emblème Coupe du Monde 2026" class="hero-logo hero-emblem"/>
-       <div>
-         <div class="eyebrow">FIFA World Cup 2026 · USA · Canada · Mexique</div>
-         <h1>Pronostics — Coupe du Monde 2026</h1>
-         <div class="cover"><b>${m.n_poule} matchs de poule</b>${koCount?` + <b>${koLabel}</b>`:""} · sur <b>104</b> au total (phase finale en cours)</div>
+     <div class="hero-row">
+       <img src="emblem.svg" alt="" class="hero-emblem"/>
+       <div class="hero-txt">
+         <div class="eyebrow">Coupe du Monde 2026</div>
+         <h1>Pronostics</h1>
        </div>
+       <a class="hero-mpp" href="https://mpp.football" target="_blank" rel="noopener" title="Une extension de mpp.football">
+         <img src="mpp-logo.png" alt="mpp.football"><span>by&nbsp;MPP</span></a>
      </div>
-     <p class="lead">Pronostics via une méthode hybride : un modèle de <strong>Poisson</strong> (basé sur l'Elo)
-     ajusté et critiqué par une dizaine d'<strong>agents experts</strong>.
-     Phase de groupes <strong>terminée</strong> (résultats réels) ; place à la <strong>phase finale</strong>. Probas <strong>mpp</strong> issues de
-     <a class="mpp-link" href="https://mpp.football" target="_blank" rel="noopener"><img class="mpp-logo" src="mpp-logo.png" alt="mpp.football"></a>.
-     <em>Astuce : cliquez un match pour ouvrir sa fiche détaillée.</em></p>
    </div>
    <div class="kpis">
-     <div class="kpi"><i class="mdi mdi-soccer-field"></i><div class="v">${m.n_predites}</div><div class="l">matchs pronostiqués (${m.n_poule} poule${koCount?` + ${koCount} phase finale`:""})</div></div>
-     <div class="kpi kpi-progress"><i class="mdi mdi-check-decagram-outline"></i><div class="v">${m.n_joues_total}<span class="kpi-total">/${m.n_total_matchs_cdm}</span></div><div class="l">matchs joués (CDM)</div>
-       <div class="kpi-bar"><i style="width:${Math.round(m.n_joues_total/m.n_total_matchs_cdm*100)}%"></i></div></div>
-     <div class="kpi"><i class="mdi mdi-trophy-outline"></i><div class="v">${m.n_encore_en_lice}</div><div class="l">équipes encore en lice</div></div>
-     <div class="kpi"><i class="mdi mdi-target"></i><div class="v">${m.accuracy!=null?Math.round(m.accuracy*100)+"%":"–"}</div><div class="l">précision sur les ${m.n_accuracy} matchs joués</div></div>
+     <div class="kpi kpi-progress">
+       <div class="v">${m.n_joues_total}<span class="kpi-total">/${m.n_total_matchs_cdm}</span><span class="kpi-pct">${pct}%</span></div>
+       <div class="l">matchs joués</div>
+       <div class="kpi-bar"><i style="width:${pct}%"></i></div></div>
+     <div class="kpi"><div class="v">${m.n_encore_en_lice}</div><div class="l">équipes en lice</div></div>
+     <div class="kpi"><div class="v">${acc}</div><div class="l">précision</div></div>
    </div>
    ${scoreDuelCard(m)}
    ${leagueCard()}
@@ -844,7 +840,7 @@ function applyTheme(t){
   if(active&&active.id==="qualifies") requestAnimationFrame(()=>{drawThirds(); ecResizeIn("qualifies");});
 }
 (function initTheme(){
-  let t="light"; try{t=localStorage.getItem("cdm-theme")||"light";}catch(e){}
+  let t="dark"; try{t=localStorage.getItem("cdm-theme")||"dark";}catch(e){}
   document.body.dataset.theme=t;
   document.getElementById("themeBtn").addEventListener("click",()=>applyTheme(curTheme()==="dark"?"light":"dark"));
   const lbl=document.getElementById("themeLbl"); if(lbl) lbl.textContent=t==="dark"?"Clair":"Sombre";

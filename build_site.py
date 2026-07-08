@@ -40,6 +40,8 @@ KO_ROUNDS = [
      "report_path": "rapport/pronostics_16es.md", "results_path": "data/r32_results.json"},
     {"key": "r16", "label": "8e", "title": "8es de finale", "journee": 5,
      "report_path": "rapport/pronostics_8es.md", "results_path": "data/r16_results.json"},
+    {"key": "r8", "label": "QF", "title": "Quarts de finale", "journee": 6,
+     "report_path": "rapport/pronostics_quarts.md", "results_path": "data/r8_results.json"},
 ]
 try:
     team_details = json.load(open("data/team_details.json", encoding="utf-8"))
@@ -200,7 +202,7 @@ for rnd in KO_ROUNDS:
         joue = bool(res and res.get("period") == "fullTime")
         bd = int(res["hs"]) if joue else None
         be = int(res["as"]) if joue else None
-        mv, mn, md = float(r.mpp_dom), float(r.mpp_nul), float(r.mpp_ext)  # probas mpp (cotes)
+        mv, mn, md = clean(float(r.mpp_dom)), clean(float(r.mpp_nul)), clean(float(r.mpp_ext))  # probas mpp (cotes)
         pts_mod = pts_mpp = None
         if joue:
             cotes = [int(r.cote_dom), int(r.cote_nul), int(r.cote_ext)]
@@ -210,8 +212,9 @@ for rnd in KO_ROUNDS:
             pts_mod = rc if midx == ridx else 0
             if ppd == bd and ppe == be:                   # score exact -> + bonus rareté
                 pts_mod += exact_bonus(r.dom, r.ext)
-            pk = [mv, mn, md]; aidx = pk.index(max(pk))
-            pts_mpp = rc if aidx == ridx else 0
+            if mv is not None:
+                pk = [mv, mn, md]; aidx = pk.index(max(pk))
+                pts_mpp = rc if aidx == ridx else 0
         _u = user_fields(r.dom, r.ext)
         predictions.append({
             "groupe": rnd["label"], "journee": rnd["journee"],

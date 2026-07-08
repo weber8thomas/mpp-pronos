@@ -198,9 +198,13 @@ def main():
         ph, bph, bch, sqh = parcours_str(historique, h)
         pa, bpa, bca, sqa = parcours_str(historique, a)
         q = m["q"]
-        inv = {k: 100.0 / q[k] for k in ("home", "draw", "away")}
-        s = sum(inv.values())
-        mpp_imp = {k: inv[k] / s for k in inv}
+        cotes_absentes = not all(q.get(k) for k in ("home", "draw", "away"))
+        if cotes_absentes:
+            mpp_imp = {"home": float("nan"), "draw": float("nan"), "away": float("nan")}
+        else:
+            inv = {k: 100.0 / q[k] for k in ("home", "draw", "away")}
+            s = sum(inv.values())
+            mpp_imp = {k: inv[k] / s for k in inv}
         rows.append(dict(
             match_id=m["id"], date=m["date"], dom=h, ext=a, rk_dom=m["h"]["rk"], rk_ext=m["a"]["rk"],
             elo_pre_dom=round(elo_pre_target[h]), elo_pre_ext=round(elo_pre_target[a]),
@@ -211,8 +215,10 @@ def main():
             p_dom=round(pr["p_dom"], 3), p_nul=round(pr["p_nul"], 3), p_ext=round(pr["p_ext"], 3),
             q_dom=round(pr["q_dom"], 3), q_ext=round(pr["q_ext"], 3),
             favori=fav, p_favori=round(max(pr["q_dom"], pr["q_ext"]), 3),
-            cote_dom=q["home"], cote_nul=q["draw"], cote_ext=q["away"],
-            mpp_dom=round(mpp_imp["home"], 3), mpp_nul=round(mpp_imp["draw"], 3), mpp_ext=round(mpp_imp["away"], 3),
+            cote_dom=(q["home"] or ""), cote_nul=(q["draw"] or ""), cote_ext=(q["away"] or ""),
+            mpp_dom=("" if cotes_absentes else round(mpp_imp["home"], 3)),
+            mpp_nul=("" if cotes_absentes else round(mpp_imp["draw"], 3)),
+            mpp_ext=("" if cotes_absentes else round(mpp_imp["away"], 3)),
             att_idx_dom=round(attack_idx[h], 2), def_idx_dom=round(solidity_idx[h], 2),
             att_idx_ext=round(attack_idx[a], 2), def_idx_ext=round(solidity_idx[a], 2),
         ))
@@ -242,7 +248,10 @@ def main():
         print(f'   parcours : {r.dom} {r.parc_dom}  /  {r.ext} {r.parc_ext}')
         print(f'   forme (indices att/def, 1.0=moyenne) : {r.dom} att {r.att_idx_dom}/def {r.def_idx_dom}  |  {r.ext} att {r.att_idx_ext}/def {r.def_idx_ext}')
         print(f'   modele 90min  {r.dom} {int(r.p_dom*100)}% / nul {int(r.p_nul*100)}% / {r.ext} {int(r.p_ext*100)}%  -> score probable {r.score_modele}')
-        print(f'   QUALIF : {r.favori} {int(r.p_favori*100)}%   (MPP marche : {r.dom} {int(r.mpp_dom*100)}/{int(r.mpp_nul*100)}/{int(r.mpp_ext*100)} {r.ext})')
+        if r.mpp_dom == "":
+            print(f'   QUALIF : {r.favori} {int(r.p_favori*100)}%   (MPP marche : cotes pas encore publiees)')
+        else:
+            print(f'   QUALIF : {r.favori} {int(r.p_favori*100)}%   (MPP marche : {r.dom} {int(r.mpp_dom*100)}/{int(r.mpp_nul*100)}/{int(r.mpp_ext*100)} {r.ext})')
 
     print(f"\n-> {out_csv}")
     print(f"-> {elo_out}")

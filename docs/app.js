@@ -358,8 +358,8 @@ function renderSeiziemes(){
         </div>
         <div class="r32row"><span class="r32lab">Modèle 90′</span>${bar(m.pDom,m.pNul,m.pExt)}
           <span class="r32num">${pct(m.pDom)}/${pct(m.pNul)}/${pct(m.pExt)}</span></div>
-        <div class="r32row"><span class="r32lab">Marché MPP</span>${bar(m.mppDom,m.mppNul,m.mppExt)}
-          <span class="r32num">${pct(m.mppDom)}/${pct(m.mppNul)}/${pct(m.mppExt)}</span></div>
+        <div class="r32row"><span class="r32lab">Marché MPP</span>${isNaN(m.mppDom)?'<span class="pbar pbar--empty"></span>':bar(m.mppDom,m.mppNul,m.mppExt)}
+          <span class="r32num">${isNaN(m.mppDom)?'cotes indisponibles':`${pct(m.mppDom)}/${pct(m.mppNul)}/${pct(m.mppExt)}`}</span></div>
         <div class="r32parc"><span><span class="grouptag">${esc(m.dom)}</span> ${esc(m.parcDom)}</span>
           <span><span class="grouptag">${esc(m.ext)}</span> ${esc(m.parcExt)}</span></div>
       </div>`;

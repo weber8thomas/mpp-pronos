@@ -1,12 +1,12 @@
 {
   "name": "Viva Italia 🇮🇹🍊",
   "challengeId": "mpp_challenge_UE11P8GT",
-  "snapshot": "2026-07-09",
+  "snapshot": "2026-07-10",
   "me": "user_3761834",
   "standings": [
-    {"rank": 1, "username": "Alex-Dijonnais", "id": "user_3572019", "points": 4179, "calc": 96, "exact": 15, "good": 51, "avatar": "avatars/user_3572019.jpg"},
-    {"rank": 2, "username": "weber8thomas", "id": "user_3761834", "points": 3772, "calc": 92, "exact": 16, "good": 56, "avatar": "avatars/user_3761834.jpg"},
-    {"rank": 3, "username": "Benjamin-P-GRD", "id": "user_2252458", "points": 3649, "calc": 95, "exact": 10, "good": 52, "avatar": "avatars/default.png"},
-    {"rank": 4, "username": "MartinMyo", "id": "user_9725830", "points": 3647, "calc": 96, "exact": 7, "good": 56, "avatar": "avatars/default.png"}
+    {"rank": 1, "username": "Alex-Dijonnais", "id": "user_3572019", "points": 4233, "calc": 97, "exact": 15, "good": 52, "avatar": "avatars/user_3572019.jpg"},
+    {"rank": 2, "username": "weber8thomas", "id": "user_3761834", "points": 3876, "calc": 93, "exact": 17, "good": 57, "avatar": "avatars/user_3761834.jpg"},
+    {"rank": 3, "username": "Benjamin-P-GRD", "id": "user_2252458", "points": 3703, "calc": 96, "exact": 10, "good": 53, "avatar": "avatars/default.png"},
+    {"rank": 4, "username": "MartinMyo", "id": "user_9725830", "points": 3701, "calc": 97, "exact": 7, "good": 57, "avatar": "avatars/default.png"}
   ]
 }

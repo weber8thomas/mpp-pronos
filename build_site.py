@@ -42,6 +42,8 @@ KO_ROUNDS = [
      "report_path": "rapport/pronostics_8es.md", "results_path": "data/r16_results.json"},
     {"key": "r8", "label": "QF", "title": "Quarts de finale", "journee": 6,
      "report_path": "rapport/pronostics_quarts.md", "results_path": "data/r8_results.json"},
+    {"key": "r4", "label": "SF", "title": "Demi-finales", "journee": 7,
+     "report_path": "rapport/pronostics_demies.md", "results_path": "data/r4_results.json"},
 ]
 try:
     team_details = json.load(open("data/team_details.json", encoding="utf-8"))

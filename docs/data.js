@@ -8311,7 +8311,7 @@ window.DATA = {
  ],
  "league": {
   "name": "Viva Italia 🇮🇹🍊",
-  "snapshot": "2026-07-13",
+  "snapshot": "2026-07-14",
   "rows": [
    {
     "username": "Alex-Dijonnais",

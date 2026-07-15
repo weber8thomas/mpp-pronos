@@ -8,10 +8,10 @@ window.DATA = {
   "n_seize": 16,
   "n_huit": 8,
   "n_predites": 102,
-  "n_joues_total": 100,
+  "n_joues_total": 101,
   "n_total_matchs_cdm": 104,
   "n_qualifies": 32,
-  "n_encore_en_lice": 4,
+  "n_encore_en_lice": 3,
   "vainqueurs": [
    "A : Mexique",
    "B : Suisse",
@@ -27,13 +27,13 @@ window.DATA = {
    "L : Angleterre"
   ],
   "j1_accuracy": 0.639,
-  "accuracy": 0.65,
-  "n_accuracy": 100,
+  "accuracy": 0.644,
+  "n_accuracy": 101,
   "pts_mod": 4308,
   "pts_mpp": 4187,
-  "n_scored": 100,
+  "n_scored": 101,
   "pts_user": 4097,
-  "n_user": 96,
+  "n_user": 97,
   "groupes": [
    "A",
    "B",
@@ -2685,9 +2685,9 @@ window.DATA = {
    "kickoff_utc": "2026-07-14T19:00",
    "dom": "France",
    "ext": "Espagne",
-   "statut": "a_venir",
+   "statut": "joue",
    "bd": 0,
-   "be": 0,
+   "be": 2,
    "ppd": 1,
    "ppe": 1,
    "pv": 0.307,
@@ -2696,14 +2696,14 @@ window.DATA = {
    "mpp_v": 0.401,
    "mpp_n": 0.302,
    "mpp_d": 0.297,
-   "pts_mod": null,
-   "pts_mpp": null,
+   "pts_mod": 0,
+   "pts_mpp": 0,
    "xg_dom": 1.01,
    "xg_ext": 1.21,
    "phase": "SF",
-   "u_ppd": null,
-   "u_ppe": null,
-   "u_pts": null
+   "u_ppd": 3,
+   "u_ppe": 2,
+   "u_pts": 0
   },
   {
    "groupe": "SF",
@@ -8311,12 +8311,12 @@ window.DATA = {
  ],
  "league": {
   "name": "Viva Italia 🇮🇹🍊",
-  "snapshot": "2026-07-14",
+  "snapshot": "2026-07-15",
   "rows": [
    {
     "username": "Alex-Dijonnais",
     "points": 4357,
-    "calc": 100,
+    "calc": 101,
     "exact": 15,
     "good": 54,
     "avatar": "avatars/user_3572019.jpg",
@@ -8327,7 +8327,7 @@ window.DATA = {
    {
     "username": "Polpo Paolo 🐙",
     "points": 4308,
-    "calc": 100,
+    "calc": 101,
     "exact": 17,
     "good": 65,
     "avatar": "avatars/model.svg",
@@ -8338,7 +8338,7 @@ window.DATA = {
    {
     "username": "weber8thomas",
     "points": 4097,
-    "calc": 96,
+    "calc": 97,
     "exact": 18,
     "good": 60,
     "avatar": "avatars/user_3761834.jpg",
@@ -8349,7 +8349,7 @@ window.DATA = {
    {
     "username": "Benjamin-P-GRD",
     "points": 3860,
-    "calc": 99,
+    "calc": 100,
     "exact": 11,
     "good": 55,
     "avatar": "avatars/default.png",
@@ -8360,7 +8360,7 @@ window.DATA = {
    {
     "username": "MartinMyo",
     "points": 3845,
-    "calc": 100,
+    "calc": 101,
     "exact": 8,
     "good": 59,
     "avatar": "avatars/default.png",

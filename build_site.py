@@ -44,6 +44,11 @@ KO_ROUNDS = [
      "report_path": "rapport/pronostics_quarts.md", "results_path": "data/r8_results.json"},
     {"key": "r4", "label": "SF", "title": "Demi-finales", "journee": 7,
      "report_path": "rapport/pronostics_demies.md", "results_path": "data/r4_results.json"},
+    {"key": "third_place", "label": "3e place", "title": "Match pour la 3e place", "journee": 8,
+     "report_path": "rapport/pronostics_3e_place.md", "results_path": "data/third_place_results.json",
+     "eliminatory": False},
+    {"key": "r2", "label": "Finale", "title": "Finale", "journee": 8,
+     "report_path": "rapport/pronostics_finale.md", "results_path": "data/r2_results.json"},
 ]
 try:
     team_details = json.load(open("data/team_details.json", encoding="utf-8"))
@@ -228,7 +233,7 @@ for rnd in KO_ROUNDS:
             "mpp_v": mv, "mpp_n": mn, "mpp_d": md,
             "pts_mod": pts_mod, "pts_mpp": pts_mpp,
             "xg_dom": float(r.xg_dom), "xg_ext": float(r.xg_ext),
-            "phase": rnd["label"],
+            "phase": rnd["label"] if rnd.get("eliminatory", True) else None,
             "u_ppd": _u[0], "u_ppe": _u[1], "u_pts": _u[2],
         })
         domFav = r.q_dom >= r.q_ext

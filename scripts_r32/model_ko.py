@@ -29,6 +29,9 @@ K_WC = 60.0
 HOST_ELO = AVANTAGE_HOTE_ELO
 
 KO_SEQUENCE = ["r32", "r16", "r8", "r4", "r2"]
+# Match pour la 3e place : oppose les 2 perdants des demies, meme Elo de depart
+# que la finale (post-r4), mais n'entre pas dans la progression du bracket.
+EXTRA_TARGETS = {"third_place": "r4"}
 
 
 def g_mult(gd):
@@ -112,11 +115,16 @@ def parcours_str(historique, team):
 
 
 def main():
-    if len(sys.argv) != 2 or sys.argv[1] not in KO_SEQUENCE:
-        sys.exit(f"Usage: python scripts_r32/model_ko.py <{'|'.join(KO_SEQUENCE)}>")
+    valid = KO_SEQUENCE + list(EXTRA_TARGETS)
+    if len(sys.argv) != 2 or sys.argv[1] not in valid:
+        sys.exit(f"Usage: python scripts_r32/model_ko.py <{'|'.join(valid)}>")
     target = sys.argv[1]
-    target_idx = KO_SEQUENCE.index(target)
-    prior_rounds = KO_SEQUENCE[:target_idx]
+    if target in EXTRA_TARGETS:
+        anchor = EXTRA_TARGETS[target]
+        prior_rounds = KO_SEQUENCE[:KO_SEQUENCE.index(anchor) + 1]
+    else:
+        target_idx = KO_SEQUENCE.index(target)
+        prior_rounds = KO_SEQUENCE[:target_idx]
 
     club2name = json.load(open("data/club2name.json"))
     mpp = json.load(open("data/mpp_knockout_raw.json"))

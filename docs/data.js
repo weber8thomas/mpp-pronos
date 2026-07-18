@@ -8429,7 +8429,7 @@ window.DATA = {
  ],
  "league": {
   "name": "Viva Italia 🇮🇹🍊",
-  "snapshot": "2026-07-17",
+  "snapshot": "2026-07-18",
   "rows": [
    {
     "username": "Alex-Dijonnais",

@@ -1,2 +1,2 @@
 match_id,date,dom,ext,rk_dom,rk_ext,elo_pre_dom,elo_pre_ext,elo_post_dom,elo_post_ext,d_elo_dom,d_elo_ext,parc_dom,parc_ext,score_modele,xg_dom,xg_ext,p_dom,p_nul,p_ext,q_dom,q_ext,favori,p_favori,cote_dom,cote_nul,cote_ext,mpp_dom,mpp_nul,mpp_ext,att_idx_dom,def_idx_dom,att_idx_ext,def_idx_ext
-2608361,2026-07-18T21:00:00.000Z,France,Angleterre,1,1,2161,2103,2120,2079,-40,-24,18pts 16:4 [VVVVVVD],16pts 14:8 [VNVVVVD],1-0,1.64,0.92,0.542,0.246,0.212,0.672,0.328,France,0.672,,,,,,,1.74,0.36,1.52,0.71
+2608361,2026-07-18T21:00:00.000Z,France,Angleterre,1,1,2161,2103,2120,2079,-40,-24,18pts 16:4 [VVVVVVD],16pts 14:8 [VNVVVVD],1-0,1.64,0.92,0.542,0.246,0.212,0.672,0.328,France,0.672,77,120,119,0.84,0.06,0.1,1.74,0.36,1.52,0.71

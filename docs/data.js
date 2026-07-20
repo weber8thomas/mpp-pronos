@@ -33,7 +33,7 @@ window.DATA = {
   "pts_mpp": 4187,
   "n_scored": 103,
   "pts_user": 4097,
-  "n_user": 99,
+  "n_user": 100,
   "groupes": [
    "A",
    "B",
@@ -2782,9 +2782,9 @@ window.DATA = {
    "xg_dom": 1.5,
    "xg_ext": 1.0,
    "phase": "Finale",
-   "u_ppd": null,
-   "u_ppe": null,
-   "u_pts": null
+   "u_ppd": 1,
+   "u_ppe": 1,
+   "u_pts": 0
   }
  ],
  "standings": {
@@ -8429,12 +8429,12 @@ window.DATA = {
  ],
  "league": {
   "name": "Viva Italia 🇮🇹🍊",
-  "snapshot": "2026-07-19",
+  "snapshot": "2026-07-20",
   "rows": [
    {
     "username": "Alex-Dijonnais",
     "points": 4605,
-    "calc": 103,
+    "calc": 104,
     "exact": 16,
     "good": 56,
     "avatar": "avatars/user_3572019.jpg",
@@ -8456,7 +8456,7 @@ window.DATA = {
    {
     "username": "weber8thomas",
     "points": 4097,
-    "calc": 99,
+    "calc": 100,
     "exact": 18,
     "good": 60,
     "avatar": "avatars/user_3761834.jpg",
@@ -8466,10 +8466,10 @@ window.DATA = {
    },
    {
     "username": "MartinMyo",
-    "points": 3974,
-    "calc": 103,
+    "points": 4064,
+    "calc": 104,
     "exact": 9,
-    "good": 60,
+    "good": 61,
     "avatar": "avatars/default.png",
     "isModel": false,
     "isMe": false,
@@ -8477,10 +8477,10 @@ window.DATA = {
    },
    {
     "username": "Benjamin-P-GRD",
-    "points": 3860,
-    "calc": 102,
+    "points": 3950,
+    "calc": 103,
     "exact": 11,
-    "good": 55,
+    "good": 56,
     "avatar": "avatars/default.png",
     "isModel": false,
     "isMe": false,
